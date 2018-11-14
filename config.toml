@@ -1,11 +1,11 @@
 baseurl = "/"
-title = "Rob J Hyndman"
+title = "Oil Gains Blog"
 canonifyurls = true
 relativeurls = false
 paginate = 10
 theme = "hyndman"
-DisqusShortname = "researchtips"
-googleAnalytics = "UA-5004894-1"
+DisqusShortname = ""
+googleAnalytics = ""
 ignoreFiles = ["\\.Rmd$", "_files$", "_cache$"]
 pluralizeListTitles = false
 buildFuture = true
