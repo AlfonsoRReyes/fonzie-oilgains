@@ -58,12 +58,4 @@ I am a member of the following organizations:
   * **[Time Series Data Library](https://datamarket.com/data/list/?q=provider:tsdl)**: About 800 time series, including data from many time series textbooks. Now hosted on <a href="http://datamarket.com/">DataMarket</a>. (Further information in this <a href="/hyndsight/tsdl/">blog post</a>.)</li>
 </ul>
 
-## Trivia
-
-My [mathematical genealogy](/hyndsight/mathematical-genealogy/) goes back to Leibniz, Bernoulli, Euler, Lagrange and Poisson.
-
-My [Erdös number](http://www.oakland.edu/enp/) is 3 in two different ways.
-
-  * via Peter Brockwell / Kai-Lai Chung / Paul Erdös
-  * via J. Keith Ord / Peter C Fishburn / Paul Erdös
 
