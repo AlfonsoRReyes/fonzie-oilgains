@@ -15,16 +15,26 @@ title: "About me"
     <li><a href="https://github.com/f0nzie"><i class="fa-li fa fa-github-alt" style="padding-top:3px;"></i>Oil Gains Analystics on GitHub</a></li>
 </ul>
 
-
+<br>
 
 ## Publications
 
 ### LinkedIn
-Here is a list of [recent articles I have published in LinkedIn](/in-linkedin/).
+Here is a complete list of [recent articles I have published in LinkedIn](/in-linkedin/). Below you will find the last four articles recently published:
+
+* [A book review: Fundamentals of Data Visualization](https://www.linkedin.com/pulse/book-review-fundamentals-data-visualization-alfonso-r-reyes/)
+
+* [For what things R programming language is better than Python?](https://www.linkedin.com/pulse/what-things-r-programming-language-better-than-python-reyes/)
+
+* [An Artificial Lift Method Selector for Petroleum Engineering written in R](https://www.linkedin.com/pulse/artificial-lift-method-selector-petroleum-engineering-reyes/)
+
+* [Is R as versatile as Python?](https://www.linkedin.com/pulse/r-versatile-python-alfonso-r-reyes/)
+
 
 
 ### Papers
 
+<br>
 
 ## Things I've started
 
