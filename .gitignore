@@ -3,6 +3,7 @@
 .Rproj.user
 blogdown
 content/hyndsight/*.html
+content/publications/*.html
 content/seminars/*.html
 *.sublime-workspace
 static/hyndsight/*
