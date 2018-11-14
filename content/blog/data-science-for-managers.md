@@ -1,13 +1,15 @@
 ---
-author: robjhyndman
-comments: true
-date: 2017-12-05
-slug: data-science-for-managers
 title: 'Data Science for Managers: May 2018'
+author: robjhyndman
+date: '2017-12-05'
 categories:
-- conferences
-- data science
-- Monash University
+  - conferences
+  - data science
+  - Monash University
+tags:
+  - data science
+comments: yes
+slug: data-science-for-managers
 ---
 
 [![](/img/ds4m.png)](https://www.monash.edu/it/data-science)
