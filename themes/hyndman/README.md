@@ -1,6 +1,6 @@
-# Hugo Theme for robjhyndman.com
+# Hugo Theme for this site
 
-The design is inspired by kieranhealy.org and is a modification of hugo-finite. 
+The design is inspired by robjhyndman.com and is a modification of hugo-finite. 
 
 ### License of third-parties
 
