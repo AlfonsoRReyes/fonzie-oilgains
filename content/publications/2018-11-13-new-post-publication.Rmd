@@ -1,0 +1,12 @@
+---
+title: New post publication
+author: Alfonso R. Reyes
+date: '2018-11-13'
+slug: new-post-publication
+categories:
+  - R
+tags:
+  - education
+---
+
+New post in publications.
