@@ -2,6 +2,7 @@
 .Rhistory
 .Rproj.user
 blogdown
+content/blog/*.html
 content/hyndsight/*.html
 content/publications/*.html
 content/seminars/*.html
