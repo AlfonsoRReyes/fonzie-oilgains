@@ -73,10 +73,3 @@ My [Erdös number](http://www.oakland.edu/enp/) is 3 in two different ways.
   * via Peter Brockwell / Kai-Lai Chung / Paul Erdös
   * via J. Keith Ord / Peter C Fishburn / Paul Erdös
 
-## Religion
-
-For nearly 30 years, until July 2013, I was an active Christian believer, writer and speaker. I have written several books on the Bible and I have spoken at many Christian conferences in Australia and in several other countries. I even helped establish a new church.
-
-I am no longer a Christian. Eventually I came to the view that there was little or no evidence that the Bible was inspired, or that God (if he exists at all) was interacting with humans in any way. So if you're looking for my religious materials, they are no longer here. That part of this site is now closed, and that part of my life is now over.
-
-In 2015 I wrote a book about my deconversion titled *[Unbelievable](/unbelievable/)*.
