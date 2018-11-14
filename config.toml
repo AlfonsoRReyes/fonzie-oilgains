@@ -68,7 +68,7 @@ seminars_count = 4
 # The weight parameter defines the order that the links will appear in.
 
 [[menu.main]]
-  name = "Hyndsight blog"
+  name = "Blog"
   url = "/hyndsight/"
   weight = 1
 
