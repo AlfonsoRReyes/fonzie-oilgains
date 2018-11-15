@@ -5,10 +5,9 @@
       
       <h1>Publications I am Reading</h1>
 
-
       <div style='padding-bottom: 2rem;'></div>
 
-      <h2>Books</h2>
+      <h2>My Favorite Books</h2>
 
       <table>
         <tbody>
@@ -20,13 +19,16 @@
           </tr>
         </tbody>
       </table>
+      
     </div>
   </div>
+  
+  
 
   <div class="row">
     <div class="column small-12 medium-6">
-      <h2>Unpublished working papers</h2>
-      {{ range (where .Data.Pages "Params.kind" "==" "unpublished").GroupByDate "2006" "desc" }}
+      <h2>Papers I have read</h2>
+      {{ range (where .Data.Pages "Params.kind" "==" "paper").GroupByDate "2006" "desc" }}
       <div class="row">
         <div class="column small-2 medium-2">
           <h3>{{ .Key }}</h3>
@@ -43,8 +45,8 @@
        {{ end }}
      </div>
      <div class="column small-12 medium-6">
-      <h2>Published articles and book chapters</h2>
-      {{ range (where .Data.Pages "Params.kind" "!=" "unpublished").GroupByDate "2006" "desc" }}
+      <h2>Books I have read</h2>
+      {{ range (where .Data.Pages "Params.kind" "==" "book").GroupByDate "2006" "desc" }}
       <div class="row">
         <div class="column small-2 medium-2">
           <h3>{{ .Key }}</h3>
