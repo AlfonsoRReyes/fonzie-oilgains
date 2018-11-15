@@ -74,7 +74,7 @@ seminars_count = 4
   weight = 1
 
 [[menu.main]]
-  name = "Reading"
+  name = "Publications"
   url = "/publications/"
   weight = 2
 
