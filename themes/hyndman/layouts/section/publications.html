@@ -28,10 +28,10 @@
     <div class="column small-12 medium-6">
       
       <!-- Subsection 2 -->
-      <h2>Papers I have read</h2>
+      <h2>Unpublished</h2>
                           <!--Originally:   "Params.kind" "==" "unpublished" -->
                           <!--Later became: "Params.kind" "==" "paper" -->      
-      {{ range (where .Data.Pages "Params.kind" "==" "paper").GroupByDate "2006" "desc" }}
+      {{ range (where .Data.Pages "Params.kind" "==" "unpublished").GroupByDate "2006" "desc" }}
       <div class="row">
         <div class="column small-2 medium-2">
           <h3>{{ .Key }}</h3>
@@ -50,10 +50,10 @@
      <div class="column small-12 medium-6">
        
        <!-- Subsection 3 -->
-      <h2>Books I have read</h2>
+      <h2>Published</h2>
                            <!--Originally:    "Params.kind" "!=" "unpublished" -->
                            <!--Later became:  "Params.kind" "==" "book" -->
-      {{ range (where .Data.Pages "Params.kind" "==" "book").GroupByDate "2006" "desc" }}
+      {{ range (where .Data.Pages "Params.kind" "!=" "unpublished").GroupByDate "2006" "desc" }}
       <div class="row">
         <div class="column small-2 medium-2">
           <h3>{{ .Key }}</h3>
