@@ -79,8 +79,8 @@ seminars_count = 4
   weight = 2
 
 [[menu.main]]
-  name = "Software"
-  url = "/software/"
+  name = "Projects"
+  url = "/projects/"
   weight = 3
 
 [[menu.main]]
