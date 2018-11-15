@@ -7,7 +7,8 @@ title: "About me"
 
 
 
-<h4><a href="arr_cv_D-12_2.pdf" class="badge badge-small"><i class="fa fa-file-pdf-o"></i>&nbsp;&nbsp;pdf</a> <a href="arr_cv_D-12_2.pdf">Curriculum Vitae</a> &nbsp; </h4>
+<h4><a href="/files/arr_cv_D-12_2.pdf" class="badge badge-small"><i class="fa fa-file-pdf-o"></i>&nbsp;&nbsp;pdf</a> 
+<a href="/files/arr_cv_D-12_2.pdf">Curriculum Vitae</a> &nbsp; </h4>
 
 
 <ul class="fa-ul">
