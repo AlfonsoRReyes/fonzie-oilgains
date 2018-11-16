@@ -2,5 +2,7 @@
     <!-- show items as a list   -->
     <li style="margin-bottom: 4px;">
       {{ .Date.Format "2006" | safeHTML }}
-      {{.Params.title | safeHTML }}</li>
+      {{.Params.title | safeHTML }}
+      {{ if .Params.file }}<a href="{{ $.Site.BaseURL }}papers/{{.Params.file}}" class="badge badge-small badge-red"><i class="fa fa-file-pdf-o"></i>&nbsp;pdf</a>{{ end }}
+      </li>
 {{ end }}
