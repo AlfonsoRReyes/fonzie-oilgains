@@ -16,10 +16,11 @@ buildFuture = true
 date_format = "2 January 2006"
 
 # Number of posts to show on main page.
-posts_count = 2
+posts_count = 3
 
 # Number of publications to show on main page.
 pubs_count = 4
+pubs_cover_count = 3
 
 # Number of posts to show on main page.
 seminars_count = 4
@@ -74,7 +75,7 @@ seminars_count = 4
   weight = 1
 
 [[menu.main]]
-  name = "Reading"
+  name = "Publications"
   url = "/publications/"
   weight = 2
 
