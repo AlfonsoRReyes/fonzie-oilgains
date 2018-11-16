@@ -13,7 +13,10 @@
           <div class="column small-12 medium-7 large-6">
           {{ range first $pubs_covers_count ((where .Data.Pages "Params.image" "!=" nil).Reverse) }}
               {{ if isset .Params "image" }}
-                  {{.Params.title | safeHTML }}
+                  <!-- show items as a list   -->
+                  <li style="margin-bottom: 4px;">
+                    {{ .Date.Format "(2&nbsp;January&nbsp;2006)" | safeHTML }}
+                    {{.Params.title | safeHTML }}</li>
               {{ end }}
           {{ end }}
         </div>
@@ -26,9 +29,9 @@
   
 
   <div class="row">
+    
+    <!-- Subsection 2. column of left -->
     <div class="column small-12 medium-6">
-      
-      <!-- Subsection 2. column of left -->
       <h2>Unpublished</h2>
                           <!--Originally:   "Params.kind" "==" "unpublished" -->
                           <!--Later became: "Params.kind" "==" "paper" -->      
@@ -48,9 +51,9 @@
        </div>
        {{ end }}
      </div>
+     
+      <!-- Subsection 3. column on right -->
      <div class="column small-12 medium-6">
-       
-       <!-- Subsection 3. column on right -->
       <h2>Published</h2>
                            <!--Originally:    "Params.kind" "!=" "unpublished" -->
                            <!--Later became:  "Params.kind" "==" "book" -->
