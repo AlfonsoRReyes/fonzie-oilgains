@@ -1,5 +1,6 @@
 {{ define "main" }}
 {{ $pubs_covers_count := index .Site.Params "pubs_covers_count" | default 2 }}
+
 <div class="wrapper">
   <div class="row">
     <div style='padding: 1rem 0.9375rem 1rem;'>
@@ -9,18 +10,17 @@
       <h2>Latest Articles/Papers</h2>
 
       <!-- {{ partial "pub-latest" . }}   -->
-      <div class="row">
+            <div class="row">
           <div class="column small-12 medium-7 large-6">
           {{ range first $pubs_covers_count ((where .Data.Pages "Params.image" "!=" nil)) }}
-              {{ if isset .Params "image" }}
-                  <!-- show items as a list   -->
-                  <li style="margin-bottom: 4px;">
-                    {{ .Date.Format "(2&nbsp;January&nbsp;2006)" | safeHTML }}
-                    {{.Params.title | safeHTML }}</li>
-              {{ end }}
+              {{ partial "pub-latest" . }}
           {{ end }}
         </div>
       </div>
+      
+      
+      
+
 
       
     </div>
