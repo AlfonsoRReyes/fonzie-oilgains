@@ -1,8 +1,8 @@
 {{ if isset .Params "image" }}
     <!-- show items as a list   -->
-    <li style="margin-bottom: 4px;">
       {{ .Date.Format "2006" | safeHTML }}
-      {{.Params.title | safeHTML }}
-      {{ if .Params.file }}<a href="{{ $.Site.BaseURL }}papers/{{.Params.file}}" class="badge badge-small badge-red"><i class="fa fa-file-pdf-o"></i>&nbsp;pdf</a>{{ end }}
-      </li>
+      
+      {{ if isset .Params "file" }}<a href="{{ $.Site.BaseURL }}papers/{{.Params.file}}">{{ end }}
+        <img src="{{ .Site.BaseURL }}img/{{.Params.image}}" height=180></a>
+      
 {{ end }}
