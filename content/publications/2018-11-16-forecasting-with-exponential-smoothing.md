@@ -7,5 +7,6 @@ categories: []
 tags:
   - book
 image: expsmooth.jpg 
+file: 2-AutomaticForecasting.pdf
 ---
 
