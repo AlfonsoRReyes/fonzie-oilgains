@@ -1,5 +1,4 @@
 {{ define "main" }}
-{{ $pubs_covers_count := index .Site.Params "pubs_covers_count" | default 2 }}
 
 <div class="wrapper">
   <div class="row">
@@ -10,15 +9,9 @@
       <h2>Latest Articles/Papers</h2>
 
       <!-- {{ partial "pub-latest" . }}   -->
-      <table>
-         <tbody>
-           <tr>
-            {{ range first $pubs_covers_count ((where .Data.Pages "Params.image" "!=" nil)) }}
-                {{ partial "pub-latest" . }}
-            {{ end }}
-             </tr>
-          </tbody>
-      </table>
+          {{ partial "pub-latest" . }}
+      <!-- {{ partial "pub-latest" . }}   -->
+      
     </div>
   </div>
   
