@@ -1,6 +1,6 @@
 {{ if isset .Params "image" }}
     <!-- show items as a list   -->
     <li style="margin-bottom: 4px;">
-      {{ .Date.Format "(2&nbsp;January&nbsp;2006)" | safeHTML }}
+      {{ .Date.Format "2006" | safeHTML }}
       {{.Params.title | safeHTML }}</li>
 {{ end }}
