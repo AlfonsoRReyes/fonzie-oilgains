@@ -20,6 +20,7 @@ posts_count = 3
 
 # Number of publications to show on main page.
 pubs_count = 4
+pubs_covers_count = 2
 
 # Number of posts to show on main page.
 seminars_count = 4
