@@ -6,6 +6,6 @@ slug: forecasting-principles-and-practice
 tags:
 - forecasting
 - book
-img: fpp2_cover.jpg
+image: fpp2_cover.jpg
 ---
 
