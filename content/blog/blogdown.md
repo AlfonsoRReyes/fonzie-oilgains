@@ -1,11 +1,12 @@
 ---
-comments: true
-date: 2017-04-30
-slug: blogdown
 title: Converting to blogdown
+author: Alfonso R. Reyes
+date: '2017-04-30'
 categories:
-- computing
-- R
+  - R
+  - computer science
+comments: yes
+slug: blogdown
 ---
 
 
