@@ -7,6 +7,7 @@ categories:
   - computer science
 tags: []
 image: cloudy.jpg
+online: https://www.linkedin.com/pulse/cloudy-chance-rain-alfonso-r-reyes/
 ---
 
 <br>
