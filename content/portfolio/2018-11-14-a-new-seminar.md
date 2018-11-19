@@ -1,11 +1,10 @@
 ---
-title: A new seminar
+title: A new portfolio item
 author: Alfonso R. Reyes
 date: '2018-11-14'
-slug: a-new-seminar
 categories:
   - portfolio
-tags: []
+slug: a-new-portfolio
 ---
 
 
