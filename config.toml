@@ -23,7 +23,7 @@ pubs_count = 4
 pubs_cover_count = 3
 
 # Number of posts to show on main page.
-seminars_count = 4
+portfolio_count = 4
 
 # options for highlight.js (version, additional languages, and theme)
   highlightjsVersion = "9.12.0"
@@ -86,7 +86,7 @@ seminars_count = 4
 
 [[menu.main]]
   name = "Portfolio"
-  url = "/seminars/"
+  url = "/portfolio/"
   weight = 4
 
 

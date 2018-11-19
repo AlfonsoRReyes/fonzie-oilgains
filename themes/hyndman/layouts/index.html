@@ -3,8 +3,8 @@
 {{ $posts_count := index .Site.Params "posts_count" | default 2 }}
 {{ $pubs_title := index .Site.Params "pubs_title" | default "publications" }}
 {{ $pubs_count := index .Site.Params "pubs_count" | default 3 }}
-{{ $seminars_title := index .Site.Params "seminars_title" | default "seminars" }}
-{{ $seminars_count := index .Site.Params "seminars_count" | default 3 }}
+{{ $portfolio_title := index .Site.Params "portfolio_title" | default "portfolio" }}
+{{ $portfolio_count := index .Site.Params "portfolio_count" | default 3 }}
 <div class="row">
   <div class="column small-12 medium-7 large-6">
     {{ range first $posts_count ((where .Data.Pages.ByDate "Section" "blog").Reverse) }}
@@ -19,10 +19,10 @@
       {{ end }}
     </ul>
     <div style="padding-top: 5ex;"></div>
-    <h2><a href="/seminars/">Recent and upcoming {{ $seminars_title }}</a></h2>
+    <h2><a href="/portfolio/">Recently added {{ $portfolio_title }}</a></h2>
     <ul class="compact fa-ul">
-    {{ range first $seminars_count ((where .Data.Pages.ByDate "Section" "seminars").Reverse) }}
-      <li style="margin-bottom: 9px;">{{ partial "seminar-summary" . }}</li>
+    {{ range first $portfolio_count ((where .Data.Pages.ByDate "Section" "portfolio").Reverse) }}
+      <li style="margin-bottom: 9px;">{{ partial "portfolio-summary" . }}</li>
     {{ end }}
     </ul>
   </div>
