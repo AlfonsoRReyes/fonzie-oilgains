@@ -1,10 +1,11 @@
 ---
-title: Converting to blogdown
+title: My blogdown adventure
 author: Alfonso R. Reyes
 date: '2017-04-30'
 categories:
   - R
   - computer science
+  - reproducibility
 comments: yes
 slug: blogdown
 ---
