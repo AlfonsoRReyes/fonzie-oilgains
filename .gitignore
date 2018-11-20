@@ -1,8 +1,6 @@
 .RData
 .Rhistory
 .Rproj.user
-blogdown
-static/hyndsight/*
 public/*/*/*/*.png
 public/categories
 public/tags
