@@ -1,0 +1,16 @@
+<div class='sans' style="background: #dddddd; padding: 0.5em;">
+  
+    <ul class="pagination" role="navigation" aria-label="Pagination">
+      {{ if .PrevInSection }}
+         <li class="arrow" aria-disabled="true"><a href="{{.PrevInSection.RelPermalink}}">&laquo; <em>Previous<span class="show-for-sr"> page</span></em>: {{ .PrevInSection.Title }}</a></li>
+      {{ end }}
+      {{ if .NextInSection }}
+         <li class="arrow" aria-disabled="true"><a href="{{.NextInSection.RelPermalink}}"><em>Next<span class="show-for-sr"> page</span></em>: {{ .NextInSection.Title }}&nbsp;&raquo;</a></li>
+      {{ end }}
+    </ul>
+    <a href="/{{ .Section}}/">All posts by date</a>
+</div>
+
+<span style='font-family: Carlito'>
+ {{ partial "disqus.html" . }}
+</span>
