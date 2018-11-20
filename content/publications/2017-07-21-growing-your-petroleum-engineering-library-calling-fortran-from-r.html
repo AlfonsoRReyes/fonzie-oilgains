@@ -1,0 +1,46 @@
+---
+title: 'Growing your petroleum engineering library: calling FORTRAN from R'
+author: Alfonso R. Reyes
+date: '2017-07-21'
+slug: growing-your-petroleum-engineering-library-calling-fortran-from-r
+categories:
+  - petroleum engineering
+  - R
+  - engineering library
+tags: []
+image: cover_growing_your_petroleum_engineering_library_calling_fortran.jpg
+online: https://www.linkedin.com/pulse/growing-your-petroleum-engineering-library-calling-fortran-reyes/
+---
+
+
+
+<p>If you have already installed R and RStudio in your Windows PC or your Linux laptop or your Mac Book, then you need to think about including FORTRAN subroutines in your R toolbox.</p>
+<p>There are plenty of excellent math libraries built with old friend FORTRAN that greatly deserve to be part of our engineering library, either, to improve performance, or just avoid retyping (convert) of the whole routine in R.</p>
+<p>In this post I will explain in very simple terms how to call FORTRAN subroutines from R. I will not use this time a R package because this is just an example and we want all the petroleum engineers hooked up to R and practice during the weekend. :)</p>
+<p>I am publishing the examples in GitHub at this link: <a href="https://github.com/f0nzie/r-calling-fortran" class="uri">https://github.com/f0nzie/r-calling-fortran</a></p>
+<p>In petroleum engineering, who doesn’t know Professor Thomas Blasingame at the Texas A&amp;M University? His lecture notes are really incredible and go to the fundamentals of petroleum engineering. As admirer of his work, I have read some of his lectures and the way he teaches math applied to PE is fascinating. I am going to be using one of his lectures as a source of the FORTRAN libraries. We will start with the special functions that are part of his course “Fluid Flow in Petroleum Reservoirs”. Here is the link to the notes: P620_01B_ML_06_SpecialFcns.pdf</p>
+<p>Small beginnings: the FACT function
+Let’s start with something simple: the factorial. It has faithfully being extracted from Professor Blansigame notes. First a screenshot of the function and immediately below the source code. Let’s see which one renders better for you. The code for this function can be found in the repository under the file name fact_blasingame.f</p>
+<p>That was the factorial function. Don’t worry, we will make it more engineering oriented in the next example. This is just a warm up. This is exactly the code as in the lecture notes. Now, we will call it from R. But first we need to add a subroutine to this Fortran function. Adding this snippet makes the Fortran function callable from R:</p>
+<p>This is all you need to do to run the function FACT from R. Now, we will proceed to compile this Fortran program from R. To do this we will create a markdown notebook in RStudio. I called this notebook fact_blasingame.Rmd. If you open the notebook from the repository, you will see that there are three basic steps: compile, load the library and run.</p>
+<p>The following R code will clean and compile:</p>
+<p>And these lines, will create the R function that calls the Fortran program:</p>
+<div id="the-exponential-integral-ei" class="section level2">
+<h2>The Exponential Integral (Ei)</h2>
+<p>The steps are very much the same as the ones above. Let’s start by taking a look at the Fortan code for this new function A_E1:</p>
+<p>This is another special function written by Professor Blasingame. I just added at the end a wrapper for the subroutine so it can be called from R. The code for this program is under the filename A_E1.f</p>
+<p>Now, let’s compile the Fortran function from within R:</p>
+<p>We create the R function using the wrapper:</p>
+<p>These are the results: a dataframe with 251 observations because we generated a sequence from 0 to 2.5 on the x-axis at 0.01 steps.</p>
+<p>Then, we plot both functions to compare. We use ggplot2.</p>
+<p>And, finally the plot of the Exponential Integral.</p>
+</div>
+<div id="the-gamma-function" class="section level2">
+<h2>The Gamma function</h2>
+<p>Here is one more: the Gamma function. The process is similar to the two functions above. The code in Fortran from Prof. Blasingame is as follows. I call this file A_GAMMA.f</p>
+<p>Now, in our notebook A_GAMMA.Rmd we add this R code to compile, run and plot the Gamma function:</p>
+<p>And then plot it with this call to ggplot2:</p>
+<p>Look Ma! No Excel!</p>
+<p>In a next article, I will add real application in petroleum engineering.</p>
+<p>All the code, Fortrans routines, R markdown notebooks are published in GitHub at this link: <a href="https://github.com/f0nzie/r-calling-fortran" class="uri">https://github.com/f0nzie/r-calling-fortran</a></p>
+</div>
