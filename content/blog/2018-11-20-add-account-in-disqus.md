@@ -8,4 +8,4 @@ categories:
 tags: []
 ---
 
-Need to add account in Disqus to allow comments.
+Need to add account in `Disqus` to allow comments.
