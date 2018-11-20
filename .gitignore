@@ -2,10 +2,8 @@
 .Rhistory
 .Rproj.user
 blogdown
-*.sublime-workspace
 static/hyndsight/*
 public/*/*/*/*.png
 public/categories
 public/tags
-*.sublime-project
 public
