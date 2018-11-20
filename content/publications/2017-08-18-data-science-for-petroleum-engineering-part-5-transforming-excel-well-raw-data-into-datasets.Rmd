@@ -14,7 +14,6 @@ image: cover-transforming_excel_raw_data_into_datasets.jpg
 file: Data Science for Petroleum Engineering - Part 5_ _Transforming Excel well raw data into datasets.__ _ LinkedIn.pdf
 ---
 
-<br>
 
 One of the big challenges of this new era of data science. machine learning and artificial intelligence is getting unhooked from the habit of working with spreadsheets. They have been around for 30+ years and were awesome. But spreadsheets - or worksheets - do not scale well with massive amounts of data; or continuous streams of data; or other characteristics that are key for taking good and sound decisions such as reproducibility. Besides, spreadsheets have not kept up with the times so we have seen the plotting capabilities getting very much behind of other software.
 

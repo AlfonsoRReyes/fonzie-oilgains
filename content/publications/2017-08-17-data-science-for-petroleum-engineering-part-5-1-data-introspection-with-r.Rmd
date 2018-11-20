@@ -13,8 +13,6 @@ online: https://www.linkedin.com/pulse/data-science-petroleum-engineering-part-5
 image: cover-data_introspection.jpg
 ---
 
-<br>
-
 NOTE. You can find the PDF version of the R markdown notebook in GitHub at this link. The reproducible R markdown notebook (.Rmd) itself is here. Both are full versions of this LinkedIn article. For the time being, LinkedIn publishing does not support markdown which would make sharing scientific and engineering documents much easier.
 
 

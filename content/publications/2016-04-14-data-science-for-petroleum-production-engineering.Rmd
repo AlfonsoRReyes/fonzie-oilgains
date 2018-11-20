@@ -12,7 +12,6 @@ image: cover-data_science_for_pe.jpg
 online: https://www.linkedin.com/pulse/data-science-petroleum-production-engineering-alfonso-r-reyes/
 ---
 
-<br>
 
 In the last century, the production engineer built the well models one by one and analyzed the results also one by one. With the ubiquity of the personal computer, desktops and laptops, an unimaginable computational power has been put in our hands. But we need the right tools!
 
