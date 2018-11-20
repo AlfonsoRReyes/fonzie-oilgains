@@ -1,32 +1,29 @@
 {{ define "main" }}
+
 <div class="wrapper">
   <div class="row">
     <div style='padding: 1rem 0.9375rem 1rem;'>
-
-      <h3><a href="https://github.com/robjhyndman/CV/raw/master/RobHyndmanCV.pdf" class="badge badge-large">Curriculum Vitae&nbsp;&nbsp; <i class="fa fa-file-pdf-o"></i></a></h3>
-
-      <h3><a href="https://scholar.google.com/citations?user=vamErfkAAAAJ" class="badge badge-large">Google Scholar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="ai ai-google-scholar"></i></a></h3>
-
+      
       <div style='padding-bottom: 2rem;'></div>
+      <!-- Subsection 1 -->
+      <h2>Latest Articles/Papers</h2>
 
-      <h2>Books</h2>
-
-      <table>
-        <tbody>
-          <tr>
-            <td style="background-color: #faf8f8; border-bottom: 0px;"><a href="http://OTexts.org/fpp2/"><img src="{{ .Site.BaseURL }}img/fpp2_cover.jpg" height=180></a></td>
-            <td style="background-color: #faf8f8; border-bottom: 0px;"><a href="http://exponentialsmoothing.net"><img src="{{ .Site.BaseURL }}img/expsmooth.jpg" height=180></a></td>
-            <td style="background-color: #faf8f8; border-bottom: 0px;"><a href="/forecasting"><img src="{{ .Site.BaseURL }}img/fma.jpg" height=180></a></td>
-            <td style="background-color: #faf8f8; border-bottom: 0px;"><a href="/unbelievable"><img src="{{ .Site.BaseURL }}img/unbelievablecover-200x300.jpg" height=180></a></td>
-          </tr>
-        </tbody>
-      </table>
+      <!-- {{ partial "pub-latest" . }}   -->
+          {{ partial "pub-latest" . }}
+      <!-- {{ partial "pub-latest" . }}   -->
+      
     </div>
   </div>
+  
+  
 
   <div class="row">
+    
+    <!-- Subsection 2. column of left -->
     <div class="column small-12 medium-6">
-      <h2>Unpublished working papers</h2>
+      <h2>Unpublished</h2>
+                          <!--Originally:   "Params.kind" "==" "unpublished" -->
+                          <!--Later became: "Params.kind" "==" "paper" -->      
       {{ range (where .Data.Pages "Params.kind" "==" "unpublished").GroupByDate "2006" "desc" }}
       <div class="row">
         <div class="column small-2 medium-2">
@@ -43,8 +40,12 @@
        </div>
        {{ end }}
      </div>
+     
+      <!-- Subsection 3. column on right -->
      <div class="column small-12 medium-6">
-      <h2>Published articles and book chapters</h2>
+      <h2>Published</h2>
+                           <!--Originally:    "Params.kind" "!=" "unpublished" -->
+                           <!--Later became:  "Params.kind" "==" "book" -->
       {{ range (where .Data.Pages "Params.kind" "!=" "unpublished").GroupByDate "2006" "desc" }}
       <div class="row">
         <div class="column small-2 medium-2">

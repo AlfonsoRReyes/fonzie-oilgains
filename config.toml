@@ -1,11 +1,11 @@
 baseurl = "/"
-title = "Rob J Hyndman"
+title = "Alfonso R Reyes"
 canonifyurls = true
 relativeurls = false
 paginate = 10
 theme = "hyndman"
-DisqusShortname = "researchtips"
-googleAnalytics = "UA-5004894-1"
+DisqusShortname = ""
+googleAnalytics = ""
 ignoreFiles = ["\\.Rmd$", "_files$", "_cache$"]
 pluralizeListTitles = false
 buildFuture = true
@@ -16,13 +16,14 @@ buildFuture = true
 date_format = "2 January 2006"
 
 # Number of posts to show on main page.
-posts_count = 2
+posts_count = 3
 
 # Number of publications to show on main page.
 pubs_count = 4
+pubs_cover_count = 3
 
 # Number of posts to show on main page.
-seminars_count = 4
+portfolio_count = 4
 
 # options for highlight.js (version, additional languages, and theme)
   highlightjsVersion = "9.12.0"
@@ -31,36 +32,37 @@ seminars_count = 4
   highlightjsTheme = "github"
 
 [[params.social]]
-  icon = "university"
-  icon_pack = "fa"
-  link = "https://www.monash.edu/business/ebs"
-  text = "Department of Econometrics & Business Statistics, Monash University, Clayton VIC 3800, Australia."
-
-[[params.social]]
   icon = "envelope"
   icon_pack = "fa"
-  link = "mailto:Rob.Hyndman@monash.edu"
-  text = "Rob.Hyndman@monash.edu"
+  link = "mailto:Alfonso.R.Reyes@gmail.com"
+  text = "Alfonso.R.Reyes@gmail.com"
 
 [[params.social]]
   icon = "twitter"
   icon_pack = "fa"
-  link = "https://twitter.com/robjhyndman"
-  text = "@robjhyndman"
+  link = "https://twitter.com/oilgains"
+  text = "@oilgains"
   site = "Twitter"
 
 [[params.social]]
   icon = "github-alt"
   icon_pack = "fa"
-  link = "https://github.com/robjhyndman/"
-  text = "robjhyndman"
+  link = "https://github.com/alfonsorreyes/"
+  text = "alfonsorreyes"
   site = "GitHub"
 
 [[params.social]]
-  icon = "google-scholar"
-  icon_pack = "ai"
-  link = "https://scholar.google.com/citations?user=vamErfkAAAAJ"
-  text = "Google Scholar"
+  icon = "github"
+  icon_pack = "fa"
+  link = "https://github.com/f0nzie/"
+  text = "f0nzie@OilGains"
+  site = "GitHub"
+
+[[params.social]]
+  icon = "linkedin"
+  icon_pack = "fa"
+  link = "https://www.linkedin.com/in/alfonsorreyes"
+  text = "Alfonso R Reyes on LinkedIn"
 
 
 
@@ -78,24 +80,15 @@ seminars_count = 4
   weight = 2
 
 [[menu.main]]
-  name = "Software"
-  url = "/software/"
+  name = "Projects"
+  url = "/projects/"
   weight = 3
 
 [[menu.main]]
-  name = "Seminars"
-  url = "/seminars/"
+  name = "Portfolio"
+  url = "/portfolio/"
   weight = 4
 
-[[menu.main]]
-  name = "Teaching"
-  url = "/teaching/"
-  weight = 4
-
-[[menu.main]]
-  name = "Research team"
-  url = "/research-team/"
-  weight = 5
 
 [[menu.main]]
   name = "About"

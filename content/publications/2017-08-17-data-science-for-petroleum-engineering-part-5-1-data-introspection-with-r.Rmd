@@ -1,0 +1,37 @@
+---
+title: 'Data Science for Petroleum Engineering - Part 5.1: Data Introspection with
+  R'
+author: Alfonso R. Reyes
+date: '2017-08-17'
+slug: data-science-for-petroleum-engineering-part-5-1-data-introspection-with-r
+categories:
+  - data science
+  - petroleum engineering
+  - R
+tags: []
+online: https://www.linkedin.com/pulse/data-science-petroleum-engineering-part-51-r-alfonso-r-reyes/
+image: cover-data_introspection.jpg
+---
+
+<br>
+
+NOTE. You can find the PDF version of the R markdown notebook in GitHub at this link. The reproducible R markdown notebook (.Rmd) itself is here. Both are full versions of this LinkedIn article. For the time being, LinkedIn publishing does not support markdown which would make sharing scientific and engineering documents much easier.
+
+
+Transforming Excel well raw data into datasets
+This section is about getting familiar with our data. We will be using functions to know the size of our table or data frame, the names of the columns or variables, the structure of the data and the type of data for each of the variables or columns.
+
+Read the raw data again
+You can get the raw data file from the GitHub repository at this link rNodal.oilwells (raw_data).
+
+Printing the head
+Let's print 6 rows of data with the function head. You will see a long printing. We will fix this in a minute. Read on.
+
+
+It looks pretty long. Let's try with a package that adds better printing capabilities: tibble.
+
+Install the package tibble
+Let's install tibble from CRAN. You have couple of options to do this (1) use the command install.packages, or (2) from RStudio, Tools, Install Packages.
+
+
+
