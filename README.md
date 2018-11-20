@@ -1,7 +1,7 @@
 Source files for this blogdown site
 ===================================
 
-Release: **0.1.1.100**
+Release: **0.1.2**
 
 The design of this blog has been inspired by  https://robjhyndman.com. The theme was originally based on  [hugo-finite](https://github.com/lambdafu/hugo-finite). 
 
@@ -9,9 +9,7 @@ The design of this blog has been inspired by  https://robjhyndman.com. The theme
 
 ### Licenses of third-party components
 
-* kube: MIT License
 * hugo-finite: MIT License
-* hugo-academic: MIT License
 * Highlight.js: MIT License
 * MathJax: Apache License 2.0
 * Foundation 6.2.3 by Zurb: MIT License
