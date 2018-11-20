@@ -11,7 +11,6 @@ image: cover-r_and_the_search_of_the_ideal_language_for_pe.jpg
 online: https://www.linkedin.com/pulse/r-search-ideal-language-petroleum-engineering-alfonso-r-reyes/
 ---
 
-<br>
 
 I have to confess my sin. I am coming from writing thousands of lines of Python code for a well modeling and optimization project. I did Exploratory Data Analysis (EDA) for the resulting well models and applied statistics using Python, pandas, matplotlib, SciPy and NumPy. I went full throttle and didn't look behind. Got the results, the production engineering team increased the oil production we were looking for. All went fine, with the exception of being at fault for not exploring the other alternative: doing the work with "R". If you haven't heard about R you are missing the fun of the 21st century: data science.
 
