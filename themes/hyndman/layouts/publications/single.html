@@ -42,15 +42,10 @@
     <div class="pub-content">{{ .Content }}</div>
 
   </article>
-<div class='sans' style="background: #dddddd; padding: 2em;">
-<div style="padding-bottom: 1em" >
-{{ partial "share2.html" . }}
-</div>
-        {{ if .PrevInSection }}
-        <span style="font-family: Carlito;">
-        <a href="{{.PrevInSection.RelPermalink}}"> &laquo;&nbsp;{{.PrevInSection.Title}}</a> {{ end }}{{ if .NextInSection }} | <a href="{{.NextInSection.RelPermalink}}">{{.NextInSection.Title}}&nbsp;&raquo; </a></span>
-        {{ end }}
-  </div>
+  
+    {{ partial "share2.html" . }}
+    {{ partial "footer.html" . }}
+
   </div>
   </div>
   </div>
