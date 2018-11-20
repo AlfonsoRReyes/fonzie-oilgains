@@ -1,17 +1,18 @@
 ---
-author: robjhyndman
+author: AlfonsoRReyes
 comments: false
 date: 2015-04-08 22:13:31+00:00
-link: https://robjhyndman.com/hyndsight/help/
 slug: help
 title: Help
-wordpress_id: 3223
 ---
 
-This is not a help service for all your R and forecasting questions, so please don't post questions in the comments, or send them to me by email.
+It is always a pleasure to help Petroleum Engineering colleagues with data science questions. You can send me message via Twitter and LinkedIn. Please, be patient, if I don't go back to you quick; I may be traveling.
 
-If you have questions about data analysis, ask for help on [crossvalidated.com](http://crossvalidated.com).
+These are very useful sources to find answers. They have helped me a lot:
 
-If you have questions about R, ask for help on [stackoverflow.com](http://stackoverflow.com).
+* Questions on data analysis: [crossvalidated.com](http://crossvalidated.com).
 
-If you think you have found a bug in one of my R packages, report it on github as explained [here](/hyndsight/minimal-reproducible-examples/).
+* Questions about R: [stackoverflow.com](http://stackoverflow.com).
+
+
+I will appreciate if you send me feedback on the packages and software I have published to the corresponding package `Issues` section in its repository.
