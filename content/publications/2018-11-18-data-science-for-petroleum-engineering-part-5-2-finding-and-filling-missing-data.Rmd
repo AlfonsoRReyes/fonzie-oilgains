@@ -12,6 +12,7 @@ categories:
 tags: []
 online: https://www.linkedin.com/pulse/data-science-petroleum-engineering-part-52-finding-filling-reyes/
 image: cover-finding_and_filling_missing_data.jpg
+file: DataScienceforPetroleumEngineering-Part 5.2_FindingAndFillingMissingData_LinkedIn.pdf
 ---
 
 NOTE. You can find the PDF version of the R markdown notebook in GitHub at this link. The reproducible R markdown notebook (.Rmd) itself is here. Both are full versions of this LinkedIn article. For the time being, LinkedIn publishing does not support markdown which would make sharing scientific and engineering documents much easier.

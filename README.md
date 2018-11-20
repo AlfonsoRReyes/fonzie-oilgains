@@ -1,9 +1,10 @@
-Source files for robjhyndman.com
-=================================
+Source files for this blogdown site
+===================================
 
-All content and theme files for https://robjhyndman.com, using [Blogdown](https://github.com/rstudio/blogdown) and [Hugo](http://gohugo.io/) to generate the site. 
+Release: 0.1.0
 
-The design is inspired by http://kieranhealy.org and is a modification of [hugo-finite](https://github.com/lambdafu/hugo-finite). 
+The design of this blog has been inspired by  https://robjhyndman.com. Originally based on  [hugo-finite](https://github.com/lambdafu/hugo-finite). 
+
 
 
 ### Licenses of third-party components
