@@ -8,7 +8,7 @@ categories:
 tags: []
 ---
 
-I would like to add a thumbnail of the main image on the left or right of the posts shown in the main page.
+I would like to add a `thumbnail` of the main image on the left or right of the posts shown in the main page.
 
 How can I do that?
 
