@@ -1,4 +1,4 @@
-{{ define "top-bar-right" }}
+{{ define "top-bar-right" }}                <!-- Single Page for blog posts  -->
 {{ partial "share.html" $ }}
 {{ end }}
 {{ define "title-bar-right" }}
@@ -19,7 +19,11 @@
       {{ partial "post-metadata" . }}
     </div>
 <div class="unit-60">
-
+      <!-- this is where the image goes  -->
+    {{ if .Params.image }}
+       <img src="{{ $.Site.BaseURL }}img/{{ .Params.image }}" class="pub-banner" itemprop="image"><br><br>
+    {{end}}
+    
   {{ .Content }}
 
       <meta itemprop="wordCount" content="{{ .WordCount }}">

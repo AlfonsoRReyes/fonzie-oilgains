@@ -10,7 +10,6 @@ image: cloudy.jpg
 online: https://www.linkedin.com/pulse/cloudy-chance-rain-alfonso-r-reyes/
 ---
 
-<br>
 Without intending -really-, I got immersed this weekend with remote sensor monitoring. 
 
 As you know, these modern ages bring their good size of sensors. Everything generates data in different way: discrete and analog, and from there the challenge is not only monitoring in real time but evaluating the data, interpreting it and make sense of it. No pun intended. 
