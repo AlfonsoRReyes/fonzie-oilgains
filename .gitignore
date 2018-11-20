@@ -1,14 +1,4 @@
 .RData
 .Rhistory
 .Rproj.user
-blogdown
-content/blog/*.html
-content/seminars/*.html
-content/publications/*.html
-*.sublime-workspace
-static/hyndsight/*
-public/*/*/*/*.png
-public/categories
-public/tags
-*.sublime-project
 public
