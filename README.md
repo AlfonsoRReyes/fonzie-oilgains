@@ -1,7 +1,7 @@
 Source files for this blogdown site
 ===================================
 
-The design is inspired by  https://robjhyndman.com, orinally based on  [hugo-finite](https://github.com/lambdafu/hugo-finite). 
+The design of this blog has been inspired by  https://robjhyndman.com. Originally based on  [hugo-finite](https://github.com/lambdafu/hugo-finite). 
 
 
 
