@@ -247,6 +247,45 @@ ggplot(temps_long, aes(x = date, y = temperature, color = location)) +
 <div id="handling-overlapping" class="section level2">
 <h2>Handling overlapping</h2>
 <p>This is one is something we deal every day, having to handle overlapping points. The author offers several solutions to this problem: partial transparency, jittering, both managed with careful selection of color and shading; binning data into rectangles and hexagons, using contour lines with shading when we deal with high density points.</p>
+<pre class="r"><code>p_mpg_jitter &lt;- ggplot(mpg, aes(y = cty, x = displ, color = drv, fill = drv)) +
+  geom_point(size = 3, shape = 21,
+             position = position_jitter(width = 0.01 * diff(range(mpg$displ)),
+                                        height = 0.01 * diff(range(mpg$cty)),
+                                        seed = 7384)) + 
+  ylab(&quot;fuel economy (mpg)&quot;) +
+  xlab(&quot;displacement (l)&quot;) +
+  scale_color_manual(values=c(&quot;#202020&quot;, &quot;#E69F00&quot;, &quot;#56B4E9&quot;), 
+                     name=&quot;drive train&quot;,
+                     breaks=c(&quot;f&quot;, &quot;r&quot;, &quot;4&quot;),
+                     labels=c(&quot;FWD&quot;, &quot;RWD&quot;, &quot;4WD&quot;)) +
+  scale_fill_manual(values=c(&quot;#20202080&quot;, &quot;#E69F0080&quot;, &quot;#56B4E980&quot;), 
+                     name=&quot;drive train&quot;,
+                     breaks=c(&quot;f&quot;, &quot;r&quot;, &quot;4&quot;),
+                     labels=c(&quot;FWD&quot;, &quot;RWD&quot;, &quot;4WD&quot;)) +
+  theme_dviz_open() +
+  theme(legend.position = c(.7, .8),
+        plot.margin = margin(3, 7, 3, 0))
+
+p_mpg_jitter</code></pre>
+<p><img src="/publications/2018-09-11-a-book-review-fundamentals-of-data-visualization_files/figure-html/mpg-cty-displ-jitter-1.png" width="577.5" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># break points along the x axis
+breaks_x &lt;- c(&quot;0:00&quot;, &quot;6:00&quot;, &quot;12:00&quot;, &quot;18:00&quot;, &quot;24:00&quot;)
+
+p_flights_base &lt;- ggplot(flight_delays, aes(`departure time`, `departure delay (minutes)`)) + 
+  geom_abline(slope = 0, intercept = 0, color=&quot;grey80&quot;) +
+  scale_x_time(breaks = hm(breaks_x),
+               labels = breaks_x) +
+  theme_dviz_open() +
+  theme(plot.margin = margin(3, 7, 3, 0))
+
+
+p_flights_2d_bins &lt;- p_flights_base +
+  geom_bin2d(bins=50) +
+  scale_fill_continuous_sequential(palette = &quot;Blue-Yellow&quot;, l2 = 90, c2 = 20) +
+  theme(legend.position = c(0.85, .85))
+
+p_flights_2d_bins</code></pre>
+<p><img src="/publications/2018-09-11-a-book-review-fundamentals-of-data-visualization_files/figure-html/nycflights-2d-bins-1.png" width="630" style="display: block; margin: auto;" /></p>
 </div>
 <div id="managing-the-data-ink-ratio" class="section level2">
 <h2>Managing the data-ink ratio</h2>

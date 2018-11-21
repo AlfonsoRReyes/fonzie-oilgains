@@ -462,6 +462,55 @@ ggplot(temps_long, aes(x = date, y = temperature, color = location)) +
 ## Handling overlapping
 This is one is something we deal every day, having to handle overlapping points. The author offers several solutions to this problem: partial transparency, jittering, both managed with careful selection of color and shading; binning data into rectangles and hexagons, using contour lines with shading when we deal with high density points.
 
+```{r mpg-cty-displ-jitter, fig.width=5.5, fig.asp=.7416, echo=TRUE}
+p_mpg_jitter <- ggplot(mpg, aes(y = cty, x = displ, color = drv, fill = drv)) +
+  geom_point(size = 3, shape = 21,
+             position = position_jitter(width = 0.01 * diff(range(mpg$displ)),
+                                        height = 0.01 * diff(range(mpg$cty)),
+                                        seed = 7384)) + 
+  ylab("fuel economy (mpg)") +
+  xlab("displacement (l)") +
+  scale_color_manual(values=c("#202020", "#E69F00", "#56B4E9"), 
+                     name="drive train",
+                     breaks=c("f", "r", "4"),
+                     labels=c("FWD", "RWD", "4WD")) +
+  scale_fill_manual(values=c("#20202080", "#E69F0080", "#56B4E980"), 
+                     name="drive train",
+                     breaks=c("f", "r", "4"),
+                     labels=c("FWD", "RWD", "4WD")) +
+  theme_dviz_open() +
+  theme(legend.position = c(.7, .8),
+        plot.margin = margin(3, 7, 3, 0))
+
+p_mpg_jitter
+```
+
+
+```{r nycflights-2d-bins, fig.asp = 0.75, echo=TRUE}
+# break points along the x axis
+breaks_x <- c("0:00", "6:00", "12:00", "18:00", "24:00")
+
+p_flights_base <- ggplot(flight_delays, aes(`departure time`, `departure delay (minutes)`)) + 
+  geom_abline(slope = 0, intercept = 0, color="grey80") +
+  scale_x_time(breaks = hm(breaks_x),
+               labels = breaks_x) +
+  theme_dviz_open() +
+  theme(plot.margin = margin(3, 7, 3, 0))
+
+
+p_flights_2d_bins <- p_flights_base +
+  geom_bin2d(bins=50) +
+  scale_fill_continuous_sequential(palette = "Blue-Yellow", l2 = 90, c2 = 20) +
+  theme(legend.position = c(0.85, .85))
+
+p_flights_2d_bins
+```
+
+```{r, fig.width=5, fig.height=3}
+# plot_grid(p_mpg_jitter, p_flights_2d_bins, ncol = 2, scale = .5)
+```
+
+
 ## Managing the data-ink ratio
 Optimizing ink that goes into non-data visual elements comes from Edward Tufte. And requires a balancing act when not to too far. See with the examples from Wilke's book what I mean by that. On the left we have too much ink for the grids, the legend and the frame. On the right we have too little; no grids, no frame which makes the plot confusing.
 
