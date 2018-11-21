@@ -33,6 +33,7 @@ image: cover-fundamentals_of_data_visualization.jpeg
 <div id="the-right-plot-for-the-right-data" class="section level2">
 <h2>The right plot for the right data</h2>
 <p>I have seen in the books and the web various efforts of categorization of plots for presenting data but I haven’t found something as compelling as this directory of visualizations. It will quickly point you in the right direction. All of the examples in the directory are plots created with <code>ggplot2</code> and real data. None of them have been hand drawn.</p>
+<p>The following code can be found in the chapter <code>directory_of_visualizations.Rmd</code>.</p>
 <pre class="r"><code>palette &lt;- pal_earth_brown
 
 p1 &lt;- ggplot(df_props, aes(x = group, y = value)) + 
@@ -100,10 +101,10 @@ p8 &lt;- ggplot(filter(df_multi_amounts, x != 1), aes(x, y = factor(type, levels
   theme_plot_icon_blank(palette[npal], palette[1])
 
 plot_grid(p1, p2, p7, ncol = 4, scale = .9)</code></pre>
-<p><img src="/publications/2018-09-11-a-book-review-fundamentals-of-data-visualization_files/figure-html/amounts-1.png" width="840" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2018-09-11-a-book-review/2018-09-11-a-book-review-fundamentals-of-data-visualization_files/figure-html/amounts-1.png" width="840" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>plot_grid(p3, p4, p5, p6, 
           p8, ncol = 4, scale = .9)</code></pre>
-<p><img src="/publications/2018-09-11-a-book-review-fundamentals-of-data-visualization_files/figure-html/amounts_multi-1.png" width="840" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2018-09-11-a-book-review/2018-09-11-a-book-review-fundamentals-of-data-visualization_files/figure-html/amounts_multi-1.png" width="840" style="display: block; margin: auto;" /></p>
 <p>This code is for the <strong>x-y</strong> relationships:</p>
 <pre class="r"><code>palette &lt;- pal_steel_blue
 
@@ -149,7 +150,7 @@ p4 &lt;- ggplot(df_paired, aes(x, y, group = group)) +
   )
 
 plot_grid(p1, p2, p3, p4, ncol = 4, scale = .9)</code></pre>
-<p><img src="/publications/2018-09-11-a-book-review-fundamentals-of-data-visualization_files/figure-html/unnamed-chunk-4-1.png" width="840" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2018-09-11-a-book-review/2018-09-11-a-book-review-fundamentals-of-data-visualization_files/figure-html/unnamed-chunk-6-1.png" width="840" style="display: block; margin: auto;" /></p>
 <p>And, this last one, for contour maps, hex bins and correlograms:</p>
 <pre class="r"><code>p5 &lt;- ggplot(df_dense_scatter, aes(x, y)) + 
   geom_density2d(binwidth = 0.02, color = palette[1]) +
@@ -195,13 +196,13 @@ p8 &lt;- ggplot(filter(df_long, as.integer(var1) &lt; as.integer(var2)),
 
 
 plot_grid(p5, p6, p7, p8, ncol = 4, scale = .9)</code></pre>
-<p><img src="/publications/2018-09-11-a-book-review-fundamentals-of-data-visualization_files/figure-html/unnamed-chunk-5-1.png" width="840" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2018-09-11-a-book-review/2018-09-11-a-book-review-fundamentals-of-data-visualization_files/figure-html/unnamed-chunk-7-1.png" width="840" style="display: block; margin: auto;" /></p>
 <p>Let’s just remember the code was not in the spirit of the book; I am just showing the code to satisfy yours and my curiosity. Please, don’t tell <em>Claus Wilke</em> that I am showing R code here.</p>
 </div>
 <div id="putting-coordinates-at-good-use" class="section level2">
 <h2>Putting coordinates at good use</h2>
 <p>With something so simple as the cartesian coordinates, why do we always manage to make silly mistakes? And so, labeling wrong a logarithmic scale, applying the wrong transformation, or lacking the practice for a polar coordinate plot. Or what about plotting geospatial data? With few examples <em>Claus Wilke</em> makes it clear and simple. My favorite example is the temperature round the year in different places in <strong>polar coordinates</strong>.</p>
-<p>And the code is:</p>
+<p>The code can be found in this chapter <code>coordinate_systems_axes.Rmd</code>. And the code is:</p>
 <pre class="r"><code>temps_wide &lt;- filter(ncdc_normals,
                 station_id %in% c(
                   &quot;USW00014819&quot;, # Chicago, IL 60638
@@ -242,7 +243,7 @@ ggplot(temps_long, aes(x = date, y = temperature, color = location)) +
   scale_color_OkabeIto(order = c(1:3, 7), name = NULL) +
   coord_polar(theta = &quot;x&quot;, start = pi, direction = -1) +
   theme_dviz_grid()</code></pre>
-<p><img src="/publications/2018-09-11-a-book-review-fundamentals-of-data-visualization_files/figure-html/temperature-normals-polar-1.png" width="630" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2018-09-11-a-book-review/2018-09-11-a-book-review-fundamentals-of-data-visualization_files/figure-html/temperature-normals-polar-1.png" width="630" style="display: block; margin: auto;" /></p>
 </div>
 <div id="handling-overlapping" class="section level2">
 <h2>Handling overlapping</h2>
@@ -267,7 +268,7 @@ ggplot(temps_long, aes(x = date, y = temperature, color = location)) +
         plot.margin = margin(3, 7, 3, 0))
 
 p_mpg_jitter</code></pre>
-<p><img src="/publications/2018-09-11-a-book-review-fundamentals-of-data-visualization_files/figure-html/mpg-cty-displ-jitter-1.png" width="577.5" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2018-09-11-a-book-review/2018-09-11-a-book-review-fundamentals-of-data-visualization_files/figure-html/mpg-cty-displ-jitter-1.png" width="577.5" style="display: block; margin: auto;" /></p>
 <pre class="r"><code># break points along the x axis
 breaks_x &lt;- c(&quot;0:00&quot;, &quot;6:00&quot;, &quot;12:00&quot;, &quot;18:00&quot;, &quot;24:00&quot;)
 
@@ -285,21 +286,110 @@ p_flights_2d_bins &lt;- p_flights_base +
   theme(legend.position = c(0.85, .85))
 
 p_flights_2d_bins</code></pre>
-<p><img src="/publications/2018-09-11-a-book-review-fundamentals-of-data-visualization_files/figure-html/nycflights-2d-bins-1.png" width="630" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2018-09-11-a-book-review/2018-09-11-a-book-review-fundamentals-of-data-visualization_files/figure-html/nycflights-2d-bins-1.png" width="630" style="display: block; margin: auto;" /></p>
 </div>
 <div id="managing-the-data-ink-ratio" class="section level2">
 <h2>Managing the data-ink ratio</h2>
 <p>Optimizing ink that goes into non-data visual elements comes from Edward Tufte. And requires a balancing act when not to too far. See with the examples from Wilke’s book what I mean by that. On the left we have too much ink for the grids, the legend and the frame. On the right we have too little; no grids, no frame which makes the plot confusing.</p>
-<blockquote>
-<p>two plots</p>
-</blockquote>
+<pre class="r"><code>male_Aus &lt;- filter(Aus_athletes, sex==&quot;m&quot;) %&gt;%
+    filter(sport %in% c(&quot;basketball&quot;, &quot;field&quot;, &quot;swimming&quot;, &quot;track (400m)&quot;,
+                        &quot;track (sprint)&quot;, &quot;water polo&quot;)) %&gt;%
+    mutate(sport = case_when(sport == &quot;track (400m)&quot; ~ &quot;track&quot;,
+                             sport == &quot;track (sprint)&quot; ~ &quot;track&quot;,
+                             TRUE ~ sport))
+
+male_Aus$sport &lt;- factor(male_Aus$sport,
+                         levels = c(&quot;field&quot;, &quot;water polo&quot;, &quot;basketball&quot;, &quot;swimming&quot;, &quot;track&quot;))
+
+p_Aus_base &lt;- ggplot(male_Aus, aes(x=height, y=pcBfat, color=sport, fill=sport, shape=sport)) +
+  geom_point(size = 2.5) +
+  scale_shape_manual(values = 21:25) +
+  scale_color_OkabeIto(order=c(2, 1, 3, 4, 5), darken = 0.3) +
+  scale_fill_OkabeIto(order=c(2, 1, 3, 4, 5), darken = 0.1, alpha = 0.7) +
+  scale_x_continuous(limits = c(169, 210)) +
+  scale_y_continuous(limits = c(5, 20), name = &quot;% body fat&quot;)
+
+p &lt;- p_Aus_base +
+  theme_dviz_open() +
+  theme(
+    axis.line = element_blank(),
+    panel.grid.major = element_line(color = &quot;black&quot;, size = 0.3),
+    panel.grid.minor = element_line(color = &quot;black&quot;, size = 0.15),
+    panel.border = element_rect(color = &quot;black&quot;, size = 1),
+    legend.background = element_rect(color = &quot;black&quot;, size = 0.5),
+    legend.margin = margin(7, 7, 7, 7),
+    plot.background = element_rect(color = &quot;black&quot;, size = 1),
+    plot.margin = margin(7, 7, 7, 7)
+  )
+
+# width: 6 in = 433.62pt
+# height: 0.618 * 6 in = 3.71 in = 268.12
+
+stamp_ugly(ggdraw() + draw_plot(p, x = 1/434, y = 1/268, width = 426/434, height = 252/268))</code></pre>
+<p><img src="/publications/2018-09-11-a-book-review/2018-09-11-a-book-review-fundamentals-of-data-visualization_files/figure-html/Aus-athletes-grid-bad-1.png" width="630" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>axis_col &lt;- &quot;grey70&quot;
+title_col &lt;- &quot;grey70&quot;
+
+p &lt;- p_Aus_base + theme_dviz_open(11) +
+  theme(
+    axis.line = element_blank(),
+    axis.ticks = element_line(color = axis_col),
+    axis.text = element_text(color = axis_col),
+    axis.title = element_text(color = title_col),
+    legend.text = element_text(color = title_col),
+    legend.title = element_text(color = title_col),
+    plot.margin = margin(3.5, 7, 3.5, 0)
+  )
+
+stamp_ugly(p)</code></pre>
+<p><img src="/publications/2018-09-11-a-book-review/2018-09-11-a-book-review-fundamentals-of-data-visualization_files/figure-html/Aus-athletes-min-bad-1.png" width="630" style="display: block; margin: auto;" /></p>
 </div>
 <div id="d-plotting-is-not-the-answer" class="section level2">
 <h2>3D plotting is not the answer</h2>
 <p>We all have fell for this. We love 3D. It impresses everybody. But the question is, are we conveying the message that the data is carrying? Is a 3D plot the right choice? Isn’t the data being distorted or more difficult to read? See for yourself.</p>
-<blockquote>
-<p>3d plots</p>
-</blockquote>
+<p>The code can be found in <code>no_3d.Rmd</code>.</p>
+<pre class="r"><code>pfun3 &lt;- function() {
+
+  par(xpd = NA,
+      bg = &quot;transparent&quot;,
+      mai = c(0.1, 0.1, 0, 0),
+      family = dviz_font_family_condensed
+  )
+
+  hist3D(x = 1:5, y = 1:4, z = VADeaths,
+         bty = &quot;b2&quot;, phi = 20,  theta = -65,
+         xlab = &quot;&quot;, ylab = &quot;&quot;, zlab = &quot;deaths / 1000&quot;,
+         col = &quot;#56B4E9&quot;, border = darken(&quot;#56B4E9&quot;, .5), 
+         shade = 0.2,
+         ticktype = &quot;detailed&quot;, space = .3, d = 2, cex.axis = 1e-9
+  )
+  # Use text3D to label x axis
+  text3D(x = 1:5, y = rep(0.5, 5), z = rep(3, 5),
+         labels = rownames(VADeaths),
+         add = TRUE, adj = -0.2)
+  # Use text3D to label y axis
+  text3D(x = rep(0., 3), y = rep(5, 3), z = 20*(1:3),
+         labels  = 20*(1:3),
+         add = TRUE, adj = -1.2)
+  # Use text3D to label z axis
+  text3D(x = rep(1, 4), y = 1:4, z = rep(0, 4),
+         labels  = colnames(VADeaths),
+         add = TRUE, adj = 1)
+}
+
+# Doesn&#39;t currently work, due to bug in gridGraphics. Revisit later.
+# For now, we do a work-around by rendering to png.
+#stamp_bad(pfun3)
+
+# png(&quot;figures/VA-deaths.png&quot;, width = 4.64, height = 0.618*6, units = &quot;in&quot;,
+    # res = 600)
+q &lt;- pfun3()
+# null &lt;- dev.off()
+
+# stamp_bad(ggdraw() +  draw_image(&quot;figures/VA-deaths.png&quot;))
+# stamp_bad(q)</code></pre>
+<p><img src="/publications/2018-09-11-a-book-review/2018-09-11-a-book-review-fundamentals-of-data-visualization_files/figure-html/VA-death-rates-3d-1.png" width="487.2" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2018-09-11-a-book-review/2018-09-11-a-book-review-fundamentals-of-data-visualization_files/figure-html/titanic-3d-1.png" width="630" style="display: block; margin: auto;" /></p>
 <p>The author goes as far as saying that “3D It is unequivocally bad and should be erased from the visual vocabulary of data scientists.”</p>
 </div>
 <div id="plots-are-about-telling-a-story" class="section level2">
@@ -325,9 +415,26 @@ p_flights_2d_bins</code></pre>
 <div id="the-good-the-bad-the-ugly-and-the-wrong" class="section level2">
 <h2>The Good, the Bad, the Ugly, and the Wrong</h2>
 <p>Paraphrasing the Clint Eastwood, spaghetti western The Good, the Bad and the Ugly, the author in his book helps us to identify when a plot lacks a proper design, incorrect formatting, or faulty settings. It will not let you guessing from the text in the book; it will explicitly tell what not to do. The author later explains in the caption why the plot was categorized as that.</p>
-<blockquote>
-<p>image. two plots.</p>
-</blockquote>
+<p>Code from <code>coordinate_systems_axes.Rmd</code>.</p>
+<div class="figure" style="text-align: center"><span id="fig:linear-log-scales"></span>
+<img src="/publications/2018-09-11-a-book-review/2018-09-11-a-book-review-fundamentals-of-data-visualization_files/figure-html/linear-log-scales-1.png" alt="(ref:linear-log-scales)" width="630" />
+<p class="caption">
+Figure 1: (ref:linear-log-scales)
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:oceania-gdp-logbars"></span>
+<img src="/publications/2018-09-11-a-book-review/2018-09-11-a-book-review-fundamentals-of-data-visualization_files/figure-html/oceania-gdp-logbars-1.png" alt="(ref:oceania-gdp-logbars)" width="630" />
+<p class="caption">
+Figure 2: (ref:oceania-gdp-logbars)
+</p>
+</div>
+<p>The following code can be found in the chapter <code>Introduction.Rmd</code>.</p>
+<div class="figure" style="text-align: center"><span id="fig:ugly-bad-wrong-examples"></span>
+<img src="/publications/2018-09-11-a-book-review/2018-09-11-a-book-review-fundamentals-of-data-visualization_files/figure-html/ugly-bad-wrong-examples-1.png" alt="(ref:ugly-bad-wrong-examples)" width="630" />
+<p class="caption">
+Figure 3: (ref:ugly-bad-wrong-examples)
+</p>
+</div>
 </div>
 <div id="a-book-built-with-rmarkdown" class="section level2">
 <h2>A book built with Rmarkdown</h2>

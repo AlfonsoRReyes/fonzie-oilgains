@@ -28,6 +28,20 @@ library(tidyr)
 library(ggrepel)
 ```
 
+```{r}
+library(readr)
+```
+
+```{r}
+# 3D
+library(tidyr)
+
+library(plot3D)
+library(cowplot)
+set_null_device("png")
+```
+
+
 
 I just finished reading the new book on data science called Fundamentals of Data Visualization by **Claus Wilke**. When I say reading I mean going and drill down on the topics that interests me. You cannot really never end reading this kind of book; it is a perennial. We are so fortunate that we can enjoy a book of this quality.
 
@@ -53,6 +67,8 @@ Where do I start? The book is so rich that it would take me days to describe it 
 
 ## The right plot for the right data
 I have seen in the books and the web various efforts of categorization of plots for presenting data but I haven't found something as compelling as this directory of visualizations. It will quickly point you in the right direction. All of the examples in the directory are plots created with `ggplot2` and real data. None of them have been hand drawn.
+
+The following code can be found in the chapter `directory_of_visualizations.Rmd`.
 
 ```{r}
 ## general setup code
@@ -410,7 +426,7 @@ Let's just remember the code was not in the spirit of the book; I am just showin
 ## Putting coordinates at good use
 With something so simple as the cartesian coordinates, why do we always manage to make silly mistakes? And so, labeling wrong a logarithmic scale, applying the wrong transformation, or lacking the practice for a polar coordinate plot. Or what about plotting geospatial data? With few examples *Claus Wilke* makes it clear and simple. My favorite example is the temperature round the year in different places in **polar coordinates**.
 
-And the code is:
+The code can be found in this chapter `coordinate_systems_axes.Rmd`. And the code is:
 
 ```{r, echo=TRUE}
 temps_wide <- filter(ncdc_normals,
@@ -506,20 +522,117 @@ p_flights_2d_bins <- p_flights_base +
 p_flights_2d_bins
 ```
 
-```{r, fig.width=5, fig.height=3}
-# plot_grid(p_mpg_jitter, p_flights_2d_bins, ncol = 2, scale = .5)
-```
-
-
 ## Managing the data-ink ratio
 Optimizing ink that goes into non-data visual elements comes from Edward Tufte. And requires a balancing act when not to too far. See with the examples from Wilke's book what I mean by that. On the left we have too much ink for the grids, the legend and the frame. On the right we have too little; no grids, no frame which makes the plot confusing.
 
-> two plots
+```{r Aus-athletes-grid-bad, echo=TRUE}
+male_Aus <- filter(Aus_athletes, sex=="m") %>%
+    filter(sport %in% c("basketball", "field", "swimming", "track (400m)",
+                        "track (sprint)", "water polo")) %>%
+    mutate(sport = case_when(sport == "track (400m)" ~ "track",
+                             sport == "track (sprint)" ~ "track",
+                             TRUE ~ sport))
+
+male_Aus$sport <- factor(male_Aus$sport,
+                         levels = c("field", "water polo", "basketball", "swimming", "track"))
+
+p_Aus_base <- ggplot(male_Aus, aes(x=height, y=pcBfat, color=sport, fill=sport, shape=sport)) +
+  geom_point(size = 2.5) +
+  scale_shape_manual(values = 21:25) +
+  scale_color_OkabeIto(order=c(2, 1, 3, 4, 5), darken = 0.3) +
+  scale_fill_OkabeIto(order=c(2, 1, 3, 4, 5), darken = 0.1, alpha = 0.7) +
+  scale_x_continuous(limits = c(169, 210)) +
+  scale_y_continuous(limits = c(5, 20), name = "% body fat")
+
+p <- p_Aus_base +
+  theme_dviz_open() +
+  theme(
+    axis.line = element_blank(),
+    panel.grid.major = element_line(color = "black", size = 0.3),
+    panel.grid.minor = element_line(color = "black", size = 0.15),
+    panel.border = element_rect(color = "black", size = 1),
+    legend.background = element_rect(color = "black", size = 0.5),
+    legend.margin = margin(7, 7, 7, 7),
+    plot.background = element_rect(color = "black", size = 1),
+    plot.margin = margin(7, 7, 7, 7)
+  )
+
+# width: 6 in = 433.62pt
+# height: 0.618 * 6 in = 3.71 in = 268.12
+
+stamp_ugly(ggdraw() + draw_plot(p, x = 1/434, y = 1/268, width = 426/434, height = 252/268))
+```
+
+```{r Aus-athletes-min-bad, echo=TRUE}
+axis_col <- "grey70"
+title_col <- "grey70"
+
+p <- p_Aus_base + theme_dviz_open(11) +
+  theme(
+    axis.line = element_blank(),
+    axis.ticks = element_line(color = axis_col),
+    axis.text = element_text(color = axis_col),
+    axis.title = element_text(color = title_col),
+    legend.text = element_text(color = title_col),
+    legend.title = element_text(color = title_col),
+    plot.margin = margin(3.5, 7, 3.5, 0)
+  )
+
+stamp_ugly(p)
+```
 
 ## 3D plotting is not the answer
 We all have fell for this. We love 3D. It impresses everybody. But the question is, are we conveying the message that the data is carrying? Is a 3D plot the right choice? Isn't the data being distorted or more difficult to read? See for yourself.
 
-> 3d plots
+The code can be found in `no_3d.Rmd`.
+
+
+```{r VA-death-rates-3d, fig.width = 4.64, fig.asp = 0.8, echo = TRUE}
+pfun3 <- function() {
+
+  par(xpd = NA,
+      bg = "transparent",
+      mai = c(0.1, 0.1, 0, 0),
+      family = dviz_font_family_condensed
+  )
+
+  hist3D(x = 1:5, y = 1:4, z = VADeaths,
+         bty = "b2", phi = 20,  theta = -65,
+         xlab = "", ylab = "", zlab = "deaths / 1000",
+         col = "#56B4E9", border = darken("#56B4E9", .5), 
+         shade = 0.2,
+         ticktype = "detailed", space = .3, d = 2, cex.axis = 1e-9
+  )
+  # Use text3D to label x axis
+  text3D(x = 1:5, y = rep(0.5, 5), z = rep(3, 5),
+         labels = rownames(VADeaths),
+         add = TRUE, adj = -0.2)
+  # Use text3D to label y axis
+  text3D(x = rep(0., 3), y = rep(5, 3), z = 20*(1:3),
+         labels  = 20*(1:3),
+         add = TRUE, adj = -1.2)
+  # Use text3D to label z axis
+  text3D(x = rep(1, 4), y = 1:4, z = rep(0, 4),
+         labels  = colnames(VADeaths),
+         add = TRUE, adj = 1)
+}
+
+# Doesn't currently work, due to bug in gridGraphics. Revisit later.
+# For now, we do a work-around by rendering to png.
+#stamp_bad(pfun3)
+
+# png("figures/VA-deaths.png", width = 4.64, height = 0.618*6, units = "in",
+    # res = 600)
+q <- pfun3()
+# null <- dev.off()
+
+# stamp_bad(ggdraw() +  draw_image("figures/VA-deaths.png"))
+# stamp_bad(q)
+```
+
+```{r titanic-3d, fig.asp = 4.5/6}
+stamp_bad(ggdraw() + draw_image("figures/3d/titanic-3d-bars-assembled.png"))
+```
 
 The author goes as far as saying that "3D It is unequivocally bad and should be erased from the visual vocabulary of data scientists."
 
@@ -547,7 +660,159 @@ The author borrows from the storytelling patterns of writers to tell a story to 
 ## The Good, the Bad, the Ugly, and the Wrong
 Paraphrasing the Clint Eastwood, spaghetti western The Good, the Bad and the Ugly, the author in his book helps us to identify when a plot lacks a proper design, incorrect formatting, or faulty settings. It will not let you guessing from the text in the book; it will explicitly tell what not to do. The author later explains in the caption why the plot was categorized as that.
 
-> image. two plots.
+Code from `coordinate_systems_axes.Rmd`.
+
+```{r linear-log-scales, fig.width = 6, fig.asp = 3/4, fig.cap = '(ref:linear-log-scales)'}
+df <- data.frame(x = c(1, 3.16, 10, 31.6, 100))
+
+xaxis_lin <- ggplot(df, aes(x, y = 1)) + 
+  geom_point(size = 3, color = "#0072B2") + 
+  scale_y_continuous(limits = c(0.8, 1.2), expand = c(0, 0), breaks = 1) +
+  theme_dviz_grid(14, rel_large = 1) +
+  theme(axis.ticks.length = grid::unit(0, "pt"),
+        axis.text.y = element_blank(),
+        axis.title.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        plot.title = element_text(face = "plain"),
+        plot.margin = margin(3, 14, 3, 0))
+
+xaxis_log <- ggplot(df, aes(log10(x), y = 1)) + 
+  geom_point(size = 3, color = "#0072B2") + 
+  scale_y_continuous(limits = c(0.8, 1.2), expand = c(0, 0), breaks = 1) +
+  theme_dviz_grid(14, rel_large = 1) +
+  theme(axis.ticks.length = grid::unit(0, "pt"),
+        axis.text.y = element_blank(),
+        axis.title.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        plot.title = element_text(face = "plain"),
+        plot.margin = margin(3, 14, 3, 0))
+
+plotlist <- 
+  align_plots(xaxis_lin + scale_x_continuous(limits = c(0, 100)) + 
+                ggtitle("original data, linear scale"),
+              xaxis_log + scale_x_continuous(limits = c(0, 2)) +
+                xlab(expression(paste("log"["10"], "(x)"))) + 
+                ggtitle("log-transformed data, linear scale"),
+              xaxis_lin + scale_x_log10(limits = c(1, 100), breaks = c(1, 3.16, 10, 31.6, 100),
+                                        labels = c("1", "3.16", "10", "31.6", "100")) + 
+                ggtitle("original data, logarithmic scale"),
+              xaxis_lin + scale_x_log10(limits = c(1, 100), breaks = c(1, 3.16, 10, 31.6, 100),
+                                        labels = c("1", "3.16", "10", "31.6", "100")) +
+                xlab(expression(paste("log"["10"], "(x)"))) + 
+                ggtitle("logarithmic scale with incorrect axis title"),
+              align = 'vh')
+
+plot_grid(plotlist[[1]], plotlist[[2]], plotlist[[3]], stamp_wrong(plotlist[[4]]), ncol = 1)
+
+```
+
+
+```{r oceania-gdp-logbars, fig.width = 6, fig.asp = 0.5, fig.cap = '(ref:oceania-gdp-logbars)'}
+library(gapminder)
+
+df_oceania <- filter(gapminder_unfiltered, year == 2007, continent == "Oceania") %>%
+  mutate(GDP = pop*gdpPercap) %>%
+  arrange(desc(GDP))
+
+oc_bad <- ggplot(df_oceania, aes(x = reorder(country, -GDP), y = log10(GDP))) + 
+  geom_col(fill = "#56B4E9") + 
+  scale_y_continuous(breaks = log10(c(3.1e8, 1e9, 3.e9, 1e10, 3.e10, 1e11, 3.e11, 1e12)),
+                     labels = c("0.3", "1.0", "3.0", "10", "30", "100", "300", "1000"),
+                     name = "GDP (billion USD)") +
+  scale_x_discrete(name = NULL) +
+  coord_flip(ylim = log10(c(3.1e8, 9.9e11)), expand = FALSE) +
+  theme_dviz_vgrid(12, rel_small = 1) +
+  theme(axis.ticks.y = element_blank(),
+        plot.margin = margin(12, 6, 3, 0))
+
+stamp_wrong(oc_bad)
+```
+
+The following code can be found in the chapter `Introduction.Rmd`.
+
+```{r ugly-bad-wrong-examples, fig.asp = 3/4, fig.cap = '(ref:ugly-bad-wrong-examples)'}
+df <- tibble(
+  type = c("A", "B", "C"),
+  value = c(3, 5, 4),
+  expand = c(4, 5, 4.5)
+)
+
+
+p1 <- ggplot(df, aes(type, value)) + 
+  geom_col(fill = "#56B4E9", width = 0.65, alpha = 0.9) +
+  scale_y_continuous(limits = c(0, 5.2), expand = c(0, 0)) +
+  scale_x_discrete(name = NULL) +
+  coord_cartesian(clip = "off") +
+  theme_dviz_hgrid(12) +
+  theme(
+    axis.line = element_blank(),
+    plot.margin = margin(18, 12, 0, 0)
+  )
+
+p2 <- ggplot(df, aes(type, value)) + 
+  geom_col(fill = c("#CCFF00FF", "#00FFFFFF", "#CC00FFFF"), width = 0.75) +
+  scale_y_continuous(limits = c(0, 5.2), expand = c(0, 0)) +
+  scale_x_discrete(name = NULL) +
+  coord_cartesian(clip = "off") +
+  theme_dviz_hgrid(12) +
+  theme(
+    axis.line = element_blank(),
+    axis.title = element_text(family = "Comic Sans MS", size = 15),
+    axis.text.x = element_text(family = "Times", size = 10),
+    axis.text.y = element_text(family = "Arial", size = 13),
+    panel.grid = element_line(color = "black"),
+    axis.ticks = element_line(color = "black"),
+    plot.margin = margin(18, 12, 0, 0)
+  )
+
+
+p3 <- ggplot(df, aes(type, value)) + 
+  geom_col(fill = "#56B4E9", width = 0.65, alpha = 0.9) +
+  geom_point(aes(y = expand), shape = NA) +
+  scale_y_continuous(expand = c(0, 0)) +
+  scale_x_discrete(name = NULL) +
+  facet_wrap(~type, scales = "free") +
+  coord_cartesian(clip = "off") +
+  theme_dviz_hgrid(12) +
+  theme(
+    axis.line = element_blank(),
+    strip.text = element_blank(),
+    plot.margin = margin(18, 12, 0, 0)
+  )
+
+p3a <- ggplot(df, aes(type, value)) + 
+  geom_col(color = "black", fill = NA, width = .5) +
+  scale_y_continuous(limits = c(0, 5.2), expand = c(0, 0)) +
+  scale_x_discrete(name = NULL) +
+  coord_cartesian(clip = "off") +
+  theme_dviz_grid(12) +
+  background_grid(
+    major = "y", minor = "none",
+    colour.major = "grey30", colour.minor = "black",
+    size.major = 0.5,
+    size.minor = 0.2
+  ) +
+  theme(
+    axis.ticks = element_line(color = "grey30"),
+    plot.margin = margin(18, 12, 0, 0)
+  )
+
+p4 <- ggplot(df, aes(type, value)) + 
+  geom_col(fill = "#56B4E9", width = 0.65, alpha = 0.9) +
+  coord_cartesian(xlim = c(0.4, 3.6), ylim = c(2, 6.2), expand = FALSE, clip = "on") +
+  scale_x_discrete(name = NULL) +
+  theme_dviz_hgrid(12) +
+  theme(plot.margin = margin(18, 12, 0, 0))
+
+plot_grid(
+  p1, NULL, stamp_ugly(p2),
+  NULL, NULL, NULL,
+  stamp_bad(p3), NULL, stamp_wrong(p4),
+  rel_widths = c(1, .1, 1),
+  rel_heights = c(1, .15, 1),
+  labels = c("a", "", "b", "", "", "", "c", "", "d")
+)
+```
 
 ## A book built with Rmarkdown
 As I mentioned before, the author decided not to do this book about code. But impressed as I was from the moment I saw the draft months ago, I peaked inside. I looked under the hood. Every chapter is written in Rmarkdown, uses several libraries and datasets to illustrate the visualization techniques. The code content by itself can teach how to build the right figure. At the time I was also embarked in learning Docker containers to make data science reproducible. So, I decided to clone the repository in GitHub and build the book from the code provided.
