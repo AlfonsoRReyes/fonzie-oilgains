@@ -1,10 +1,10 @@
 ---
-date: 2017-08-25
-title: Biggish time series data
+date: 2015-09-24
+title: Best practices for the construction of well and network models
 slug: biggish-time-series-data
-speakerdeck: 44d46ab228e14546828ec520b4f75a13
+speakerdeck: 86c810e8fca54c1f97b9a156013d8cb3
 ---
 
-Informal presentation for a UNSW research group, giving an overview of some of my research interests over the last few years.
-
+Presentation on Best Practices for well and network modeling.
+Given internally at Petronas.
 
