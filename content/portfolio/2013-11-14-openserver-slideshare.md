@@ -1,7 +1,7 @@
 ---
 title: OpenServer variables explained
 author: Alfonso R. Reyes
-date: '2015-11-14'
+date: '2013-11-14'
 tags:
   - OpenServer
 slug: openserver-vars-slideshare
