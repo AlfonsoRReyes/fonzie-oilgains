@@ -1,5 +1,5 @@
 ---
-title: Best practices for the construction of well models
+title: implicit Best practices for the construction of well models
 author: Alfonso R. Reyes
 date: '2018-12-02'
 slug: best-practices-for-the-construction-of-well-models
