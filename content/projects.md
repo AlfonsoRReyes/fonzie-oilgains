@@ -5,49 +5,23 @@ title: "Projects"
 
 
 ## R packages I developed
-* zFactor
-* rODE
-* petro.One
+* `zFactor`: [Web](https://f0nzie.github.io/zFactor/), [Repository](https://github.com/f0nzie/zFactor)
+
+* `rODE`: [Web] (https://f0nzie.github.io/rODE), [Repository](https://github.com/f0nzie/rODE)
+
+* `petro.One`: [Web] (https://f0nzie.github.io/petro.One/.),  [Repository](https://github.com/f0nzie/petroOne)
 
 
 ## Shiny applications
-* Artificial Lift selector
-* Well Batch Automation
+* Artificial Lift selector: [WebApp](https://oil-gains-analytics.shinyapps.io/al_flex/), [Repository](https://github.com/f0nzie/artificial_lift_matrix)
+
+* Well Batch Automation (in progress)
 
 
 ## Repositories I am working on
-* Github personal
-* Github Oil Gains
-* Bitbucket Oil Gains
-* Gitlab Oil Gains
+* [Github Oil Gains](https://github.com/f0nzie)
 
 <br>
 
-## Old projects
-
-
-### Petronas, Network Modeling
-
-### IHS, Well Modeling
-* Perform
-* SubPUMP
-
-
-### WellDynamics, SmartWells
-* Brazil, Petrobras
-* Malaysia, Shell
-* 
-
-### Halliburton Argentina, Production Automation
-* Argentina, Ramos
-* Argentina, Chango Norte
-
-### Halliburton Argentina, Latin America School
-* UniPro
-* CompuPac
-* Frac Truck Training
-
-## Halliburton Peru
-* Data Acquisition intruction for Compupac
 
 
