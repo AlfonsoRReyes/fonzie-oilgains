@@ -1,9 +1,9 @@
 Source files for this blogdown site
 ===================================
 
-Release: **0.1.4**
+Release: **0.1.5**
 
-The design of this blog has been inspired by  https://robjhyndman.com. The theme was originally based on  [hugo-finite](https://github.com/lambdafu/hugo-finite). 
+The design of this blog has been inspired by the blog of https://robjhyndman.com. The theme was originally based on  [hugo-finite](https://github.com/lambdafu/hugo-finite). 
 
 
 
