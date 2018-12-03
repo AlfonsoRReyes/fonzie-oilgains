@@ -1,4 +1,4 @@
-baseurl = "blog.oilgainsanalytics.com"
+baseurl = "/"
 title = "Alfonso R Reyes"
 canonifyurls = true
 relativeurls = false
