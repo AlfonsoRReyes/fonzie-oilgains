@@ -13,7 +13,6 @@ deploy: build
 
 clean:
 	rm -rf public
-	rm -rf blogdown
-	rm -f content/hyndsight/*.html
-	rm -f content/seminars/*.html
+	rm -f content/blog/*.html
+	rm -f content/portfolio/*.html
 
