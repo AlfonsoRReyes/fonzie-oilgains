@@ -1,4 +1,4 @@
-### Build and deploy https://robjhyndman.com
+### Build and deploy https://blog.oilgainsanalytics.com
 
 all: serve
 
