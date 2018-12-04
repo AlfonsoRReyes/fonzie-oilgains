@@ -62,9 +62,11 @@
       </div>
       {{ end }}
 
-<!--   file   -->      
+<!--   file   -->
+<!--   reference to local file under /briefcase/   -->
       {{ if .Params.file }}<a href="/briefcase/{{.Params.file}}" class="badge badge-small badge-red"><i class="fa fa-file-pdf-o"></i>&nbsp;Download pdf</a>{{ end }}
       <p></p>
+<!--   reference to remote file under /briefcase/   -->      
       {{ if .Params.file }}
       <iframe src="https://docs.google.com/gview?url=https://blog.oilgainsanalytics.com/briefcase/{{.Params.file}}&embedded=true" style="width:600px; height:500px;" frameborder="0"></iframe>
       {{ end }}
