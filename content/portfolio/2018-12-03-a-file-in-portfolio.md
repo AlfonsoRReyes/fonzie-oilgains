@@ -8,3 +8,4 @@ tags: []
 file: The Multiwell Scanner GUI.pdf
 ---
 
+This file is physically located under `/static/briefcase`.
