@@ -70,6 +70,7 @@
       
 <!--   link   -->      
       {{ if .Params.link }}<a href="{{.Params.link}}" class="badge badge-small badge-red"><i class="fa fa-file-pdf-o"></i>&nbsp;Download pdf</a>{{ end }}
+      <p></p>
       {{ if .Params.link }}
       <iframe src="https://docs.google.com/gview?url={{.Params.link}}&embedded=true" style="width:600px; height:500px;" frameborder="0"></iframe>
       {{ end }}
