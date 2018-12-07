@@ -33,6 +33,7 @@ One of the keys in data science is to get accustomed to analyze well production 
 
 Your are curious? This is how a simple statement looks like.
 
+
 ---> insert image <---
 
 From the data we can say that the biggest producers are wells producing by gas lift with an average of 944 blpd, a maximum of 2421 blpd in a total of 98 wells. The lowest producer is at 100 blpd. In next posts I will showing simple Python and pandas scripts for production engineering.
