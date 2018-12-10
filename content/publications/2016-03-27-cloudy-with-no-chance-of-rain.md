@@ -6,9 +6,10 @@ slug: cloudy-with-no-chance-of-rain
 categories:
   - computer science
 tags: []
-image: cloudy.jpg
 online: https://www.linkedin.com/pulse/cloudy-chance-rain-alfonso-r-reyes/
 ---
+
+[![](/img/cloudy.jpg)](/img/cloudy.jpg)
 
 Without intending -really-, I got immersed this weekend with remote sensor monitoring. 
 
