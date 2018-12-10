@@ -49,3 +49,4 @@ The Python notebooks look ideal for the application of data science to well, net
 The Python notebook opens in a browser but if you want to make long and advanced scripts for petroleum engineering, there are plenty of good development applications or IDEs out there: Spyder, PyCharm and Eclipse, just to mention a few.
 
 [![](/img/4001_multiwell_scan_analysis_jupyter.jpg)](/img/4001_multiwell_scan_analysis_jupyter.jpg)
+
