@@ -33,12 +33,14 @@ One of the keys in data science is to get accustomed to analyze well production 
 
 Your are curious? This is how a simple statement looks like.
 
+[![](/img/groupingby_al_method.jpg)](/img/groupingby_al_method.jpg)
 
----> insert image <---
 
 From the data we can say that the biggest producers are wells producing by gas lift with an average of 944 blpd, a maximum of 2421 blpd in a total of 98 wells. The lowest producer is at 100 blpd. In next posts I will showing simple Python and pandas scripts for production engineering.
 
----> insert image <---
+
+[![](/img/boundary_analysis.jpg)](/img/boundary_analysis.jpg)
+
 
 This other plot shows a boundary analysis of well tests that were marked as active in the model. We are trying to catch statistically any data point that is totally out of range. We call them outliers.
 
