@@ -1,7 +1,7 @@
-baseurl = "/"
+baseurl = "/blog"
 title = "Alfonso R Reyes"
 canonifyurls = true
-relativeurls = false
+relativeurls = true
 paginate = 10
 theme = "hyndman"
 DisqusShortname = "fonzie-oilgains"
