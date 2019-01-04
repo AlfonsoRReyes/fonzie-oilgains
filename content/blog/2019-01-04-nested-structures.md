@@ -6,6 +6,7 @@ slug: nested-structures
 categories:
   - data science
 tags: []
+image: nested_structures.jpg
 ---
 
 One of the most challenging things in dealing with data is #NestedStructures. In a perfect world, data would be tables (rectangular) and be tidy. If physicists are finding the right format, they should also work for #petroleumengineering. 
