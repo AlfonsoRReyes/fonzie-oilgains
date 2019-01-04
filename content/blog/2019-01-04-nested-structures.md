@@ -8,7 +8,7 @@ categories:
 tags: []
 ---
 
-One of the most challenging things in dealing with data is #NestedStructures. In a perfect world, data would be tables (rectangular) and be tidy. If physicists are finding the right format, they should also work for  hashtag#petroleumengineering. 
+One of the most challenging things in dealing with data is #NestedStructures. In a perfect world, data would be tables (rectangular) and be tidy. If physicists are finding the right format, they should also work for #petroleumengineering. 
 
 From the paper ["Machine Learning in High Energy Physics Community White Paper"] (http://arxiv.org/abs/1807.02876)
 
