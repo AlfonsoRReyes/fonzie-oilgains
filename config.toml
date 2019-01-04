@@ -1,7 +1,7 @@
-baseurl = "/blog"   #allows http://example.com/blog and http://blog.example.blog
+baseurl = "/blog"   # allows http://example.com/blog and http://blog.example.com
 title = "Alfonso R Reyes"
 canonifyurls = true
-relativeurls = true #allows http://example.com/blog and http://blog.example.blog
+relativeurls = true # allows http://example.com/blog and http://blog.example.com
 paginate = 10
 theme = "hyndman"
 DisqusShortname = "fonzie-oilgains"
