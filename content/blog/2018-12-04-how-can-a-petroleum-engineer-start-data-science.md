@@ -8,6 +8,9 @@ categories:
 tags: []
 ---
 
+[![](/img/kick_start-cover.png)](/img/kick_start-cover.png)
+
+
 
 1. I would start by identifying acute problems in your area of expertise (**domain**): production , reservoir, drilling, completions, geophysics, chemistry, seismic, geophysics, etc., that you feel could be resolved by applying data science.
 
