@@ -19,4 +19,7 @@ I was able to selectively download the report for the seismic acquisition in fil
 Does anyone with seismic expertise notice information of relevance?
 
 
+[![](/img/2-6-tb_report-cover.png)](/files/RXT10010NS_Statoil_Volve_Seismic_QC_Report_v03.pdf)
+
+
 
