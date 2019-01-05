@@ -1,0 +1,92 @@
+---
+title: The most used Machine Learning algorithms in Petroleum Engineering
+author: Alfonso R. Reyes
+date: '2018-03-28'
+slug: the-most-used-machine-learning-algorithms-in-petroleum-engineering
+categories:
+  - machine learning
+tags:
+  - petroleum engineering
+online: https://www.linkedin.com/pulse/most-used-machine-learning-algorithms-petroleum-alfonso-r-reyes/  
+---
+
+Continuing with the article on machine learning (ML), from the papers extracted in OnePetro, I have been able to detect the use of these ML algorithms:
+
+* Neural Network
+
+* Genetic Algorithm
+
+* Support Vector Machine
+
+* Principal Component Analysis
+
+* Linear Regression
+
+* Fuzzy Logic
+
+* Hierarchical
+
+* K-Means
+
+* Singular Value Decomposition
+
+* Decision Tree
+
+* Support Vector Regression
+
+* Deep Learning
+
+* Logistic Regression
+
+* Boosting
+
+* Random Forest
+
+* Nearest Neighbor
+
+* Discriminant Analysis
+
+* Gaussian Mixture
+
+* Gaussian Process Regression
+
+* Naive Bayes
+
+* Hierarchical Clustering
+
+* Reinforcement Learning
+
+* K-Nearest Neighbor
+
+* Hidden Markov
+
+* C-Means
+
+* Fuzzy C-Means
+
+* Gaussian Mixture Model
+
+* Kernel Density Estimation
+
+* Gradient Boosting Tree
+
+* Kernel Approximation
+
+With a little bit of R magic:
+
+```{r, out.width = "1200px", echo=FALSE}
+knitr::include_graphics("/img/most_used_ml_algorithms_01.jpg")
+```
+
+From all these techniques, the top 20 most used are:
+
+```{r, out.width = "300px", echo=FALSE}
+knitr::include_graphics("/img/most_used_ml_algorithms_02.png")
+```
+
+
+If you see I am forgetting a specific machine learning algorithm, please let me know.
+
+> Notes. (1) Fuzzy-Logic is not considered a ML technique; rather, belongs to control theory. But still, I am including it here because there is a considerable number of papers using the algorithm. (2) I grouped Convolutional Neural Networks with "Deep Learning".
+
+So, this is the state of use of machine learning in petroleum engineering.
