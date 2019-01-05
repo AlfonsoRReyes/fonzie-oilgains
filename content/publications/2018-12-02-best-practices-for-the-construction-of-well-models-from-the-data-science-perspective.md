@@ -6,6 +6,7 @@ slug: best-practices-for-the-construction-of-well-models-from-the-data-science-p
 categories:
   - well modeling
 tags: []
+online: http://oilgainsanalytics.com/blog/publications/best-practices-for-the-construction-of-well-models-from-the-data-science-perspective/
 ---
 
 [![](/img/best_practices_models-cover.png)](/img/best_practices_models-cover.png)
@@ -17,22 +18,27 @@ The previous article Scripts for Well Modeling and Batch Automation is part of t
 
 I have published a set of slides that goes through some of well subsystems that require data collection before entering them into a model. Here is the slide set:
 
+<iframe src="//www.slideshare.net/slideshow/embed_code/key/5r8bfHRXEaLAtN" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> 
+
+<iframe src="//www.slideshare.net/slideshow/embed_code/key/5r8bfHRXEaLAtN" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/AlfonsoReyes4/best-practices-fortheconstructionofwellmodels" title="Best practices for_the_construction_of_well_models" target="_blank">Best practices for_the_construction_of_well_models</a> </strong> from <strong><a href="https://www.slideshare.net/AlfonsoReyes4" target="_blank">Alfonso R. Reyes</a></strong> </div>
+
 What I cover in these slides:
 
-    Inventory of the well data
-    Pressure tests
-    Fluid data
-    Well schematics and surveys
-    PVT data
-    Zones and layers data
-    Activation matrix for well status
-    Well and string identification
-    When you should stop
-    Folders and files
-    Modeling software
+* Inventory of the well data
+* Pressure tests
+* Fluid data
+* Well schematics and surveys
+* PVT data
+* Zones and layers data
+* Activation matrix for well status
+* Well and string identification
+* When you should stop
+* Folders and files
+* Modeling software
 
 The slides were generated using Latex Beamer and Rmarkdown from RStudio.
 
 This is the link to the Github repository if you are interested. The link to the slide set points to SlideShare.
 
 Soon, as I progress with the transition of the material that I collected over the years on data science for petroleum engineering, I will be releasing something more dynamic that can be generated directly from R.
+
