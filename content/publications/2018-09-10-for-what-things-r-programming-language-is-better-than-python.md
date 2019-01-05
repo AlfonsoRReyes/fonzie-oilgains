@@ -8,6 +8,7 @@ categories:
   - R
 tags:
   - comparison
+online: https://www.linkedin.com/pulse/what-things-r-programming-language-better-than-python-reyes/  
 ---
 
 [![](/img/for_what_things_r_better_python-cover)](/img/for_what_things_r_better_python-cover)
