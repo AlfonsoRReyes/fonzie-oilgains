@@ -8,8 +8,7 @@ categories:
   - datasets
 tags:
   - post
-online: https://www.linkedin.com/feed/update/urn:li:activity:6482724581957308416  
-file: The Multiwell Scanner GUI.pdf
+online: https://www.linkedin.com/feed/update/urn:li:activity:6482724581957308416 
 ---
 
 Volve dataset. Seismic report from the 2.6 terabytes file.

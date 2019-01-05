@@ -14,5 +14,4 @@ One of the most challenging things in dealing with data is Nested Structures. In
 
 The image is a screenshot of Fig.1 from the paper ["Machine Learning in High Energy Physics Community White Paper"] (http://arxiv.org/abs/1807.02876)
 
-
 [Link to post in Linkedin](https://www.linkedin.com/feed/update/urn:li:activity:6485510317785870336)
