@@ -6,6 +6,7 @@ slug: how-can-a-petroleum-engineer-start-data-science
 categories:
   - data science
 tags: []
+online: https://www.linkedin.com/pulse/how-can-petroleum-engineer-kick-start-data-science-alfonso-r-reyes/
 ---
 
 [![](/img/kick_start-cover.png)](/img/kick_start-cover.png)
