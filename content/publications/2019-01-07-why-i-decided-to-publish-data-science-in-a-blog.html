@@ -1,0 +1,53 @@
+---
+title: Why I decided to publish data science in a blog?
+author: Alfonso R. Reyes
+date: '2019-01-07'
+slug: why-i-decided-to-publish-data-science-in-a-blog
+categories:
+  - data science
+tags:
+  - LinkedIn
+---
+
+
+
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>As I announced last week, my blog is now online at <a href="http://blog.oilgainsanalytics.com" class="uri">http://blog.oilgainsanalytics.com</a>. LinkedIn may obfuscate the link so I am also providing it as an image below. Clicking on the image will bring you to the blog.</p>
+<p><a href="http://blog.oilgainsanalytics.com"><img src="/img/blog-mainpage.png" /></a></p>
+</div>
+<div id="motivation" class="section level2">
+<h2>Motivation</h2>
+<p>I believe in the sharing philosophy of data science as I learned it from my bioscientist instructors at Johns Hopkins University (Peng, Leek, Caffo, et al). There are so many career-changing lessons that you could pick up with these professors at Coursera. Data Science is a whole multidisciplinary, or should I say interdisciplinary as in <a href="http://en.wikipedia.org/wiki/Data_science">Wikipedia</a>, field that combines statistics, mathematics, computer science, and data engineering that gives you the power to dig deep into your data and make astonishing discoveries.</p>
+<p>I felt the need of an online website that could support <a href="https://rmarkdown.rstudio.com/">Rmarkdown</a> instead of copying and pasting code and pictures to [LinkedIn][3] every time.</p>
+</div>
+<div id="under-the-hood" class="section level2">
+<h2>Under the hood</h2>
+<p>This blog uses the <a href="https://cran.r-project.org/">R</a> package <a href="https://bookdown.org/yihui/blogdown/">blogdown</a>, an application that converts <a href="https://en.wikipedia.org/wiki/Markdown">markdown</a> and Rmarkdown to Html and Javascript, making easier for me to run code and publish it immediately as it exactly is written.</p>
+<p>One of the articles I am preparing on <code>multiwell statistics</code> -coming in few days-, will be written in Python and R together using <a href="https://www.rstudio.com/products/RStudio/">RStudio</a> IDE<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. It will be about running statistical methods on datasets originated by batch automation produced by communicating with the production optimization software <a href="http://www.petex.com/products/ipm-suite/prosper/">Prosper</a> via <a href="http://www.petex.com/products/ipm-suite/openserver/">OpenServer</a>.</p>
+<p>Still, I will continue publishing in LinkedIn but the extended, best and more current version of the post running with R and Python code will be in the blog.</p>
+</div>
+<div id="a-quick-demonstration" class="section level2">
+<h2>A quick demonstration</h2>
+<pre class="r"><code>library(reticulate)
+reticulate::py_config()
+#&gt; python:         C:\Users\msfz751\Anaconda3\envs\pytorch27\python.exe
+#&gt; libpython:      C:/Users/msfz751/Anaconda3/envs/pytorch27/python27.dll
+#&gt; pythonhome:     C:\Users\msfz751\ANACON~1\envs\PYTORC~2
+#&gt; version:        2.7.15 |Anaconda, Inc.| (default, Oct 27 2018, 18:22:15) [MSC v.1500 64 bit (AMD64)]
+#&gt; Architecture:   64bit
+#&gt; numpy:          C:\Users\msfz751\ANACON~1\envs\PYTORC~2\lib\site-packages\numpy
+#&gt; numpy_version:  1.15.4
+#&gt; 
+#&gt; python versions found: 
+#&gt;  C:\Users\msfz751\ANACON~1\python.exe
+#&gt;  C:\Users\msfz751\Anaconda3\python.exe
+#&gt;  C:\Users\msfz751\Anaconda3\envs\pytorch27\python.exe
+#&gt;  C:\Users\msfz751\Anaconda3\envs\pytorch37\python.exe</code></pre>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Integrated Development Environment<a href="#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
