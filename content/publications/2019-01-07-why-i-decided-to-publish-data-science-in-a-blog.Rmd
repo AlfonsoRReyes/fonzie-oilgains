@@ -38,14 +38,17 @@ I felt the need of an online website that could support [Rmarkdown][2] instead o
 ## Under the hood
 This blog uses the [R][R] package [blogdown][blogdown], an application that converts [markdown][markdown] and Rmarkdown to Html and Javascript, making easier for me to run code and publish it immediately as it exactly is written. 
 
-One of the articles I am preparing on `multiwell statistics` -coming in few days-, will be written in Python and R together using [RStudio][rstudio] IDE[^ide]. It will be about running statistical methods on datasets originated by batch automation produced by communicating with the production optimization software [Prosper][prosper] via [OpenServer][openserver].
+One of the articles I am preparing on `multiwell statistics` -coming in few days-, will be written in Python and R together using [RStudio][rstudio] IDE[^ide]. It will be about running statistical methods on datasets originated by batch automation produced by communicating with the production optimization software [Prosper][prosper] via [OpenServer][openserver], work that I developed few years ago but very relevant nowadays.
 
 Still, I will continue publishing in LinkedIn but the extended, best and more current version of the post running with R and Python code will be in the blog.
 
 ## A quick demonstration
-This first example assumes you installed a Portable Python WinPython 3.7.1, 64-bit, under your user directory in Windows. Not to worry, I will explain in a separate set of slides how to get Python installed.
+This first example assumes you installed a Portable Python [WinPython][winpython] 3.7.1, 64-bit, under your user directory in Windows. Not to worry, I will explain in a separate set of slides how to get Python installed.
 
-First, we load a Python environment. In this case, I am loading the Python portable version I mentioned above, but it could Anaconda or another flavor. I have found that WinPython is just much easier to navigate and make it work.
+### Loading Python in RStudio
+First, we load a Python environment. In this case, I am loading the Python portable version I mentioned above, but it could be Anaconda or another flavor. I have found that WinPython is just much easier to navigate and make it work.
+
+This is the code that load the Pythobn environment that will together with R.
 
 ```{r}
 # load the package that makes R and Python talk
@@ -63,7 +66,7 @@ reticulate::py_config()
 ```
 
 ### Example 1
-Produce a Python matplotlib plot. 
+Produce a simple Python matplotlib plot. 
 
 This is not easy as it seems using other flavors of Python. I found that WinPython makes this plotting task easier for beginners or advanced levels. But this should be your test of fire because it uses several Python packages: `matplotlib`, `numpy`, `PyQt`, etc. So, if this works, almost everything else will work.
 
@@ -84,15 +87,15 @@ plt.savefig("sine.png")
 plt.show()
 ```
 
-I know. This can be done easily in Jupyter notebooks but the objective here is to mix the power of Python and R running in a native R platform.
+I know. This can be done easily in Jupyter notebooks but the objective here is to mix the power of Python and R running in a native R platform. I will explain later why.
 
 ## Why the Python plots if R has `ggplot2`
 One big reason: doing some data science and machine learning with reservoir blocks will require some 3d capabilities and Python has packages available for that. R also does but it would take more work. Refer the next example.
 
 ### Example 2
-Now, we are going to plot a pretended reservoir block for reservoir simulation. We are going to need it at sometime to build the machine learning algorithm and a artificial intelligence agent to do, let's say, history matching, for starters. I found this beautiful example in the `matplotlib` tutorial section.
+Now, we are going to plot a pretended reservoir block for reservoir simulation. We are going to need it at sometime to build the machine learning algorithm and a artificial intelligence agent to do, let's say, [history matching][history-matching], for starters. I found this beautiful example in the `matplotlib` tutorial section.
 
-```{python}
+```{python, fig.asp=1}
 # https://matplotlib.org/api/_as_gen/mpl_toolkits.mplot3d.axes3d.Axes3D.html
 
 #=======================================================
@@ -144,6 +147,63 @@ ax.voxels(x, y, z, sphere,
 plt.show()
 ```
 
+Those blocks are called [voxels][voxels]. If you have seen reservoir simulation you know what they represent. We could also have plot this in cartesian coordinates instead of cylindrical.
+
+### Example 3
+This is a simpler example of the blocks in cylindrical coordinates above. 
+
+**Why is this important?**
+
+If we will be applying machine learning algorithms we need to have some tools outside the conventional reservoir simulators that do not have machine learning or artificial intelligence capabilities. This means, if you have the reservoir grid plus the saturations, permeability and wells location, it very likely they will be in text readable format. At least, in [Eclipse][eclipse] they are. Then, you will able to transform the grid and reservoir properties using your production history and achieve more accurate and faster matching. There is abundant literature on the subject in the [SPE papers][spe-papers].
+
+
+```{python, fig.asp=1}
+# https://matplotlib.org/gallery/mplot3d/voxels_numpy_logo.html
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+# This import registers the 3D projection, but is otherwise unused.
+from mpl_toolkits.mplot3d import Axes3D  # noqa: F401 unused import
+
+
+def explode(data):
+    size = np.array(data.shape)*2
+    data_e = np.zeros(size - 1, dtype=data.dtype)
+    data_e[::2, ::2, ::2] = data
+    return data_e
+
+# build up the numpy logo
+n_voxels = np.zeros((4, 3, 4), dtype=bool)
+n_voxels[0, 0, :] = True
+n_voxels[-1, 0, :] = True
+n_voxels[1, 0, 2] = True
+n_voxels[2, 0, 1] = True
+facecolors = np.where(n_voxels, '#FFD65DC0', '#7A88CCC0')
+edgecolors = np.where(n_voxels, '#BFAB6E', '#7D84A6')
+filled = np.ones(n_voxels.shape)
+
+# upscale the above voxel image, leaving gaps
+filled_2 = explode(filled)
+fcolors_2 = explode(facecolors)
+ecolors_2 = explode(edgecolors)
+
+# Shrink the gaps
+x, y, z = np.indices(np.array(filled_2.shape) + 1).astype(float) // 2
+x[0::2, :, :] += 0.05
+y[:, 0::2, :] += 0.05
+z[:, :, 0::2] += 0.05
+x[1::2, :, :] += 0.95
+y[:, 1::2, :] += 0.95
+z[:, :, 1::2] += 0.95
+
+fig = plt.figure()
+ax = fig.gca(projection='3d')
+ax.voxels(x, y, z, filled_2, facecolors=fcolors_2, edgecolors=ecolors_2)
+
+plt.show()
+```
+
 ## Why Python and R?
 I know what you are thinking. If Python has all these plotting capabilities, why not doing all the coding just with Python?
 
@@ -186,3 +246,13 @@ All the code will be available in GitHub at https://github.com/f0nzie/
 [prosper]: http://www.petex.com/products/ipm-suite/prosper/
 
 [openserver]: http://www.petex.com/products/ipm-suite/openserver/
+
+[spe-papers]: https://www.onepetro.org/
+
+[eclipse]: https://www.software.slb.com/products/eclipse/simulators
+
+[winpython]: https://winpython.github.io/
+
+[voxels]: https://en.wikipedia.org/wiki/Voxel
+
+[history-matching]: http://infohost.nmt.edu/~petro/faculty/Engler571/HistoryMatching.pdf
