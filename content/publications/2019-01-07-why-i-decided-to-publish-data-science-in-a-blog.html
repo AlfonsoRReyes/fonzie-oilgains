@@ -18,7 +18,7 @@ tags:
 </div>
 <div id="motivation" class="section level2">
 <h2>Motivation</h2>
-<p>I believe in the sharing philosophy of data science as I learned it from my bioscientist instructors at Johns Hopkins University (Peng, Leek, Caffo, et al). There are so many career-changing lessons that you could pick up with these professors at Coursera. Data Science is a whole multidisciplinary, or should I say interdisciplinary as in <a href="http://en.wikipedia.org/wiki/Data_science">Wikipedia</a>, field that combines statistics, mathematics, computer science, and data engineering that gives you the power to dig deep into your data and make astonishing discoveries.</p>
+<p>I believe in the sharing philosophy of data science as I learned it from my biostatistician instructors at Johns Hopkins University (Peng, Leek, Caffo, et al). There are so many career-changing lessons that you could pick up with these professors at Coursera. Data Science is a whole multidisciplinary, or should I say interdisciplinary as in <a href="http://en.wikipedia.org/wiki/Data_science">Wikipedia</a>, field that combines statistics, mathematics, computer science, and data engineering that gives you the power to dig deep into your data and make astonishing discoveries to bring real value to your organization.</p>
 <p>I felt the need of an online website that could support <a href="https://rmarkdown.rstudio.com/">Rmarkdown</a> instead of copying and pasting code and pictures to [LinkedIn][3] every time.</p>
 </div>
 <div id="under-the-hood" class="section level2">
@@ -29,21 +29,118 @@ tags:
 </div>
 <div id="a-quick-demonstration" class="section level2">
 <h2>A quick demonstration</h2>
-<pre class="r"><code>library(reticulate)
+<p>This first example assumes you installed a Portable Python WinPython 3.7.1, 64-bit, under your user directory in Windows. Not to worry, I will explain in a separate set of slides how to get Python installed.</p>
+<p>First, we load a Python environment. In this case, I am loading the Python portable version I mentioned above, but it could Anaconda or another flavor. I have found that WinPython is just much easier to navigate and make it work.</p>
+<pre class="r"><code># load the package that makes R and Python talk
+library(reticulate)
+
+# set the preferred Python to execute
+user_profile &lt;- Sys.getenv(&quot;USERPROFILE&quot;)                    # user folder
+python_portable &lt;- normalizePath(file.path(user_profile,     # Python location
+                                &quot;WPy-3710zero/python-3.7.1.amd64/python.exe&quot;))
+
+reticulate::use_python(python_portable, required = TRUE)
+ 
+# find out if it took it
 reticulate::py_config()
-#&gt; python:         C:\Users\msfz751\Anaconda3\envs\pytorch27\python.exe
-#&gt; libpython:      C:/Users/msfz751/Anaconda3/envs/pytorch27/python27.dll
-#&gt; pythonhome:     C:\Users\msfz751\ANACON~1\envs\PYTORC~2
-#&gt; version:        2.7.15 |Anaconda, Inc.| (default, Oct 27 2018, 18:22:15) [MSC v.1500 64 bit (AMD64)]
+#&gt; python:         C:\Users\ptech\WPy-3710zero\python-3.7.1.amd64\python.exe
+#&gt; libpython:      C:/Users/ptech/WPy-3710zero/python-3.7.1.amd64/python37.dll
+#&gt; pythonhome:     C:\Users\ptech\WPY-37~1\PYTHON~1.AMD
+#&gt; version:        3.7.1 (v3.7.1:260ec2c36a, Oct 20 2018, 14:57:15) [MSC v.1915 64 bit (AMD64)]
 #&gt; Architecture:   64bit
-#&gt; numpy:          C:\Users\msfz751\ANACON~1\envs\PYTORC~2\lib\site-packages\numpy
+#&gt; numpy:          C:\Users\ptech\WPY-37~1\PYTHON~1.AMD\lib\site-packages\numpy
 #&gt; numpy_version:  1.15.4
 #&gt; 
-#&gt; python versions found: 
-#&gt;  C:\Users\msfz751\ANACON~1\python.exe
-#&gt;  C:\Users\msfz751\Anaconda3\python.exe
-#&gt;  C:\Users\msfz751\Anaconda3\envs\pytorch27\python.exe
-#&gt;  C:\Users\msfz751\Anaconda3\envs\pytorch37\python.exe</code></pre>
+#&gt; NOTE: Python version was forced by use_python function</code></pre>
+<div id="example-1" class="section level3">
+<h3>Example 1</h3>
+<p>Produce a Python matplotlib plot.</p>
+<p>This is not easy as it seems using other flavors of Python. I found that WinPython makes this plotting task easier for beginners or advanced levels. But this should be your test of fire because it uses several Python packages: <code>matplotlib</code>, <code>numpy</code>, <code>PyQt</code>, etc. So, if this works, almost everything else will work.</p>
+<pre class="python"><code># a simple sine plot
+import matplotlib.pyplot as plt
+import numpy as np
+t = np.arange(0.0, 2.0, 0.01)
+s = 1 + np.sin(2*np.pi*t)
+plt.plot(t, s)
+plt.xlabel(&#39;time (s)&#39;)
+plt.ylabel(&#39;voltage (mV)&#39;)
+plt.title(&#39;About as simple as it gets, folks&#39;)
+plt.grid(True)
+plt.savefig(&quot;sine.png&quot;)
+plt.show()</code></pre>
+<p><img src="/publications/2019-01-07-why-i-decided-to-publish-data-science-in-a-blog_files/figure-html/unnamed-chunk-2-1.png" style="display: block; margin: auto;" /></p>
+<p>I know. This can be done easily in Jupyter notebooks but the objective here is to mix the power of Python and R running in a native R platform.</p>
+</div>
+</div>
+<div id="why-the-python-plots-if-r-has-ggplot2" class="section level2">
+<h2>Why the Python plots if R has <code>ggplot2</code></h2>
+<p>One big reason: doing some data science and machine learning with reservoir blocks will require some 3d capabilities and Python has packages available for that. R also does but it would take more work. Refer the next example.</p>
+<div id="example-2" class="section level3">
+<h3>Example 2</h3>
+<p>Now, we are going to plot a pretended reservoir block for reservoir simulation. We are going to need it at sometime to build the machine learning algorithm and a artificial intelligence agent to do, let’s say, history matching, for starters. I found this beautiful example in the <code>matplotlib</code> tutorial section.</p>
+<pre class="python"><code># https://matplotlib.org/api/_as_gen/mpl_toolkits.mplot3d.axes3d.Axes3D.html
+#=======================================================
+#3D voxel / volumetric plot with cylindrical coordinates
+#=======================================================
+# Demonstrates using the ``x, y, z`` arguments of ``ax.voxels``.
+import matplotlib.pyplot as plt
+import matplotlib.colors
+import numpy as np
+# This import registers the 3D projection, but is otherwise unused.
+from mpl_toolkits.mplot3d import Axes3D  # noqa: F401 unused import
+def midpoints(x):
+    sl = ()
+    for i in range(x.ndim):
+        x = (x[sl + np.index_exp[:-1]] + x[sl + np.index_exp[1:]]) / 2.0
+        sl += np.index_exp[:]
+    return x
+# prepare some coordinates, and attach rgb values to each
+r, theta, z = np.mgrid[0:1:11j, 0:np.pi*2:25j, -0.5:0.5:11j]
+x = r*np.cos(theta)
+y = r*np.sin(theta)
+rc, thetac, zc = midpoints(r), midpoints(theta), midpoints(z)
+# define a wobbly torus about [0.7, *, 0]
+sphere = (rc - 0.7)**2 + (zc + 0.2*np.cos(thetac*2))**2 &lt; 0.2**2
+# combine the color components
+hsv = np.zeros(sphere.shape + (3,))
+hsv[..., 0] = thetac / (np.pi*2)
+hsv[..., 1] = rc
+hsv[..., 2] = zc + 0.5
+colors = matplotlib.colors.hsv_to_rgb(hsv)
+# and plot everything
+fig = plt.figure()
+ax = fig.gca(projection=&#39;3d&#39;)
+ax.voxels(x, y, z, sphere,
+          facecolors=colors,
+          edgecolors=np.clip(2*colors - 0.5, 0, 1),  # brighter
+          linewidth=0.5)
+plt.show()</code></pre>
+<p><img src="/publications/2019-01-07-why-i-decided-to-publish-data-science-in-a-blog_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="why-python-and-r" class="section level2">
+<h2>Why Python and R?</h2>
+<p>I know what you are thinking. If Python has all these plotting capabilities, why not doing all the coding just with Python?</p>
+<p>Because:</p>
+<ul>
+<li>R is much better and faster at data manipulation</li>
+<li>In R is easier to use C, C++ and Fortran libraries for matrix and array operations</li>
+<li>Report generation in R is publishing quality.</li>
+<li>You can use embedded Latex, Beamer, tikz, and innumerable packages for equations, presentations, diagrams that belong to the universe of <strong>reproducibility</strong> in data science.</li>
+</ul>
+<p>And the best reason of all: We will be ahead of the pack by using both powerful scripting languages: Python and R.</p>
+<p>And with the <strong>Volve datasets</strong> now available the task will be more productive.</p>
+</div>
+<div id="warning" class="section level2">
+<h2>Warning</h2>
+<p>This page is dynamic, it will be changing in the next hours until the edition is complete. In the meantime, enjoy.</p>
+</div>
+<div id="code" class="section level2">
+<h2>Code</h2>
+<p>All the code will be available in GitHub at <a href="https://github.com/f0nzie/" class="uri">https://github.com/f0nzie/</a></p>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
 </div>
 <div class="footnotes">
 <hr />
