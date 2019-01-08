@@ -1,0 +1,25 @@
+---
+title: The cloud and the sarcam of AWS easy as pie
+author: Alfonso R. Reyes
+date: '2018-12-28'
+categories:
+  - data science
+  - cloud
+slug: the-cloud-and-the-sarcam-of-aws-easy-as-pie
+online: https://www.linkedin.com/feed/update/urn:li:activity:6484464415923105792
+---
+
+Read from an [article](https://medium.com/@devfire/how-to-become-a-devops-engineer-in-six-months-or-less-366097df7737) yesterday how learning the Cloud is a must if you are in data science and machine learning. I made some annotations:
+
+Although the article is a discussion on DevOps, there are parts that go beyond and touch data science and machine learning interests.
+
+That was just in case you thought you had it hard learning Python or R.
+
+```{r, out.width = "500px", echo=FALSE}
+knitr::include_graphics("/img/cloud_sarcasm_aws.png")
+```
+
+
+The article is named *How To Become a DevOps Engineer In Six Months or Less*.
+
+Link to post in LinkedIn: https://www.linkedin.com/feed/update/urn:li:activity:6484615135326502912

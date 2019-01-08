@@ -1,0 +1,66 @@
+---
+title: Why I decided to publish data science in a blog?
+author: Alfonso R. Reyes
+date: '2019-01-07'
+slug: why-i-decided-to-publish-data-science-in-a-blog
+categories:
+  - data science
+tags:
+  - LinkedIn
+---
+
+```{r setup, include = FALSE, error=TRUE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      comment = "#>",
+                      collapse = TRUE,
+                      error = TRUE,
+                      warning = FALSE,
+                      message = FALSE,
+                      fig.align = 'center')
+```
+
+## Introduction
+As I announced last week, my blog is now online at http://blog.oilgainsanalytics.com. LinkedIn may obfuscate the link so I am also providing it as an image below. Clicking on the image will bring you to the blog.
+
+[![](/img/blog-mainpage.png)](http://blog.oilgainsanalytics.com)
+
+## Motivation
+I believe in the sharing philosophy of data science as I learned it from my bioscientist instructors at Johns Hopkins University (Peng, Leek, Caffo, et al). There are so many career-changing lessons that you could pick up with these professors at Coursera. Data Science is a whole multidisciplinary, or should I say interdisciplinary as in [Wikipedia][1], field that combines statistics, mathematics, computer science, and data engineering that gives you the power to dig deep into your data and make astonishing discoveries.
+
+I felt the need of an online website that could support [Rmarkdown][2] instead of copying and pasting code and pictures to [LinkedIn][3] every time.
+
+## Under the hood
+This blog uses the [R][R] package [blogdown][blogdown], an application that converts [markdown][markdown] and Rmarkdown to Html and Javascript, making easier for me to run code and publish it immediately as it exactly is written. 
+
+One of the articles I am preparing on `multiwell statistics` -coming in few days-, will be written in Python and R together using [RStudio][rstudio] IDE[^ide]. It will be about running statistical methods on datasets originated by batch automation produced by communicating with the production optimization software [Prosper][prosper] via [OpenServer][openserver].
+
+Still, I will continue publishing in LinkedIn but the extended, best and more current version of the post running with R and Python code will be in the blog.
+
+## A quick demonstration
+
+```{r}
+library(reticulate)
+reticulate::py_config()
+```
+
+
+
+
+
+[^ide]: Integrated Development Environment
+
+[1]: http://en.wikipedia.org/wiki/Data_science
+
+[2]: https://rmarkdown.rstudio.com/
+
+[R]: https://cran.r-project.org/
+
+[blogdown]: https://bookdown.org/yihui/blogdown/
+
+[markdown]: https://en.wikipedia.org/wiki/Markdown 
+
+[rstudio]: https://www.rstudio.com/products/RStudio/
+
+[prosper]: http://www.petex.com/products/ipm-suite/prosper/
+
+[openserver]: http://www.petex.com/products/ipm-suite/openserver/
