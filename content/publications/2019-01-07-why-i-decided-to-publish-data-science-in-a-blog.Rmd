@@ -20,7 +20,13 @@ knitr::opts_chunk$set(echo = TRUE,
 ```
 
 ## Introduction
-As I announced last week, my blog is now online at http://blog.oilgainsanalytics.com. LinkedIn may obfuscate the link so I am also providing it as an image below. Clicking on the image will bring you to the blog.
+As I announced last week, my blog is now online at http://blog.oilgainsanalytics.com. LinkedIn may obfuscate the link so I am also providing it as an image below. Clicking on the image will bring you to the blog:
+
+> blog.oilgainsanalytics.com
+
+or
+
+> oilgainsanalytics.com/blog
 
 [![](/img/blog-mainpage.png)](http://blog.oilgainsanalytics.com)
 
