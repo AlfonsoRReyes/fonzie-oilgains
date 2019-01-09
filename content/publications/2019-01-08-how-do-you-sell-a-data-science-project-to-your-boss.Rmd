@@ -1,0 +1,39 @@
+---
+title: How do you sell a data science project to your boss
+author: Alfonso R. Reyes
+date: '2019-01-08'
+slug: how-do-you-sell-a-data-science-project-to-your-boss
+categories:
+  - data science
+  - business case
+tags: []
+mathjax: true
+---
+
+This post was inspired on my response a few months ago in the SPE forums. The question was -if I remember correctly-, on how you sell predictive analytics to a conservative manager.
+
+I have made some changes to my original answer to make it more current, and independent off the original post.
+
+So, the question is: 
+
+***How do sell a petroleum engineering data science project to your skeptic manager?***
+
+* First, I would recommend  to **start small** but drawing the **big picture** first. Always start with the end in mind. We need to build some trust in what we will be recommending would work and won't be consuming resources at zero return.
+* As is typical in data science, I would start by **asking the key questions**: 
+  * what is (are) the **problem(s) I am trying to solve**? 
+  * Of all the factors that keep down oil/gas production, which one would have the **more impact** if I apply data science to it? 
+  * What part(s) of that solution process (the one that has been identified as the **most production yielding** factor) can be deployed at a **small scale** -that me and couple of guys -, can complete a cycle and verify the results? 
+  * What **fraction** of the whole process this small-scale project represents? 
+  * Establish metrics. How will I **know** the small scale project has been **successful**? 
+    * 1% production increase? 
+    * 5% watercut reduction? 
+    * 20% reduction in gas lift injection rate? 
+    * 50% increase in the positive prediction rate of an ESP failure? 
+    * Increasing 25% accuracy of liquid flow rate for a THP/BHFP calculation routine? 
+    * 10% improvement of total production matching? 
+    * Reducing optimization cycle from 3 months to 3 days? Etc.). 
+* Then, after **proving** the small scale project works, show that **scaling it**, and spreading the **technique**, could improve $x$ times if scaling it to  $y$ size with $z_1$ resources at $z_2$ cost increasing the revenues by $z_3$ dollars. 
+
+I have the best of memories from a former manager I had at Petronas, while I was working there as a Production Engineer. He said something that still resonates with me after all these years. He said: 
+
+>  *Alfonso, I don't care about the technology, or software this, or hardware that. What I care is about how much oil gains, how many extra oil barrels, we are getting with that method. At the end of the day, is all that matters! Getting those extra oil barrels.*
