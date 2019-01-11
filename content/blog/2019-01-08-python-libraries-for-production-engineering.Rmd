@@ -9,6 +9,7 @@ categories:
 tags: []
 ---
 
+[![](/img/python_libraries_petroleum-cover.png)](/img/python_libraries_petroleum-cover.png)
 
 Somebody asked me earlier if I know of libraries for Production Engineering written in Python. Meaning, open source code for production engineering, production optimization, artificial lift, or gas lift, specifically.
 
