@@ -32,8 +32,9 @@ body {
 .title-bar,
 .nav-bar button,
 .nav-bar a,
+/* change background color of navigation bar here  */
 .nav-bar ul {
-    background-color: #536878;
+    background-color: 	#006bb3;
     color: #ffffff;
     border: none;
 }

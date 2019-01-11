@@ -1,0 +1,40 @@
+---
+title: Python libraries for Production Engineering
+author: Alfonso R. Reyes
+date: '2019-01-08'
+slug: python-libraries-for-production-engineering
+categories:
+  - python
+  - engineering library
+tags: []
+---
+
+[![](/img/python_libraries_petroleum-cover.png)](/img/python_libraries_petroleum-cover.png)
+
+Somebody asked me earlier if I know of libraries for Production Engineering written in Python. Meaning, open source code for production engineering, production optimization, artificial lift, or gas lift, specifically.
+
+Unfortunately, to my knowledge, there are not open source Python libraries for Production Engineering. Most of the applications or software for optimization and nodal analysis are proprietary requiring fees and and licenses. From that side, the curious petroleum engineer would have to code everything, practically, from scratch.
+
+Then, I thought, why don't we start sharing something. Something that could be used as a foundation for data science, machine learning and later, artificial intelligence agents. 
+
+We may be lucky, depending how you see it. 
+
+I built some libraries for production optimization in Python. I started to look at them lately, and they may serve as a data science foundation for production engineering. I  relied heavily on pretty well known Python packages such as [pandas][pandas], [numpy][numpy], [PyQt][pyqt], [SciPy][scipy], [matplotlib][matplotlib], [pywin32][pywin32], seaborn, and others packages that are also open source. I used three Python environments: WinPython, [Python-xy][pythonxy], and [Anaconda][anaconda]. The one I used the most was [WinPython][winpython] because it is portable and easier to understand, make modifications. move around computers, share with colleagues, or add new packages. I like Anaconda too; it is very sophisticated and I would tend to think that its aim would be advanced level learners.
+
+One of the libraries I developed was the interface to [Petroleum Experts OpenServer][openserver] to be able to communicate to Prosper, GAP  and MBAL. After that, we were able to read and analyze from dozens to hundreds of wells. I started the OpenServer libraries with Excel-VBA but I found very cumbersome to share with colleagues, do version control, or much less serve as a basis of [reproducible data science][reproducible-rules]. I picked Python.
+
+Once the well data, IPR, VLP is in data frame or data tables form is all downhill from there. Sort of. The fun part begins with Exploratory Data Analysis, statistical analysis, and the subsequent discoveries.
+
+In the next days I will start releasing some of those Python libraries in Github. They will open to contributions and pull requests.
+
+
+[pandas]: https://pandas.pydata.org/
+[numpy]: http://www.numpy.org/
+[pyqt]: https://wiki.python.org/moin/PyQt
+[scipy]: https://www.scipy.org/
+[winpython]: http://winpython.sourceforge.net/
+[pythonxy]: https://python-xy.github.io/
+[anaconda]: https://www.anaconda.com/download/
+[openserver]: http://www.petex.com/products/ipm-suite/openserver/
+[reproducible-rules]: https://dataconomy.com/2017/07/10-rules-results-data-science/
+[pywin32]: https://pypi.org/project/pywin32/

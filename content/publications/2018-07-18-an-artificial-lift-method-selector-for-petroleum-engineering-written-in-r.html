@@ -1,0 +1,61 @@
+---
+title: An Artificial Lift Method Selector for Petroleum Engineering written in R
+author: Alfonso R. Reyes
+date: '2018-07-18'
+slug: an-artificial-lift-method-selector-for-petroleum-engineering-written-in-r
+categories:
+  - WebApp
+  - R
+  - artificial lift
+tags: []
+online: https://www.linkedin.com/pulse/artificial-lift-method-selector-petroleum-engineering-reyes/
+---
+
+
+
+<p><a href="/img/artificial_lift_shiny-cover.jpg"><img src="/img/artificial_lift_shiny-cover.jpg" /></a></p>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>Inspired by a post by Fernando Ruiz at LinkedIn on a Artificial Lift tool this morning, I decided to dust off an old workbook with an AL matrix with various design aspects.</p>
+</div>
+<div id="motivation" class="section level1">
+<h1>Motivation</h1>
+<p>The objective of the tool is providing a quick way of analyzing the applicability of the different artificial lift methods. At present, it is not a rigorous application because the criteria is limited by the engineer’s bias. Your oilfield may be a completely different demands as well as totally different design criteria before proceeding to select and deploy an AL system.</p>
+</div>
+<div id="access-to-the-web-based-application" class="section level1">
+<h1>Access to the Web Based Application</h1>
+<p>This Artificial Lift Selection Tool is web based and can be opened in your local browser. It can, of course, also published in a public Shiny server. Here is a link to the live application <a href="https://oil-gains-analytics.shinyapps.io/al_flex/" class="uri">https://oil-gains-analytics.shinyapps.io/al_flex/</a>.</p>
+</div>
+<div id="how-the-sauce-is-made" class="section level1">
+<h1>How the sauce is made</h1>
+<p>The first steps was reading the workbook with R and then convert it to a tidy dataset with the help of the package tidyR. Second, was cleaning up the names of some the criteria values that contained special symbols, such as the degrees circle, the chevrons that sometimes replace the normal text quotes, remove spaces from the columns or variables replacing by dashes, etc. You can see the whole operation in this piece of code:</p>
+<pre><code>insert code here</code></pre>
+<p>At the end or the article, you will find the link to the whole code and data of this application.</p>
+<p>The third step was finding the right type of plot for showing the discoveries brought by the selection tool. I chose a combination of scatter plot, adding segments and finally presenting it with the help of facets. To be honest, I am not totally satisfied yet with this only one plot. Later, I could come up with a better plot or plots.</p>
+<p>The fourth step was making the selection dynamic using selection inputs from R Shiny, a web publication tool from RStudio. I used one of the frameworks provided by Shiny, the simplest one, called flexdashboard. This would be the, in my opinion, within the level of rapid development for an engineer, since it does not require a deep knowledge of coding. Engineers just want results, right?</p>
+<p>The fifth step was putting together the selectors, tidy dataset, the plot, the tables, and some value boxes that summarizes the data. You can see below a screenshot of the Shiny app.</p>
+<p><img src="/img/artificial_lift_shiny_01.jpg" width="800px" /></p>
+</div>
+<div id="inputs-of-the-al-selection-tool" class="section level1">
+<h1>Inputs of the AL Selection Tool</h1>
+<p>The inputs correspond to Artificial Lift methods by various operational Design Aspects. It is not the intention of being a rigorous selection tool since the criteria values are limited in number. See for instance, Casing Size with only two values of 7" and ‘9.625" and larger’, or the Relative Intervention Frequency with only one value.</p>
+<p>The selection tool may grow over time with feedback from the community of petroleum engineers that desire to bring this application to a new level of completeness. It possibly will require adding additional Design Aspects and corresponding evaluation criteria.</p>
+</div>
+<div id="relevance-and-ranking-of-the-al-method" class="section level1">
+<h1>Relevance and Ranking of the AL Method</h1>
+<p><strong>What is Relevance</strong>: The meaning of Relevance in the tool is the popularity or how much the Artificial Method is used in the industry, where high should convey the understanding that the AL method is highly used, while specialty refers to niches of areas of deployment.</p>
+<p><strong>Ranking</strong>: A higher value of the ranking means that the better the AL method will perform under that criteria. The ranking number goes from 1 (lower performance) through 3 (highest).</p>
+</div>
+<div id="al-matrix-datasets" class="section level1">
+<h1>AL Matrix Datasets</h1>
+<p>If you are wondering how the Artificial Lift matrix data looks, this is a screenshot of it:</p>
+<p><img src="/img/artificial_lift_shiny_table_1.jpg" width="800px" /></p>
+<p>This is other table, which corresponds to the tidy dataset, is much different, because the variables or columns, have been “gathered” to conform to the tidy format, which means one column represents only one variable. This is a screenshot of that tidy dataset of the AL matrix:</p>
+<p><img src="/img/artificial_lift_shiny_table_2.jpg" width="800px" /></p>
+<p>You will be able to have access to both datasets in the folder inst/extdata. Both are saved in Excel format for your convenience.</p>
+</div>
+<div id="open-source-github-and-access-to-code" class="section level1">
+<h1>Open Source, GitHub and access to code</h1>
+<p>You can find the code and in the following GitHub repository: <a href="https://github.com/f0nzie/artificial_lift_matrix" class="uri">https://github.com/f0nzie/artificial_lift_matrix</a></p>
+<p>Join me in Twitter: <a href="https://twitter.com/OilGains" class="uri">https://twitter.com/OilGains</a></p>
+</div>
