@@ -1,3 +1,8 @@
+# 0.1.9
+* new posts. new images
+* first post with links to GitHub
+* adding images on top of the article instead of referring to `image:` parameter in the YAML header.
+
 
 # 0.1.8
 * test petro.One with post on gas lift
