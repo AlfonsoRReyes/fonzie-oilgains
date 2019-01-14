@@ -1,0 +1,681 @@
+---
+title: Evolution of data science, machine learning and artificial intelligence in
+  Petroleum Engineering papers
+author: Alfonso R. Reyes
+date: '2019-01-13'
+slug: evolution-of-data-science-machine-learning-and-artificial-intelligence-in-spe-papers
+categories:
+  - paper research
+  - text mining
+tags: []
+online: https://www.linkedin.com/pulse/evolution-data-science-machine-learning-artificial-petroleum-reyes/
+github: https://github.com/f0nzie/evolution_data_science_petroleum_engineering
+---
+
+
+
+<div id="motivation" class="section level2">
+<h2>Motivation</h2>
+<p>I have been lately curious about how the terms <code>data science</code>, <code>machine learning</code> and <code>artificial intelligence</code> evolved over the years in petroleum engineering papers. It is not that machine learning or data science are brand new fields of study; quite the contrary, they have been around for decades, as it has been artificial intelligence.</p>
+</div>
+<div id="procedure" class="section level2">
+<h2>Procedure</h2>
+<p>The current hype is due to (i) the sheer computational power available; (ii) the availability of fast engines in the cloud; (iii) open source software such as Python, R, Octave, Hadoop, Spark, Scala, MongoDB, Javascript, VirtualBox, containerization tools; (iv) an operating system that runs under all platforms Unix/Linux and different microprocessor architectures;; (v) the almost-free online education by some of the best professors in the world; (vi) and the dissemination of knowledge through the internet (books, papers, articles). It all have commingled at the right time, at the right places (everywhere).</p>
+<p>Initially, I will do the search using the R package <a href="https://cran.rstudio.com/web/packages/petro.One/index.html">petro.One</a> - that I have updated few days ago (thanks, William “Bill” Donovan for your inquiries)-, while on a quest for finding the right papers given few keywords on the subject.</p>
+<p>I will not give an opinion on what the trends mean for the moment. Let’s see the numbers to sink in for couple of days. Besides, I might not have come with all the right keywords for this quick study.</p>
+<p>Can you think of keywords relevant to the matter in discussion?</p>
+<p>I will start with the broad terms of the moment: <code>artificial intelligence</code>, <code>machine learning</code> and <code>data science</code>. From there, we could try some combinations, precursors and derivatives of the terms, and we’ll see what is the trend.</p>
+<p>The number of papers is on <strong>y-axis</strong>, the year on the <strong>x-axis</strong>. I am using a <a href="https://rmarkdown.rstudio.com/">Rmarkdown</a> notebook for this article; <a href="https://cloud.r-project.org/">R version 3.5.2</a> and <a href="https://www.rstudio.com/products/rstudio/download/preview/">RStudio 1.2.1226</a>. To get the data, I am interrogating the <a href="https://www.onepetro.org/">OnePetro</a> website. The R package I wrote, petro.One, simplifies the search by extracting the papers in multiples of one thousand (the maximum allowed by OnePetro), and creates the corresponding datasets in the shape of tables. You can take a look at the petro.One website <a href="https://github.com/f0nzie/petro.One">here</a>.</p>
+</div>
+<div id="artificial-intelligence" class="section level2">
+<h2>Artificial Intelligence</h2>
+<ul>
+<li><p>First, what year do you see mentions of the keyword -the whole term “artificial intelligence” (we are not looking for separate words), or starts being used in petroleum engineering papers?</p></li>
+<li><p>When do we see a fast increment on papers with mentions of <code>artificial intelligence</code>?</p></li>
+<li><p>Do we see a peak?</p></li>
+<li><p>Is the trend ascendant or descendant?</p></li>
+</ul>
+<pre class="r"><code># artificial intelligence
+library(petro.One)
+library(dplyr)
+library(ggplot2)
+
+# provide two different set of keywords to combine as vectors
+major   &lt;- c(&quot;artificial intelligence&quot;)
+
+results_ai &lt;- run_papers_search(major, 
+                             get_papers = TRUE,       # return with papers
+                             verbose = FALSE,         # show progress
+                             len_keywords = 4,        # naming the data file
+                             allow_duplicates = FALSE) # by paper title and id
+#&gt; 
+#&gt; NULL
+
+(papers_ai &lt;- results_ai$papers)
+#&gt; # A tibble: 2,786 x 7
+#&gt;    book_title       paper_id  dc_type  authors         year source keyword 
+#&gt;    &lt;fct&gt;            &lt;fct&gt;     &lt;fct&gt;    &lt;chr&gt;          &lt;int&gt; &lt;fct&gt;  &lt;chr&gt;   
+#&gt;  1 Artificial Inte~ SPE-1928~ confere~ Hojageldiyev,~  2018 SPE    &#39;artifi~
+#&gt;  2 Production Moni~ SPE-1495~ confere~ Olivares Vela~  2012 SPE    &#39;artifi~
+#&gt;  3 Artificial Inte~ SPE-1915~ confere~ Gupta, Supriy~  2018 SPE    &#39;artifi~
+#&gt;  4 Multilateral We~ SPE-1836~ confere~ Buhulaigah, A~  2017 SPE    &#39;artifi~
+#&gt;  5 Profiling Downh~ SPE-1734~ confere~ AlAjmi, Moham~  2015 SPE    &#39;artifi~
+#&gt;  6 Artificial Inte~ SEG-1992~ confere~ Guo, Yi, Cent~  1992 SEG    &#39;artifi~
+#&gt;  7 Artificial Inte~ SPE-1695~ confere~ Shahkarami, A~  2014 SPE    &#39;artifi~
+#&gt;  8 Forecasting Inc~ ASSE-07-~ confere~ Al-Mutairi, A~  2007 ASSE   &#39;artifi~
+#&gt;  9 Application of ~ SPE-1590~ general  Gangopadhyay,~  1986 SPE    &#39;artifi~
+#&gt; 10 Industrial Appl~ PETSOC-9~ confere~ Cercone, N., ~  1995 PETSOC &#39;artifi~
+#&gt; # ... with 2,776 more rows
+
+# plot on AI by year of publication
+papers_ai %&gt;% 
+    group_by(year) %&gt;% 
+    na.omit() %&gt;% 
+    summarize(n = n()) %&gt;% 
+    {. -&gt;&gt; papers_ai_by} %&gt;% 
+    ggplot(., aes(x = year, y = n)) +
+    geom_point() +
+    geom_smooth(method = &quot;loess&quot;) +
+    labs(title = &quot;&#39;Artificial Intelligence&#39; papers by Year&quot;)</code></pre>
+<p><img src="/publications/2019-01-13-evolution-of-data-science-machine-learning-and-artificial-intelligence-in-spe-papers_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="computational-intelligence" class="section level3">
+<h3>Computational Intelligence</h3>
+<p><code>Computational Intelligence</code> is another term that have seen frequently used by scholars instead of artificial intelligence. Some of them think that there is no artificial intelligence but that originated from computers. Makes sense. Unless we are talking of biological duplication of human intelligence. You will see the term computational intelligence in books and papers outside petroleum engineering.</p>
+<pre class="r"><code># computational intelligence
+library(petro.One)
+library(dplyr)
+library(ggplot2)
+
+# provide two different set of keywords to combine as vectors
+major   &lt;- c(&quot;computational intelligence&quot;)
+
+results_ci &lt;- run_papers_search(major, 
+                             get_papers = TRUE,       # return with papers
+                             verbose = FALSE,         # show progress
+                             len_keywords = 4,        # naming the data file
+                             allow_duplicates = FALSE) # by paper title and id
+#&gt; 
+#&gt; NULL
+
+(papers_ci &lt;- results_ci$papers)
+#&gt; # A tibble: 222 x 7
+#&gt;    book_title        paper_id  dc_type authors        year source keyword  
+#&gt;    &lt;fct&gt;             &lt;fct&gt;     &lt;fct&gt;   &lt;chr&gt;         &lt;int&gt; &lt;fct&gt;  &lt;chr&gt;    
+#&gt;  1 Missing Wind Spe~ ISOPE-I-~ confer~ Panapakidis,~  2016 ISOPE  &#39;computa~
+#&gt;  2 Prediction of Po~ SPE-1266~ confer~ Anifowose, F~  2010 SPE    &#39;computa~
+#&gt;  3 Advances in Hybr~ SPE-1609~ confer~ Anifowose, F~  2012 SPE    &#39;computa~
+#&gt;  4 Ensemble Machine~ SPE-1681~ confer~ Anifowose, F~  2013 SPE    &#39;computa~
+#&gt;  5 Utilizing State ~ SPE-1923~ confer~ Khan, Mohamm~  2018 SPE    &#39;computa~
+#&gt;  6 An Automated Flo~ SPE-1921~ confer~ Tariq, Zeesh~  2018 SPE    &#39;computa~
+#&gt;  7 Prediction of °A~ SPE-1843~ journa~ Goel, Purva,~  2017 SPE    &#39;computa~
+#&gt;  8 Maximizing Oil R~ SPE-1956~ confer~ Khan, Mohamm~  2018 SPE    &#39;computa~
+#&gt;  9 Fracture Optimiz~ SPE-3734~ confer~ Mohaghegh, S~  1996 SPE    &#39;computa~
+#&gt; 10 A Multidisciplin~ SPE-4999~ confer~ Chen, L., RI~  1998 SPE    &#39;computa~
+#&gt; # ... with 212 more rows
+
+# plot on CI by year of publication
+papers_ci %&gt;% 
+    group_by(year) %&gt;% 
+    na.omit() %&gt;% 
+    summarize(n = n()) %&gt;% 
+    {. -&gt;&gt; papers_ci_by} %&gt;% 
+    ggplot(., aes(x = year, y = n)) +
+    geom_point() +
+    geom_smooth(method = &quot;loess&quot;) +
+    labs(title = &quot;Computational Intelligence papers by Year&quot;)</code></pre>
+<p><img src="/publications/2019-01-13-evolution-of-data-science-machine-learning-and-artificial-intelligence-in-spe-papers_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="intelligence" class="section level3">
+<h3>Intelligence</h3>
+<p>We humans have been very passionate about bringing about certains forms of intelligence. From ancient times we were just looking to replace humans in certain repetitive tasks. We could safely says that the endeavor is 3000 years old. Plato and Aristoteles are mentioned in literature on the origins of AI, but really goes further back in time if we investigate other civilizations.</p>
+<pre class="r"><code># intelligence
+library(petro.One)
+library(dplyr)
+library(ggplot2)
+
+# provide two different set of keywords to combine as vectors
+major   &lt;- c(&quot;intelligence&quot;, &quot;intelligent&quot;)
+
+results_ii &lt;- run_papers_search(major, 
+                             get_papers = TRUE,       # return with papers
+                             verbose = FALSE,         # show progress
+                             len_keywords = 4,        # naming the data file
+                             allow_duplicates = FALSE) # by paper title and id
+#&gt; 
+#&gt; NULL
+
+(papers_ii &lt;- results_ii$papers)
+#&gt; # A tibble: 12,195 x 7
+#&gt;    book_title        paper_id  dc_type  authors         year source keyword
+#&gt;    &lt;fct&gt;             &lt;fct&gt;     &lt;fct&gt;    &lt;chr&gt;          &lt;int&gt; &lt;fct&gt;  &lt;chr&gt;  
+#&gt;  1 Video:          ~ OTC-2516~ present~ Stalford, Har~  2014 OTC    &#39;intel~
+#&gt;  2 Intelligent Casi~ OTC-2516~ confere~ Stalford, Har~  2014 OTC    &#39;intel~
+#&gt;  3 Networking Intel~ SPE-1001~ journal~ Denney, Denni~  2001 SPE    &#39;intel~
+#&gt;  4 Intelligently Us~ SPE-0408~ journal~ Schorn, Patri~  2008 SPE    &#39;intel~
+#&gt;  5 Intelligent Pipe~ NACE-072~ confere~ Gu, P., CANME~  2007 NACE   &#39;intel~
+#&gt;  6 Intelligent Stra~ SPE-1121~ confere~ Rangnow, Darr~  2008 SPE    &#39;intel~
+#&gt;  7 Intelligent Well~ SPE-8099~ journal~ Robinson, Mik~  2003 SPE    &#39;intel~
+#&gt;  8 Intelligent Sand~ SPE-9881~ confere~ Oyeneyin, M. ~  2005 SPE    &#39;intel~
+#&gt;  9 ESPs and Intelli~ SPE-7765~ confere~ Konopczynski,~  2002 SPE    &#39;intel~
+#&gt; 10 Intelligent-Dril~ SPE-0505~ journal~ Bybee, Karen,~  2005 SPE    &#39;intel~
+#&gt; # ... with 12,185 more rows
+
+# plot on II by year of publication
+papers_ii %&gt;% 
+    group_by(year) %&gt;% 
+    na.omit() %&gt;% 
+    summarize(n = n()) %&gt;% 
+    {. -&gt;&gt; papers_ii_by} %&gt;% 
+    ggplot(., aes(x = year, y = n)) +
+    geom_point() +
+    geom_smooth(method = &quot;loess&quot;) +
+    labs(title = &quot;On `Intelligence` papers by Year&quot;)</code></pre>
+<p><img src="/publications/2019-01-13-evolution-of-data-science-machine-learning-and-artificial-intelligence-in-spe-papers_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="machine-learning" class="section level2">
+<h2>Machine Learning</h2>
+<p><code>Machine Learning</code> is a term of more recent origin. We can tell just by looking at <code>linear</code>regression` as one of the most used or common machine learning algorithm, notwithstanding that liner regression has been around hundreds of years.</p>
+<p>So the joke goes:</p>
+<blockquote>
+<p>if you can run a linear regression
+then you are doing machine learning.
+Therefore, you are in the artificial intelligence business.</p>
+</blockquote>
+<p>:) You know that something is not right!</p>
+<pre class="r"><code># machine learning
+library(petro.One)
+library(dplyr)
+library(ggplot2)
+
+# provide two different set of keywords to combine as vectors
+major   &lt;- c(&quot;machine learning&quot;)
+
+results_ml &lt;- run_papers_search(major, 
+                             get_papers = TRUE,       # return with papers
+                             verbose = FALSE,         # show progress
+                             len_keywords = 4,        # naming the data file
+                             allow_duplicates = FALSE) # by paper title and id
+#&gt; 
+#&gt; NULL
+
+(papers_ml &lt;- results_ml$papers)
+#&gt; # A tibble: 1,677 x 7
+#&gt;    book_title       paper_id  dc_type  authors         year source keyword 
+#&gt;    &lt;fct&gt;            &lt;fct&gt;     &lt;fct&gt;    &lt;chr&gt;          &lt;int&gt; &lt;fct&gt;  &lt;chr&gt;   
+#&gt;  1 Mooring Integri~ OTC-2786~ confere~ Prislin, Igor~  2017 OTC    &#39;machin~
+#&gt;  2 Machine learnin~ SEG-2017~ confere~ Smith, Kennet~  2017 SEG    &#39;machin~
+#&gt;  3 Machine-learnin~ SEG-2018~ confere~ Maniar, Hiren~  2018 SEG    &#39;machin~
+#&gt;  4 Machine Learnin~ OTC-2863~ confere~ Pollock, Jaco~  2018 OTC    &#39;machin~
+#&gt;  5 Data Driven Pro~ SPE-1809~ confere~ Cao, Q., Schl~  2016 SPE    &#39;machin~
+#&gt;  6 Shale Discrimin~ ARMA-201~ confere~ Hoeink, T., B~  2017 ARMA   &#39;machin~
+#&gt;  7 Predicting ESP ~ URTEC-26~ confere~ Sneed, Jessam~  2017 URTEC  &#39;machin~
+#&gt;  8 Seismic trace e~ SEG-2018~ confere~ Shen, Yang, U~  2018 SEG    &#39;machin~
+#&gt;  9 Smart Condition~ SPE-1879~ confere~ Bangert, Patr~  2017 SPE    &#39;machin~
+#&gt; 10 Using Machine L~ OTC-2858~ confere~ Snøtun, Håkon~  2018 OTC    &#39;machin~
+#&gt; # ... with 1,667 more rows
+
+# plot on ML by year of publication
+papers_ml %&gt;% 
+    group_by(year) %&gt;% 
+    na.omit() %&gt;% 
+    summarize(n = n()) %&gt;% 
+    {. -&gt;&gt; papers_ml_by} %&gt;% 
+    ggplot(., aes(x = year, y = n)) +
+    geom_point() +
+    geom_smooth(method = &quot;loess&quot;) +
+    labs(title = &quot;Papers on &#39;Machine Learning&#39; by Year&quot;)</code></pre>
+<p><img src="/publications/2019-01-13-evolution-of-data-science-machine-learning-and-artificial-intelligence-in-spe-papers_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="algorithm" class="section level3">
+<h3>Algorithm</h3>
+<p>This is another keyword of common use these days. Machine Learning is about algorithms.</p>
+<pre class="r"><code># algorithm
+library(petro.One)
+library(dplyr)
+library(ggplot2)
+
+# provide two different set of keywords to combine as vectors
+major   &lt;- c(&quot;algorithm&quot;)
+
+results_algo &lt;- run_papers_search(major, 
+                             get_papers = TRUE,       # return with papers
+                             verbose = FALSE,         # show progress
+                             len_keywords = 4,        # naming the data file
+                             allow_duplicates = FALSE) # by paper title and id
+#&gt; 
+#&gt; NULL
+
+(papers_algo &lt;- results_algo$papers)
+#&gt; # A tibble: 32,406 x 7
+#&gt;    book_title        paper_id  dc_type  authors         year source keyword
+#&gt;    &lt;fct&gt;             &lt;fct&gt;     &lt;fct&gt;    &lt;chr&gt;          &lt;int&gt; &lt;fct&gt;  &lt;chr&gt;  
+#&gt;  1 A Hybrid Refract~ SEG-1988~ confere~ Diggins, Chuc~  1988 SEG    &#39;algor~
+#&gt;  2 Fast Ray-tracing~ SEG-1990~ confere~ Zhao, Gaishan~  1990 SEG    &#39;algor~
+#&gt;  3 A New Seismic Co~ SEG-2012~ confere~ Chuai, Xiaoyu~  2012 SEG    &#39;algor~
+#&gt;  4 Fast 3-D Inversi~ SEG-1997~ confere~ Singer, Bensi~  1997 SEG    &#39;algor~
+#&gt;  5 Design Applicati~ SPE-2636~ confere~ Jefferys, E.R~  1993 SPE    &#39;algor~
+#&gt;  6 Robust Internal ~ SEG-2011~ confere~ Wu, Zhiming J~  2011 SEG    &#39;algor~
+#&gt;  7 Parallel Nested ~ SPE-2524~ confere~ Maksimov, M.M~  1993 SPE    &#39;algor~
+#&gt;  8 Higher-order Sta~ SEG-2003~ confere~ Lu, Wenkai, T~  2003 SEG    &#39;algor~
+#&gt;  9 3D Migration Vel~ SEG-1997~ confere~ Perrot, Julie~  1997 SEG    &#39;algor~
+#&gt; 10 Seismic-acoustic~ SEG-2010~ confere~ Aldridge, Dav~  2010 SEG    &#39;algor~
+#&gt; # ... with 32,396 more rows
+
+# plot on algos by year of publication
+papers_algo %&gt;% 
+    group_by(year) %&gt;% 
+    na.omit() %&gt;% 
+    summarize(n = n()) %&gt;% 
+    {. -&gt;&gt; papers_algo_by} %&gt;% 
+    ggplot(., aes(x = year, y = n)) +
+    geom_point() +
+    geom_smooth(method = &quot;loess&quot;) +
+    labs(title = &quot;Papers using the term &#39;Algorithm&#39; by Year&quot;)</code></pre>
+<p><img src="/publications/2019-01-13-evolution-of-data-science-machine-learning-and-artificial-intelligence-in-spe-papers_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># predictive analytics
+library(petro.One)
+library(dplyr)
+library(ggplot2)
+
+# provide two different set of keywords to combine as vectors
+major   &lt;- c(&quot;predictive analytics&quot;)
+
+results_pa &lt;- run_papers_search(major, 
+                             get_papers = TRUE,       # return with papers
+                             verbose = FALSE,         # show progress
+                             len_keywords = 4,        # naming the data file
+                             allow_duplicates = FALSE) # by paper title and id
+#&gt; 
+#&gt; NULL
+
+(papers_pa &lt;- results_pa$papers)
+#&gt; # A tibble: 520 x 7
+#&gt;    book_title        paper_id  dc_type  authors        year source keyword 
+#&gt;    &lt;fct&gt;             &lt;fct&gt;     &lt;fct&gt;    &lt;chr&gt;         &lt;int&gt; &lt;fct&gt;  &lt;chr&gt;   
+#&gt;  1 Introducing Pred~ SPE-1068~ confere~ Stone, Paul,~  2007 SPE    &#39;predic~
+#&gt;  2 Machinery Predic~ SPE-1285~ confere~ Rawi, Zaid, ~  2010 SPE    &#39;predic~
+#&gt;  3 The Next Game Ch~ ASSE-15-~ confere~ Lisk, Del, L~  2015 ASSE   &#39;predic~
+#&gt;  4 Predictive Analy~ SPE-1287~ confere~ Snyder, Tim,~  2010 SPE    &#39;predic~
+#&gt;  5 Predictive Analy~ SPE-1534~ confere~ Holdaway, Ke~  2012 SPE    &#39;predic~
+#&gt;  6 Predictive Analy~ NACE-201~ confere~ Crompton, An~  2014 NACE   &#39;predic~
+#&gt;  7 Enhancing Well-W~ SPE-1015~ journal~ Wilson, Adam~  2015 SPE    &#39;predic~
+#&gt;  8 Enhancing Wellwo~ SPE-1678~ confere~ Sidahmed, Mo~  2014 SPE    &#39;predic~
+#&gt;  9 ESP Health Monit~ SPE-1810~ confere~ Gupta, Supri~  2016 SPE    &#39;predic~
+#&gt; 10 Data Mining and ~ SPE-1637~ confere~ Bailey, Rich~  2013 SPE    &#39;predic~
+#&gt; # ... with 510 more rows
+
+# plot on algos by year of publication
+papers_pa %&gt;% 
+    group_by(year) %&gt;% 
+    na.omit() %&gt;% 
+    summarize(n = n()) %&gt;% 
+    {. -&gt;&gt; papers_pa_by} %&gt;% 
+    ggplot(., aes(x = year, y = n)) +
+    geom_point() +
+    geom_smooth(method = &quot;loess&quot;) +
+    labs(title = &quot;Papers using the term &#39;Predictive Analytics&#39; by Year&quot;)</code></pre>
+<p><img src="/publications/2019-01-13-evolution-of-data-science-machine-learning-and-artificial-intelligence-in-spe-papers_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># statistical model
+library(petro.One)
+library(dplyr)
+library(ggplot2)
+
+# provide two different set of keywords to combine as vectors
+major   &lt;- c(&quot;statistical model&quot;)
+
+results_sm &lt;- run_papers_search(major, 
+                             get_papers = TRUE,       # return with papers
+                             verbose = FALSE,         # show progress
+                             len_keywords = 4,        # naming the data file
+                             allow_duplicates = FALSE) # by paper title and id
+#&gt; 
+#&gt; NULL
+
+(papers_sm &lt;- results_sm$papers)
+#&gt; # A tibble: 853 x 7
+#&gt;    book_title        paper_id   dc_type authors        year source keyword 
+#&gt;    &lt;fct&gt;             &lt;fct&gt;      &lt;fct&gt;   &lt;chr&gt;         &lt;int&gt; &lt;fct&gt;  &lt;chr&gt;   
+#&gt;  1 Evaluating Resou~ SPE-10743~ confer~ Hall, Russel~  2007 SPE    &#39;statis~
+#&gt;  2 Statistical mode~ ARMA-92-0~ confer~ Blair, Steph~  1992 ARMA   &#39;statis~
+#&gt;  3 Statistical Mode~ SPE-11334~ confer~ Ghazanfari, ~  2008 SPE    &#39;statis~
+#&gt;  4 Statistical Mode~ SPE-11334~ journa~ Ghazanfari, ~  2010 SPE    &#39;statis~
+#&gt;  5 A Statistical Mo~ ISRM-5CON~ confer~ Weber, Ph., ~  1983 ISRM   &#39;statis~
+#&gt;  6 Developments in ~ SPE-89137~ journa~ Woodhouse, R~  2005 SPE    &#39;statis~
+#&gt;  7 Landslide Suscep~ ISRM-VIET~ confer~ Nguyen, Quoc~  2015 ISRM   &#39;statis~
+#&gt;  8 Generalized Stat~ SPE-14528~ general Jenkins, D.C~  1985 SPE    &#39;statis~
+#&gt;  9 Improved Uncerta~ SPE-14519~ journa~ Sætrom, Jon,~  2012 SPE    &#39;statis~
+#&gt; 10 A Statistical Mo~ PETSOC-89~ journa~ Papst, W., G~  1989 PETSOC &#39;statis~
+#&gt; # ... with 843 more rows
+
+# plot on algos by year of publication
+papers_sm %&gt;% 
+    group_by(year) %&gt;% 
+    na.omit() %&gt;% 
+    summarize(n = n()) %&gt;% 
+    {. -&gt;&gt; papers_sm_by} %&gt;% 
+    ggplot(., aes(x = year, y = n)) +
+    geom_point() +
+    geom_smooth(method = &quot;loess&quot;) +
+    labs(title = &quot;Papers using the term &#39;Predictive Analytics&#39; by Year&quot;)</code></pre>
+<p><img src="/publications/2019-01-13-evolution-of-data-science-machine-learning-and-artificial-intelligence-in-spe-papers_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="data-science" class="section level2">
+<h2>Data Science</h2>
+<p>This is where the fun starts. No machine learning or artificial intelligence effort is possible without the application of data science. No dataset, no ML. No ML algorithm, no AI. Pretty simple.</p>
+<pre class="r"><code># data science
+library(petro.One)
+library(dplyr)
+library(ggplot2)
+
+# provide two different set of keywords to combine as vectors
+major   &lt;- c(&quot;data science&quot;)
+
+results_ds &lt;- run_papers_search(major, 
+                             get_papers = TRUE,       # return with papers
+                             verbose = FALSE,         # show progress
+                             len_keywords = 4,        # naming the data file
+                             allow_duplicates = FALSE) # by paper title and id
+#&gt; 
+#&gt; NULL
+
+(papers_ds &lt;- results_ds$papers)
+#&gt; # A tibble: 178 x 7
+#&gt;    book_title        paper_id  dc_type  authors         year source keyword
+#&gt;    &lt;fct&gt;             &lt;fct&gt;     &lt;fct&gt;    &lt;chr&gt;          &lt;int&gt; &lt;fct&gt;  &lt;chr&gt;  
+#&gt;  1 Application of D~ OTC-2863~ confere~ Pankaj, Piyus~  2018 OTC    &#39;data+~
+#&gt;  2 Video:          ~ OTC-2863~ present~ Pankaj, Piyus~  2018 OTC    &#39;data+~
+#&gt;  3 Applying Subsurf~ SPE-1898~ confere~ Silva, J., An~  2018 SPE    &#39;data+~
+#&gt;  4 Video:          ~ SPE-1914~ present~ Wen, Tailai, ~  2018 SPE    &#39;data+~
+#&gt;  5 An Integrated Pl~ SPE-1914~ confere~ Wen, Tailai, ~  2018 SPE    &#39;data+~
+#&gt;  6 Data Drilling: C~ SPE-1734~ confere~ Caldwell, Bri~  2015 SPE    &#39;data+~
+#&gt;  7 Time To Enlist i~ SPE-0618~ journal~ Rassenfoss, S~  2018 SPE    &#39;data+~
+#&gt;  8 Utilizing a Data~ SPE-1914~ confere~ Olaoye, Olubi~  2018 SPE    &#39;data+~
+#&gt;  9 Detecting Failur~ SPE-1900~ confere~ Pennel, Mike,~  2018 SPE    &#39;data+~
+#&gt; 10 Technology Focus~ SPE-0218~ journal~ Lee, Heejae, ~  2018 SPE    &#39;data+~
+#&gt; # ... with 168 more rows
+
+# plot on DS by year of publication
+papers_ds %&gt;% 
+    group_by(year) %&gt;% 
+    na.omit() %&gt;% 
+    summarize(n = n()) %&gt;% 
+    {. -&gt;&gt; papers_ds_by} %&gt;% 
+    ggplot(., aes(x = year, y = n)) +
+    geom_point() +
+    geom_smooth(method = &quot;loess&quot;) +
+    labs(title = &quot;Papers on Data Science by Year&quot;)</code></pre>
+<p><img src="/publications/2019-01-13-evolution-of-data-science-machine-learning-and-artificial-intelligence-in-spe-papers_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="precursors-derivatives-of-data-science" class="section level3">
+<h3>Precursors, derivatives of “data science”</h3>
+<p>Data Science is a relatively new term; there are other that have been widely used in SPE papers, such “data driven”, “data-driven”, “data-driven analytics”, “data analysis”, etc.</p>
+<p>The <code>data-driven</code> terms has been profusely present in petroleum engineering papers.</p>
+<pre class="r"><code># data driven
+library(petro.One)
+library(dplyr)
+library(ggplot2)
+
+# provide two different set of keywords to combine as vectors
+major   &lt;- c(&quot;data driven&quot;, &quot;data-driven&quot;)
+
+results_dd &lt;- run_papers_search(major, 
+                             get_papers = TRUE,       # return with papers
+                             verbose = TRUE,         # show progress
+                             len_keywords = 4,        # naming the data file
+                             allow_duplicates = FALSE) # by paper title and id
+#&gt; 
+#&gt;   1  2205 &#39;data+driven&#39;                                                
+#&gt;   2  2205 &#39;data-driven&#39;                                                
+#&gt; NULL
+
+(papers_dd &lt;- results_dd$papers)
+#&gt; # A tibble: 2,207 x 7
+#&gt;    book_title        paper_id  dc_type  authors         year source keyword
+#&gt;    &lt;fct&gt;             &lt;fct&gt;     &lt;fct&gt;    &lt;chr&gt;          &lt;int&gt; &lt;fct&gt;  &lt;chr&gt;  
+#&gt;  1 Geology-constrai~ SEG-2017~ confere~ Espinoza, Car~  2017 SEG    &#39;data-~
+#&gt;  2 Data Driven Prod~ SPE-1809~ confere~ Cao, Q., Schl~  2016 SPE    &#39;data-~
+#&gt;  3 Inversion Based ~ SEG-2014~ confere~ Wang, Benfeng~  2014 SEG    &#39;data-~
+#&gt;  4 On the Accuracy ~ SEG-2011~ confere~ Shaw, Simon A~  2011 SEG    &#39;data-~
+#&gt;  5 Applying Data-Dr~ SPE-1816~ confere~ Jia, Xinli, H~  2016 SPE    &#39;data-~
+#&gt;  6 Real Time Surfac~ SPE-1917~ confere~ Zha, Yang, Co~  2018 SPE    &#39;data-~
+#&gt;  7 Predictive Analy~ SPE-1534~ confere~ Holdaway, Kei~  2012 SPE    &#39;data-~
+#&gt;  8 A Data-Driven Mo~ SPE-0416~ journal~ Carpenter, Ch~  2016 SPE    &#39;data-~
+#&gt;  9 Data-Driven Prod~ SPE-1015~ journal~ Carpenter, Ch~  2015 SPE    &#39;data-~
+#&gt; 10 Data-Driven Tech~ SPE-0118~ journal~ Wilson, Adam,~  2018 SPE    &#39;data-~
+#&gt; # ... with 2,197 more rows
+
+# plot on DD by year of publication
+papers_dd %&gt;% 
+    group_by(year) %&gt;% 
+    na.omit() %&gt;% 
+    summarize(n = n()) %&gt;% 
+    {. -&gt;&gt; papers_dd_by} %&gt;% 
+    ggplot(., aes(x = year, y = n)) +
+    geom_point() +
+    geom_smooth(method = &quot;loess&quot;) +
+    labs(title = &quot;Papers on Data Driven by Year&quot;)</code></pre>
+<p><img src="/publications/2019-01-13-evolution-of-data-science-machine-learning-and-artificial-intelligence-in-spe-papers_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="analytics" class="section level3">
+<h3>Analytics</h3>
+<p><code>Analytics</code> is one of the preffered terms in the media, press, and also in some paper studies. Sounds kind of nice and “sciency”.</p>
+<pre class="r"><code># analytics
+library(petro.One)
+library(dplyr)
+library(ggplot2)
+
+# provide two different set of keywords to combine as vectors
+major   &lt;- c(&quot;analytics&quot;)
+
+results_an &lt;- run_papers_search(major, 
+                             get_papers = TRUE,       # return with papers
+                             verbose = TRUE,         # show progress
+                             len_keywords = 4,        # naming the data file
+                             allow_duplicates = FALSE) # by paper title and id
+#&gt; 
+#&gt;   1 15807 &#39;analytics&#39;                                                  
+#&gt; NULL
+
+(papers_an &lt;- results_an$papers)
+#&gt; # A tibble: 15,806 x 7
+#&gt;    book_title       paper_id  dc_type  authors          year source keyword
+#&gt;    &lt;fct&gt;            &lt;fct&gt;     &lt;fct&gt;    &lt;chr&gt;           &lt;int&gt; &lt;fct&gt;  &lt;chr&gt;  
+#&gt;  1 Introducing Pre~ SPE-1068~ confere~ Stone, Paul, BP  2007 SPE    &#39;analy~
+#&gt;  2 Machinery Predi~ SPE-1285~ confere~ Rawi, Zaid, BP   2010 SPE    &#39;analy~
+#&gt;  3 Analytics Appli~ SPE-1734~ confere~ Anders, Joe, B~  2015 SPE    &#39;analy~
+#&gt;  4 SUPPLEMENTARY/S~ SPE-1734~ media    &quot;&quot;                 NA &lt;NA&gt;   &#39;analy~
+#&gt;  5 Analytics Beyon~ SPE-1637~ confere~ Sandlin, Jesse~  2013 SPE    &#39;analy~
+#&gt;  6 Improved Steamf~ SPE-9787~ journal~ Chandra, Suand~  2007 SPE    &#39;analy~
+#&gt;  7 Improved Steamf~ SPE-9787~ confere~ Chandra, Suand~  2005 SPE    &#39;analy~
+#&gt;  8 Technology Focu~ SPE-1016~ journal~ Saputelli, Lui~  2016 SPE    &#39;analy~
+#&gt;  9 Time To Enlist ~ SPE-0618~ journal~ Rassenfoss, St~  2018 SPE    &#39;analy~
+#&gt; 10 Analytical Meth~ SPE-8351~ confere~ Lerma, M.K. Va~  2003 SPE    &#39;analy~
+#&gt; # ... with 15,796 more rows
+
+# plot on &#39;analytics&#39; by year of publication
+papers_an %&gt;% 
+    group_by(year) %&gt;% 
+    na.omit() %&gt;% 
+    summarize(n = n()) %&gt;% 
+    {. -&gt;&gt; papers_an_by} %&gt;% 
+    ggplot(., aes(x = year, y = n)) +
+    geom_point() +
+    geom_smooth(method = &quot;loess&quot;) +
+    labs(title = &quot;Papers on &#39;Analytics&#39; by Year&quot;)</code></pre>
+<p><img src="/publications/2019-01-13-evolution-of-data-science-machine-learning-and-artificial-intelligence-in-spe-papers_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="data-analytics" class="section level2">
+<h2>Data Analytics</h2>
+<p><code>Data Analytics</code> is another term that is used as an equivalent of <code>data science</code>. They may not have the same meaning for different authors or companies, but let’s assume for the moment they are practically the same. Personally, I think they are not. You don’t say, for instance, I am going to study “data analytics”. Do you?</p>
+<pre class="r"><code># data analytics
+library(petro.One)
+library(dplyr)
+library(ggplot2)
+
+# provide two different set of keywords to combine as vectors
+major   &lt;- c(&quot;data analytics&quot;)
+
+results_da &lt;- run_papers_search(major, 
+                             get_papers = TRUE,       # return with papers
+                             verbose = TRUE,         # show progress
+                             len_keywords = 4,        # naming the data file
+                             allow_duplicates = FALSE) # by paper title and id
+#&gt; 
+#&gt;   1   728 &#39;data+analytics&#39;                                             
+#&gt; NULL
+
+(papers_da &lt;- results_da$papers)
+#&gt; # A tibble: 728 x 7
+#&gt;    book_title        paper_id  dc_type  authors         year source keyword
+#&gt;    &lt;fct&gt;             &lt;fct&gt;     &lt;fct&gt;    &lt;chr&gt;          &lt;int&gt; &lt;fct&gt;  &lt;chr&gt;  
+#&gt;  1 Technology Focus~ SPE-1016~ journal~ Saputelli, Lu~  2016 SPE    &#39;data+~
+#&gt;  2 Tapping the Valu~ SPE-1216~ journal~ Mehta, Amit, ~  2016 SPE    &#39;data+~
+#&gt;  3 Technology Focus~ SPE-1017~ journal~ Saputelli, Lu~  2017 SPE    &#39;data+~
+#&gt;  4 Big Data Analyti~ SPE-1861~ confere~ Xiao, Jie, Ho~  2017 SPE    &#39;data+~
+#&gt;  5 Advanced Big Dat~ SPE-1800~ confere~ Tarrahi, Moha~  2016 SPE    &#39;data+~
+#&gt;  6 Big Data Analyti~ SPE-1810~ confere~ von Plate, Mo~  2016 SPE    &#39;data+~
+#&gt;  7 Technology Focus~ SPE-1018~ journal~ Saputelli, Lu~  2018 SPE    &#39;data+~
+#&gt;  8 Real-Time Bit We~ SPE-1874~ confere~ Lakhanpal, Vi~  2017 SPE    &#39;data+~
+#&gt;  9 An Integrated Sy~ SPE-1810~ confere~ Alsalama, Ahm~  2016 SPE    &#39;data+~
+#&gt; 10 Reservoir Health~ SPE-1928~ confere~ Al Marzouqi, ~  2018 SPE    &#39;data+~
+#&gt; # ... with 718 more rows
+
+# plot on DA by year of publication
+papers_da %&gt;% 
+    group_by(year) %&gt;% 
+    na.omit() %&gt;% 
+    summarize(n = n()) %&gt;% 
+    {. -&gt;&gt; papers_da_by} %&gt;% 
+    ggplot(., aes(x = year, y = n)) +
+    geom_point() +
+    geom_smooth(method = &quot;loess&quot;) +
+    labs(title = &quot;Papers on &#39;Data Analytics&#39; by Year&quot;)</code></pre>
+<p><img src="/publications/2019-01-13-evolution-of-data-science-machine-learning-and-artificial-intelligence-in-spe-papers_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="discussion" class="section level2">
+<h2>Discussion</h2>
+<p>There you go. Some data and some plots to start the discussion.</p>
+<p>As in data science, is all addressing questions. A business question.</p>
+<p>What do you notice about the evolution of the terminology? How recent are they? Which is the oldest term? How far can you go back in time and say ‘it started here’? Where do you notice a most accentuated growing slope? Why data science is younger than data-driven? Do you think the authors were using the <strong>data-driven</strong> term to mean the future <strong>data science</strong>? Do you think <strong>data-driven analytics</strong>, <strong>data science</strong>, or just simply, <strong>analytics</strong>, are all the same?</p>
+</div>
+<div id="and-what-about-big-data" class="section level2">
+<h2>And what about <strong>Big Data</strong>?</h2>
+<pre class="r"><code># big data
+library(petro.One)
+library(dplyr)
+library(ggplot2)
+
+# provide two different set of keywords to combine as vectors
+major   &lt;- c(&quot;big data&quot;)
+
+results_bd &lt;- run_papers_search(major, 
+                             get_papers = TRUE,       # return with papers
+                             verbose = TRUE,          # show progress
+                             sleep = 5,               # wait time for OnePetro
+                             len_keywords = 4,         # naming the data file
+                             allow_duplicates = FALSE) # by paper title and id
+#&gt; 
+#&gt;   1  1222 &#39;big+data&#39;                                                   
+#&gt; NULL
+
+(papers_bd &lt;- results_bd$papers)
+#&gt; # A tibble: 1,222 x 7
+#&gt;    book_title       paper_id  dc_type  authors          year source keyword
+#&gt;    &lt;fct&gt;            &lt;fct&gt;     &lt;fct&gt;    &lt;chr&gt;           &lt;int&gt; &lt;fct&gt;  &lt;chr&gt;  
+#&gt;  1 Video:         ~ OTC-2918~ present~ Cody, Preston,~  2018 OTC    &#39;big+d~
+#&gt;  2 Emerging Fronti~ SPE-0114~ journal~ Spath, Jeff, 2~  2014 SPE    &#39;big+d~
+#&gt;  3 Tapping the Val~ SPE-1216~ journal~ Mehta, Amit, M~  2016 SPE    &#39;big+d~
+#&gt;  4 Big Data Is a B~ SPE-0413~ journal~ Anand, Pradeep~  2013 SPE    &#39;big+d~
+#&gt;  5 Big Data Analyt~ SPE-1861~ confere~ Xiao, Jie, Hol~  2017 SPE    &#39;big+d~
+#&gt;  6 Advanced Big Da~ SPE-1800~ confere~ Tarrahi, Moham~  2016 SPE    &#39;big+d~
+#&gt;  7 Big Data Analyt~ SPE-1810~ confere~ von Plate, Mor~  2016 SPE    &#39;big+d~
+#&gt;  8 SUPPLEMENTARY/S~ SPE-1817~ media    &quot;&quot;                 NA &lt;NA&gt;   &#39;big+d~
+#&gt;  9 SUPPLEMENTARY/O~ OTC-2602~ media    &quot;&quot;                 NA &lt;NA&gt;   &#39;big+d~
+#&gt; 10 SUPPLEMENTARY/S~ SPE-1734~ media    &quot;&quot;                 NA &lt;NA&gt;   &#39;big+d~
+#&gt; # ... with 1,212 more rows
+
+# plot on BD by year of publication
+papers_bd %&gt;% 
+    group_by(year) %&gt;% 
+    na.omit() %&gt;% 
+    summarize(n = n()) %&gt;% 
+    {. -&gt;&gt; papers_bd_by} %&gt;% 
+    ggplot(., aes(x = year, y = n)) +
+    geom_point() +
+    geom_smooth(method = &quot;loess&quot;) +
+    labs(title = &quot;Papers on &#39;Big Data&#39; by Year&quot;)</code></pre>
+<p><img src="/publications/2019-01-13-evolution-of-data-science-machine-learning-and-artificial-intelligence-in-spe-papers_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Finally, do you think the term <strong>big data</strong> is equivalent to <strong>data science</strong>, or <strong>data analytics</strong>? How do you think the term <strong>big data</strong> was originated?</p>
+</div>
+<div id="summary-of-all-keywords" class="section level2">
+<h2>Summary of all keywords</h2>
+<div id="artificial-intelligence-by-year" class="section level3">
+<h3>Artificial Intelligence by Year</h3>
+<pre class="r"><code># artificial intelligence
+papers_ai_by$keyword &lt;- &quot;artificial intelligence&quot;
+papers_ci_by$keyword &lt;- &quot;computational intelligence&quot;
+papers_ii_by$keyword &lt;- &quot;intelligence&quot;
+
+all_papers_ai &lt;- rbind(papers_ai_by, papers_ci_by, papers_ii_by)
+all_papers_ai
+#&gt; # A tibble: 161 x 3
+#&gt;     year     n keyword                
+#&gt;    &lt;int&gt; &lt;int&gt; &lt;chr&gt;                  
+#&gt;  1  1969     1 artificial intelligence
+#&gt;  2  1971     1 artificial intelligence
+#&gt;  3  1973     1 artificial intelligence
+#&gt;  4  1974     1 artificial intelligence
+#&gt;  5  1981     2 artificial intelligence
+#&gt;  6  1982     4 artificial intelligence
+#&gt;  7  1983    10 artificial intelligence
+#&gt;  8  1984    12 artificial intelligence
+#&gt;  9  1985    14 artificial intelligence
+#&gt; 10  1986    26 artificial intelligence
+#&gt; # ... with 151 more rows
+
+ggplot(data = all_papers_ai, aes(x = year, y = n, color = n)) +
+  geom_jitter(aes(size = as.numeric(n)), alpha = 0.3) +
+  geom_rug() +
+  facet_grid(. ~ keyword)</code></pre>
+<p><img src="/publications/2019-01-13-evolution-of-data-science-machine-learning-and-artificial-intelligence-in-spe-papers_files/figure-html/unnamed-chunk-13-1.png" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="machine-learning-papers" class="section level3">
+<h3>Machine Learning papers</h3>
+<pre class="r"><code># machine learning
+papers_ml_by$keyword &lt;- &quot;machine learning&quot;
+papers_algo_by$keyword &lt;- &quot;algorithm&quot;
+papers_pa_by$keyword &lt;- &quot;predictive analytics&quot;
+papers_sm_by$keyword &lt;- &quot;statistical model&quot;
+
+all_papers_ml &lt;- rbind(papers_ml_by, papers_algo_by, papers_pa_by, papers_sm_by)
+
+ggplot(data = all_papers_ml, aes(x = year, y = n, color = n)) +
+  geom_jitter(aes(size = as.numeric(n)), alpha = 0.3) +
+  geom_rug() +
+  facet_grid(. ~ keyword)</code></pre>
+<p><img src="/publications/2019-01-13-evolution-of-data-science-machine-learning-and-artificial-intelligence-in-spe-papers_files/figure-html/unnamed-chunk-14-1.png" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="data-science-papers" class="section level3">
+<h3>Data Science papers</h3>
+<pre class="r"><code># data science
+papers_ds_by$keyword &lt;- &quot;data science&quot;
+papers_da_by$keyword &lt;- &quot;data analytics&quot;
+papers_dd_by$keyword &lt;- &quot;data driven&quot;
+papers_bd_by$keyword &lt;- &quot;big data&quot;            # NOTE. big data has been updated
+
+all_papers_ds &lt;- rbind(papers_ds_by, papers_da_by, papers_dd_by, papers_bd_by)
+
+ggplot(data = all_papers_ds, aes(x = year, y = n, color = n)) +
+  geom_jitter(aes(size = as.numeric(n)), alpha = 0.3) +
+  geom_rug() +
+  facet_grid(. ~ keyword)</code></pre>
+<p><img src="/publications/2019-01-13-evolution-of-data-science-machine-learning-and-artificial-intelligence-in-spe-papers_files/figure-html/unnamed-chunk-15-1.png" width="1056" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="links" class="section level2">
+<h2>Links</h2>
+<p><a href="https://github.com/f0nzie/evolution_data_science_petroleum_engineering">GitHub repository of this article and datasets</a></p>
+<p><a href="https://www.linkedin.com/pulse/evolution-data-science-machine-learning-artificial-petroleum-reyes/">Article in LinkedIn</a></p>
+<p><a href="https://twitter.com/OilGains/status/1084558876429701121">Tweet</a></p>
+</div>
