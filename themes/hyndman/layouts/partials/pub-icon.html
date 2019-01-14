@@ -1,15 +1,24 @@
-{{ if .Params.doi }}<a href="http://dx.doi.org/{{.Params.doi}}" class="badge badge-small badge-blue">DOI</a>{{ end }}
-{{ if .Params.jstor }}<a href="http://jstor.org/stable/{{.Params.jstor}}" class="badge badge-small badge-blue">JSTOR</a>{{ end }}
-{{ if isset .Params "link" }}
-<a href={{ .Params.link }} class="badge badge-small badge-red"><i class="fa fa-file-pdf-o"></i>&nbsp;pdf</a>
+<!-- DOI blue icon if "doi" parameter is set -->
+{{ if .Params.doi }} 
+    <a href="http://dx.doi.org/{{.Params.doi}}" class="badge badge-small badge-blue">DOI</a>
 {{ end }}
+<!-- JSTOR blue icon if "jstor" parameter is set -->
+{{ if .Params.jstor }} 
+    <a href="http://jstor.org/stable/{{.Params.jstor}}" class="badge badge-small badge-blue">JSTOR</a>
+{{ end }}
+<!-- PDF icon if "link" parameter is set-->
+{{ if isset .Params "link" }}
+    <a href={{ .Params.link }} class="badge badge-small badge-red"><i class="fa fa-file-pdf-o"></i>&nbsp;pdf</a>
+{{ end }}
+ <!-- ONLINE icon if "online parameter is set -->
 {{ if isset .Params "online" }}
-<a href={{ .Params.online }} class="badge badge-small badge-blue">Online</a>
+    <a href={{ .Params.online }} class="badge badge-small badge-blue">Online</a>
 {{ end }}
  <!-- REPO icon if "github"" parameter is set -->
 {{ if isset .Params "github" }}
     <a href={{ .Params.github }} class="badge badge-small badge-black"><i class="fa fa-github"></i>&nbsp;Github</a>
 {{ end }}
+
 <!-- FIGSHARE icon if "figshare parameter is set     This disabled because we are not at Monash
 {{ if .Params.figshare }} <a href="https://monash.figshare.com/file/download/{{.Params.figshare}}" class="badge badge-small badge-red"><i class="fa fa-file-pdf-o"></i>&nbsp;pdf</a>
 {{ end }}
