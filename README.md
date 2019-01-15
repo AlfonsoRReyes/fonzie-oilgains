@@ -1,10 +1,10 @@
 Source files for this blogdown site
 ===================================
 
-Release: **0.1.9**
+Release: **0.1.10**
+Date: January 14, 2019
 
 The design of this blog has been inspired by the blog of https://robjhyndman.com. The theme was originally based on  [hugo-finite](https://github.com/lambdafu/hugo-finite). 
-
 
 
 ### Licenses of third-party components

@@ -1,3 +1,12 @@
+# 0.1.10
+* add posts for 2018 (nov, dec), 2017 (dec-aug)
+* modify publications to show 
+    * badge and link for SlideShare
+    * badge, link and icon for GitHub
+    * complete date format dd-mmm-yyyy
+    * images with link to same image
+
+
 # 0.1.9
 * new posts. new images
 * first post with links to GitHub
