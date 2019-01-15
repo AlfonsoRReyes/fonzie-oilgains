@@ -1,0 +1,35 @@
+---
+title: Neural Networks for Petroleum Engineering
+author: Alfonso R. Reyes
+date: '2017-09-25'
+slug: neural-networks-for-petroleum-engineering
+categories:
+  - machine learning
+  - paper research
+tags: []
+image: neural_networks_for_pe.jpg
+online: https://www.linkedin.com/pulse/neural-networks-petroleum-engineering-alfonso-r-reyes/
+---
+
+## Neural Networks papers in OnePetro
+
+It is incredible the number of papers on Neural Networks contributed by the petroleum engineering community: an astonishing total of 2,918 papers that mention the keyword "neural networks" . And that's only Conference Papers.
+
+From all these papers, 534 have "neural networks" in their title and they go back as far in time as 1975 (one paper), and start with force by the end of the 80's (7 papers).
+
+They originate from different institutions: SPE, OTC, IPTC, SPWLA, PETSOC, SEG, ARMA, WPC, ISOPE, ISRM, NACE, BHR, URTEC OMC, PSIG, CMTC, ASSE and SUT.
+
+The institution with more contributions is SPE with 1527 papers, followed by SEG (439), ISOPE (217), and ISRM (143).
+
+I haven't finished yet with all the statistics yet but I can tell now that reservoir engineering has contributed the most with 947 papers, followed by drilling (512) and production engineering with 214. There is still some work to do with the tagging, labelling and classification, so these are rough numbers.
+
+I haven't had the chance to read the ones with "neural network" on the title yet, just barely scratched a mere 20 papers that I have highlighted and made few comments on them. It is really good work; a path that has been opened to us over the years: in 2015 the peak was 248 papers; in 2016 235; in 2014, 201. In 2017, so far have been contributed 133 paper on neural networks.
+
+At the top there is a screenshot of few of them. In the following days I will make the data available via GitHub, as well as the code in R, plots and the statistics.
+
+```{r}
+# dataframe
+```
+
+
+

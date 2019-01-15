@@ -9,9 +9,10 @@ categories:
   - artificial lift
 tags: []
 online: https://www.linkedin.com/pulse/artificial-lift-method-selector-petroleum-engineering-reyes/
+image: artificial_lift_shiny-cover.jpg
 ---
 
-[![](/img/artificial_lift_shiny-cover.jpg)](/img/artificial_lift_shiny-cover.jpg)
+<!-- [![](/img/artificial_lift_shiny-cover.jpg)](/img/artificial_lift_shiny-cover.jpg) -->
 
 
 # Introduction

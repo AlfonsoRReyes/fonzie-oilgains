@@ -8,10 +8,11 @@ categories:
   - R
 tags:
   - comparison
-online: https://www.linkedin.com/pulse/what-things-r-programming-language-better-than-python-reyes/  
+online: https://www.linkedin.com/pulse/what-things-r-programming-language-better-than-python-reyes/ 
+image: for_what_things_r_better_python-cover.png
 ---
 
-[![](/img/for_what_things_r_better_python-cover)](/img/for_what_things_r_better_python-cover)
+<!-- [![](/img/for_what_things_r_better_python-cover)](/img/for_what_things_r_better_python-cover) -->
 
 
 I used and wrote Python applications for more than 10 years. Then, I started to use R for my data science projects in Petroleum Engineering. I know Python quite well, being one its major weaknesses multiple versions of Python floating around and packages with no "adult" supervision. Anyway, after 2 years of R experience (far too short if you compare it with that of the R experts), this is my take on what makes R better than Python:

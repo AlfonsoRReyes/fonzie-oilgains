@@ -9,6 +9,7 @@ categories:
 tags:
   - petroleum engineering
 online: https://www.linkedin.com/pulse/machine-learning-paper-research-petroleum-engineering-reyes/  
+image: a_machine_learning_research_for_pe.png
 ---
 
 So happy to find that OnePetro has improved its search algorithms. Now, lowercase, uppercase and dashed keywords return the same results. This wasn't the case few months ago. You can see the results below.

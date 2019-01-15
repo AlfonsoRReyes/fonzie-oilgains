@@ -7,6 +7,7 @@ categories:
   - visualization of data
 tags:
   - book
+image: fundamental_data_visualization_wilke.jpg  
 online: https://www.linkedin.com/pulse/book-review-fundamentals-data-visualization-alfonso-r-reyes/  
 ---
 
@@ -17,7 +18,7 @@ Although the book has been written in R with [Rmarkdown](https://rmarkdown.rstud
 Here is the cover of the book in Amazon. It is scheduled to be released on December 8, 2018.
 
 
-[![](/img/fundamental_data_visualization_wilke.jpg)](/img/fundamental_data_visualization_wilke.jpg)
+<!-- [![](/img/fundamental_data_visualization_wilke.jpg)](/img/fundamental_data_visualization_wilke.jpg) -->
 
 Link: https://www.amazon.com/Fundamentals-Data-Visualization-Informative-Compelling/dp/1492031089
 
