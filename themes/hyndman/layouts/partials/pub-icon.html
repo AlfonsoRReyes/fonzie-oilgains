@@ -19,6 +19,11 @@
     <a href={{ .Params.github }} class="badge badge-small badge-black"><i class="fa fa-github"></i>&nbsp;Github</a>
 {{ end }}
 
+<!-- SLIDESHARE green icon if "slideshare" parameter is set -->
+{{ if isset .Params "slideshare" }} 
+    <a href="//www.slideshare.net/slideshow/embed_code/key/{{.Params.slideshare}}" class="badge badge-small badge-green">slideshare</a>
+{{ end }}
+
 <!-- FIGSHARE icon if "figshare parameter is set     This disabled because we are not at Monash
 {{ if .Params.figshare }} <a href="https://monash.figshare.com/file/download/{{.Params.figshare}}" class="badge badge-small badge-red"><i class="fa fa-file-pdf-o"></i>&nbsp;pdf</a>
 {{ end }}
