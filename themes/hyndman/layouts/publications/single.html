@@ -16,7 +16,7 @@
                       {{ .Params.authors | safeHTML }}
                   {{ end }}
                   <br>
-                  {{ .Date.Format "(2006)" | safeHTML }}
+                  {{ .Date.Format "(2&nbsp;January&nbsp;2006)" | safeHTML }}
                   {{ if .Params.citation }}
                        {{.Params.citation | safeHTML }}
                   {{ end }} </p>
