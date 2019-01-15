@@ -8,6 +8,7 @@ categories:
 tags:
   - petroleum engineering
 online: https://www.linkedin.com/pulse/most-used-machine-learning-algorithms-petroleum-alfonso-r-reyes/  
+image: the_most_used_machine_algorithms.jpg
 ---
 
 Continuing with the article on machine learning (ML), from the papers extracted in OnePetro, I have been able to detect the use of these ML algorithms:

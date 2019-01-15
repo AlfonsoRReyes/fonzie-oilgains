@@ -7,9 +7,11 @@ categories:
   - well modeling
 tags: []
 online: http://oilgainsanalytics.com/blog/publications/best-practices-for-the-construction-of-well-models-from-the-data-science-perspective/
+image: best_practices_models-cover.png
+slideshare: 5r8bfHRXEaLAtN
 ---
 
-[![](/img/best_practices_models-cover.png)](/img/best_practices_models-cover.png)
+<!-- [![](/img/best_practices_models-cover.png)](/img/best_practices_models-cover.png) -->
 
 
 Continuing with my transition from network folders to a [Rmarkdown](https://rmarkdown.rstudio.com/) blog system, I found a presentation I gave on few best practices for the construction of well models. After three years of building wells and network models, I came up with this list of recommended practices. It is unique in the sense that it took lessons learned by tackling the continuous well optimization process using [Data Science](https://en.wikipedia.org/wiki/Data_science).

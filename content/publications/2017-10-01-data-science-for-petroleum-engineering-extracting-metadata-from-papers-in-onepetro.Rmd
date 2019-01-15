@@ -1,0 +1,37 @@
+---
+title: 'Data Science for Petroleum Engineering: extracting metadata from papers in
+  OnePetro'
+author: Alfonso R. Reyes
+date: '2017-10-01'
+slug: data-science-for-petroleum-engineering-extracting-metadata-from-papers-in-onepetro
+categories:
+  - text mining
+  - paper research
+  - r-package
+tags: []
+mathjax: yes
+online: https://www.linkedin.com/pulse/data-science-petroleum-engineering-extracting-metadata-reyes/
+image: ds_for_pe_extracting_metadata_from_papers.jpg
+---
+
+Hi there,
+
+digging into the papers available in OnePetro is intoxicating. You know a bit - get a piece of the data - and you want to know more and more. That resource could be further developed into accepting comments, notes and highlights from those who have read, or reading, the papers. And of course, assigning subjects and disciplines as categories. In other words, the OnePetro site could turn into giving smarter response to queries.
+
+Anyway, I was working on obtaining metadata from the OnePetro website using R: got good results; could read the titles of thousands of papers into a data structure (dataframe), and it occurred to me that the petroleum engineering community would be better served if I made available a R package that retrieves papers metadata from the command line or R console, saving browser navigation, clicks, exporting to csv, slow pagination, etc.; making the whole experience reproducible.
+
+I am surprised that OnePetro does not classify the papers by discipline (reservoir, production, drilling, petrophysics, geophsyics, geology, etc.), or subjects (artificial lift, well test, 4D, neutron logs, etc.). So, we don't have an alternative that implement one by ourselves. I am using some text mining packages to do just that. Here is an example:
+
+```{r}
+# wordcloud
+```
+
+This is a cloud of keywords found in the same example I provided with the papers on "neural networks". The plot above responds to the question: What are the keywords (subjects) more associated with "neural networks"? Remember, these are papers related to petroleum engineering.
+
+You can take a look at the progress I am making on the project and the R package here and here. Install R and RStudio and take a look. The CSV file with the paper results on "neural networks" is here.
+
+If you have a particular example that you want me to run, let me know. I will do it for you until I release the package. I hope by Monday.
+
+Alfonso R. Reyes
+
+

@@ -9,6 +9,7 @@ categories:
 tags:
   - comparison
 online: https://www.linkedin.com/pulse/r-versatile-python-alfonso-r-reyes/
+image: is_r_as_versatile_as_python.jpg
 ---
 
 The short answer is no. R is not a versatile as Python.

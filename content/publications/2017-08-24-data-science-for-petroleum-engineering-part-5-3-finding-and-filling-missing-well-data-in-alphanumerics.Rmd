@@ -1,0 +1,286 @@
+---
+title: Data Science for Petroleum Engineering - Part 5.3 Finding and filling missing
+  well data in alphanumerics
+author: Alfonso R. Reyes
+date: '2017-08-24'
+slug: data-science-for-petroleum-engineering-part-5-3-finding-and-filling-missing-well-data-in-alphanumerics
+categories:
+  - data science
+  - production technology
+tags: []
+online: https://www.linkedin.com/pulse/data-science-petroleum-engineering-part-53-finding-filling-reyes/
+image: ds_for_pe_53_finding_missing_well_data.jpg
+---
+
+This is what we will reviewing in this lecture.
+
+NOTE. You can find the PDF version of the R markdown notebook in GitHub at this link. The reproducible R markdown notebook itself is here. Both are full versions of this LinkedIn article. For the time being, LinkedIn publishing does not support markdown which would make sharing scientific and engineering documents much easier.
+
+Load the raw data file
+
+```{r}
+# code
+```
+
+We will see that some well names can be fixed manually and others should be done automatically with a script.
+
+In our particular case we only have 100 wells but what about if we have 1000, or 5000? Doing it manually is not an option. Some are quickly fixable some others are more challenging. Let’s start by the easier ones.
+
+When correcting data, always go from the more general to the more particular.
+convert lowercase to uppercase
+Let’s convert the well names to uppercase and verify how many were corrected.
+
+```{r}
+# code
+```
+
+Two were corrected.
+
+removing spaces
+
+```{r}
+# code
+```
+
+One well name was corrected.
+
+correct the completion type
+The completion type, at the end of the well name, should have two characters: LS, TS or SS.
+
+```{r}
+# code
+```
+
+Those were the easy ones. We had three corrections. There are 5 more to go.
+
+correcting the field abbreviation in the well name
+There are two wells that were not properly field identified. We have an additional “I” in the field name abbreviation. We have to remove it. At this point we have two choices: (1) change all the first 4 first characters to PSCO, or, (2) replace only those two well names with the issue by replacing the “I” with a blank.
+
+```{r}
+# code
+```
+
+In the example we used invert=TRUE to negate the correct pattern. If we want the regex pattern including the negation we would have to use:
+
+
+```{r}
+# figure
+```
+
+option (1): change all the first 4 first characters to PSCO
+
+```{r}
+# code
+```
+
+```{r}
+# figure
+```
+
+```{r}
+# code
+```
+
+option (2): replace only those two well names with the issue.
+
+```{r}
+# code
+```
+
+```{r}
+# figure
+```
+
+```{r}
+# code
+```
+
+correct the length of the well number
+The well names have been corrected on the field identifier. Next if correcting the length of the well number.
+
+```{r}
+# code
+```
+
+Alright. So far, we have corrected the field name in the well name. There are still three more wells to go which problems are:
+
+```{r}
+# text
+```
+
+The well number should go from 000 to 999, right after the field identifier (one character).
+
+```{r}
+# code
+```
+
+Replacing:
+
+```{r}
+# code
+```
+
+Very good. Now we have one well left.
+
+```{r}
+# code
+# figure
+```
+
+If we had longer numbers we would modify the regex to:
+
+```{r}
+# figure
+```
+
+
+See in this example that as more zeros show up in the number (last line), those zeros are removed from the string to fit the 3 digit number limit.
+
+Add the one-letter platform identifier to the well name
+
+```{r}
+# code
+# figure
+```
+
+```{r}
+# code
+```
+
+```{r}
+# code
+```
+
+## Check if Company is correct
+
+```{r}
+# code
+```
+
+We don't get any return. All the company names are the same. Cool!
+
+## Detect incorrect names and synonyms in Analyst
+
+```{r}
+# code
+```
+
+We can correct manually. In this example we will make use of the operator %in%. It is pretty handy for checking if elements belong to a particular group.
+
+```{r}
+# code
+```
+
+There is only one observation left, the one with NA. We will have to cross-reference it.
+
+## Find and replace incorrect and missing values in Field
+
+```{r}
+# code
+```
+
+It has been fixed now.
+
+Add a column for the Completion type
+To close this chapter, let’s add a new variable (column) where we have only the Completion Type. We can take advantage that the last two characters of the well name is the completion type.
+
+We introduce here another function nchar which returns the number of characters of a string of text. The second function is substr.
+
+```{r}
+# code
+```
+
+Let's apply these two functions:
+
+```{r}
+# code
+```
+
+## Replace values in Location
+```{r}
+# code
+```
+
+Observe that in this example we are using the pattern [MQRS][0-9]{3}-[LTS]S together with the parameter invert=TRUE in grep. This means that the pattern will be negated when invert is TRUE.
+
+```{r}
+# code
+```
+
+If we would like instead is the regex for the negated pattern it would have to look like this:
+
+```{r}
+# figure
+```
+
+You see that the words matched are those which do not match the correct pattern.
+
+## Replace NA values in Platform
+```{r}
+# code
+```
+
+Again, if instead of using invert=TRUE in grep we could have used the negation of the pattern which is:
+
+```{r}
+# figure
+```
+
+What this regex does is match those words that do not contain a valid platform character.
+
+```{r}
+# code
+```
+
+## References
+For the regex generation and testing I used these two useful websites: http://www.regextester.com/ and http://regexr.com
+
+## Links
+R markdown notebook for part 5.3
+PDF from the R markdown part 5.3
+Previous article part 5.2
+Follow me in Twitter fonzie@oilgains
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

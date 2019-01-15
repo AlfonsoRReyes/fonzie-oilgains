@@ -7,7 +7,8 @@ categories:
   - data science
 tags:
   - LinkedIn
-online: https://www.linkedin.com/pulse/why-i-decided-publish-data-science-blog-alfonso-r-reyes/  
+image: blog-mainpage.png
+online: https://www.linkedin.com/pulse/why-i-decided-publish-data-science-blog-alfonso-r-reyes/ 
 ---
 
 ```{r setup, include = FALSE, error=TRUE, message=FALSE, warning=FALSE}
@@ -29,7 +30,7 @@ or
 
 > oilgainsanalytics.com/blog
 
-[![](/img/blog-mainpage.png)](http://blog.oilgainsanalytics.com)
+<!-- [![](/img/blog-mainpage.png)](http://blog.oilgainsanalytics.com) -->
 
 ## Motivation
 I believe in the sharing philosophy of data science as I learned it from my biostatistician instructors at Johns Hopkins University (Peng, Leek, Caffo, et al). There are so many career-changing lessons that you could pick up with these professors at Coursera. Data Science is a whole multidisciplinary, or should I say interdisciplinary as in [Wikipedia][1], field that combines statistics, mathematics, computer science, and data engineering that gives you the power to dig deep into your data and make astonishing discoveries to bring real value to your organization.

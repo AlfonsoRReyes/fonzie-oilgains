@@ -8,11 +8,12 @@ categories:
   - artificial lift
   - paper research
 tags: []
+image: paper_research-gas_lift.jpg
 ---
 
 
 
-<p><a href="/img/paper_research-gas_lift.jpg"><img src="/img/paper_research-gas_lift.jpg" /></a></p>
+<!-- [![](/img/paper_research-gas_lift.jpg)](/img/paper_research-gas_lift.jpg) -->
 <p>One of the little annoyances while doing paper research in OnePetro is knowing the correct spelling of the keywords under search. It would seem insignificant but we will see in this article choosing the right keyword could have effects on the results. Let’s see a practical example.</p>
 <p>For this demonstration I will use the R package <a href="https://f0nzie.github.io/petro.One/">petro.One</a>. It is available from CRAN, as free and open source project. The advantage of using petro.One is that you can do many operations in batch, perform search automation, and receive a table (dataframe) as a result.</p>
 <p>We start by creating a list of all the possible combinations of the words “gas” and “lift”. These are the some that I have seen written in papers, presentations and articles. There may be more, of course. You can try yourself if you install and run petro.One in your computer.</p>
@@ -104,29 +105,11 @@ major &lt;- c(&quot;gas lift&quot;,
 
 gas_lift &lt;- join_keywords(major, get_papers = TRUE, sleep = 3, verbose = TRUE)
 #&gt; 
-#&gt;   1  7270 &#39;gas+lift&#39;                                                   
-#&gt;   2  7270 &#39;gas-lift&#39;                                                   
-#&gt;   3   588 &#39;GasLift&#39;                                                    
-#&gt;   4   903 &#39;gas-lifted&#39;                                                 
-#&gt;   5   903 &#39;gas+lifted&#39;                                                 
-#&gt;   6  1547 &#39;lift+gas&#39;                                                   
-#&gt;   7  1547 &#39;lift-gas&#39;                                                   
-#&gt;   8     2 &#39;gas.lift&#39;                                                   
-#&gt;   9     4 &#39;gas_lift&#39;</code></pre>
+#&gt;   1  7270 &#39;gas+lift&#39;
+#&gt; Error in open.connection(x, &quot;rb&quot;): HTTP error 500.</code></pre>
 <pre class="r"><code># &quot;gas lift&quot; is the same as &quot;gas-lift&quot;
 gas_lift$keywords
-#&gt; # A tibble: 9 x 4
-#&gt;   Var1     paper_count sf        url                                       
-#&gt;   &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;                                     
-#&gt; 1 gas lift        7270 &#39;gas+lif~ &quot;https://www.onepetro.org/search?q=\&quot;gas+~
-#&gt; 2 gas-lift        7270 &#39;gas-lif~ &quot;https://www.onepetro.org/search?q=\&quot;gas-~
-#&gt; 3 GasLift          588 &#39;GasLift&#39; &quot;https://www.onepetro.org/search?q=\&quot;GasL~
-#&gt; 4 gas-lif~         903 &#39;gas-lif~ &quot;https://www.onepetro.org/search?q=\&quot;gas-~
-#&gt; 5 gas lif~         903 &#39;gas+lif~ &quot;https://www.onepetro.org/search?q=\&quot;gas+~
-#&gt; 6 lift gas        1547 &#39;lift+ga~ &quot;https://www.onepetro.org/search?q=\&quot;lift~
-#&gt; 7 lift-gas        1547 &#39;lift-ga~ &quot;https://www.onepetro.org/search?q=\&quot;lift~
-#&gt; 8 gas.lift           2 &#39;gas.lif~ &quot;https://www.onepetro.org/search?q=\&quot;gas.~
-#&gt; 9 gas_lift           4 &#39;gas_lif~ &quot;https://www.onepetro.org/search?q=\&quot;gas_~</code></pre>
+#&gt; Error in eval(expr, envir, enclos): object &#39;gas_lift&#39; not found</code></pre>
 <p>This is the dataframe with the results.</p>
 <p>There is something interesting here: take a look at the paper count for gas-lift and lift-gas; they have the same number of papers written with those words. This could mean a coincidence, or, after the time that the word gas-lift started to be used, also a consensus for the use of the word lift-gas was adopted.</p>
 <p>Although, we could see the words “gas lifted” and “lift gas”, did not find great adoption. Further investigation could be performed to connect a specific year, if the hypothesis is if there was a conference that established some standard in the gas-lift discipline. For that task, we would need a table of year vs. keyword vs. paper-count, and see where the breakthrough occurs.</p>
@@ -204,7 +187,7 @@ for (k in kw_tbl$keyword) {
 #&gt;                            SRP   477 
 #&gt;                      beam pump   518 
 #&gt;                   beam pumping   455 
-#&gt;                       rod pump  1273 
+#&gt;                       rod pump  1274 
 #&gt;                    rod pumping   866 
 #&gt;                      pump jack    99 
 #&gt;           surface pumping unit    80 
@@ -227,7 +210,7 @@ for (k in kw_tbl$keyword) {
 #&gt;  4:                        SRP   477
 #&gt;  5:                  beam pump   518
 #&gt;  6:               beam pumping   455
-#&gt;  7:                   rod pump  1273
+#&gt;  7:                   rod pump  1274
 #&gt;  8:                rod pumping   866
 #&gt;  9:                  pump jack    99
 #&gt; 10:       surface pumping unit    80
