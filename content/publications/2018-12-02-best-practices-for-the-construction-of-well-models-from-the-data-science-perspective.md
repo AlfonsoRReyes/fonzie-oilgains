@@ -9,6 +9,7 @@ tags: []
 online: http://oilgainsanalytics.com/blog/publications/best-practices-for-the-construction-of-well-models-from-the-data-science-perspective/
 image: best_practices_models-cover.png
 slideshare: 5r8bfHRXEaLAtN
+speakerdeck: 92d53d75535f4d91b0ce281410eca8b8
 ---
 
 <!-- [![](/img/best_practices_models-cover.png)](/img/best_practices_models-cover.png) -->
@@ -42,4 +43,8 @@ The slides were generated using Latex [Beamer](https://en.wikipedia.org/wiki/Bea
 This is the link to the [Github repository](https://github.com/f0nzie/BestPracticesConstructionWellModels) if you are interested. The link to the slide set points to [SlideShare](https://www.slideshare.net/AlfonsoReyes4/best-practices-fortheconstructionofwellmodels/AlfonsoReyes4/best-practices-fortheconstructionofwellmodels).
 
 Soon, as I progress with the transition of the material that I collected over the years on data science for petroleum engineering, I will be releasing something more dynamic that can be generated directly from [R](https://en.wikipedia.org/wiki/R_(programming_language)).
+
+## Note
+The slides are also available in SpeakeeDeck:
+{{<speakerdeck 92d53d75535f4d91b0ce281410eca8b8>}}
 
