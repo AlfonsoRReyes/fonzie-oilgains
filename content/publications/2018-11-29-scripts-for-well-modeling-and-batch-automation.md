@@ -8,9 +8,11 @@ categories:
   - batch automation
 tags: []
 online: https://www.linkedin.com/pulse/scripts-well-modeling-batch-automation-alfonso-r-reyes/?published=t
+image: scripts_for_well_modeling-cover.png
+slideshare: EwtgZFtyV8fhxB
 ---
 
-[![](/img/scripts_for_well_modeling-cover.png)](/img/scripts_for_well_modeling-cover.png)
+<!-- [![](/img/scripts_for_well_modeling-cover.png)](/img/scripts_for_well_modeling-cover.png) -->
 
 # Motivation
 

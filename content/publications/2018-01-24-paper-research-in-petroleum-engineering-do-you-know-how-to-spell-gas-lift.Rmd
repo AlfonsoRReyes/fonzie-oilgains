@@ -8,6 +8,7 @@ categories:
   - artificial lift
   - paper research
 tags: []
+image: paper_research-gas_lift.jpg
 ---
 
 ```{r setup, include = FALSE, error=TRUE, message=FALSE, warning=FALSE}
@@ -20,7 +21,7 @@ knitr::opts_chunk$set(echo = TRUE,
                       fig.align = 'center')
 ```
 
-[![](/img/paper_research-gas_lift.jpg)](/img/paper_research-gas_lift.jpg)
+<!-- [![](/img/paper_research-gas_lift.jpg)](/img/paper_research-gas_lift.jpg) -->
 
 One of the little annoyances while doing paper research in OnePetro is knowing the correct spelling of the keywords under search. It would seem insignificant but we will see in this article choosing the right keyword could have effects on the results. Let's see a practical example.
 
