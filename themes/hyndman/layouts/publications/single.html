@@ -27,7 +27,8 @@
         
     <!-- this is where the image goes  -->
     {{ if .Params.image }}
-       <img src="{{ $.Site.BaseURL }}img/{{ .Params.image }}" class="pub-banner" itemprop="image"><br><br>
+        <a href="{{ .Site.BaseURL }}img/{{ .Params.image}}">
+       <img src="{{ $.Site.BaseURL }}img/{{ .Params.image }}" class="pub-banner" itemprop="image"></a><br><br>
     {{end}}
     
       <div class="pub-info">
