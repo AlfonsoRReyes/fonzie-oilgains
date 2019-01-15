@@ -1,5 +1,5 @@
 ---
-title: Why I decided to publish data science in a blog?
+title: Why I decided to publish data science in a blog
 author: Alfonso R. Reyes
 date: '2019-01-07'
 slug: why-i-decided-to-publish-data-science-in-a-blog
