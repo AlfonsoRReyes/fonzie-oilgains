@@ -21,7 +21,7 @@ The previous article [Scripts for Well Modeling and Batch Automation](https://ww
 
 I have published a set of slides that goes through some of well subsystems that require data collection before entering them into a model. Here is the slide set:
 
-<iframe src="//www.slideshare.net/slideshow/embed_code/key/5r8bfHRXEaLAtN" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> 
+{{<slideshare 5r8bfHRXEaLAtN>}}
 
 <br>
 What I cover in these slides:
