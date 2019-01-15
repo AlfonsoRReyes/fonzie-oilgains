@@ -4,7 +4,8 @@
    {{ range first $pubs_cover_count ((where .Data.Pages "Params.image" "!=" nil)) }}
    <td style="background-color: #faf8f8; border-bottom: 0px;">
       {{ if isset .Params "image" }}
-            {{ .Params.title }}
+            <b>{{ .Params.title }}</b>
+            {{ .Date.Format "(2&nbsp;January&nbsp;2006)" | safeHTML }}
             {{ if isset .Params "file" }}
                 <a href="{{ $.Site.BaseURL }}papers/{{.Params.file}}">
             {{ end }}
