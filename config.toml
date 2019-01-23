@@ -7,7 +7,7 @@ theme = "hyndman"
 DisqusShortname = "fonzie-oilgains"
 googleAnalytics = ""
 ignoreFiles = ["\\.Rmd$", "_files$", "_cache$"]
-pluralizeListTitles = false
+# pluralizeListTitles = false
 # local = false
 # buildFuture = true
 
