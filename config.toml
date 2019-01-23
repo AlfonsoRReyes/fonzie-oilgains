@@ -8,7 +8,10 @@ DisqusShortname = "fonzie-oilgains"
 googleAnalytics = ""
 ignoreFiles = ["\\.Rmd$", "_files$", "_cache$"]
 pluralizeListTitles = false
-buildFuture = true
+local = false
+# buildFuture = true
+
+[blackfriday] hrefTargetBlank = true  # allows new tab on links
 
 [params]
 
