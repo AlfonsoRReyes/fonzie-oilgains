@@ -1,12 +1,11 @@
 ---
-title: Nor travelling but half way through the multiwell-stats tutorial
+title: Not travelling but half way through the multiwell stats tutorial
 author: Alfonso R. Reyes
 date: '2019-01-23'
-slug: nor-travelling-but-half-way-through-the-multiwell-stats-tutorial
 categories:
   - data science
   - production technology
-tags: []
+slug: nor-travelling-but-half-way-through-the-multiwell-stats-tutorial
 image: not_travelling.png
 online: https://www.linkedin.com/feed/update/urn:li:activity:6493941802775732224
 ---
