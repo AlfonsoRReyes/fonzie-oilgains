@@ -8,8 +8,11 @@ serve:
 build:
 	Rscript -e "blogdown::hugo_build()"
 
-deploy: build
+sync:
 	rsync -zrvce 'ssh -p 2222' public/ oilgainsanalytics:public_html/blog
+
+deploy: sync serve
+	
 
 clean:
 	rm -rf public
