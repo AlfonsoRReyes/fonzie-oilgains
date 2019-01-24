@@ -1,0 +1,36 @@
+---
+title: 'Volve datasets: what can we learn?'
+author: Alfonso R. Reyes
+date: '2018-12-18'
+slug: volve-datasets-what-can-we-learn
+categories:
+  - Volve
+tags: []
+---
+
+Let's enter the individual size of each of the Volve data files:
+
+```{r}
+# megabytes
+cat(sprintf("Megabytes\n"))
+(mega <- c(geophysics = 99, reservoir_eclipse = 390, well_technical = 212,
+          seismic_vsp = 95, production = 2, reports = 162))
+
+# gigabytes
+cat(sprintf("Gigabytes\n"))
+(giga <- c(geoscience = 54.6, reservoir_rms = 2.1, well_logs = 6.9, 
+          seismic_4d = 330.4, well_logs_per_well = 7, witsml_drilling = 5))
+
+# terabytes
+cat(sprintf("Terabytes\n"))
+(tera <- c(seismic_st10010 = 2.6, seismic_st0202 = 1.2))
+
+# Summary in gigabytes
+cat(sprintf("\nDataset in GB\n"))
+c(mega / 1024, giga, tera * 1024)
+
+giga_total <- sum(c(mega / 1024, giga, tera * 1024))
+
+# how many gigabytes of data?
+cat(sprintf("\nTotal Gigabytes: %8.3f", giga_total))
+```
