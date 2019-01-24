@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = TRUE,
                       warning = FALSE,
                       message = FALSE,
                       fig.align = 'center')
-```
+``` 
 
 Let's enter the individual size of each of the Volve data files:
 
@@ -38,9 +38,12 @@ cat(sprintf("Terabytes\n"))
 # Summary in gigabytes
 cat(sprintf("\nDataset in GB\n"))
 c(mega / 1024, giga, tera * 1024)
+```
 
+```{r}
 giga_total <- sum(c(mega / 1024, giga, tera * 1024))
 
 # how many gigabytes of data?
 cat(sprintf("\nTotal Gigabytes: %8.3f", giga_total))
 ```
+

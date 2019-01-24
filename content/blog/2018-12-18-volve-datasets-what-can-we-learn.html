@@ -52,9 +52,8 @@ c(mega / 1024, giga, tera * 1024)
 #&gt;         seismic_4d well_logs_per_well    witsml_drilling 
 #&gt;       3.304000e+02       7.000000e+00       5.000000e+00 
 #&gt;    seismic_st10010     seismic_st0202 
-#&gt;       2.662400e+03       1.228800e+03
-
-giga_total &lt;- sum(c(mega / 1024, giga, tera * 1024))
+#&gt;       2.662400e+03       1.228800e+03</code></pre>
+<pre class="r"><code>giga_total &lt;- sum(c(mega / 1024, giga, tera * 1024))
 
 # how many gigabytes of data?
 cat(sprintf(&quot;\nTotal Gigabytes: %8.3f&quot;, giga_total))
