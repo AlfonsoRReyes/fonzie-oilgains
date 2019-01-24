@@ -8,6 +8,16 @@ categories:
 tags: []
 ---
 
+```{r setup, include = FALSE, error=TRUE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      comment = "#>",
+                      collapse = TRUE,
+                      error = TRUE,
+                      warning = FALSE,
+                      message = FALSE,
+                      fig.align = 'center')
+```
+
 Let's enter the individual size of each of the Volve data files:
 
 ```{r}
