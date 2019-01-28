@@ -87,62 +87,40 @@ xml_name(dat)
 <pre class="r"><code># name of the child node
 xml_name(xml_children(dat))
 #&gt; [1] &quot;trajectory&quot;</code></pre>
+<p>What we want now is get a rough idea of the structure of the hierarchies and the data. We use the function <code>xml_find_all</code> and <code>xml_path</code>. We list only few of the of the children nodes. Also, we get the total number of these end nodes.</p>
 <pre class="r"><code># strip default namespaces from the document
 xml_ns_strip( dat )
+#&gt; Error in doc_namespaces(doc): external pointer is not valid
 dat %&gt;% 
     xml_find_all( &#39;//*&#39;) %&gt;% 
     xml_path() %&gt;% 
-    .[1:50]                   # show the first 100 elements
-#&gt;  [1] &quot;/trajectorys&quot;                                                          
-#&gt;  [2] &quot;/trajectorys/trajectory&quot;                                               
-#&gt;  [3] &quot;/trajectorys/trajectory/nameWell&quot;                                      
-#&gt;  [4] &quot;/trajectorys/trajectory/nameWellbore&quot;                                  
-#&gt;  [5] &quot;/trajectorys/trajectory/name&quot;                                          
-#&gt;  [6] &quot;/trajectorys/trajectory/objectGrowing&quot;                                 
-#&gt;  [7] &quot;/trajectorys/trajectory/dTimTrajStart&quot;                                 
-#&gt;  [8] &quot;/trajectorys/trajectory/dTimTrajEnd&quot;                                   
-#&gt;  [9] &quot;/trajectorys/trajectory/mdMn&quot;                                          
-#&gt; [10] &quot;/trajectorys/trajectory/mdMx&quot;                                          
-#&gt; [11] &quot;/trajectorys/trajectory/magDeclUsed&quot;                                   
-#&gt; [12] &quot;/trajectorys/trajectory/gridCorUsed&quot;                                   
-#&gt; [13] &quot;/trajectorys/trajectory/aziVertSect&quot;                                   
-#&gt; [14] &quot;/trajectorys/trajectory/dispNsVertSectOrig&quot;                            
-#&gt; [15] &quot;/trajectorys/trajectory/dispEwVertSectOrig&quot;                            
-#&gt; [16] &quot;/trajectorys/trajectory/aziRef&quot;                                        
-#&gt; [17] &quot;/trajectorys/trajectory/trajectoryStation[1]&quot;                          
-#&gt; [18] &quot;/trajectorys/trajectory/trajectoryStation[1]/dTimStn&quot;                  
-#&gt; [19] &quot;/trajectorys/trajectory/trajectoryStation[1]/typeTrajStation&quot;          
-#&gt; [20] &quot;/trajectorys/trajectory/trajectoryStation[1]/md&quot;                       
-#&gt; [21] &quot;/trajectorys/trajectory/trajectoryStation[1]/tvd&quot;                      
-#&gt; [22] &quot;/trajectorys/trajectory/trajectoryStation[1]/incl&quot;                     
-#&gt; [23] &quot;/trajectorys/trajectory/trajectoryStation[1]/azi&quot;                      
-#&gt; [24] &quot;/trajectorys/trajectory/trajectoryStation[1]/dispNs&quot;                   
-#&gt; [25] &quot;/trajectorys/trajectory/trajectoryStation[1]/dispEw&quot;                   
-#&gt; [26] &quot;/trajectorys/trajectory/trajectoryStation[1]/vertSect&quot;                 
-#&gt; [27] &quot;/trajectorys/trajectory/trajectoryStation[1]/dls&quot;                      
-#&gt; [28] &quot;/trajectorys/trajectory/trajectoryStation[1]/commonData&quot;               
-#&gt; [29] &quot;/trajectorys/trajectory/trajectoryStation[1]/commonData/sourceName&quot;    
-#&gt; [30] &quot;/trajectorys/trajectory/trajectoryStation[1]/commonData/dTimCreation&quot;  
-#&gt; [31] &quot;/trajectorys/trajectory/trajectoryStation[1]/commonData/dTimLastChange&quot;
-#&gt; [32] &quot;/trajectorys/trajectory/trajectoryStation[1]/commonData/itemState&quot;     
-#&gt; [33] &quot;/trajectorys/trajectory/trajectoryStation[2]&quot;                          
-#&gt; [34] &quot;/trajectorys/trajectory/trajectoryStation[2]/dTimStn&quot;                  
-#&gt; [35] &quot;/trajectorys/trajectory/trajectoryStation[2]/typeTrajStation&quot;          
-#&gt; [36] &quot;/trajectorys/trajectory/trajectoryStation[2]/typeSurveyTool&quot;           
-#&gt; [37] &quot;/trajectorys/trajectory/trajectoryStation[2]/md&quot;                       
-#&gt; [38] &quot;/trajectorys/trajectory/trajectoryStation[2]/tvd&quot;                      
-#&gt; [39] &quot;/trajectorys/trajectory/trajectoryStation[2]/incl&quot;                     
-#&gt; [40] &quot;/trajectorys/trajectory/trajectoryStation[2]/azi&quot;                      
-#&gt; [41] &quot;/trajectorys/trajectory/trajectoryStation[2]/dispNs&quot;                   
-#&gt; [42] &quot;/trajectorys/trajectory/trajectoryStation[2]/dispEw&quot;                   
-#&gt; [43] &quot;/trajectorys/trajectory/trajectoryStation[2]/vertSect&quot;                 
-#&gt; [44] &quot;/trajectorys/trajectory/trajectoryStation[2]/dls&quot;                      
-#&gt; [45] &quot;/trajectorys/trajectory/trajectoryStation[2]/rateTurn&quot;                 
-#&gt; [46] &quot;/trajectorys/trajectory/trajectoryStation[2]/rateBuild&quot;                
-#&gt; [47] &quot;/trajectorys/trajectory/trajectoryStation[2]/gravAccelCorUsed&quot;         
-#&gt; [48] &quot;/trajectorys/trajectory/trajectoryStation[2]/magXAxialCorUsed&quot;         
-#&gt; [49] &quot;/trajectorys/trajectory/trajectoryStation[2]/sagCorUsed&quot;               
-#&gt; [50] &quot;/trajectorys/trajectory/trajectoryStation[2]/magDrlstrCorUsed&quot;</code></pre>
+    .[1:50]                   # show only the first 50 elements
+#&gt; Error in doc_namespaces(doc): external pointer is not valid</code></pre>
+<pre class="r"><code># get the number of elements
+xml_ns_strip( dat )
+#&gt; Error in doc_namespaces(doc): external pointer is not valid
+noe &lt;- dat %&gt;% 
+    xml_find_all( &#39;//*&#39;) %&gt;% 
+    xml_path() %&gt;% 
+    length()
+#&gt; Error in doc_namespaces(doc): external pointer is not valid
+noe
+#&gt; Error in eval(expr, envir, enclos): object &#39;noe&#39; not found</code></pre>
+<p>Observe that from the child node <code>trajectory</code> branch lots of the variables. Let’s see how many child nodes <code>trajectory</code> is holding:</p>
+<pre class="r"><code># another way of obtaining the names of the nodes for &quot;trajectory&quot;
+xml_name(xml_children(xml_find_all(dat, &quot;//trajectory&quot;)))
+#&gt; Error in doc_namespaces(doc): external pointer is not valid</code></pre>
+<p>If you click of the <code>(+)</code> sign on the nodes <code>nameWell</code> through <code>aziRef</code> you will find they don’t have children; they only are holding values. Those are the end of the nodes. Do the same with any of the nodes <code>trajectoryStation</code>; they still have children. Continue pressing on the <code>(+)</code> sign until there are no more nodes expanding.</p>
+<div id="trajectory-orphans" class="section level3">
+<h3>//trajectory orphans</h3>
+<p>Since we found the end of the nodes for the first 14 vectors, let’s extract the names of the variables:</p>
+<pre class="r"><code># name of the orphan nodes
+orphan_vars &lt;- c(1:14)
+vars14_names &lt;- xml_name(xml_children(xml_find_first(dat, &quot;//trajectory&quot;)))[orphan_vars]
+#&gt; Error in doc_namespaces(doc): external pointer is not valid
+vars14_names
+#&gt; Error in eval(expr, envir, enclos): object &#39;vars14_names&#39; not found</code></pre>
+</div>
 </div>
 <div id="creating-dataframes-from-hierarchical-data" class="section level2">
 <h2>Creating dataframes from hierarchical data</h2>
