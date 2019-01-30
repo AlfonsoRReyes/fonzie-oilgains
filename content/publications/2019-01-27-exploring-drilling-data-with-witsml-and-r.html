@@ -547,8 +547,8 @@ unique(xml_name(xml_children(xml_find_all(dat, &quot;//trajectoryStation&quot;))
 <p>They are different because int he first case we are asking for the first node (<code>xml_find_first</code>) while in the second case we are asking for all the nodes (xml_find_all). This is normal, the reason of existence of hierarchical structures that doesn’t waste space in variables that are not currently used.</p>
 </blockquote>
 </div>
-<div id="attrubutes-of-trajectorystation" class="section level3">
-<h3>Attrubutes of <code>trajectoryStation</code></h3>
+<div id="attributes-of-trajectorystation" class="section level3">
+<h3>Attributes of <code>trajectoryStation</code></h3>
 <pre class="r"><code># get the attributes for trajectoryStation
 xml_attrs(x = trajectoryStation)
 #&gt;                 uid 
@@ -1326,7 +1326,7 @@ all_wells
 <div id="simplify-the-data-structure-by-nesting-the-two-wells" class="section level2">
 <h2>Simplify the data structure by nesting the two wells</h2>
 <p>With the two wells put together we should be almost ready. But we don’t want to show all the measurements; we want just to focus on the wells. So far, we have two wells with 67 rows but what about later when we have ten or a hundred. Then, it would consume lot of memory and screen to see through all those records.</p>
-<p>What we want is to show only the wells and start performing operations directly on them. We do this by using the function <code>nest()</code>.</p>
+<p>What we want is to show only the wells and start performing operations directly on them. We do this by using the <code>tidyr</code> function <code>nest()</code>.</p>
 <pre class="r"><code># nest the two well so they show as one row each
 wells_nested &lt;-
     all_wells %&gt;% 
@@ -1340,7 +1340,8 @@ wells_nested &lt;-
 </div>
 <div id="add-new-wells" class="section level2">
 <h2>Add new wells</h2>
-<p>We will add one more well: <em>Norway-Statoil-NO 15_$47$_9-F-4</em>. This well has 87 measurement points for its trajectory.</p>
+<p>We will add one more well: <em>Norway-Statoil-NO 15_$47$_9-F-4</em>. This well has 87 measurement points for its trajectory, which is the same as saying that the well has 87 <code>trajectoryStation</code> items.</p>
+<p>This time we use only one function <code>convert_witsml_to_df()</code>, one that resides in the script <code>witsml-trajectory.R</code>. This function performs all the data extraction and conversion that we saw at the beginning.</p>
 <pre class="r"><code># convert a WITSML trajectory to dataframe
 well_9f4  &lt;- traj_files[1] 
 well_9f4_df &lt;- convert_witsml_to_df(well_9f4)
@@ -1372,6 +1373,8 @@ well_9f4_df
 </div>
 <div id="nest-the-new-well" class="section level2">
 <h2>Nest the new well</h2>
+<p>So, we have 87 trajectory measurements for the well. Again, we don’t want to see all of them but just the well. So, we nest the structure. What we will see from now on is one row representing the well with its <code>uid</code>.</p>
+<p>Later, if you need to undo the nesting operation, you just use the function <code>unnest()</code>.</p>
 <pre class="r"><code># nesting the new well
 nested_9f4 &lt;-
     well_9f4_df %&gt;% 
@@ -1381,6 +1384,7 @@ nested_9f4 &lt;-
 #&gt;   uid     data              
 #&gt;   &lt;chr&gt;   &lt;list&gt;            
 #&gt; 1 5VIRG33 &lt;tibble [87 x 42]&gt;</code></pre>
+<p>The new well should be able now to join the other two wells nested structure. It should be a straight operation with the function <code>rbind()</code>. Since all of them are just one row, at the end of the binding we should have now three rows. The trajectory measurements are living as a list component in the column <code>data</code>.</p>
 <pre class="r"><code># bind the existing wells with the new one
 wells_nested_3 &lt;- rbind(wells_nested, nested_9f4)
 wells_nested_3
@@ -1393,11 +1397,19 @@ wells_nested_3
 </div>
 <div id="transforming-the-drilling-data" class="section level2">
 <h2>Transforming the drilling data</h2>
+<p>The next step is performing some operations with the data in the nested structures. First, we want to do the type conversion of few of the variables. We should convert the character types to the double type for the variables:</p>
+<pre><code>md
+tvd
+incl
+azi
+rateTurn
+rateBuild</code></pre>
+<p>After they are converted to numeric variables, we will be able to plot them and start making discoveries.</p>
 <pre class="r"><code>wells_kvars &lt;- 
-    wells_nested_3 %&gt;% 
-    unnest(data) %&gt;% 
+    wells_nested_3 %&gt;%   # this is the nested structure
+    unnest(data) %&gt;%     # unnest and select the variables
     select(nameWell, md, tvd, incl, azi, rateTurn, rateBuild) %&gt;% 
-    mutate(md = as.double(md), tvd = as.double(tvd), 
+    mutate(md = as.double(md), tvd = as.double(tvd),    # convert to double
            incl = as.double(incl), azi = as.double(azi),
            rateTurn = as.double(rateTurn), rateBuild = as.double(rateBuild)) %&gt;% 
     print()
@@ -1418,12 +1430,17 @@ wells_nested_3
 </div>
 <div id="plotting-drilling-data" class="section level2">
 <h2>Plotting drilling data</h2>
+<p>With the variables now converted to double, we start plotting them. The first plot will be MD vs TVD to find out how deviated is the well.</p>
 <pre class="r"><code># MD vs TVD for three wells
 library(ggplot2)
 ggplot(wells_kvars, aes(x = md, y = tvd, color = nameWell)) +
     geom_line(size=1) +
     labs(title = &quot;MD vs TVD for three wells&quot;)</code></pre>
 <p><img src="/publications/2019-01-27-exploring-drilling-data-with-witsml-and-r_files/figure-html/unnamed-chunk-59-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="facet-plot-of-md-vs-tvd" class="section level2">
+<h2>Facet plot of MD vs TVD</h2>
+<p>Here is another way of visualizing the plot above. We use facets to get rid of that overlapping in the former plot.</p>
 <pre class="r"><code># plot facets of the three wells
 # MD vs TVD for three wells
 ggplot(wells_kvars, aes(x = md, y = tvd, color = nameWell)) +
@@ -1431,22 +1448,25 @@ ggplot(wells_kvars, aes(x = md, y = tvd, color = nameWell)) +
     facet_grid(. ~ nameWell) +
     labs(title = &quot;MD vs TVD for three wells&quot;)</code></pre>
 <p><img src="/publications/2019-01-27-exploring-drilling-data-with-witsml-and-r_files/figure-html/unnamed-chunk-60-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Next, it is the turn of inclination vs azimut.</p>
 <pre class="r"><code># Inclination vs Azimuth for three wells
 ggplot(wells_kvars, aes(x = incl, y = azi, color = nameWell)) +
     geom_line(size=1) +
     facet_grid(. ~ nameWell) +
     labs(title = &quot;Inclination vs Azimuth for three wells&quot;)</code></pre>
 <p><img src="/publications/2019-01-27-exploring-drilling-data-with-witsml-and-r_files/figure-html/unnamed-chunk-61-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>We notice that the x-axis remains the same for al of the plots. We can set it free to let the x axis expand and follow the data. Just be careful in reading the data in the x-axis; they are not fixed anymore.</p>
 <pre class="r"><code># # rateTurn in radians per meter
 ggplot(wells_kvars, aes(x = tvd, y = rateTurn, color = nameWell)) +
     geom_line(size=1) +
-    facet_grid(. ~ nameWell) +
+    facet_grid(. ~ nameWell, scales=&quot;free_x&quot;) +
     labs(title = &quot;TVD vs Rate of Turn for three wells&quot;)</code></pre>
 <p><img src="/publications/2019-01-27-exploring-drilling-data-with-witsml-and-r_files/figure-html/unnamed-chunk-62-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>We do the same with the plot TVD vs Rate of Build.</p>
 <pre class="r"><code># rateBuild in radians per meter
 ggplot(wells_kvars, aes(x = tvd, y = rateBuild, color = nameWell)) +
     geom_line(size=1) +
-    facet_grid(. ~ nameWell) +
+    facet_grid(. ~ nameWell, scales = &quot;free_x&quot;) +
     labs(title = &quot;TVD vs Rate of Build for three wells&quot;)</code></pre>
 <p><img src="/publications/2019-01-27-exploring-drilling-data-with-witsml-and-r_files/figure-html/unnamed-chunk-63-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>

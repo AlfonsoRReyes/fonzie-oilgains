@@ -436,7 +436,7 @@ unique(xml_name(xml_children(xml_find_all(dat, "//trajectoryStation"))))
 
 > They are different because int he first case we are asking for the first node (`xml_find_first`) while in the second case we are asking for all the nodes (xml_find_all). This is normal, the reason of existence of hierarchical structures that doesn't waste space in variables that are not currently used.
 
-### Attrubutes of `trajectoryStation`
+### Attributes of `trajectoryStation`
 
 ```{r}
 # get the attributes for trajectoryStation
@@ -985,7 +985,7 @@ all_wells
 ## Simplify the data structure by nesting the two wells
 With the two wells put together we should be almost ready. But we don't want to show all the measurements; we want just to focus on the wells. So far, we have two wells with 67 rows but what about later when we have ten or a hundred. Then, it would consume lot of memory and screen to see through all those records.
 
-What we want is to show only the wells and start performing operations directly on them. We do this by using the function `nest()`.
+What we want is to show only the wells and start performing operations directly on them. We do this by using the `tidyr` function `nest()`.
 
 ```{r}
 # nest the two well so they show as one row each
@@ -996,7 +996,9 @@ wells_nested <-
 ```
 
 ## Add new wells
-We will add one more well: *Norway-Statoil-NO 15_$47\$\_9-F-4*. This well has 87 measurement points for its trajectory.
+We will add one more well: *Norway-Statoil-NO 15_$47\$\_9-F-4*. This well has 87 measurement points for its trajectory, which is the same as saying that the well has 87 `trajectoryStation` items.
+
+This time we use only one function `convert_witsml_to_df()`, one that resides in the script `witsml-trajectory.R`. This function performs all the data extraction and conversion that we saw at the beginning.
 
 ```{r rows.print=45}
 # convert a WITSML trajectory to dataframe
@@ -1006,6 +1008,10 @@ well_9f4_df
 ```
 
 ## Nest the new well
+So, we have 87 trajectory measurements for the well. Again, we don't want to see all of them but just the well. So, we nest the structure. What we will see from now on is one row representing the well with its `uid`.
+
+Later, if you need to undo the nesting operation, you just use the function `unnest()`. 
+
 ```{r}
 # nesting the new well
 nested_9f4 <-
@@ -1014,6 +1020,8 @@ nested_9f4 <-
     print()
 ```
 
+The new well should be able now to join the other two wells nested structure. It should be a straight operation with the function `rbind()`. Since all of them are just one row, at the end of the binding we should have now three rows. The trajectory measurements are living as a list component in the column `data`.
+
 ```{r}
 # bind the existing wells with the new one
 wells_nested_3 <- rbind(wells_nested, nested_9f4)
@@ -1021,18 +1029,31 @@ wells_nested_3
 ```
 
 ## Transforming the drilling data
+The next step is performing some operations with the data in the nested structures. First, we want to do the type conversion of few of the variables. We should convert the character types to the double type for the variables:
+
+    md
+    tvd
+    incl
+    azi
+    rateTurn
+    rateBuild
+  
+After they are converted to numeric variables, we will be able to plot them and start making discoveries.  
+  
 ```{r}
 wells_kvars <- 
-    wells_nested_3 %>% 
-    unnest(data) %>% 
+    wells_nested_3 %>%   # this is the nested structure
+    unnest(data) %>%     # unnest and select the variables
     select(nameWell, md, tvd, incl, azi, rateTurn, rateBuild) %>% 
-    mutate(md = as.double(md), tvd = as.double(tvd), 
+    mutate(md = as.double(md), tvd = as.double(tvd),    # convert to double
            incl = as.double(incl), azi = as.double(azi),
            rateTurn = as.double(rateTurn), rateBuild = as.double(rateBuild)) %>% 
     print()
 ```
 
 ## Plotting drilling data
+With the variables now converted to double, we start plotting them. The first plot will be MD vs TVD to find out how deviated is the well.
+
 ```{r}
 # MD vs TVD for three wells
 library(ggplot2)
@@ -1040,6 +1061,9 @@ ggplot(wells_kvars, aes(x = md, y = tvd, color = nameWell)) +
     geom_line(size=1) +
     labs(title = "MD vs TVD for three wells")
 ```
+
+## Facet plot of MD vs TVD
+Here is another way of visualizing the plot above. We use facets to get rid of that overlapping in the former plot.
 
 ```{r}
 # plot facets of the three wells
@@ -1050,6 +1074,8 @@ ggplot(wells_kvars, aes(x = md, y = tvd, color = nameWell)) +
     labs(title = "MD vs TVD for three wells")
 ```
 
+Next, it is the turn of inclination vs azimut.
+
 ```{r}
 # Inclination vs Azimuth for three wells
 ggplot(wells_kvars, aes(x = incl, y = azi, color = nameWell)) +
@@ -1058,19 +1084,23 @@ ggplot(wells_kvars, aes(x = incl, y = azi, color = nameWell)) +
     labs(title = "Inclination vs Azimuth for three wells")
 ```
 
+We notice that the x-axis remains the same for al of the plots. We can set it free to let the x axis expand and follow the data. Just be careful in reading the data in the x-axis; they are not fixed anymore.
+
 ```{r}
 # # rateTurn in radians per meter
 ggplot(wells_kvars, aes(x = tvd, y = rateTurn, color = nameWell)) +
     geom_line(size=1) +
-    facet_grid(. ~ nameWell) +
+    facet_grid(. ~ nameWell, scales="free_x") +
     labs(title = "TVD vs Rate of Turn for three wells")
 ```
+
+We do the same with the plot TVD vs Rate of Build.
 
 ```{r}
 # rateBuild in radians per meter
 ggplot(wells_kvars, aes(x = tvd, y = rateBuild, color = nameWell)) +
     geom_line(size=1) +
-    facet_grid(. ~ nameWell) +
+    facet_grid(. ~ nameWell, scales = "free_x") +
     labs(title = "TVD vs Rate of Build for three wells")
 ```
 
