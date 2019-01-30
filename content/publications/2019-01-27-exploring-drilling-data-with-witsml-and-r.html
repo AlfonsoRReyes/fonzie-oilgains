@@ -1,11 +1,12 @@
 ---
-title: "Exploring drilling data from the Volve dataset with WITSML and R"
+title: Exploring drilling data from the Volve dataset with WITSML and R
 author: Alfonso R. Reyes
-date: '2019-01-29'
-slug: test-drilling
+date: '2019-01-27'
 categories:
   - drilling
-tags: []
+  - data structures
+  - Volve
+slug: test-drilling
 ---
 
 
@@ -784,7 +785,7 @@ for (var in var_names) {              # iterate through all the variables
     }
 }
 tS_df &lt;- as.data.frame(li_vars, stringsAsFactors = FALSE)
-as.tibble(tS_df)
+as_tibble(tS_df)
 #&gt; # A tibble: 25 x 18
 #&gt;    dTimStn typeTrajStation md    tvd   incl  azi   dispNs dispEw vertSect
 #&gt;    &lt;chr&gt;   &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   
@@ -871,7 +872,7 @@ nodes_as_df &lt;- function(xml_dat, node, max_obs) {
 num_trajectoryStation &lt;- get_numrows_parent_node(dat, &quot;trajectoryStation&quot;, 
                                                  attribute = &quot;uid&quot;)
 tS.trajectoryStation_df &lt;- nodes_as_df(dat, &quot;trajectoryStation&quot;, num_trajectoryStation)
-as.tibble(tS.trajectoryStation_df)
+as_tibble(tS.trajectoryStation_df)
 #&gt; # A tibble: 25 x 18
 #&gt;    dTimStn typeTrajStation md    tvd   incl  azi   dispNs dispEw vertSect
 #&gt;    &lt;chr&gt;   &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   
@@ -902,7 +903,7 @@ xml_find_all(dat, xpath) %&gt;%
 #&gt; [5] &quot;priv_customData&quot;</code></pre>
 <pre class="r"><code># get the nodes under trajectoryStation/commonData
 tS.cD_df &lt;- nodes_as_df(xml_dat, node = &quot;trajectoryStation/commonData&quot;, max_obs = 25)
-as.tibble(tS.cD_df)
+as_tibble(tS.cD_df)
 #&gt; # A tibble: 25 x 5
 #&gt;    sourceName  dTimCreation    dTimLastChange   itemState priv_customData  
 #&gt;    &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;            &lt;chr&gt;     &lt;chr&gt;            
@@ -930,7 +931,7 @@ xml_find_all(dat, xpath) %&gt;%
 
 # get the nodes under trajectoryStation/commonData
 tS.cU_df &lt;- nodes_as_df(xml_dat, node = &quot;trajectoryStation/corUsed&quot;, max_obs = 25)
-as.tibble(tS.cU_df)
+as_tibble(tS.cU_df)
 #&gt; # A tibble: 25 x 2
 #&gt;    stnGridCorUsed dirSensorOffset
 #&gt;    &lt;chr&gt;          &lt;chr&gt;          
@@ -961,7 +962,7 @@ as.tibble(tS.cU_df)
   # tS.cD_df: commonData
 trajectoryStation_df &lt;- cbind(tS.uid_dt, tS_df, tS.cU_df, tS.cD_df)
 trajectoryStation_dt &lt;- data.table(trajectoryStation_df)
-as.tibble(trajectoryStation_df)
+as_tibble(trajectoryStation_df)
 #&gt; # A tibble: 25 x 26
 #&gt;    uid   dTimStn typeTrajStation md    tvd   incl  azi   dispNs dispEw
 #&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; 
@@ -990,7 +991,7 @@ sub_id
 trajectoryStation_df &lt;- trajectoryStation_df %&gt;% 
     mutate(id = sub_id) %&gt;% 
     select(id, everything()) %&gt;% 
-    as.tibble()
+    as_tibble()
 
 trajectoryStation_dt = data.table(trajectoryStation_df)</code></pre>
 <pre class="r"><code>dim(trajectoryStation_dt)
@@ -1031,7 +1032,7 @@ setkey(trajectoryStation_dt, id)
 
 # inner join
 t_9f9_dt &lt;- trajectory_dt[trajectoryStation_dt, nomatch=0] %&gt;% 
-    as.tibble() %&gt;% 
+    as_tibble() %&gt;% 
     print()
 #&gt; # A tibble: 25 x 43
 #&gt;    uidWell uidWellbore uid   nameWell nameWellbore name  objectGrowing
@@ -1194,7 +1195,7 @@ make_id_to_trajectoryStation_dt &lt;- function(tS_df) {
     tS_df &lt;- tS_df %&gt;% 
         mutate(id = sub_id) %&gt;% 
         select(id, everything()) %&gt;% 
-        as.tibble()
+        as_tibble()
     data.table(tS_df)
 }
 
@@ -1210,7 +1211,7 @@ make_trajectory_table &lt;- function(t_dt, tS_dt) {
     # inner join
     result &lt;- t_dt[tS_dt, nomatch=0]
     result %&gt;% 
-    as.tibble()
+    as_tibble()
 }
 
 t_9f7_dt &lt;- make_trajectory_table(trajectory_dt, trajectoryStation_dt)

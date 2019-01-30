@@ -636,7 +636,7 @@ for (var in var_names) {              # iterate through all the variables
     }
 }
 tS_df <- as.data.frame(li_vars, stringsAsFactors = FALSE)
-as.tibble(tS_df)
+as_tibble(tS_df)
 ```
 
 ```{r}
@@ -701,7 +701,7 @@ nodes_as_df <- function(xml_dat, node, max_obs) {
 num_trajectoryStation <- get_numrows_parent_node(dat, "trajectoryStation", 
                                                  attribute = "uid")
 tS.trajectoryStation_df <- nodes_as_df(dat, "trajectoryStation", num_trajectoryStation)
-as.tibble(tS.trajectoryStation_df)
+as_tibble(tS.trajectoryStation_df)
 ```
 
 ### dataframe for trajectoryStation/commonData
@@ -718,7 +718,7 @@ xml_find_all(dat, xpath) %>%
 ```{r}
 # get the nodes under trajectoryStation/commonData
 tS.cD_df <- nodes_as_df(xml_dat, node = "trajectoryStation/commonData", max_obs = 25)
-as.tibble(tS.cD_df)
+as_tibble(tS.cD_df)
 ```
 
 ### corUsed
@@ -733,7 +733,7 @@ xml_find_all(dat, xpath) %>%
 
 # get the nodes under trajectoryStation/commonData
 tS.cU_df <- nodes_as_df(xml_dat, node = "trajectoryStation/corUsed", max_obs = 25)
-as.tibble(tS.cU_df)
+as_tibble(tS.cU_df)
 ```
 
 ### combined dataframe for trajectoryStation
@@ -751,7 +751,7 @@ Combination of:
   # tS.cD_df: commonData
 trajectoryStation_df <- cbind(tS.uid_dt, tS_df, tS.cU_df, tS.cD_df)
 trajectoryStation_dt <- data.table(trajectoryStation_df)
-as.tibble(trajectoryStation_df)
+as_tibble(trajectoryStation_df)
 ```
 
 ```{r}
@@ -763,7 +763,7 @@ sub_id
 trajectoryStation_df <- trajectoryStation_df %>% 
     mutate(id = sub_id) %>% 
     select(id, everything()) %>% 
-    as.tibble()
+    as_tibble()
 
 trajectoryStation_dt = data.table(trajectoryStation_df)
 ```
@@ -790,7 +790,7 @@ setkey(trajectoryStation_dt, id)
 
 # inner join
 t_9f9_dt <- trajectory_dt[trajectoryStation_dt, nomatch=0] %>% 
-    as.tibble() %>% 
+    as_tibble() %>% 
     print()
 
 well_9f9_df <- t_9f9_dt
@@ -921,7 +921,7 @@ make_id_to_trajectoryStation_dt <- function(tS_df) {
     tS_df <- tS_df %>% 
         mutate(id = sub_id) %>% 
         select(id, everything()) %>% 
-        as.tibble()
+        as_tibble()
     data.table(tS_df)
 }
 
@@ -937,7 +937,7 @@ make_trajectory_table <- function(t_dt, tS_dt) {
     # inner join
     result <- t_dt[tS_dt, nomatch=0]
     result %>% 
-    as.tibble()
+    as_tibble()
 }
 
 t_9f7_dt <- make_trajectory_table(trajectory_dt, trajectoryStation_dt)
