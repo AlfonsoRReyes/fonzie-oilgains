@@ -1,11 +1,12 @@
 ---
-title: "Exploring drilling data from the Volve dataset with WITSML and R"
+title: Exploring drilling data from the Volve dataset with WITSML and R
 author: Alfonso R. Reyes
-date: '2019-01-29'
-slug: test-drilling
+date: '2019-01-27'
 categories:
   - drilling
-tags: []
+  - data structures
+  - Volve
+slug: test-drilling
 ---
 
 ```{r setup, include = FALSE, error=TRUE, message=FALSE, warning=FALSE}
