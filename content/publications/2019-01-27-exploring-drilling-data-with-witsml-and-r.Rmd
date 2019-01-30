@@ -954,8 +954,7 @@ identical(names(t_9f9_dt), names(t_9f7_dt))
 ```
 
 # Making it reproducible
-
-Now, we can put all these functions in an R script, and would work much faster. In this example, we are converting the WITSML to dataframe for well *Norway-Statoil-NO 15_$47\$\_9-F-7*. We will call it by the last identifier `9f7` from now on. You will see that this well has more trajectory stations; 43 to be exact. Many more than the first well `9f9` that corresponds to well *Norway-Statoil-NO 15_$47\$\_9-F-9*.
+Now, we can put all these functions in an R script, and everything should work much faster. In this example, we are converting the WITSML to dataframes for well *Norway-Statoil-NO 15_$47\$\_9-F-7*. We will call it by the last identifier `9f7` from now on. You will see that this well has more trajectory stations; 43 to be exact. Many more than the first well `9f9` that corresponds to well *Norway-Statoil-NO 15_$47\$\_9-F-9*.
 
 ```{r rows.print=45}
 source("witsml-trajectory.R")
@@ -974,8 +973,8 @@ well_9f7_df <- convert_witsml_to_df(well_9f7)
 well_9f7_df
 ```
 
-## Combine the two wells with `rbind`
-Now it's the time to combine both wells
+## Combine the observations of the two wells with `rbind`
+Now it's the time to combine the measurements of both wells. We use the `rbind()` function which glue them by rows. Now, we should have `r 25 + 42` rows.
 
 ```{r}
 # bind two wells and create a common dataframe
@@ -984,6 +983,10 @@ all_wells
 ```
 
 ## Simplify the data structure by nesting the two wells
+With the two wells put together we should be almost ready. But we don't want to show all the measurements; we want just to focus on the wells. So far, we have two wells with 67 rows but what about later when we have ten or a hundred. Then, it would consume lot of memory and screen to see through all those records.
+
+What we want is to show only the wells and start performing operations directly on them. We do this by using the function `nest()`.
+
 ```{r}
 # nest the two well so they show as one row each
 wells_nested <-
@@ -1073,15 +1076,15 @@ ggplot(wells_kvars, aes(x = tvd, y = rateBuild, color = nameWell)) +
 
 
 # Notes
-* For the first row of `trajectoryStation`, which corresponds to the `TIE_POINT`, make all the empty variables (those not present) as NA. The `data.table` function works very well evening out those variables that are incomplete but filling them with default values. We see, for instance, that for first member of the  `trajectoryStation`, the variables are only 10, without counting `commonData`.
+* For the first row of `trajectoryStation`, which corresponds to the `TIE_POINT`, fill all the empty variables (those absent) with `NA`. The `data.table` function works very well compensating those variables that are incomplete but filling them with default values, which is not good. We see, for instance, that for first member of the  `trajectoryStation`, the variables present are only 10. Normally, they should be 20, if we count `commonData` and `corUsed`, which are the only two which have children nodes.
 
-* In upcoming versions we should take care of coercing the variables to their corresponding types. By default, in this example, we've got all the variables as character. Because we know in advance the data types because of the WITSML standard, we could use the **R** package `readr` to do the coercion.
+* In upcoming versions, we should take care of coercing the variables to their corresponding types. By default, in this example, we've got all the variables as character. Since we know in advance the data types because of the WITSML standard, we could use the **R** package `readr` to do the coercion.
 
-* As we get familiar with the WITSML hierarchies, we could start using loops or `apply` functions to convert a tree structure to dataframes.
+* As we get familiar with the WITSML hierarchies, we could start using loops or `apply` functions to convert the tree structures to dataframes. 
 
 * Functions can be implemented later to get the number of trajectory stations, find which `trajectoryStation` does not have its complete set of variables, or extract a particular trajectory measurement.
 
-* In this example, we used only one well. That's why we obtained only one trajectory file. Other wells could have more than one trajectory file. Later we could implement a function that scans all the folders and generates a summary statistic of the number of folders, number of files per well, size, etc.
+* In this long example, we used only one well for the details. That's why we obtained only one trajectory file. Other wells could have more than one trajectory file. Later we could implement a function that scans all the folders and generates a summary statistic of the number of folders, number of files per well, size, etc. __Update__. We added lately two more wells.
 
 
 # References

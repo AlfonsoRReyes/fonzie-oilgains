@@ -1253,7 +1253,7 @@ identical(names(t_9f9_dt), names(t_9f7_dt))
 </div>
 <div id="making-it-reproducible" class="section level1">
 <h1>Making it reproducible</h1>
-<p>Now, we can put all these functions in an R script, and would work much faster. In this example, we are converting the WITSML to dataframe for well <em>Norway-Statoil-NO 15_$47$_9-F-7</em>. We will call it by the last identifier <code>9f7</code> from now on. You will see that this well has more trajectory stations; 43 to be exact. Many more than the first well <code>9f9</code> that corresponds to well <em>Norway-Statoil-NO 15_$47$_9-F-9</em>.</p>
+<p>Now, we can put all these functions in an R script, and everything should work much faster. In this example, we are converting the WITSML to dataframes for well <em>Norway-Statoil-NO 15_$47$_9-F-7</em>. We will call it by the last identifier <code>9f7</code> from now on. You will see that this well has more trajectory stations; 43 to be exact. Many more than the first well <code>9f9</code> that corresponds to well <em>Norway-Statoil-NO 15_$47$_9-F-9</em>.</p>
 <pre class="r"><code>source(&quot;witsml-trajectory.R&quot;)
 
 all_files_xml &lt;- list.files(&quot;./witsml&quot;, recursive = TRUE, full.names = TRUE, 
@@ -1292,9 +1292,9 @@ well_9f7_df
 #&gt; #   magDrlstrCorUsed &lt;chr&gt;, statusTrajStation &lt;chr&gt;, stnGridCorUsed &lt;chr&gt;,
 #&gt; #   dirSensorOffset &lt;chr&gt;, sourceName &lt;chr&gt;, dTimCreation &lt;chr&gt;,
 #&gt; #   dTimLastChange &lt;chr&gt;, itemState &lt;chr&gt;, priv_customData &lt;chr&gt;</code></pre>
-<div id="combine-the-two-wells-with-rbind" class="section level2">
-<h2>Combine the two wells with <code>rbind</code></h2>
-<p>Now it’s the time to combine both wells</p>
+<div id="combine-the-observations-of-the-two-wells-with-rbind" class="section level2">
+<h2>Combine the observations of the two wells with <code>rbind</code></h2>
+<p>Now it’s the time to combine the measurements of both wells. We use the <code>rbind()</code> function which glue them by rows. Now, we should have 67 rows.</p>
 <pre class="r"><code># bind two wells and create a common dataframe
 all_wells &lt;- rbind(well_9f7_df, well_9f9_df)
 all_wells
@@ -1325,6 +1325,8 @@ all_wells
 </div>
 <div id="simplify-the-data-structure-by-nesting-the-two-wells" class="section level2">
 <h2>Simplify the data structure by nesting the two wells</h2>
+<p>With the two wells put together we should be almost ready. But we don’t want to show all the measurements; we want just to focus on the wells. So far, we have two wells with 67 rows but what about later when we have ten or a hundred. Then, it would consume lot of memory and screen to see through all those records.</p>
+<p>What we want is to show only the wells and start performing operations directly on them. We do this by using the function <code>nest()</code>.</p>
 <pre class="r"><code># nest the two well so they show as one row each
 wells_nested &lt;-
     all_wells %&gt;% 
@@ -1452,11 +1454,11 @@ ggplot(wells_kvars, aes(x = tvd, y = rateBuild, color = nameWell)) +
 <div id="notes" class="section level1">
 <h1>Notes</h1>
 <ul>
-<li><p>For the first row of <code>trajectoryStation</code>, which corresponds to the <code>TIE_POINT</code>, make all the empty variables (those not present) as NA. The <code>data.table</code> function works very well evening out those variables that are incomplete but filling them with default values. We see, for instance, that for first member of the <code>trajectoryStation</code>, the variables are only 10, without counting <code>commonData</code>.</p></li>
-<li><p>In upcoming versions we should take care of coercing the variables to their corresponding types. By default, in this example, we’ve got all the variables as character. Because we know in advance the data types because of the WITSML standard, we could use the <strong>R</strong> package <code>readr</code> to do the coercion.</p></li>
-<li><p>As we get familiar with the WITSML hierarchies, we could start using loops or <code>apply</code> functions to convert a tree structure to dataframes.</p></li>
+<li><p>For the first row of <code>trajectoryStation</code>, which corresponds to the <code>TIE_POINT</code>, fill all the empty variables (those absent) with <code>NA</code>. The <code>data.table</code> function works very well compensating those variables that are incomplete but filling them with default values, which is not good. We see, for instance, that for first member of the <code>trajectoryStation</code>, the variables present are only 10. Normally, they should be 20, if we count <code>commonData</code> and <code>corUsed</code>, which are the only two which have children nodes.</p></li>
+<li><p>In upcoming versions, we should take care of coercing the variables to their corresponding types. By default, in this example, we’ve got all the variables as character. Since we know in advance the data types because of the WITSML standard, we could use the <strong>R</strong> package <code>readr</code> to do the coercion.</p></li>
+<li><p>As we get familiar with the WITSML hierarchies, we could start using loops or <code>apply</code> functions to convert the tree structures to dataframes.</p></li>
 <li><p>Functions can be implemented later to get the number of trajectory stations, find which <code>trajectoryStation</code> does not have its complete set of variables, or extract a particular trajectory measurement.</p></li>
-<li><p>In this example, we used only one well. That’s why we obtained only one trajectory file. Other wells could have more than one trajectory file. Later we could implement a function that scans all the folders and generates a summary statistic of the number of folders, number of files per well, size, etc.</p></li>
+<li><p>In this long example, we used only one well for the details. That’s why we obtained only one trajectory file. Other wells could have more than one trajectory file. Later we could implement a function that scans all the folders and generates a summary statistic of the number of folders, number of files per well, size, etc. <strong>Update</strong>. We added lately two more wells.</p></li>
 </ul>
 </div>
 <div id="references" class="section level1">
