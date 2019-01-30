@@ -56,8 +56,8 @@ for (k in kw_tbl$keyword) {
     i &lt;-  i + 1                                            # increment counter
     Sys.sleep(5)                          # do not bug OnePetro website too much
 }                                         # be a good internet citizen
-#&gt;                       gas lift  7270 
-#&gt;                       gas-lift 17801 
+#&gt;                       gas lift  7273 
+#&gt;                       gas-lift 17804 
 #&gt;                        GasLift   588 
 #&gt;                       gas.lift     2 
 #&gt;                       gas_lift     4</code></pre>
@@ -65,20 +65,20 @@ for (k in kw_tbl$keyword) {
 <pre class="r"><code>dt &lt;- data.table::rbindlist(rec)                # final data table
 dt
 #&gt;     keyword count
-#&gt; 1: gas lift  7270
-#&gt; 2: gas-lift 17801
+#&gt; 1: gas lift  7273
+#&gt; 2: gas-lift 17804
 #&gt; 3:  GasLift   588
 #&gt; 4: gas.lift     2
 #&gt; 5: gas_lift     4</code></pre>
 </div>
 <div id="observations" class="section level2">
 <h2>Observations</h2>
-<p>The keyword with most papers written is the word “gas”, followed by dash, followed by “lift”. There are 17801 papers which contain the word “gas-lift”. The second keyword is “gas lift” with 7270. That is the word “gas”, followed by a space, followed by “lift”. Both keywords account for little more than 97.69 % of the papers. There is a third with 588 papers: the keyword “GasLift”. It is not pretty common but I have seen it in some literature (Shell?, maybe). There are two more keywords with 6 paper results. Very marginal within the context of 25665 papers. The words “gas.lift” and “gas_lift”, probably typos.</p>
+<p>The keyword with most papers written is the word “gas”, followed by dash, followed by “lift”. There are 17804 papers which contain the word “gas-lift”. The second keyword is “gas lift” with 7273. That is the word “gas”, followed by a space, followed by “lift”. Both keywords account for little more than 97.69 % of the papers. There is a third with 588 papers: the keyword “GasLift”. It is not pretty common but I have seen it in some literature (Shell?, maybe). There are two more keywords with 6 paper results. Very marginal within the context of 25671 papers. The words “gas.lift” and “gas_lift”, probably typos.</p>
 </div>
 <div id="conclusions" class="section level2">
 <h2>Conclusions</h2>
 <p>With this short example we could appreciate the importance of considering the right keywords when performing paper research. We could do this relatively fast in an automated fashion using data science tools such this R package. Of course, we could have done this manually, but keep in mind as the number of probable words combination increases so the time doing the search in the conventional way. Using paper search automation is a nice feature in our toolbox so there is no loss of information during the paper research.</p>
-<p>Those 25665 papers that have gas lift in their content may not represent how well or how intense the coverage of the subject is. Not until you provide some context to the search, for example, “gas lift optimization”, “dual gas lift”, “gas lift surveillance”, etc. You will see the number of results shrink rapidly when a context is supplied. But at least, now you know that you have two keywords to add to your search context.</p>
+<p>Those 25671 papers that have gas lift in their content may not represent how well or how intense the coverage of the subject is. Not until you provide some context to the search, for example, “gas lift optimization”, “dual gas lift”, “gas lift surveillance”, etc. You will see the number of results shrink rapidly when a context is supplied. But at least, now you know that you have two keywords to add to your search context.</p>
 <p>In my view, the perfect search would be one where each of the papers return the number of times the keyword was mentioned, as well as the context or subject. You can do that but it requires that you have the physical paper to perform the search within the corpus of the paper. For us, engineers, is not practical, because we cannot store or purchase all those 24,000+ papers!</p>
 <p>Maybe the day is coming when OnePetro includes in the search results:
 * the number of keyword occurrences within the corpus,
@@ -105,8 +105,8 @@ major &lt;- c(&quot;gas lift&quot;,
 
 gas_lift &lt;- join_keywords(major, get_papers = TRUE, sleep = 3, verbose = TRUE)
 #&gt; 
-#&gt;   1  7270 &#39;gas+lift&#39;                                                   
-#&gt;   2  7270 &#39;gas-lift&#39;                                                   
+#&gt;   1  7273 &#39;gas+lift&#39;                                                   
+#&gt;   2  7273 &#39;gas-lift&#39;                                                   
 #&gt;   3   588 &#39;GasLift&#39;                                                    
 #&gt;   4   904 &#39;gas-lifted&#39;                                                 
 #&gt;   5   904 &#39;gas+lifted&#39;                                                 
@@ -119,8 +119,8 @@ gas_lift$keywords
 #&gt; # A tibble: 9 x 4
 #&gt;   Var1     paper_count sf        url                                       
 #&gt;   &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;                                     
-#&gt; 1 gas lift        7270 &#39;gas+lif~ &quot;https://www.onepetro.org/search?q=\&quot;gas+~
-#&gt; 2 gas-lift        7270 &#39;gas-lif~ &quot;https://www.onepetro.org/search?q=\&quot;gas-~
+#&gt; 1 gas lift        7273 &#39;gas+lif~ &quot;https://www.onepetro.org/search?q=\&quot;gas+~
+#&gt; 2 gas-lift        7273 &#39;gas-lif~ &quot;https://www.onepetro.org/search?q=\&quot;gas-~
 #&gt; 3 GasLift          588 &#39;GasLift&#39; &quot;https://www.onepetro.org/search?q=\&quot;GasL~
 #&gt; 4 gas-lif~         904 &#39;gas-lif~ &quot;https://www.onepetro.org/search?q=\&quot;gas-~
 #&gt; 5 gas lif~         904 &#39;gas+lif~ &quot;https://www.onepetro.org/search?q=\&quot;gas+~
@@ -205,7 +205,7 @@ for (k in kw_tbl$keyword) {
 #&gt;                            SRP   477 
 #&gt;                      beam pump   518 
 #&gt;                   beam pumping   455 
-#&gt;                       rod pump  1274 
+#&gt;                       rod pump  1275 
 #&gt;                    rod pumping   866 
 #&gt;                      pump jack    99 
 #&gt;           surface pumping unit    80 
@@ -228,7 +228,7 @@ for (k in kw_tbl$keyword) {
 #&gt;  4:                        SRP   477
 #&gt;  5:                  beam pump   518
 #&gt;  6:               beam pumping   455
-#&gt;  7:                   rod pump  1274
+#&gt;  7:                   rod pump  1275
 #&gt;  8:                rod pumping   866
 #&gt;  9:                  pump jack    99
 #&gt; 10:       surface pumping unit    80

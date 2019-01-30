@@ -53,20 +53,20 @@ results_ai &lt;- run_papers_search(major,
 #&gt; NULL
 
 (papers_ai &lt;- results_ai$papers)
-#&gt; # A tibble: 2,786 x 7
-#&gt;    book_title       paper_id  dc_type  authors         year source keyword 
-#&gt;    &lt;fct&gt;            &lt;fct&gt;     &lt;fct&gt;    &lt;chr&gt;          &lt;int&gt; &lt;fct&gt;  &lt;chr&gt;   
-#&gt;  1 Artificial Inte~ SPE-1928~ confere~ Hojageldiyev,~  2018 SPE    &#39;artifi~
-#&gt;  2 Production Moni~ SPE-1495~ confere~ Olivares Vela~  2012 SPE    &#39;artifi~
-#&gt;  3 Artificial Inte~ SPE-1915~ confere~ Gupta, Supriy~  2018 SPE    &#39;artifi~
-#&gt;  4 Multilateral We~ SPE-1836~ confere~ Buhulaigah, A~  2017 SPE    &#39;artifi~
-#&gt;  5 Profiling Downh~ SPE-1734~ confere~ AlAjmi, Moham~  2015 SPE    &#39;artifi~
-#&gt;  6 Artificial Inte~ SEG-1992~ confere~ Guo, Yi, Cent~  1992 SEG    &#39;artifi~
-#&gt;  7 Artificial Inte~ SPE-1695~ confere~ Shahkarami, A~  2014 SPE    &#39;artifi~
-#&gt;  8 Forecasting Inc~ ASSE-07-~ confere~ Al-Mutairi, A~  2007 ASSE   &#39;artifi~
-#&gt;  9 Application of ~ SPE-1590~ general  Gangopadhyay,~  1986 SPE    &#39;artifi~
-#&gt; 10 Industrial Appl~ PETSOC-9~ confere~ Cercone, N., ~  1995 PETSOC &#39;artifi~
-#&gt; # ... with 2,776 more rows
+#&gt; # A tibble: 2,787 x 7
+#&gt;    book_title       paper_id   dc_type  authors        year source keyword 
+#&gt;    &lt;fct&gt;            &lt;fct&gt;      &lt;fct&gt;    &lt;chr&gt;         &lt;int&gt; &lt;fct&gt;  &lt;chr&gt;   
+#&gt;  1 Artificial Inte~ SPE-19282~ confere~ Hojageldiyev~  2018 SPE    &#39;artifi~
+#&gt;  2 Production Moni~ SPE-14959~ confere~ Olivares Vel~  2012 SPE    &#39;artifi~
+#&gt;  3 Multilateral We~ SPE-18350~ confere~ Al-Mashhad, ~  2016 SPE    &#39;artifi~
+#&gt;  4 Artificial Inte~ SPE-19155~ confere~ Gupta, Supri~  2018 SPE    &#39;artifi~
+#&gt;  5 Multilateral We~ SPE-18368~ confere~ Buhulaigah, ~  2017 SPE    &#39;artifi~
+#&gt;  6 Profiling Downh~ SPE-17342~ confere~ AlAjmi, Moha~  2015 SPE    &#39;artifi~
+#&gt;  7 Formation Dip D~ SPWLA-198~ journal~ Kerzner, Mar~  1983 SPWLA  &#39;artifi~
+#&gt;  8 Estimating Dewp~ SPE-16091~ confere~ Alarfaj, Mal~  2012 SPE    &#39;artifi~
+#&gt;  9 Artificial Inte~ SPE-16950~ confere~ Shahkarami, ~  2014 SPE    &#39;artifi~
+#&gt; 10 Forecasting Inc~ ASSE-07-1~ confere~ Al-Mutairi, ~  2007 ASSE   &#39;artifi~
+#&gt; # ... with 2,777 more rows
 
 # plot on AI by year of publication
 papers_ai %&gt;% 
@@ -102,12 +102,12 @@ results_ci &lt;- run_papers_search(major,
 #&gt; # A tibble: 222 x 7
 #&gt;    book_title        paper_id  dc_type authors        year source keyword  
 #&gt;    &lt;fct&gt;             &lt;fct&gt;     &lt;fct&gt;   &lt;chr&gt;         &lt;int&gt; &lt;fct&gt;  &lt;chr&gt;    
-#&gt;  1 Missing Wind Spe~ ISOPE-I-~ confer~ Panapakidis,~  2016 ISOPE  &#39;computa~
-#&gt;  2 Prediction of Po~ SPE-1266~ confer~ Anifowose, F~  2010 SPE    &#39;computa~
-#&gt;  3 Advances in Hybr~ SPE-1609~ confer~ Anifowose, F~  2012 SPE    &#39;computa~
-#&gt;  4 Ensemble Machine~ SPE-1681~ confer~ Anifowose, F~  2013 SPE    &#39;computa~
-#&gt;  5 Utilizing State ~ SPE-1923~ confer~ Khan, Mohamm~  2018 SPE    &#39;computa~
-#&gt;  6 An Automated Flo~ SPE-1921~ confer~ Tariq, Zeesh~  2018 SPE    &#39;computa~
+#&gt;  1 Advances in Hybr~ SPE-1609~ confer~ Anifowose, F~  2012 SPE    &#39;computa~
+#&gt;  2 Ensemble Machine~ SPE-1681~ confer~ Anifowose, F~  2013 SPE    &#39;computa~
+#&gt;  3 Prediction of Po~ SPE-1266~ confer~ Anifowose, F~  2010 SPE    &#39;computa~
+#&gt;  4 Missing Wind Spe~ ISOPE-I-~ confer~ Panapakidis,~  2016 ISOPE  &#39;computa~
+#&gt;  5 An Automated Flo~ SPE-1921~ confer~ Tariq, Zeesh~  2018 SPE    &#39;computa~
+#&gt;  6 Utilizing State ~ SPE-1923~ confer~ Khan, Mohamm~  2018 SPE    &#39;computa~
 #&gt;  7 Prediction of °A~ SPE-1843~ journa~ Goel, Purva,~  2017 SPE    &#39;computa~
 #&gt;  8 Maximizing Oil R~ SPE-1956~ confer~ Khan, Mohamm~  2018 SPE    &#39;computa~
 #&gt;  9 Fracture Optimiz~ SPE-3734~ confer~ Mohaghegh, S~  1996 SPE    &#39;computa~
@@ -146,20 +146,20 @@ results_ii &lt;- run_papers_search(major,
 #&gt; NULL
 
 (papers_ii &lt;- results_ii$papers)
-#&gt; # A tibble: 12,195 x 7
+#&gt; # A tibble: 12,197 x 7
 #&gt;    book_title        paper_id  dc_type  authors         year source keyword
 #&gt;    &lt;fct&gt;             &lt;fct&gt;     &lt;fct&gt;    &lt;chr&gt;          &lt;int&gt; &lt;fct&gt;  &lt;chr&gt;  
 #&gt;  1 Video:          ~ OTC-2516~ present~ Stalford, Har~  2014 OTC    &#39;intel~
 #&gt;  2 Intelligent Casi~ OTC-2516~ confere~ Stalford, Har~  2014 OTC    &#39;intel~
 #&gt;  3 Networking Intel~ SPE-1001~ journal~ Denney, Denni~  2001 SPE    &#39;intel~
-#&gt;  4 Intelligently Us~ SPE-0408~ journal~ Schorn, Patri~  2008 SPE    &#39;intel~
+#&gt;  4 Intelligent Sand~ SPE-9881~ confere~ Oyeneyin, M. ~  2005 SPE    &#39;intel~
 #&gt;  5 Intelligent Pipe~ NACE-072~ confere~ Gu, P., CANME~  2007 NACE   &#39;intel~
 #&gt;  6 Intelligent Stra~ SPE-1121~ confere~ Rangnow, Darr~  2008 SPE    &#39;intel~
-#&gt;  7 Intelligent Well~ SPE-8099~ journal~ Robinson, Mik~  2003 SPE    &#39;intel~
-#&gt;  8 Intelligent Sand~ SPE-9881~ confere~ Oyeneyin, M. ~  2005 SPE    &#39;intel~
+#&gt;  7 Intelligently Us~ SPE-0408~ journal~ Schorn, Patri~  2008 SPE    &#39;intel~
+#&gt;  8 Intelligent Well~ SPE-8099~ journal~ Robinson, Mik~  2003 SPE    &#39;intel~
 #&gt;  9 ESPs and Intelli~ SPE-7765~ confere~ Konopczynski,~  2002 SPE    &#39;intel~
 #&gt; 10 Intelligent-Dril~ SPE-0505~ journal~ Bybee, Karen,~  2005 SPE    &#39;intel~
-#&gt; # ... with 12,185 more rows
+#&gt; # ... with 12,187 more rows
 
 # plot on II by year of publication
 papers_ii %&gt;% 
@@ -201,20 +201,20 @@ results_ml &lt;- run_papers_search(major,
 #&gt; NULL
 
 (papers_ml &lt;- results_ml$papers)
-#&gt; # A tibble: 1,677 x 7
+#&gt; # A tibble: 1,680 x 7
 #&gt;    book_title       paper_id  dc_type  authors         year source keyword 
 #&gt;    &lt;fct&gt;            &lt;fct&gt;     &lt;fct&gt;    &lt;chr&gt;          &lt;int&gt; &lt;fct&gt;  &lt;chr&gt;   
 #&gt;  1 Mooring Integri~ OTC-2786~ confere~ Prislin, Igor~  2017 OTC    &#39;machin~
 #&gt;  2 Machine learnin~ SEG-2017~ confere~ Smith, Kennet~  2017 SEG    &#39;machin~
 #&gt;  3 Machine-learnin~ SEG-2018~ confere~ Maniar, Hiren~  2018 SEG    &#39;machin~
-#&gt;  4 Machine Learnin~ OTC-2863~ confere~ Pollock, Jaco~  2018 OTC    &#39;machin~
+#&gt;  4 Shale Discrimin~ ARMA-201~ confere~ Hoeink, T., B~  2017 ARMA   &#39;machin~
 #&gt;  5 Data Driven Pro~ SPE-1809~ confere~ Cao, Q., Schl~  2016 SPE    &#39;machin~
-#&gt;  6 Shale Discrimin~ ARMA-201~ confere~ Hoeink, T., B~  2017 ARMA   &#39;machin~
+#&gt;  6 Machine Learnin~ OTC-2863~ confere~ Pollock, Jaco~  2018 OTC    &#39;machin~
 #&gt;  7 Predicting ESP ~ URTEC-26~ confere~ Sneed, Jessam~  2017 URTEC  &#39;machin~
-#&gt;  8 Seismic trace e~ SEG-2018~ confere~ Shen, Yang, U~  2018 SEG    &#39;machin~
-#&gt;  9 Smart Condition~ SPE-1879~ confere~ Bangert, Patr~  2017 SPE    &#39;machin~
+#&gt;  8 Smart Condition~ SPE-1879~ confere~ Bangert, Patr~  2017 SPE    &#39;machin~
+#&gt;  9 Seismic trace e~ SEG-2018~ confere~ Shen, Yang, U~  2018 SEG    &#39;machin~
 #&gt; 10 Using Machine L~ OTC-2858~ confere~ Snøtun, Håkon~  2018 OTC    &#39;machin~
-#&gt; # ... with 1,667 more rows
+#&gt; # ... with 1,670 more rows
 
 # plot on ML by year of publication
 papers_ml %&gt;% 
@@ -247,20 +247,20 @@ results_algo &lt;- run_papers_search(major,
 #&gt; NULL
 
 (papers_algo &lt;- results_algo$papers)
-#&gt; # A tibble: 32,406 x 7
+#&gt; # A tibble: 32,412 x 7
 #&gt;    book_title        paper_id  dc_type  authors         year source keyword
 #&gt;    &lt;fct&gt;             &lt;fct&gt;     &lt;fct&gt;    &lt;chr&gt;          &lt;int&gt; &lt;fct&gt;  &lt;chr&gt;  
 #&gt;  1 A Hybrid Refract~ SEG-1988~ confere~ Diggins, Chuc~  1988 SEG    &#39;algor~
 #&gt;  2 Fast Ray-tracing~ SEG-1990~ confere~ Zhao, Gaishan~  1990 SEG    &#39;algor~
 #&gt;  3 A New Seismic Co~ SEG-2012~ confere~ Chuai, Xiaoyu~  2012 SEG    &#39;algor~
-#&gt;  4 Fast 3-D Inversi~ SEG-1997~ confere~ Singer, Bensi~  1997 SEG    &#39;algor~
+#&gt;  4 Parallel Nested ~ SPE-2524~ confere~ Maksimov, M.M~  1993 SPE    &#39;algor~
 #&gt;  5 Design Applicati~ SPE-2636~ confere~ Jefferys, E.R~  1993 SPE    &#39;algor~
-#&gt;  6 Robust Internal ~ SEG-2011~ confere~ Wu, Zhiming J~  2011 SEG    &#39;algor~
-#&gt;  7 Parallel Nested ~ SPE-2524~ confere~ Maksimov, M.M~  1993 SPE    &#39;algor~
+#&gt;  6 Fast 3-D Inversi~ SEG-1997~ confere~ Singer, Bensi~  1997 SEG    &#39;algor~
+#&gt;  7 Robust Internal ~ SEG-2011~ confere~ Wu, Zhiming J~  2011 SEG    &#39;algor~
 #&gt;  8 Higher-order Sta~ SEG-2003~ confere~ Lu, Wenkai, T~  2003 SEG    &#39;algor~
-#&gt;  9 3D Migration Vel~ SEG-1997~ confere~ Perrot, Julie~  1997 SEG    &#39;algor~
-#&gt; 10 Seismic-acoustic~ SEG-2010~ confere~ Aldridge, Dav~  2010 SEG    &#39;algor~
-#&gt; # ... with 32,396 more rows
+#&gt;  9 Seismic-acoustic~ SEG-2010~ confere~ Aldridge, Dav~  2010 SEG    &#39;algor~
+#&gt; 10 Hydrocarbon Prod~ SPE-3637~ journal~ Harding, T.J.~  1998 SPE    &#39;algor~
+#&gt; # ... with 32,402 more rows
 
 # plot on algos by year of publication
 papers_algo %&gt;% 
@@ -298,10 +298,10 @@ results_pa &lt;- run_papers_search(major,
 #&gt;  3 The Next Game Ch~ ASSE-15-~ confere~ Lisk, Del, L~  2015 ASSE   &#39;predic~
 #&gt;  4 Predictive Analy~ SPE-1287~ confere~ Snyder, Tim,~  2010 SPE    &#39;predic~
 #&gt;  5 Predictive Analy~ SPE-1534~ confere~ Holdaway, Ke~  2012 SPE    &#39;predic~
-#&gt;  6 Predictive Analy~ NACE-201~ confere~ Crompton, An~  2014 NACE   &#39;predic~
-#&gt;  7 Enhancing Well-W~ SPE-1015~ journal~ Wilson, Adam~  2015 SPE    &#39;predic~
-#&gt;  8 Enhancing Wellwo~ SPE-1678~ confere~ Sidahmed, Mo~  2014 SPE    &#39;predic~
-#&gt;  9 ESP Health Monit~ SPE-1810~ confere~ Gupta, Supri~  2016 SPE    &#39;predic~
+#&gt;  6 Enhancing Wellwo~ SPE-1678~ confere~ Sidahmed, Mo~  2014 SPE    &#39;predic~
+#&gt;  7 ESP Health Monit~ SPE-1810~ confere~ Gupta, Supri~  2016 SPE    &#39;predic~
+#&gt;  8 Predictive Analy~ NACE-201~ confere~ Crompton, An~  2014 NACE   &#39;predic~
+#&gt;  9 Enhancing Well-W~ SPE-1015~ journal~ Wilson, Adam~  2015 SPE    &#39;predic~
 #&gt; 10 Data Mining and ~ SPE-1637~ confere~ Bailey, Rich~  2013 SPE    &#39;predic~
 #&gt; # ... with 510 more rows
 
@@ -333,7 +333,7 @@ results_sm &lt;- run_papers_search(major,
 #&gt; NULL
 
 (papers_sm &lt;- results_sm$papers)
-#&gt; # A tibble: 853 x 7
+#&gt; # A tibble: 854 x 7
 #&gt;    book_title        paper_id   dc_type authors        year source keyword 
 #&gt;    &lt;fct&gt;             &lt;fct&gt;      &lt;fct&gt;   &lt;chr&gt;         &lt;int&gt; &lt;fct&gt;  &lt;chr&gt;   
 #&gt;  1 Evaluating Resou~ SPE-10743~ confer~ Hall, Russel~  2007 SPE    &#39;statis~
@@ -346,7 +346,7 @@ results_sm &lt;- run_papers_search(major,
 #&gt;  8 Generalized Stat~ SPE-14528~ general Jenkins, D.C~  1985 SPE    &#39;statis~
 #&gt;  9 Improved Uncerta~ SPE-14519~ journa~ Sætrom, Jon,~  2012 SPE    &#39;statis~
 #&gt; 10 A Statistical Mo~ PETSOC-89~ journa~ Papst, W., G~  1989 PETSOC &#39;statis~
-#&gt; # ... with 843 more rows
+#&gt; # ... with 844 more rows
 
 # plot on algos by year of publication
 papers_sm %&gt;% 
@@ -384,9 +384,9 @@ results_ds &lt;- run_papers_search(major,
 #&gt; # A tibble: 178 x 7
 #&gt;    book_title        paper_id  dc_type  authors         year source keyword
 #&gt;    &lt;fct&gt;             &lt;fct&gt;     &lt;fct&gt;    &lt;chr&gt;          &lt;int&gt; &lt;fct&gt;  &lt;chr&gt;  
-#&gt;  1 Application of D~ OTC-2863~ confere~ Pankaj, Piyus~  2018 OTC    &#39;data+~
-#&gt;  2 Video:          ~ OTC-2863~ present~ Pankaj, Piyus~  2018 OTC    &#39;data+~
-#&gt;  3 Applying Subsurf~ SPE-1898~ confere~ Silva, J., An~  2018 SPE    &#39;data+~
+#&gt;  1 Applying Subsurf~ SPE-1898~ confere~ Silva, J., An~  2018 SPE    &#39;data+~
+#&gt;  2 Application of D~ OTC-2863~ confere~ Pankaj, Piyus~  2018 OTC    &#39;data+~
+#&gt;  3 Video:          ~ OTC-2863~ present~ Pankaj, Piyus~  2018 OTC    &#39;data+~
 #&gt;  4 Video:          ~ SPE-1914~ present~ Wen, Tailai, ~  2018 SPE    &#39;data+~
 #&gt;  5 An Integrated Pl~ SPE-1914~ confere~ Wen, Tailai, ~  2018 SPE    &#39;data+~
 #&gt;  6 Data Drilling: C~ SPE-1734~ confere~ Caldwell, Bri~  2015 SPE    &#39;data+~
@@ -425,24 +425,24 @@ results_dd &lt;- run_papers_search(major,
                              len_keywords = 4,        # naming the data file
                              allow_duplicates = FALSE) # by paper title and id
 #&gt; 
-#&gt;   1  2205 &#39;data+driven&#39;                                                
-#&gt;   2  2205 &#39;data-driven&#39;                                                
+#&gt;   1  2207 &#39;data+driven&#39;                                                
+#&gt;   2  2207 &#39;data-driven&#39;                                                
 #&gt; NULL
 
 (papers_dd &lt;- results_dd$papers)
 #&gt; # A tibble: 2,207 x 7
 #&gt;    book_title        paper_id  dc_type  authors         year source keyword
 #&gt;    &lt;fct&gt;             &lt;fct&gt;     &lt;fct&gt;    &lt;chr&gt;          &lt;int&gt; &lt;fct&gt;  &lt;chr&gt;  
-#&gt;  1 Geology-constrai~ SEG-2017~ confere~ Espinoza, Car~  2017 SEG    &#39;data-~
-#&gt;  2 Data Driven Prod~ SPE-1809~ confere~ Cao, Q., Schl~  2016 SPE    &#39;data-~
+#&gt;  1 Data Driven Prod~ SPE-1809~ confere~ Cao, Q., Schl~  2016 SPE    &#39;data-~
+#&gt;  2 Geology-constrai~ SEG-2017~ confere~ Espinoza, Car~  2017 SEG    &#39;data-~
 #&gt;  3 Inversion Based ~ SEG-2014~ confere~ Wang, Benfeng~  2014 SEG    &#39;data-~
-#&gt;  4 On the Accuracy ~ SEG-2011~ confere~ Shaw, Simon A~  2011 SEG    &#39;data-~
-#&gt;  5 Applying Data-Dr~ SPE-1816~ confere~ Jia, Xinli, H~  2016 SPE    &#39;data-~
-#&gt;  6 Real Time Surfac~ SPE-1917~ confere~ Zha, Yang, Co~  2018 SPE    &#39;data-~
-#&gt;  7 Predictive Analy~ SPE-1534~ confere~ Holdaway, Kei~  2012 SPE    &#39;data-~
-#&gt;  8 A Data-Driven Mo~ SPE-0416~ journal~ Carpenter, Ch~  2016 SPE    &#39;data-~
-#&gt;  9 Data-Driven Prod~ SPE-1015~ journal~ Carpenter, Ch~  2015 SPE    &#39;data-~
-#&gt; 10 Data-Driven Tech~ SPE-0118~ journal~ Wilson, Adam,~  2018 SPE    &#39;data-~
+#&gt;  4 SUPPLEMENTARY/SP~ SPE-1826~ media    &quot;&quot;                NA &lt;NA&gt;   &#39;data-~
+#&gt;  5 SUPPLEMENTARY/SP~ SPE-1770~ media    &quot;&quot;                NA &lt;NA&gt;   &#39;data-~
+#&gt;  6 Video:          ~ SPE-1914~ present~ Ogunbanwo, Ol~  2018 SPE    &#39;data-~
+#&gt;  7 Innovative Data-~ SPE-1211~ confere~ Al-anazi, Amm~  2009 SPE    &#39;data-~
+#&gt;  8 On the Accuracy ~ SEG-2011~ confere~ Shaw, Simon A~  2011 SEG    &#39;data-~
+#&gt;  9 Applying Data-Dr~ SPE-1816~ confere~ Jia, Xinli, H~  2016 SPE    &#39;data-~
+#&gt; 10 Real Time Surfac~ SPE-1917~ confere~ Zha, Yang, Co~  2018 SPE    &#39;data-~
 #&gt; # ... with 2,197 more rows
 
 # plot on DD by year of publication
@@ -474,24 +474,24 @@ results_an &lt;- run_papers_search(major,
                              len_keywords = 4,        # naming the data file
                              allow_duplicates = FALSE) # by paper title and id
 #&gt; 
-#&gt;   1 15807 &#39;analytics&#39;                                                  
+#&gt;   1 15809 &#39;analytics&#39;                                                  
 #&gt; NULL
 
 (papers_an &lt;- results_an$papers)
-#&gt; # A tibble: 15,806 x 7
-#&gt;    book_title       paper_id  dc_type  authors          year source keyword
-#&gt;    &lt;fct&gt;            &lt;fct&gt;     &lt;fct&gt;    &lt;chr&gt;           &lt;int&gt; &lt;fct&gt;  &lt;chr&gt;  
-#&gt;  1 Introducing Pre~ SPE-1068~ confere~ Stone, Paul, BP  2007 SPE    &#39;analy~
-#&gt;  2 Machinery Predi~ SPE-1285~ confere~ Rawi, Zaid, BP   2010 SPE    &#39;analy~
-#&gt;  3 Analytics Appli~ SPE-1734~ confere~ Anders, Joe, B~  2015 SPE    &#39;analy~
-#&gt;  4 SUPPLEMENTARY/S~ SPE-1734~ media    &quot;&quot;                 NA &lt;NA&gt;   &#39;analy~
-#&gt;  5 Analytics Beyon~ SPE-1637~ confere~ Sandlin, Jesse~  2013 SPE    &#39;analy~
-#&gt;  6 Improved Steamf~ SPE-9787~ journal~ Chandra, Suand~  2007 SPE    &#39;analy~
-#&gt;  7 Improved Steamf~ SPE-9787~ confere~ Chandra, Suand~  2005 SPE    &#39;analy~
-#&gt;  8 Technology Focu~ SPE-1016~ journal~ Saputelli, Lui~  2016 SPE    &#39;analy~
-#&gt;  9 Time To Enlist ~ SPE-0618~ journal~ Rassenfoss, St~  2018 SPE    &#39;analy~
-#&gt; 10 Analytical Meth~ SPE-8351~ confere~ Lerma, M.K. Va~  2003 SPE    &#39;analy~
-#&gt; # ... with 15,796 more rows
+#&gt; # A tibble: 15,808 x 7
+#&gt;    book_title      paper_id   dc_type  authors          year source keyword
+#&gt;    &lt;fct&gt;           &lt;fct&gt;      &lt;fct&gt;    &lt;chr&gt;           &lt;int&gt; &lt;fct&gt;  &lt;chr&gt;  
+#&gt;  1 Introducing Pr~ SPE-10686~ confere~ Stone, Paul, BP  2007 SPE    &#39;analy~
+#&gt;  2 Machinery Pred~ SPE-12855~ confere~ Rawi, Zaid, BP   2010 SPE    &#39;analy~
+#&gt;  3 SUPPLEMENTARY/~ SPE-17343~ media    &quot;&quot;                 NA &lt;NA&gt;   &#39;analy~
+#&gt;  4 Improved Steam~ SPE-97870~ journal~ Chandra, Suand~  2007 SPE    &#39;analy~
+#&gt;  5 Analytics Appl~ SPE-17343~ confere~ Anders, Joe, B~  2015 SPE    &#39;analy~
+#&gt;  6 Analytics Beyo~ SPE-16371~ confere~ Sandlin, Jesse~  2013 SPE    &#39;analy~
+#&gt;  7 Improved Steam~ SPE-97870~ confere~ Chandra, Suand~  2005 SPE    &#39;analy~
+#&gt;  8 Technology Foc~ SPE-1016-~ journal~ Saputelli, Lui~  2016 SPE    &#39;analy~
+#&gt;  9 Analytical Hyd~ WPC-4506   confere~ Lipkin, M. R.,~  1951 WPC    &#39;analy~
+#&gt; 10 Secondary Migr~ SPE-69411~ confere~ Bedrikovetsky,~  2001 SPE    &#39;analy~
+#&gt; # ... with 15,798 more rows
 
 # plot on &#39;analytics&#39; by year of publication
 papers_an %&gt;% 
@@ -523,24 +523,24 @@ results_da &lt;- run_papers_search(major,
                              len_keywords = 4,        # naming the data file
                              allow_duplicates = FALSE) # by paper title and id
 #&gt; 
-#&gt;   1   728 &#39;data+analytics&#39;                                             
+#&gt;   1   729 &#39;data+analytics&#39;                                             
 #&gt; NULL
 
 (papers_da &lt;- results_da$papers)
-#&gt; # A tibble: 728 x 7
-#&gt;    book_title        paper_id  dc_type  authors         year source keyword
-#&gt;    &lt;fct&gt;             &lt;fct&gt;     &lt;fct&gt;    &lt;chr&gt;          &lt;int&gt; &lt;fct&gt;  &lt;chr&gt;  
-#&gt;  1 Technology Focus~ SPE-1016~ journal~ Saputelli, Lu~  2016 SPE    &#39;data+~
-#&gt;  2 Tapping the Valu~ SPE-1216~ journal~ Mehta, Amit, ~  2016 SPE    &#39;data+~
-#&gt;  3 Technology Focus~ SPE-1017~ journal~ Saputelli, Lu~  2017 SPE    &#39;data+~
-#&gt;  4 Big Data Analyti~ SPE-1861~ confere~ Xiao, Jie, Ho~  2017 SPE    &#39;data+~
-#&gt;  5 Advanced Big Dat~ SPE-1800~ confere~ Tarrahi, Moha~  2016 SPE    &#39;data+~
-#&gt;  6 Big Data Analyti~ SPE-1810~ confere~ von Plate, Mo~  2016 SPE    &#39;data+~
-#&gt;  7 Technology Focus~ SPE-1018~ journal~ Saputelli, Lu~  2018 SPE    &#39;data+~
-#&gt;  8 Real-Time Bit We~ SPE-1874~ confere~ Lakhanpal, Vi~  2017 SPE    &#39;data+~
-#&gt;  9 An Integrated Sy~ SPE-1810~ confere~ Alsalama, Ahm~  2016 SPE    &#39;data+~
-#&gt; 10 Reservoir Health~ SPE-1928~ confere~ Al Marzouqi, ~  2018 SPE    &#39;data+~
-#&gt; # ... with 718 more rows
+#&gt; # A tibble: 729 x 7
+#&gt;    book_title       paper_id  dc_type  authors         year source keyword 
+#&gt;    &lt;fct&gt;            &lt;fct&gt;     &lt;fct&gt;    &lt;chr&gt;          &lt;int&gt; &lt;fct&gt;  &lt;chr&gt;   
+#&gt;  1 Technology Focu~ SPE-1016~ journal~ Saputelli, Lu~  2016 SPE    &#39;data+a~
+#&gt;  2 Technology Focu~ SPE-1017~ journal~ Saputelli, Lu~  2017 SPE    &#39;data+a~
+#&gt;  3 Tapping the Val~ SPE-1216~ journal~ Mehta, Amit, ~  2016 SPE    &#39;data+a~
+#&gt;  4 Big Data Analyt~ SPE-1861~ confere~ Xiao, Jie, Ho~  2017 SPE    &#39;data+a~
+#&gt;  5 Advanced Big Da~ SPE-1800~ confere~ Tarrahi, Moha~  2016 SPE    &#39;data+a~
+#&gt;  6 Big Data Analyt~ SPE-1810~ confere~ von Plate, Mo~  2016 SPE    &#39;data+a~
+#&gt;  7 Technology Focu~ SPE-1018~ journal~ Saputelli, Lu~  2018 SPE    &#39;data+a~
+#&gt;  8 SUPPLEMENTARY/O~ OTC-2602~ media    &quot;&quot;                NA &lt;NA&gt;   &#39;data+a~
+#&gt;  9 SUPPLEMENTARY/S~ SPE-1817~ media    &quot;&quot;                NA &lt;NA&gt;   &#39;data+a~
+#&gt; 10 SUPPLEMENTARY/S~ SPE-1749~ media    &quot;&quot;                NA &lt;NA&gt;   &#39;data+a~
+#&gt; # ... with 719 more rows
 
 # plot on DA by year of publication
 papers_da %&gt;% 
@@ -577,24 +577,24 @@ results_bd &lt;- run_papers_search(major,
                              len_keywords = 4,         # naming the data file
                              allow_duplicates = FALSE) # by paper title and id
 #&gt; 
-#&gt;   1  1222 &#39;big+data&#39;                                                   
+#&gt;   1  1223 &#39;big+data&#39;                                                   
 #&gt; NULL
 
 (papers_bd &lt;- results_bd$papers)
-#&gt; # A tibble: 1,222 x 7
+#&gt; # A tibble: 1,223 x 7
 #&gt;    book_title       paper_id  dc_type  authors          year source keyword
 #&gt;    &lt;fct&gt;            &lt;fct&gt;     &lt;fct&gt;    &lt;chr&gt;           &lt;int&gt; &lt;fct&gt;  &lt;chr&gt;  
 #&gt;  1 Video:         ~ OTC-2918~ present~ Cody, Preston,~  2018 OTC    &#39;big+d~
 #&gt;  2 Emerging Fronti~ SPE-0114~ journal~ Spath, Jeff, 2~  2014 SPE    &#39;big+d~
 #&gt;  3 Tapping the Val~ SPE-1216~ journal~ Mehta, Amit, M~  2016 SPE    &#39;big+d~
-#&gt;  4 Big Data Is a B~ SPE-0413~ journal~ Anand, Pradeep~  2013 SPE    &#39;big+d~
-#&gt;  5 Big Data Analyt~ SPE-1861~ confere~ Xiao, Jie, Hol~  2017 SPE    &#39;big+d~
+#&gt;  4 Big Data Analyt~ SPE-1861~ confere~ Xiao, Jie, Hol~  2017 SPE    &#39;big+d~
+#&gt;  5 Big Data Is a B~ SPE-0413~ journal~ Anand, Pradeep~  2013 SPE    &#39;big+d~
 #&gt;  6 Advanced Big Da~ SPE-1800~ confere~ Tarrahi, Moham~  2016 SPE    &#39;big+d~
 #&gt;  7 Big Data Analyt~ SPE-1810~ confere~ von Plate, Mor~  2016 SPE    &#39;big+d~
-#&gt;  8 SUPPLEMENTARY/S~ SPE-1817~ media    &quot;&quot;                 NA &lt;NA&gt;   &#39;big+d~
-#&gt;  9 SUPPLEMENTARY/O~ OTC-2602~ media    &quot;&quot;                 NA &lt;NA&gt;   &#39;big+d~
+#&gt;  8 SUPPLEMENTARY/O~ OTC-2602~ media    &quot;&quot;                 NA &lt;NA&gt;   &#39;big+d~
+#&gt;  9 SUPPLEMENTARY/S~ SPE-1817~ media    &quot;&quot;                 NA &lt;NA&gt;   &#39;big+d~
 #&gt; 10 SUPPLEMENTARY/S~ SPE-1734~ media    &quot;&quot;                 NA &lt;NA&gt;   &#39;big+d~
-#&gt; # ... with 1,212 more rows
+#&gt; # ... with 1,213 more rows
 
 # plot on BD by year of publication
 papers_bd %&gt;% 
