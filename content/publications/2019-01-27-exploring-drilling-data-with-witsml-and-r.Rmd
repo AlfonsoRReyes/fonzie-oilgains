@@ -6,7 +6,7 @@ categories:
   - drilling
   - data structures
   - Volve
-slug: test-drilling
+slug: exploring-drilling-data-from-volve-dataset-witsml-r
 ---
 
 ```{r setup, include = FALSE, error=TRUE, message=FALSE, warning=FALSE}
