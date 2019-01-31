@@ -17,7 +17,7 @@ image: witsml-cover.png
 <p>This time we will exploring drilling data that is stored using the industry standard <a href="https://www.energistics.org/portfolio/witsml-data-standards/">WITSML</a>. This format is widely used in the industry in drilling, completion and intervention operations, specifically for real-time surveillance. WITSML stands for <em>Wellsite Information Transfer Standard Markup Language</em>. It has a series of rules to save the data as a consistent schema but essentially is XML. Software developers and IT professionals in the oil industry know it very well. They mostly use in-house developed scripts, SDK<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> in Java, [.Net]<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, [C#]<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>, or applications provided by vendors. This standard is essential to send and receive data between the rig and the offices or servers.</p>
 <p>Since we are not writing for software developers or IT techs but for <strong>petroleum engineers</strong>, we need to know at least the basics of WITSML. Don’t need to be experts on the subject but at least get familiar with the shape of the data, manipulation, perform some data exploration, and ultimately, be prepared, or know, what they are talking about when it is time to build an artificial intelligence agent based on a machine learning algorithm.</p>
 <blockquote>
-<p>On Artificial Intelligence. Again, let’s touch Earth here. There is no robot, or Terminator, or an intelligent, cognitive entity. Artificial Intelligence or AI is about making agents or applications to perform a repetitive or boring tasks that otherwise would be peformed by a human being. It is simple math, statistics and computer science.</p>
+<p>On Artificial Intelligence. Again, let’s touch Earth here. There is no robot, or Skynet Terminator, or an intelligent, cognitive entity in AI. Artificial Intelligence, or AI, is about making agents or applications to perform a repetitive or boring tasks that otherwise would be peformed by a human being. It is simple math, statistics and computer science.</p>
 </blockquote>
 </div>
 <div id="motivation" class="section level1">
@@ -26,11 +26,10 @@ image: witsml-cover.png
 </div>
 <div id="witsml-and-the-volve-drilling-dataset" class="section level1">
 <h1>WITSML and the Volve Drilling Dataset</h1>
-<p>We were very fortunate of getting the <a href="https://www.equinor.com/en/news/14jun2018-disclosing-volve-data.html">Volve dataset</a> published 7 months ago. It covers a wide array of data from different disciplines (production, reservoir, geophysics, drilling, completion, logging, etc.), with data coming in different formats. It is a very good exercise of data science for exploring the data and making discoveries.</p>
+<p>We were very fortunate of getting the <a href="https://www.equinor.com/en/news/14jun2018-disclosing-volve-data.html">Volve dataset</a> published 7 months ago by <a href="https://www.equinor.com/en.html">Equinor</a>. It covers a wide array of data from different disciplines (production, reservoir, geophysics, drilling, completion, logging, etc.), with data coming in different formats. It is a very good exercise of data science for exploring the data and making discoveries.</p>
 <p>Here is a view of all the wells that are storing data in WITSML format:</p>
 <p><img src="/img/witsml-all_wells.png" width="450px" style="display: block; margin: auto;" /></p>
-<p>Look at the size of each folder. They are considerable large if we compare to the usual files we manage every day. I am choosing the folder in row 22, one of the smaller data containers. If the data operations we perform here are all correct, then they should apply to any of the larger WITSML datasets.</p>
-<p><img src="/img/witsml-typical_well.png" width="300px" style="display: block; margin: auto;" /></p>
+<p>Look at the size of each folder. They are considerable large if we compare to the usual files we manage every day. I am choosing the folder in row 22 (well 9f9), one of the smaller data containers (27.3 MB). If the data operations we perform here are all correct, then , generalized, they should apply well to any of the larger WITSML datasets.</p>
 <p>A typical well with data stored in WITSML would look like this:</p>
 <p><img src="/img/witsml-typical_well.png" width="300px" style="display: block; margin: auto;" /></p>
 <p>From all these folders, let’s focus today in the <strong>well trajectory</strong> dataset.</p>
@@ -43,29 +42,39 @@ image: witsml-cover.png
 </div>
 <div id="parts-of-the-trajectory-dataset" class="section level1">
 <h1>Parts of the <code>trajectory</code> dataset</h1>
-<p>Let’s take a look first at the <code>trajectory</code> WITSML file. We are starting with a collapsed tree so it doesn’t take too much space of the screen. The <code>(+)</code> signs on the left means that it willl expand at that node.</p>
+<p>Let’s take a look first at the <code>trajectory</code> WITSML file. We are starting with a collapsed tree so it doesn’t take too much space of the screen. The <code>(+)</code> sign on the left means that it will expand further at that node.</p>
 <p><img src="/img/witsml-collapsed.png" width="850px" style="display: block; margin: auto;" /></p>
 <div id="the-two-major-nodes" class="section level2">
 <h2>The two major nodes</h2>
-<p>Starting by the top, in the second line, see the first node. <code>trajectorys</code>. This is the <strong>root</strong> node. If you see one <code>(-)</code> sign on its left, it means it has been expanded. Following on the right, in red, you see labels such as <code>xmlns</code>, <code>xlmns:xsi</code>, and <code>version</code>. These are <strong>attributes</strong> of <code>trajectorys</code>. They are not nodes but attributes.</p>
+<p>Starting by the top, in the second line, see the first node. <code>trajectorys</code>. This is the <strong>root</strong> node. If you see one <code>(-)</code> sign on its left, it means it has been expanded. Following on the right, in red, you see labels such as <code>xmlns</code>, <code>xlmns:xsi</code>, and <code>version</code>. These are <strong>attributes</strong> of <code>trajectorys</code>. They are not <strong>nodes</strong> but <strong>attributes</strong>.</p>
 <p>Under the root node <code>trajectorys</code> you see that it has only one child called <code>trajectory</code>. If you see that is has a <code>(-)</code> sign, then it has been expanded showing all its dependent nodes.</p>
-<p>So, there are then two major nodes <code>trajectorys</code> and <code>trajectory</code>. Everything else exists under <code>trajectory</code>.</p>
+<p>So, there are then two major nodes: <code>trajectorys</code> and <code>trajectory</code>. Everything else exists under <code>trajectory</code>.</p>
 </div>
 <div id="secondary-nodes" class="section level2">
 <h2>Secondary nodes</h2>
-<p>There is a group of nodes that coexists at the same level of the most important node <code>called</code>trajectoryStation<code>. This group of nodes is what we call siblings of</code>trajectoryStation`. These nodes are:</p>
+<p>There is a group of nodes that coexists at the same level of the most important node which is <code>trajectoryStation</code>. This group of nodes is what we call <code>siblings</code> of <code>trajectoryStation</code>. These nodes are:</p>
 <pre><code>nameWell
 nameWellBore
-...
-...
-...
+name
+objectGrowing
+dTimTrajStart
+dTimTrajEnd
+mdMn
+mdMx
+gridCorUsed
+aziVertSect
+dispNsVertSectOrig
+dispEwVertSectOrig
 aziRef
 ...
 ...
+...
 commonData</code></pre>
+<p>The three dots correspond to <code>trajectoryStation</code> items.</p>
 <p><img src="/img/witsml-orphans.png" width="500px" style="display: block; margin: auto;" /></p>
 <p>Some of these nodes will have children, others will just contain values as is the case of the nodes that go from <code>nameWell</code> up to <code>aziRef</code>.</p>
 <p>Some of these nodes are standalone and other have dependent nodes or children. We will see later how we find that out without having to expand each of the nodes.</p>
+<p>The node <code>commonData</code>, for instance, is one that has children. That node will require special treatment to retrieve its data.</p>
 </div>
 <div id="the-measurement-nodes" class="section level2">
 <h2>The measurement nodes</h2>
@@ -93,7 +102,7 @@ Figure 2: trajectoryStation node with all its variables
 <p>Now it’s time to get our hands dirty and do a bit of data science.</p>
 <div id="loading-the-packages" class="section level2">
 <h2>Loading the packages</h2>
-<p>We will use two packages: <code>xml2</code>, <code>data.table</code> and <code>dplyr</code>. <code>xml2</code> will take care of reading the WITSML or XML files, while <code>dplyr</code> and <code>data.table</code> will be our workhorses for dataframe generation and data manipulation. I could have just used <code>dplyr</code> nut wanted to show you both table libraries.</p>
+<p>We will use two packages: <code>xml2</code>, <code>data.table</code> and <code>dplyr</code>. <code>xml2</code> will take care of reading the WITSML or XML files, while <code>dplyr</code> and <code>data.table</code> will be our workhorses for dataframe generation and data manipulation. The other packages will be used at the end of the article for nesting structure and plotting. I could have just used <code>dplyr</code> but I wanted to show you both table libraries.</p>
 <pre class="r"><code># load libraries
 library(xml2)
 library(data.table)
@@ -103,12 +112,12 @@ library(tidyr)
 library(purrr)
 library(ggplot2)</code></pre>
 </div>
-<div id="list-the-xml-files" class="section level2">
-<h2>List the XML files</h2>
+<div id="list-and-load-the-xml-files" class="section level2">
+<h2>List and load the XML files</h2>
 <ul>
 <li>Using a relatively small folder of 27 MB.</li>
 <li>well <code>Norway-Statoil-NO 15_$47$_9-F-9</code></li>
-<li>only show few of the files with their complete full name</li>
+<li>we show only show few of the files with their complete full name</li>
 </ul>
 <pre class="r"><code>all_files_xml &lt;- list.files(&quot;./witsml&quot;, recursive = TRUE, full.names = TRUE, 
                         include.dirs = TRUE, pattern = &quot;*.xml&quot;)
@@ -120,9 +129,8 @@ all_files_xml[1:5]
 #&gt; [3] &quot;./witsml/Norway-Statoil-NO 15_$47$_9-F-4/1/bhaRun/1.xml&quot;                                                                   
 #&gt; [4] &quot;./witsml/Norway-Statoil-NO 15_$47$_9-F-4/1/bhaRun/2.xml&quot;                                                                   
 #&gt; [5] &quot;./witsml/Norway-Statoil-NO 15_$47$_9-F-4/1/bhaRun/3.xml&quot;</code></pre>
-</div>
-<div id="select-the-trajectory-file" class="section level2">
-<h2>Select the trajectory file</h2>
+<div id="select-the-trajectory-file" class="section level3">
+<h3>Select the trajectory file</h3>
 <pre class="r"><code># get the file for trajectory
 traj_files &lt;- grep(pattern = &quot;trajectory&quot;, ignore.case = TRUE, 
                    value = TRUE, x = all_files_xml)
@@ -131,8 +139,8 @@ traj_files
 #&gt; [2] &quot;./witsml/Norway-Statoil-NO 15_$47$_9-F-7/1/trajectory/1.xml&quot;
 #&gt; [3] &quot;./witsml/Norway-Statoil-NO 15_$47$_9-F-9/1/trajectory/1.xml&quot;</code></pre>
 </div>
-<div id="load-the-selected-witsml-file" class="section level2">
-<h2>Load the selected WITSML file</h2>
+<div id="load-the-selected-witsml-file" class="section level3">
+<h3>Load the selected WITSML file</h3>
 <pre class="r"><code>dat &lt;- read_xml(traj_files[3])
 dat_9f9 &lt;- dat</code></pre>
 <p>Retrieve some information:</p>
@@ -148,6 +156,7 @@ xml_name(xml_children(dat))
 #&gt; [1] &quot;trajectory&quot;
 xml_name(xml_child(dat))
 #&gt; [1] &quot;trajectory&quot;</code></pre>
+</div>
 </div>
 <div id="some-introspection-of-the-xml-object" class="section level2">
 <h2>Some introspection of the XML object</h2>
@@ -231,14 +240,14 @@ tail(all_nodes, 25)
 </div>
 <div id="getting-data-from-nodes-and-subnodes" class="section level1">
 <h1>Getting data from nodes and subnodes</h1>
-<p>As we described succintly above there are ___ groups of nodes that we are interested in:</p>
+<p>As we described succintly above there are four main groups of nodes that we are interested in:</p>
 <ol style="list-style-type: decimal">
 <li>The root node</li>
-<li>The main node</li>
-<li>The measurements node and subnodes</li>
+<li>The <code>trajectory</code> node</li>
+<li>The measurements node <code>trajectoryStation</code> and subnodes</li>
 <li>The siblings of the measurements nodes</li>
 </ol>
-<p>Our task is putting together all the variables and their corresponding values in a data structure that we are familiar with: the table. This step may not totally necessary if we have the proper software or tools that do the collection and search in the background for us. For the time being, let’s take like it were an anatomy lesson.</p>
+<p>Our task is putting together all the variables and their corresponding values in a data structure that we are familiar with: a table. This step may not totally necessary if we have the proper software or tools that do the collection and search in the background for us. For the time being, let’s take like it were a <strong>data anatomy</strong> lesson.</p>
 <div id="the-root-node-trajectorys" class="section level2">
 <h2>The root node, <code>trajectorys</code></h2>
 <p>This is the parent of the <code>trajectory</code> node. It carries not so meaningful information that I can see.</p>
@@ -268,10 +277,15 @@ xml_attrs(trajectory)
 #&gt; &quot;d1c7a0d7-afa6-487e-aa4a-e34adc091a9c&quot; 
 #&gt;                                    uid 
 #&gt;                              &quot;4VIRG33&quot;
+
+# names of the parent node
 xml_name(xml_parent(trajectory))
 #&gt; [1] &quot;trajectorys&quot;
+
+# name of the current node
 xml_name(trajectory)
-#&gt; [1] &quot;trajectory&quot;
+#&gt; [1] &quot;trajectory&quot;</code></pre>
+<pre class="r"><code># name of the child nodes
 xml_name(xml_children(trajectory))
 #&gt;  [1] &quot;nameWell&quot;           &quot;nameWellbore&quot;       &quot;name&quot;              
 #&gt;  [4] &quot;objectGrowing&quot;      &quot;dTimTrajStart&quot;      &quot;dTimTrajEnd&quot;       
@@ -335,9 +349,10 @@ xml_name(xml_children(xml_find_first(dat, &quot;//trajectory&quot;)))
 </div>
 <div id="trajectory-childless-nodes-with-spec" class="section level3">
 <h3><code>trajectory</code> childless nodes (with spec)</h3>
-<p>If we know by specification that a node does not have dependent nodes then we could manually indicate the indices of the names vector. This requires the specification or a manual inspection node by node.</p>
+<p>If we know by specification that a node does not have dependent nodes then we could manually indicate the indices in the vector containing their names. This requires having at hand the specification or a manual inspection node by node.</p>
 <pre class="r"><code># name of the orphan nodes
 orphan_vars &lt;- c(1:14)        # indices are being set manually.
+                              # not a very practical solution
 
 # the first 14 children of trajectory
 vars14_names &lt;- xml_name(xml_children(xml_find_first(dat,
@@ -349,7 +364,7 @@ vars14_names
 #&gt; [10] &quot;gridCorUsed&quot;        &quot;aziVertSect&quot;        &quot;dispNsVertSectOrig&quot;
 #&gt; [13] &quot;dispEwVertSectOrig&quot; &quot;aziRef&quot;</code></pre>
 <blockquote>
-<p>Later we will find a better way of getting the nodes with no dependents.</p>
+<p>Later we will find a better way of getting the nodes with no dependents by building a function of our own.</p>
 </blockquote>
 </div>
 <div id="trajectory-children.-method-3" class="section level3">
@@ -402,10 +417,18 @@ get_variables_under_node(dat, &quot;trajectory&quot;)
 #&gt; [10] &quot;gridCorUsed&quot;        &quot;aziVertSect&quot;        &quot;dispNsVertSectOrig&quot;
 #&gt; [13] &quot;dispEwVertSectOrig&quot; &quot;aziRef&quot;             &quot;trajectoryStation&quot; 
 #&gt; [16] &quot;commonData&quot;</code></pre>
+<pre class="r"><code>get_variables_under_node(dat, &quot;trajectory/trajectoryStation&quot;)
+#&gt;  [1] &quot;dTimStn&quot;           &quot;typeTrajStation&quot;   &quot;md&quot;               
+#&gt;  [4] &quot;tvd&quot;               &quot;incl&quot;              &quot;azi&quot;              
+#&gt;  [7] &quot;dispNs&quot;            &quot;dispEw&quot;            &quot;vertSect&quot;         
+#&gt; [10] &quot;dls&quot;               &quot;commonData&quot;        &quot;typeSurveyTool&quot;   
+#&gt; [13] &quot;rateTurn&quot;          &quot;rateBuild&quot;         &quot;gravAccelCorUsed&quot; 
+#&gt; [16] &quot;magXAxialCorUsed&quot;  &quot;sagCorUsed&quot;        &quot;magDrlstrCorUsed&quot; 
+#&gt; [19] &quot;statusTrajStation&quot; &quot;corUsed&quot;</code></pre>
 </div>
 <div id="build-the-functions-how_many_children-have_children" class="section level3">
 <h3>Build the functions <code>how_many_children</code>, <code>have_children</code></h3>
-<p>We could check if the nodes under <code>trajectory</code> have children.</p>
+<p>This is the function we were looking for. A way to check if the nodes under <code>trajectory</code>, or any node, have children.</p>
 <pre class="r"><code>#&#39; How many children does a parent node have
 #&#39; 
 #&#39; Returns a character vector with the name of the vector and the node count
@@ -426,6 +449,7 @@ how_many_children &lt;- function(xml_dat, node) {
   } 
   vars_vector
 }</code></pre>
+<p>Testing the function <code>how_many_children</code>.</p>
 <pre class="r"><code># test the function how_many_children()
 how_many_children(dat, &quot;trajectory&quot;)
 #&gt;           nameWell       nameWellbore               name 
@@ -480,6 +504,7 @@ have_no_children &lt;- function(xml_dat, node) {
 #&gt;                  0                  0                  0 
 #&gt; dispEwVertSectOrig             aziRef 
 #&gt;                  0                  0</code></pre>
+<p>List only the names of the variables that have no children.</p>
 <pre class="r"><code>names(have_no_children(dat, &quot;trajectory&quot;))
 #&gt;  [1] &quot;nameWell&quot;           &quot;nameWellbore&quot;       &quot;name&quot;              
 #&gt;  [4] &quot;objectGrowing&quot;      &quot;dTimTrajStart&quot;      &quot;dTimTrajEnd&quot;       
@@ -528,13 +553,15 @@ length(trajectoryStation.dTimStn)
 </div>
 <div id="why-the-variables-under-trajectorystation-are-different" class="section level3">
 <h3>Why the variables under trajectoryStation are different</h3>
-<p>Pat attention to these two cases when we interrogate about the name of the variables under <code>trajectoryStation</code>.</p>
+<p>Pay attention to these two cases when we interrogate about the name of the variables under <code>trajectoryStation</code>.</p>
+<p>This is asking for variables in the first node:</p>
 <pre class="r"><code># name of the dependent nodes of &quot;trajectoryStation&quot;
 xml_name(xml_children(xml_find_first(dat, &quot;//trajectoryStation&quot;)))
 #&gt;  [1] &quot;dTimStn&quot;         &quot;typeTrajStation&quot; &quot;md&quot;             
 #&gt;  [4] &quot;tvd&quot;             &quot;incl&quot;            &quot;azi&quot;            
 #&gt;  [7] &quot;dispNs&quot;          &quot;dispEw&quot;          &quot;vertSect&quot;       
 #&gt; [10] &quot;dls&quot;             &quot;commonData&quot;</code></pre>
+<p>This is asking for variables for all the nodes and taking only the unique names, those that do not repeat:</p>
 <pre class="r"><code># name of the dependent nodes of &quot;trajectoryStation&quot;
 unique(xml_name(xml_children(xml_find_all(dat, &quot;//trajectoryStation&quot;))))
 #&gt;  [1] &quot;dTimStn&quot;           &quot;typeTrajStation&quot;   &quot;md&quot;               
@@ -545,7 +572,7 @@ unique(xml_name(xml_children(xml_find_all(dat, &quot;//trajectoryStation&quot;))
 #&gt; [16] &quot;magXAxialCorUsed&quot;  &quot;sagCorUsed&quot;        &quot;magDrlstrCorUsed&quot; 
 #&gt; [19] &quot;statusTrajStation&quot; &quot;corUsed&quot;</code></pre>
 <blockquote>
-<p>They are different because int he first case we are asking for the first node (<code>xml_find_first</code>) while in the second case we are asking for all the nodes (xml_find_all). This is normal, the reason of existence of hierarchical structures that doesn’t waste space in variables that are not currently used.</p>
+<p><strong>Note</strong>. They are different because in the first case we are asking for the first node (<code>xml_find_first</code>) while in the second case we are asking for all the nodes (<code>xml_find_all</code>). This is normal. The reason of existence of hierarchical structures that doesn’t waste space in variables that are not currently used.</p>
 </blockquote>
 </div>
 <div id="attributes-of-trajectorystation" class="section level3">
@@ -563,34 +590,40 @@ xml_attr(x = trajectoryStation, attr = &quot;uid&quot;)
 </div>
 <div id="commondata-names-and-values" class="section level2">
 <h2>commonData: names and values</h2>
-<p>There are two type of nodes with the same name:
+<p>There are two type of nodes with the same name but hang from different parents:
 * <code>//trajectory/commonData</code>
 * <code>//trajectoryStation/commonData</code></p>
 <p>Both have different purposes.</p>
 <div id="trajectorycommondata" class="section level3">
-<h3>//trajectory/commonData</h3>
+<h3><code>//trajectory/commonData</code></h3>
+<p>Nodes under <code>//trajectory/commonData</code>:</p>
 <pre class="r"><code># get the subnodes for //trajectory/commonData
 unique(xml_name(xml_children(xml_find_all(dat, &quot;//trajectory/commonData&quot;))))
 #&gt; [1] &quot;sourceName&quot;        &quot;dTimCreation&quot;      &quot;dTimLastChange&quot;   
 #&gt; [4] &quot;itemState&quot;         &quot;priv_userOwner&quot;    &quot;priv_ipOwner&quot;     
 #&gt; [7] &quot;priv_dTimReceived&quot;</code></pre>
+<p>Number of nodes under <code>//trajectory/commonData</code>:</p>
 <pre class="r"><code># number of subnodes
 max(xml_length(xml_find_all(dat, &quot;//trajectory/commonData&quot;)))
 #&gt; [1] 7</code></pre>
+<p>Values for the nodes under <code>//trajectory/commonData</code>:</p>
 <pre class="r"><code># values for the first macthing node
 xml_text((xml_find_first(dat, &quot;//trajectory/commonData&quot; ) ) )
 #&gt; [1] &quot;Baker Hughes2016-09-29T03:43:41.342Z2016-09-29T03:43:41.342Zactualsc-sync-bhi143.97.229.42016-09-29T03:43:41.342Z&quot;</code></pre>
 </div>
 <div id="trajectorystationcommondata" class="section level3">
-<h3>//trajectoryStation/commonData</h3>
+<h3><code>//trajectoryStation/commonData</code></h3>
+<p>Nodes under <code>//trajectoryStation/commonData</code>:</p>
 <pre class="r"><code># get the subnodes for //trajectoryStation/commonData
 unique(xml_name(xml_children(xml_find_all(dat, &quot;//trajectoryStation/commonData&quot; ) ) ))
 #&gt; [1] &quot;sourceName&quot;      &quot;dTimCreation&quot;    &quot;dTimLastChange&quot;  &quot;itemState&quot;      
 #&gt; [5] &quot;priv_customData&quot;</code></pre>
+<p>Number of nodes under <code>//trajectoryStation/commonData</code>:</p>
 <pre class="r"><code># number of subnodes for //trajectoryStation/commonData
 # we use max() for the case it returns a vector with multiple nodes and lengths
 max(xml_length(xml_find_all(dat, &quot;//trajectoryStation/commonData&quot;)))
 #&gt; [1] 5</code></pre>
+<p>Values for the nodes under <code>//trajectoryStation/commonData</code>:</p>
 <pre class="r"><code># values for the first matching node
 xml_text((xml_find_first(dat, &quot;//trajectoryStation/commonData&quot; ) ) )
 #&gt; [1] &quot;Baker Hughes2016-09-29T03:43:41.342Z2016-09-29T03:43:41.342Zactual&quot;</code></pre>
@@ -599,17 +632,18 @@ xml_text((xml_find_first(dat, &quot;//trajectoryStation/commonData&quot; ) ) )
 </div>
 <div id="creating-the-dataframes" class="section level1">
 <h1>Creating the dataframes</h1>
-<div id="trajectory" class="section level2">
-<h2>trajectory</h2>
+<p>At this point we have figured out how to extract the names and values from nodes in a hirerarchical structure. Now, it is time to build the tables with that data.</p>
+<div id="trajectory-dataframe" class="section level2">
+<h2><code>trajectory</code> dataframe</h2>
 <pre class="r"><code># get all attributes for trajectory node
 # we try with datatable and dataframe
 trajectory &lt;- xml_find_first( dat, &quot;//trajectory&quot;)
 trajectory &lt;- xml_attrs(trajectory)
 
-trajectory_dt &lt;- data.table(t(trajectory))
+trajectory_attr_dt &lt;- data.table(t(trajectory))
 
-trajectory_df &lt;- data.frame(t(trajectory), stringsAsFactors = FALSE)
-trajectory_df
+trajectory_attr_df &lt;- data.frame(t(trajectory), stringsAsFactors = FALSE)
+trajectory_attr_df
 #&gt;                                uidWell
 #&gt; 1 432612d4-7a1b-464d-b89a-9783d4606a96
 #&gt;                            uidWellbore     uid
@@ -652,25 +686,26 @@ siblings_df
 siblings_dt &lt;- data.table(t(traj_hnc))</code></pre>
 <div id="combine-trajectory-and-siblings-in-a-one-row-dataframe" class="section level3">
 <h3>combine trajectory and siblings in a one-row dataframe</h3>
-<pre class="r"><code>trajectory_dt &lt;- cbind(trajectory_dt, siblings_dt)
-trajectory_df &lt;- cbind(trajectory_df, siblings_df)
-trajectory_df
-#&gt;                                uidWell
-#&gt; 1 432612d4-7a1b-464d-b89a-9783d4606a96
-#&gt;                            uidWellbore     uid    nameWell  nameWellbore
-#&gt; 1 d1c7a0d7-afa6-487e-aa4a-e34adc091a9c 4VIRG33 NO 15/9-F-9 NO 15/9-F-9 A
-#&gt;             name objectGrowing            dTimTrajStart
-#&gt; 1 MWD-15/9-F-9 A         false 2016-09-28T23:59:57.000Z
-#&gt;                dTimTrajEnd mdMn mdMx magDeclUsed gridCorUsed aziVertSect
-#&gt; 1 2016-09-29T00:03:50.000Z    0 1206           0           0           0
-#&gt;   dispNsVertSectOrig dispEwVertSectOrig     aziRef
-#&gt; 1                  0                  0 true north</code></pre>
+<p>We use the function <code>cbind</code> to glue the columns together.</p>
+<pre class="r"><code>trajectory_dt &lt;- cbind(trajectory_attr_dt, siblings_dt)
+trajectory_df &lt;- cbind(trajectory_attr_df, siblings_df)</code></pre>
+<pre class="r"><code># print the table
+print(as_tibble(trajectory_df))
+#&gt; # A tibble: 1 x 17
+#&gt;   uidWell uidWellbore uid   nameWell nameWellbore name  objectGrowing
+#&gt;   &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;        
+#&gt; 1 432612~ d1c7a0d7-a~ 4VIR~ NO 15/9~ NO 15/9-F-9~ MWD-~ false        
+#&gt; # ... with 10 more variables: dTimTrajStart &lt;chr&gt;, dTimTrajEnd &lt;chr&gt;,
+#&gt; #   mdMn &lt;chr&gt;, mdMx &lt;chr&gt;, magDeclUsed &lt;chr&gt;, gridCorUsed &lt;chr&gt;,
+#&gt; #   aziVertSect &lt;chr&gt;, dispNsVertSectOrig &lt;chr&gt;, dispEwVertSectOrig &lt;chr&gt;,
+#&gt; #   aziRef &lt;chr&gt;</code></pre>
 </div>
 </div>
 <div id="trajectorystation-measurements" class="section level2">
 <h2><code>trajectoryStation</code> measurements</h2>
-<div id="dataframe-for-trajectorystation-attribute-uid" class="section level3">
-<h3>dataframe for <code>trajectoryStation</code> attribute <code>uid</code></h3>
+<div id="part-1-of-4-of-the-trajectorystation-dataframe" class="section level3">
+<h3>Part 1 of 4 of the <code>trajectoryStation</code> dataframe</h3>
+<p>Corresponds to the dataframe for the <code>trajectoryStation</code> attribute <code>uid</code>.</p>
 <pre class="r"><code># get values for uid attribute of trajectoryStation
 # these are the well ids
 tS.uid &lt;- dat %&gt;% 
@@ -785,8 +820,9 @@ for (var in var_names) {              # iterate through all the variables
         li_vars[[var]] &lt;- vx
     }
 }
-tS_df &lt;- as.data.frame(li_vars, stringsAsFactors = FALSE)
-as_tibble(tS_df)
+tS_df &lt;- as.data.frame(li_vars, stringsAsFactors = FALSE)</code></pre>
+<pre class="r"><code># print the table for trajectoryStation
+print(as_tibble(tS_df))
 #&gt; # A tibble: 25 x 18
 #&gt;    dTimStn typeTrajStation md    tvd   incl  azi   dispNs dispEw vertSect
 #&gt;    &lt;chr&gt;   &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   
@@ -867,8 +903,8 @@ nodes_as_df &lt;- function(xml_dat, node, max_obs) {
     as.data.frame(li_vars, stringsAsFactors = FALSE)
 }</code></pre>
 </div>
-<div id="test-the-function" class="section level3">
-<h3>Test the function</h3>
+<div id="part-2-of-4-of-the-trajectorystation-dataframe" class="section level3">
+<h3>Part 2 of 4 of the <code>trajectoryStation</code> dataframe</h3>
 <pre class="r"><code># using function get_numrows_parent_node()
 num_trajectoryStation &lt;- get_numrows_parent_node(dat, &quot;trajectoryStation&quot;, 
                                                  attribute = &quot;uid&quot;)
@@ -892,8 +928,9 @@ as_tibble(tS.trajectoryStation_df)
 #&gt; #   gravAccelCorUsed &lt;chr&gt;, magXAxialCorUsed &lt;chr&gt;, sagCorUsed &lt;chr&gt;,
 #&gt; #   magDrlstrCorUsed &lt;chr&gt;, statusTrajStation &lt;chr&gt;</code></pre>
 </div>
-<div id="dataframe-for-trajectorystationcommondata" class="section level3">
-<h3>dataframe for trajectoryStation/commonData</h3>
+<div id="part-3-of-4-of-the-trajectorystation-dataframe-commondata" class="section level3">
+<h3>Part 3 of 4 of the <code>trajectoryStation</code> dataframe: <code>commonData</code></h3>
+<p>Correspond to the dataframe of <code>trajectoryStation/commonData</code>.</p>
 <pre class="r"><code># cascading way
 xpath &lt;- &quot;//trajectoryStation/commonData&quot;
 xml_find_all(dat, xpath) %&gt;% 
@@ -920,8 +957,8 @@ as_tibble(tS.cD_df)
 #&gt; 10 Baker Hugh~ 2016-09-29T03:~ 2016-09-29T03:4~ actual    SurveyQC=3,Surve~
 #&gt; # ... with 15 more rows</code></pre>
 </div>
-<div id="corused" class="section level3">
-<h3>corUsed</h3>
+<div id="part-4-of-4-of-the-trajectorystation-dataframe-corused" class="section level3">
+<h3>Part 4 of 4 of the <code>trajectoryStation</code> dataframe: <code>corUsed</code></h3>
 <pre class="r"><code># cascading way
 xpath &lt;- &quot;//trajectoryStation/corUsed&quot;
 xml_find_all(dat, xpath) %&gt;% 
@@ -949,7 +986,7 @@ as_tibble(tS.cU_df)
 #&gt; # ... with 15 more rows</code></pre>
 </div>
 <div id="combined-dataframe-for-trajectorystation" class="section level3">
-<h3>combined dataframe for trajectoryStation</h3>
+<h3>Combined dataframe for <code>trajectoryStation</code></h3>
 <p>Combination of:</p>
 <ol style="list-style-type: decimal">
 <li>uid attribute</li>
@@ -961,9 +998,14 @@ as_tibble(tS.cU_df)
   # tS.uid_dt: trajectoryStation attributes
   # tS_df: trajectoryStation data
   # tS.cD_df: commonData
-trajectoryStation_df &lt;- cbind(tS.uid_dt, tS_df, tS.cU_df, tS.cD_df)
-trajectoryStation_dt &lt;- data.table(trajectoryStation_df)
-as_tibble(trajectoryStation_df)
+trajectoryStation_df &lt;- cbind(tS.uid_dt, 
+                              tS_df, 
+                              tS.cU_df, 
+                              tS.cD_df)
+
+trajectoryStation_dt &lt;- data.table(trajectoryStation_df)</code></pre>
+<pre class="r"><code># print the combined table for trajectoryStation
+print(as_tibble(trajectoryStation_df))
 #&gt; # A tibble: 25 x 26
 #&gt;    uid   dTimStn typeTrajStation md    tvd   incl  azi   dispNs dispEw
 #&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; 
@@ -983,6 +1025,9 @@ as_tibble(trajectoryStation_df)
 #&gt; #   magDrlstrCorUsed &lt;chr&gt;, statusTrajStation &lt;chr&gt;, stnGridCorUsed &lt;chr&gt;,
 #&gt; #   dirSensorOffset &lt;chr&gt;, sourceName &lt;chr&gt;, dTimCreation &lt;chr&gt;,
 #&gt; #   dTimLastChange &lt;chr&gt;, itemState &lt;chr&gt;, priv_customData &lt;chr&gt;</code></pre>
+</div>
+<div id="add-an-id-for-the-tables-relationship" class="section level3">
+<h3>Add an id for the tables relationship</h3>
 <pre class="r"><code># create a new column id for relationship to another table
 id &lt;- trajectoryStation_df[1, uid]
 sub_id &lt;- gsub(pattern = &quot;_.*$&quot;, replacement = &quot;&quot;, x = id)
@@ -995,7 +1040,8 @@ trajectoryStation_df &lt;- trajectoryStation_df %&gt;%
     as_tibble()
 
 trajectoryStation_dt = data.table(trajectoryStation_df)</code></pre>
-<pre class="r"><code>dim(trajectoryStation_dt)
+<pre class="r"><code># chracateristics of the table
+dim(trajectoryStation_dt)
 #&gt; [1] 25 27
 names(trajectoryStation_dt)
 #&gt;  [1] &quot;id&quot;                &quot;uid&quot;               &quot;dTimStn&quot;          
@@ -1014,18 +1060,17 @@ names(trajectoryStation_dt)
 </div>
 <div id="putting-all-together" class="section level1">
 <h1>Putting all together</h1>
-<pre class="r"><code>trajectory_dt
-#&gt;                                 uidWell
-#&gt; 1: 432612d4-7a1b-464d-b89a-9783d4606a96
-#&gt;                             uidWellbore     uid    nameWell  nameWellbore
-#&gt; 1: d1c7a0d7-afa6-487e-aa4a-e34adc091a9c 4VIRG33 NO 15/9-F-9 NO 15/9-F-9 A
-#&gt;              name objectGrowing            dTimTrajStart
-#&gt; 1: MWD-15/9-F-9 A         false 2016-09-28T23:59:57.000Z
-#&gt;                 dTimTrajEnd mdMn mdMx magDeclUsed gridCorUsed aziVertSect
-#&gt; 1: 2016-09-29T00:03:50.000Z    0 1206           0           0           0
-#&gt;    dispNsVertSectOrig dispEwVertSectOrig     aziRef
-#&gt; 1:                  0                  0 true north</code></pre>
-<p>We have one interesting thing going on. The have the trajectory dataframe that is one row and 17 columns, while trajectoryStation is 25 rows by 27 columns. How do we work them out in rectangular tables:</p>
+<pre class="r"><code>print(as_tibble(trajectory_dt))
+#&gt; # A tibble: 1 x 17
+#&gt;   uidWell uidWellbore uid   nameWell nameWellbore name  objectGrowing
+#&gt;   &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;        
+#&gt; 1 432612~ d1c7a0d7-a~ 4VIR~ NO 15/9~ NO 15/9-F-9~ MWD-~ false        
+#&gt; # ... with 10 more variables: dTimTrajStart &lt;chr&gt;, dTimTrajEnd &lt;chr&gt;,
+#&gt; #   mdMn &lt;chr&gt;, mdMx &lt;chr&gt;, magDeclUsed &lt;chr&gt;, gridCorUsed &lt;chr&gt;,
+#&gt; #   aziVertSect &lt;chr&gt;, dispNsVertSectOrig &lt;chr&gt;, dispEwVertSectOrig &lt;chr&gt;,
+#&gt; #   aziRef &lt;chr&gt;</code></pre>
+<p>We have one interesting thing going on. We have the <code>trajectory</code> dataframe that is one row and 17 columns (1x17), while <code>trajectoryStation</code> is 25 rows by 27 columns (25x27). How do we work them out in rectangular tables?</p>
+<p>We will have to join them. We will use an inner join in <code>data.table</code>.</p>
 <div id="join-trajectory-and-trajectorystation-dataframes" class="section level2">
 <h2>Join trajectory and trajectoryStation dataframes</h2>
 <pre class="r"><code>setkey(trajectory_dt, uid)
@@ -1099,8 +1144,8 @@ dat_9f7 &lt;- read_xml(traj_files[2])</code></pre>
 get_total_number_of_nodes(dat_9f7)
 #&gt; [1] 1190</code></pre>
 </div>
-<div id="trajectory-for-the-2nd-well" class="section level3">
-<h3>trajectory for the 2nd well</h3>
+<div id="trajectory-dataframe-for-the-2nd-well" class="section level3">
+<h3><code>trajectory</code> dataframe for the 2nd well</h3>
 <pre class="r"><code>get_trajectory_attributes_df &lt;- function(xml_dat) {
     xml_find_first(xml_dat, &quot;//trajectory&quot;) %&gt;% 
     xml_attrs() %&gt;% 
@@ -1140,8 +1185,8 @@ trajectory_dt
 #&gt;    dispNsVertSectOrig dispEwVertSectOrig     aziRef
 #&gt; 1:                  0                  0 true north</code></pre>
 </div>
-<div id="trajectorystation-for-the-2nd-well" class="section level3">
-<h3>trajectoryStation for the 2nd well</h3>
+<div id="trajectorystation-dataframe-for-the-2nd-well" class="section level3">
+<h3><code>trajectoryStation</code> dataframe for the 2nd well</h3>
 <pre class="r"><code># uid dataframe
 get_trajectoryStation_uid_df &lt;- function(xml_dat) {
     # get values for uid attribute of trajectoryStation
@@ -1437,7 +1482,7 @@ library(ggplot2)
 ggplot(wells_kvars, aes(x = md, y = tvd, color = nameWell)) +
     geom_line(size=1) +
     labs(title = &quot;MD vs TVD for three wells&quot;)</code></pre>
-<p><img src="/publications/2019-01-27-exploring-drilling-data-with-witsml-and-r_files/figure-html/unnamed-chunk-59-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2019-01-27-exploring-drilling-data-with-witsml-and-r_files/figure-html/unnamed-chunk-55-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="facet-plot-of-md-vs-tvd" class="section level2">
 <h2>Facet plot of MD vs TVD</h2>
@@ -1448,28 +1493,28 @@ ggplot(wells_kvars, aes(x = md, y = tvd, color = nameWell)) +
     geom_line(size=1) +
     facet_grid(. ~ nameWell) +
     labs(title = &quot;MD vs TVD for three wells&quot;)</code></pre>
-<p><img src="/publications/2019-01-27-exploring-drilling-data-with-witsml-and-r_files/figure-html/unnamed-chunk-60-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2019-01-27-exploring-drilling-data-with-witsml-and-r_files/figure-html/unnamed-chunk-56-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Next, it is the turn of inclination vs azimut.</p>
 <pre class="r"><code># Inclination vs Azimuth for three wells
 ggplot(wells_kvars, aes(x = incl, y = azi, color = nameWell)) +
     geom_line(size=1) +
     facet_grid(. ~ nameWell) +
     labs(title = &quot;Inclination vs Azimuth for three wells&quot;)</code></pre>
-<p><img src="/publications/2019-01-27-exploring-drilling-data-with-witsml-and-r_files/figure-html/unnamed-chunk-61-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2019-01-27-exploring-drilling-data-with-witsml-and-r_files/figure-html/unnamed-chunk-57-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>We notice that the x-axis remains the same for al of the plots. We can set it free to let the x axis expand and follow the data. Just be careful in reading the data in the x-axis; they are not fixed anymore.</p>
 <pre class="r"><code># # rateTurn in radians per meter
 ggplot(wells_kvars, aes(x = tvd, y = rateTurn, color = nameWell)) +
     geom_line(size=1) +
     facet_grid(. ~ nameWell, scales=&quot;free_x&quot;) +
     labs(title = &quot;TVD vs Rate of Turn for three wells&quot;)</code></pre>
-<p><img src="/publications/2019-01-27-exploring-drilling-data-with-witsml-and-r_files/figure-html/unnamed-chunk-62-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2019-01-27-exploring-drilling-data-with-witsml-and-r_files/figure-html/unnamed-chunk-58-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>We do the same with the plot TVD vs Rate of Build.</p>
 <pre class="r"><code># rateBuild in radians per meter
 ggplot(wells_kvars, aes(x = tvd, y = rateBuild, color = nameWell)) +
     geom_line(size=1) +
     facet_grid(. ~ nameWell, scales = &quot;free_x&quot;) +
     labs(title = &quot;TVD vs Rate of Build for three wells&quot;)</code></pre>
-<p><img src="/publications/2019-01-27-exploring-drilling-data-with-witsml-and-r_files/figure-html/unnamed-chunk-63-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2019-01-27-exploring-drilling-data-with-witsml-and-r_files/figure-html/unnamed-chunk-59-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="notes" class="section level1">
