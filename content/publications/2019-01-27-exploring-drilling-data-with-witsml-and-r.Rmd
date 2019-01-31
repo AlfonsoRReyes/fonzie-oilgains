@@ -7,6 +7,7 @@ categories:
   - data structures
   - Volve
 slug: exploring-drilling-data-from-volve-dataset-witsml-r
+image: witsml-cover.png
 ---
 
 ```{r setup, include = FALSE, error=TRUE, message=FALSE, warning=FALSE}
