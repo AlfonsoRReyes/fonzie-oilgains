@@ -1,5 +1,5 @@
 ---
-title: Best practices for the construction of well models (figshare)
+title: Best practices for the construction of well models
 author: Alfonso R. Reyes
 date: '2018-12-03'
 slug: figshare-best-practices

@@ -1,0 +1,61 @@
+---
+title: 'Volve datasets: what can we learn?'
+author: Alfonso R. Reyes
+date: '2018-12-18'
+slug: volve-datasets-what-can-we-learn
+categories:
+  - Volve
+tags: []
+---
+
+
+
+<p>Let’s enter the individual size of each of the Volve data files:</p>
+<pre class="r"><code># megabytes
+cat(sprintf(&quot;Megabytes\n&quot;))
+#&gt; Megabytes
+(mega &lt;- c(geophysics = 99, reservoir_eclipse = 390, well_technical = 212,
+          seismic_vsp = 95, production = 2, reports = 162))
+#&gt;        geophysics reservoir_eclipse    well_technical       seismic_vsp 
+#&gt;                99               390               212                95 
+#&gt;        production           reports 
+#&gt;                 2               162
+
+# gigabytes
+cat(sprintf(&quot;Gigabytes\n&quot;))
+#&gt; Gigabytes
+(giga &lt;- c(geoscience = 54.6, reservoir_rms = 2.1, well_logs = 6.9, 
+          seismic_4d = 330.4, well_logs_per_well = 7, witsml_drilling = 5))
+#&gt;         geoscience      reservoir_rms          well_logs 
+#&gt;               54.6                2.1                6.9 
+#&gt;         seismic_4d well_logs_per_well    witsml_drilling 
+#&gt;              330.4                7.0                5.0
+
+# terabytes
+cat(sprintf(&quot;Terabytes\n&quot;))
+#&gt; Terabytes
+(tera &lt;- c(seismic_st10010 = 2.6, seismic_st0202 = 1.2))
+#&gt; seismic_st10010  seismic_st0202 
+#&gt;             2.6             1.2
+
+# Summary in gigabytes
+cat(sprintf(&quot;\nDataset in GB\n&quot;))
+#&gt; 
+#&gt; Dataset in GB
+c(mega / 1024, giga, tera * 1024)
+#&gt;         geophysics  reservoir_eclipse     well_technical 
+#&gt;       9.667969e-02       3.808594e-01       2.070312e-01 
+#&gt;        seismic_vsp         production            reports 
+#&gt;       9.277344e-02       1.953125e-03       1.582031e-01 
+#&gt;         geoscience      reservoir_rms          well_logs 
+#&gt;       5.460000e+01       2.100000e+00       6.900000e+00 
+#&gt;         seismic_4d well_logs_per_well    witsml_drilling 
+#&gt;       3.304000e+02       7.000000e+00       5.000000e+00 
+#&gt;    seismic_st10010     seismic_st0202 
+#&gt;       2.662400e+03       1.228800e+03</code></pre>
+<pre class="r"><code>giga_total &lt;- sum(c(mega / 1024, giga, tera * 1024))
+
+# how many gigabytes of data?
+cat(sprintf(&quot;\nTotal Gigabytes: %8.3f&quot;, giga_total))
+#&gt; 
+#&gt; Total Gigabytes: 4298.137</code></pre>
