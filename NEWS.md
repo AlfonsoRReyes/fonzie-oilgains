@@ -1,3 +1,10 @@
+# 0.1.11
+* 30 Jan 2019
+* new article Exploring drilling data from the Volve dataset with WITSML and R.
+* added Volve drilling datasets for three wells. 
+* Used symbolic link for the witsml folder presence under content/publication
+* new folder inst/rawdata under /static
+
 # 0.1.10.9000
 * change slideshare link to shortcode
 * add speakerdeck slide to 'Best Practices for the Construction of Well Models"
