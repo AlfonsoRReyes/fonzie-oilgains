@@ -23,9 +23,9 @@ knitr::opts_chunk$set(echo = TRUE,
 
 
 # Introduction
-This time we will exploring drilling data that is stored using the industry standard [WITSML][witsml]. This format is widely used in the industry in drilling, completion and intervention operations, specifically for real-time surveillance. WITSML stands for *Wellsite Information Transfer Standard Markup Language*. It has a series of rules to save the data as a consistent schema but essentially is XML. Software developers and IT professionals in the oil industry know it very well. They mostly use in-house developed scripts, SDK[^SDK] in Java, [.Net][^dotnet], [C#][^csharp], or applications provided by vendors. This standard is essential to send and receive data between the rig and the offices or servers.
+This time we will be exploring drilling data that is stored using the industry standard [WITSML][witsml]. This format is widely used in the industry in drilling, completion and intervention operations, specifically for real-time surveillance. WITSML stands for *Wellsite Information Transfer Standard Markup Language*. It has a series of rules to save the data as a consistent schema but essentially is XML. Software developers and IT professionals in the oil industry know it very well. They mostly use in-house developed scripts, SDK[^SDK] in [Java][javasdk], [.Net][^dotnet], [C#][^csharp], or applications provided by vendors. This standard is essential to send and receive data between the rig and the offices or servers.
 
-Since we are not writing for software developers or IT techs but for **petroleum engineers**, we need to know at least the basics of WITSML. Don't need to be experts on the subject but at least get familiar with the shape of the data, manipulation, perform some data exploration, and ultimately, be prepared, or know, what they are talking about when it is time to build an artificial intelligence agent based on a machine learning algorithm.
+Since we are not writing for software developers or IT techs but for **petroleum engineers**, we need to know at least the basics of WITSML. We don't need to be experts on the subject but at least get familiar with the shape of the data, manipulation, perform some data exploration, and ultimately, be prepared, or know, what they are talking about when it is time to build an artificial intelligence agent based on a machine learning algorithm.
 
 > On Artificial Intelligence. Again, let's touch Earth here. There is no robot, or Skynet Terminator, or an intelligent, cognitive entity in AI. Artificial Intelligence, or AI, is about making agents or applications to perform a repetitive or boring tasks that otherwise would be peformed by a human being. It is simple math, statistics and computer science.
 
@@ -42,7 +42,7 @@ Here is a view of all the wells that are storing data in WITSML format:
 knitr::include_graphics("/img/witsml-all_wells.png")
 ```
 
-Look at the size of each folder. They are considerable large if we compare to the usual files we manage every day. I am choosing the folder in row 22 (well 9f9), one of the smaller data containers (27.3 MB). If the data operations we perform here are all correct, then , generalized, they should apply well to any of the larger WITSML datasets.
+Look at the size of each folder. They are considerable large if we compare them to the usual files we manage every day. I am choosing the folder in row 22 (well 9f9), one of the smaller data containers (27.3 MB). If the data operations we perform here are all correct, then , generalized, they should apply well to any of the larger WITSML datasets.
 
 A typical well with data stored in WITSML would look like this:
 
@@ -1180,6 +1180,8 @@ ggplot(wells_kvars, aes(x = tvd, y = rateBuild, color = nameWell)) +
 WITSML 1.3.1.1: http://w3.energistics.org/schema/witsml_v1.3.1.1_data/doc/WITSML_Schema_docu.htm
 
 WITSML 1.4.0 schema: http://w3.energistics.org/schema/witsml_v1.4.0_data/doc/witsml_schema_overview.html
+
+[javasdk]: https://github.com/hashmapinc/WitsmlObjectsLibrary
 
 [^SDK]: Software Development Kit
 [^dotnet]: A Microsoft development platform
