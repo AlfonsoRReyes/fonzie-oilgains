@@ -1,3 +1,8 @@
+# 0.1.12
+* 01 Feb 2019
+* Recreate symbolic link to witsml because it was giving error. Let's not use symbolic link clone anymore.
+* add note on the version of WITSML being used.
+
 # 0.1.11
 * 30 Jan 2019
 * new article Exploring drilling data from the Volve dataset with WITSML and R.
