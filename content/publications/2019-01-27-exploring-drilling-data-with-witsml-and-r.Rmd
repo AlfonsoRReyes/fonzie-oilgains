@@ -35,14 +35,14 @@ I have always been intrigued by `WITSML`. Not being a drilling engineer kepts me
 # WITSML and the Volve Drilling Dataset
 We were very fortunate of getting the [Volve dataset][volve_dataset] published 7 months ago by [Equinor](https://www.equinor.com/en.html). It covers a wide array of data from different disciplines (production, reservoir, geophysics, drilling, completion, logging, etc.), with data coming in different formats. It is a very good exercise of data science for exploring the data and making discoveries.
 
-Here is a view of all the wells that are storing data in WITSML format:
+Here is a view of all the wells that are storing data in _WITSML_ format:
 
 ```{r, out.width = "450px", echo=FALSE}
 # folders under drilling in Volve
 knitr::include_graphics("/img/witsml-all_wells.png")
 ```
 
-Look at the size of each folder. They are considerable large if we compare them to the usual files we manage every day. I am choosing the folder in row 22 (well 9f9), one of the smaller data containers (27.3 MB). If the data operations we perform here are all correct, then , generalized, they should apply well to any of the larger WITSML datasets.
+Look at the size of each folder. They are considerable large if we compare them to the usual files we manage every day. I am choosing the folder in row 22 (well 9f9), one of the smaller data containers (27.3 MB). If the data operations we perform here are all correct, then, the solution generalized, should apply well to any of the larger _WITSML_ datasets.
 
 A typical well with data stored in WITSML would look like this:
 
@@ -53,10 +53,10 @@ knitr::include_graphics("/img/witsml-typical_well.png")
 
 From all these folders, let's focus today in the **well trajectory** dataset. 
 
-I downloaded all the drilling data for Volve which is about 26.8 GB. Not that big if we compare to the seismic files of 1.2 and 2.4 terabytes. I chose the `trajectory` folder for well `Norway-Statoil-NO 15_$47$_9-F-9` because it seems complex enough to studying it. Besides, it wasn't too big: around 27 MB. After learning from it, we could apply our data conversion algorithms to simpler datasets.
+I downloaded all the drilling data for Volve which is about 26.8 GB. It's not that big if we compare it to the seismic files of 1.2 and 2.4 terabytes. I chose the `trajectory` folder for well `Norway-Statoil-NO 15_$47$_9-F-9` because it seemed complex enough to studying it. Besides, it wasn't too big: around 27 MB. After learning from it, we could apply our data conversion algorithms to simpler datasets.
 
 # The `trajectory` folder and files
-The `trajectory` folder is very simple. It contains WITSML files and a metadata information file (not important at this time). The folder could contain more than one file. We will see in another lecture wells with more than one trajectory file. In our example, the WITSML file has the name of `1.xml`. We will be reading it in few seconds.
+The `trajectory` folder is very simple. It contains _WITSML_ files and a metadata information file (not important at this time). The folder could contain more than one file. We will see in another lecture wells with more than one trajectory file. In our example, the WITSML file has the name of `1.xml`. We will be reading it in few seconds.
 
 ```{r, out.width = "500px", echo=FALSE}
 # show the two files under the well
