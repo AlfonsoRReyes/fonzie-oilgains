@@ -1,1 +1,10 @@
-R:/blogdown-sites/fonzie-oilgains/static/inst/rawdata/witsml/Norway-Statoil-NO 15_$47$_9-F-9/1/log/1/MetaFileInfo.txt
+1  Pits
+2  GwdTime
+3  TripTime
+4  TripConn
+5  CementData
+6  Hydraulics
+7  GasTime
+8  GenTime2
+9  GenTime
+10  GlcSettingsLog

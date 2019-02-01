@@ -1,1 +1,4 @@
-R:/blogdown-sites/fonzie-oilgains/static/inst/rawdata/witsml/Norway-Statoil-NO 15_$47$_9-F-4/1/bhaRun/MetaDataFileInfo.txt
+1  15_$47$_9-F-4-2 (15VIRG33)
+2  15_$47$_9-F-4-1 (14VIRG33)
+3  15_$47$_9-F-4-3 (16VIRG33)
+4  15_$47$_9-F-4-4 (17VIRG33)

@@ -1,1 +1,2 @@
-R:/blogdown-sites/fonzie-oilgains/static/inst/rawdata/witsml/Norway-Statoil-NO 15_$47$_9-F-7/1/log/1/4/MetaFileInfo.txt
+1  GenTime(0)(58VFNI35)
+2  GenTime(1)(68VFNI35)

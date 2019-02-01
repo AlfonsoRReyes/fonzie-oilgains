@@ -1,1 +1,2 @@
-R:/blogdown-sites/fonzie-oilgains/static/inst/rawdata/witsml/Norway-Statoil-NO 15_$47$_9-F-9/1/tubular/MetaDataFileInfo.txt
+1  15_$47$_9-F-9 A_12VIRG33 (12VIRG33)
+2  15_$47$_9-F-9 A_13VIRG33 (13VIRG33)

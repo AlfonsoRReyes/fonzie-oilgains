@@ -27,27 +27,30 @@ image: witsml-cover.png
 <div id="witsml-and-the-volve-drilling-dataset" class="section level1">
 <h1>WITSML and the Volve Drilling Dataset</h1>
 <p>We were very fortunate of getting the <a href="https://www.equinor.com/en/news/14jun2018-disclosing-volve-data.html">Volve dataset</a> published 7 months ago by <a href="https://www.equinor.com/en.html">Equinor</a>. It covers a wide array of data from different disciplines (production, reservoir, geophysics, drilling, completion, logging, etc.), with data coming in different formats. It is a very good exercise of data science for exploring the data and making discoveries.</p>
-<p>Here is a view of all the wells that are storing data in WITSML format:</p>
+<p>Here is a view of all the wells that are storing data in <em>WITSML</em> format:</p>
 <p><img src="/img/witsml-all_wells.png" width="450px" style="display: block; margin: auto;" /></p>
-<p>Look at the size of each folder. They are considerable large if we compare them to the usual files we manage every day. I am choosing the folder in row 22 (well 9f9), one of the smaller data containers (27.3 MB). If the data operations we perform here are all correct, then , generalized, they should apply well to any of the larger WITSML datasets.</p>
+<p>Look at the size of each folder. They are considerable large if we compare them to the usual files we manage every day. I am choosing the folder in row 22 (well 9f9), one of the smaller data containers (27.3 MB). If the data operations we perform here are all correct, then, the solution generalized, should apply well to any of the larger <em>WITSML</em> datasets.</p>
 <p>A typical well with data stored in WITSML would look like this:</p>
 <p><img src="/img/witsml-typical_well.png" width="300px" style="display: block; margin: auto;" /></p>
 <p>From all these folders, let’s focus today in the <strong>well trajectory</strong> dataset.</p>
-<p>I downloaded all the drilling data for Volve which is about 26.8 GB. Not that big if we compare to the seismic files of 1.2 and 2.4 terabytes. I chose the <code>trajectory</code> folder for well <code>Norway-Statoil-NO 15_$47$_9-F-9</code> because it seems complex enough to studying it. Besides, it wasn’t too big: around 27 MB. After learning from it, we could apply our data conversion algorithms to simpler datasets.</p>
+<p>I downloaded all the drilling data for Volve which is about 26.8 GB. It’s not that big if we compare it to the seismic files of 1.2 and 2.4 terabytes. I chose the <code>trajectory</code> folder for well <code>Norway-Statoil-NO 15_$47$_9-F-9</code> because it seemed complex enough to studying it. Besides, it wasn’t too big: around 27 MB. After learning from it, we could apply our data conversion algorithms to simpler datasets.</p>
 </div>
 <div id="the-trajectory-folder-and-files" class="section level1">
 <h1>The <code>trajectory</code> folder and files</h1>
-<p>The <code>trajectory</code> folder is very simple. It contains WITSML files and a metadata information file (not important at this time). The folder could contain more than one file. We will see in another lecture wells with more than one trajectory file. In our example, the WITSML file has the name of <code>1.xml</code>. We will be reading it in few seconds.</p>
+<p>The <code>trajectory</code> folder is very simple. It contains <em>WITSML</em> files and a metadata information file (not important at this time). The folder could contain more than one file. We will see in another lecture wells with more than one trajectory file. In our example, the WITSML file has the name of <code>1.xml</code>. We will be reading it in few seconds.</p>
 <p><img src="/img/witsml-trajectory_folder.png" width="500px" style="display: block; margin: auto;" /></p>
 </div>
 <div id="parts-of-the-trajectory-dataset" class="section level1">
 <h1>Parts of the <code>trajectory</code> dataset</h1>
-<p>Let’s take a look first at the <code>trajectory</code> WITSML file. We are starting with a collapsed tree so it doesn’t take too much space of the screen. The <code>(+)</code> sign on the left means that it will expand further at that node.</p>
+<p>Let’s take a look first at the <code>trajectory</code> WITSML file. We are starting with a collapsed tree so it doesn’t take too much space of the screen. The <code>(+)</code> sign on the left means that it will expand further at that node if you click on it.</p>
 <p><img src="/img/witsml-collapsed.png" width="850px" style="display: block; margin: auto;" /></p>
+<blockquote>
+<p>Note. I am using the software <a href="https://mindfusion.eu/xml-viewer.html">MindFusion XML Viewer</a> to explore the WITSML files. I find it unobtrusive and simple to use. But any other viewer should be ok.</p>
+</blockquote>
 <div id="the-two-major-nodes" class="section level2">
 <h2>The two major nodes</h2>
-<p>Starting by the top, in the second line, see the first node. <code>trajectorys</code>. This is the <strong>root</strong> node. If you see one <code>(-)</code> sign on its left, it means it has been expanded. Following on the right, in red, you see labels such as <code>xmlns</code>, <code>xlmns:xsi</code>, and <code>version</code>. These are <strong>attributes</strong> of <code>trajectorys</code>. They are not <strong>nodes</strong> but <strong>attributes</strong>.</p>
-<p>Under the root node <code>trajectorys</code> you see that it has only one child called <code>trajectory</code>. If you see that is has a <code>(-)</code> sign, then it has been expanded showing all its dependent nodes.</p>
+<p>Starting by the top, in the second line, see the first node: <code>trajectorys</code>. This is the <strong>root</strong> node. If you see one <code>(-)</code> sign on its left, it means it has been expanded. Following on the right, in red, you see labels such as <code>xmlns</code>, <code>xlmns:xsi</code>, and <code>version</code>. These are <strong>attributes</strong> of <code>trajectorys</code>. They are not <strong>nodes</strong> but <strong>attributes</strong>.</p>
+<p>Under the root node <code>trajectorys</code>, you see that it has only one child called <code>trajectory</code>. If you see that is has a <code>(-)</code> sign, then it has been expanded showing all its dependent nodes.</p>
 <p>So, there are then two major nodes: <code>trajectorys</code> and <code>trajectory</code>. Everything else exists under <code>trajectory</code>.</p>
 </div>
 <div id="secondary-nodes" class="section level2">
@@ -102,7 +105,7 @@ Figure 2: trajectoryStation node with all its variables
 <p>Now it’s time to get our hands dirty and do a bit of data science.</p>
 <div id="loading-the-packages" class="section level2">
 <h2>Loading the packages</h2>
-<p>We will use two packages: <code>xml2</code>, <code>data.table</code> and <code>dplyr</code>. <code>xml2</code> will take care of reading the WITSML or XML files, while <code>dplyr</code> and <code>data.table</code> will be our workhorses for dataframe generation and data manipulation. The other packages will be used at the end of the article for nesting structure and plotting. I could have just used <code>dplyr</code> but I wanted to show you both table libraries.</p>
+<p>We will use two packages: <code>xml2</code>, <code>data.table</code> and <code>dplyr</code>. <code>xml2</code> will take care of reading the WITSML or XML files, while <code>dplyr</code> and <code>data.table</code> will be our workhorses for dataframe generation and data manipulation. I could have just used <code>dplyr</code> but I wanted to show you both table libraries. The other packages will be used at the end of the article for nesting structures and plotting.</p>
 <pre class="r"><code># load libraries
 library(xml2)
 library(data.table)
@@ -115,9 +118,9 @@ library(ggplot2)</code></pre>
 <div id="list-and-load-the-xml-files" class="section level2">
 <h2>List and load the XML files</h2>
 <ul>
-<li>Using a relatively small folder of 27 MB.</li>
-<li>well <code>Norway-Statoil-NO 15_$47$_9-F-9</code></li>
-<li>we show only show few of the files with their complete full name</li>
+<li>We are using a relatively <em>WITSML</em> small folder of 27 MB.</li>
+<li>The well pick is <code>Norway-Statoil-NO 15_$47$_9-F-9</code></li>
+<li>We show only show few of the <em>XML</em> files with their complete full name</li>
 </ul>
 <pre class="r"><code>all_files_xml &lt;- list.files(&quot;./witsml&quot;, recursive = TRUE, full.names = TRUE, 
                         include.dirs = TRUE, pattern = &quot;*.xml&quot;)
@@ -129,6 +132,10 @@ all_files_xml[1:5]
 #&gt; [3] &quot;./witsml/Norway-Statoil-NO 15_$47$_9-F-4/1/bhaRun/1.xml&quot;                                                                   
 #&gt; [4] &quot;./witsml/Norway-Statoil-NO 15_$47$_9-F-4/1/bhaRun/2.xml&quot;                                                                   
 #&gt; [5] &quot;./witsml/Norway-Statoil-NO 15_$47$_9-F-4/1/bhaRun/3.xml&quot;</code></pre>
+<p>We could take a look at the number of XML files:</p>
+<pre class="r"><code># how many XMLS files under the folder
+length(all_files_xml)
+#&gt; [1] 312</code></pre>
 <div id="select-the-trajectory-file" class="section level3">
 <h3>Select the trajectory file</h3>
 <pre class="r"><code># get the file for trajectory
@@ -1482,7 +1489,7 @@ library(ggplot2)
 ggplot(wells_kvars, aes(x = md, y = tvd, color = nameWell)) +
     geom_line(size=1) +
     labs(title = &quot;MD vs TVD for three wells&quot;)</code></pre>
-<p><img src="/publications/2019-01-27-exploring-drilling-data-with-witsml-and-r_files/figure-html/unnamed-chunk-55-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2019-01-27-exploring-drilling-data-with-witsml-and-r_files/figure-html/unnamed-chunk-56-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="facet-plot-of-md-vs-tvd" class="section level2">
 <h2>Facet plot of MD vs TVD</h2>
@@ -1493,28 +1500,28 @@ ggplot(wells_kvars, aes(x = md, y = tvd, color = nameWell)) +
     geom_line(size=1) +
     facet_grid(. ~ nameWell) +
     labs(title = &quot;MD vs TVD for three wells&quot;)</code></pre>
-<p><img src="/publications/2019-01-27-exploring-drilling-data-with-witsml-and-r_files/figure-html/unnamed-chunk-56-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2019-01-27-exploring-drilling-data-with-witsml-and-r_files/figure-html/unnamed-chunk-57-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Next, it is the turn of inclination vs azimut.</p>
 <pre class="r"><code># Inclination vs Azimuth for three wells
 ggplot(wells_kvars, aes(x = incl, y = azi, color = nameWell)) +
     geom_line(size=1) +
     facet_grid(. ~ nameWell) +
     labs(title = &quot;Inclination vs Azimuth for three wells&quot;)</code></pre>
-<p><img src="/publications/2019-01-27-exploring-drilling-data-with-witsml-and-r_files/figure-html/unnamed-chunk-57-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2019-01-27-exploring-drilling-data-with-witsml-and-r_files/figure-html/unnamed-chunk-58-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>We notice that the x-axis remains the same for al of the plots. We can set it free to let the x axis expand and follow the data. Just be careful in reading the data in the x-axis; they are not fixed anymore.</p>
 <pre class="r"><code># # rateTurn in radians per meter
 ggplot(wells_kvars, aes(x = tvd, y = rateTurn, color = nameWell)) +
     geom_line(size=1) +
     facet_grid(. ~ nameWell, scales=&quot;free_x&quot;) +
     labs(title = &quot;TVD vs Rate of Turn for three wells&quot;)</code></pre>
-<p><img src="/publications/2019-01-27-exploring-drilling-data-with-witsml-and-r_files/figure-html/unnamed-chunk-58-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>We do the same with the plot TVD vs Rate of Build.</p>
+<p><img src="/publications/2019-01-27-exploring-drilling-data-with-witsml-and-r_files/figure-html/unnamed-chunk-59-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>We do the same with the plot <em>TVD</em> vs <em>Rate of Build</em>.</p>
 <pre class="r"><code># rateBuild in radians per meter
 ggplot(wells_kvars, aes(x = tvd, y = rateBuild, color = nameWell)) +
     geom_line(size=1) +
     facet_grid(. ~ nameWell, scales = &quot;free_x&quot;) +
     labs(title = &quot;TVD vs Rate of Build for three wells&quot;)</code></pre>
-<p><img src="/publications/2019-01-27-exploring-drilling-data-with-witsml-and-r_files/figure-html/unnamed-chunk-59-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2019-01-27-exploring-drilling-data-with-witsml-and-r_files/figure-html/unnamed-chunk-60-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="notes" class="section level1">
@@ -1525,6 +1532,7 @@ ggplot(wells_kvars, aes(x = tvd, y = rateBuild, color = nameWell)) +
 <li><p>As we get familiar with the WITSML hierarchies, we could start using loops or <code>apply</code> functions to convert the tree structures to dataframes.</p></li>
 <li><p>Functions can be implemented later to get the number of trajectory stations, find which <code>trajectoryStation</code> does not have its complete set of variables, or extract a particular trajectory measurement.</p></li>
 <li><p>In this long example, we used only one well for the details. That’s why we obtained only one trajectory file. Other wells could have more than one trajectory file. Later we could implement a function that scans all the folders and generates a summary statistic of the number of folders, number of files per well, size, etc. <strong>Update</strong>. We added lately two more wells.</p></li>
+<li><p>The specification for the <code>trajectory</code> and <code>trajectoryStation</code> objects can be found in the Energistics website. Refer to <a href="http://w3.energistics.org/schema/witsml_v1.3.1.1_data/doc/WITSML_Schema_docu.htm">WITSML 1.3.1.1</a>. Each one of the objects, nodes and subnodes are explained in detail.</p></li>
 </ul>
 </div>
 <div id="references" class="section level1">

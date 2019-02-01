@@ -1,1 +1,1 @@
-R:/blogdown-sites/fonzie-oilgains/static/inst/rawdata/witsml/Norway-Statoil-NO 15_$47$_9-F-9/1/log/1/4/MetaFileInfo.txt
+1  TripConn(0)(31VIRG33)
