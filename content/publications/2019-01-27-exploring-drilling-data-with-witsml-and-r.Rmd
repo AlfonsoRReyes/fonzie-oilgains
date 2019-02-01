@@ -44,7 +44,7 @@ knitr::include_graphics("/img/witsml-all_wells.png")
 
 Look at the size of each folder. They are considerable large if we compare them to the usual files we manage every day. I am choosing the folder in row 22 (well 9f9), one of the smaller data containers (27.3 MB). If the data operations we perform here are all correct, then, the solution generalized, should apply well to any of the larger _WITSML_ datasets.
 
-A typical well with data stored in WITSML would look like this:
+A typical well with data stored in _WITSML_ would look like this:
 
 ```{r, out.width = "300px", echo=FALSE}
 # folders under the well Norway-Statoil-NO
@@ -56,7 +56,7 @@ From all these folders, let's focus today in the **well trajectory** dataset.
 I downloaded all the drilling data for Volve which is about 26.8 GB. It's not that big if we compare it to the seismic files of 1.2 and 2.4 terabytes. I chose the `trajectory` folder for well `Norway-Statoil-NO 15_$47$_9-F-9` because it seemed complex enough to studying it. Besides, it wasn't too big: around 27 MB. After learning from it, we could apply our data conversion algorithms to simpler datasets.
 
 # The `trajectory` folder and files
-The `trajectory` folder is very simple. It contains _WITSML_ files and a metadata information file (not important at this time). The folder could contain more than one file. We will see in another lecture wells with more than one trajectory file. In our example, the WITSML file has the name of `1.xml`. We will be reading it in few seconds.
+The `trajectory` folder is very simple. It contains _WITSML_ files and a metadata information file (not important at this time). The folder could contain more than one file. We will see in another lecture wells with more than one trajectory file. In our example, the _WITSML_ file has the name of `1.xml`. We will be reading it in few seconds.
 
 ```{r, out.width = "500px", echo=FALSE}
 # show the two files under the well
@@ -64,14 +64,14 @@ knitr::include_graphics("/img/witsml-trajectory_folder.png")
 ```
 
 # Parts of the `trajectory` dataset
-Let's take a look first at the `trajectory` WITSML file. We are starting with a  collapsed tree so it doesn't take too much space of the screen. The `(+)` sign on the left means that it will expand further at that node if you click on it. 
+Let's take a look first at the `trajectory` _WITSML_ file. We are starting with a  collapsed tree so it doesn't take too much space of the screen. The `(+)` sign on the left means that it will expand further at that node if you click on it. 
 
 ```{r, out.width = "850px", echo=FALSE}
 # all the nodes, collapse
 knitr::include_graphics("/img/witsml-collapsed.png")
 ```
 
-> Note. I am using the software [MindFusion XML Viewer](https://mindfusion.eu/xml-viewer.html) to explore the WITSML files. I find it unobtrusive and simple to use. But any other viewer should be ok.
+> Note. I am using the software [MindFusion XML Viewer](https://mindfusion.eu/xml-viewer.html) to explore the _WITSML_ files. I find it unobtrusive and simple to use. But any other viewer should be ok.
 
 ## The two major nodes
 Starting by the top, in the second line, see the first node: `trajectorys`. This is the __root__ node. If you see one `(-)` sign on its left, it means it has been expanded. Following on the right, in red, you see labels such as `xmlns`, `xlmns:xsi`, and `version`. These are __attributes__ of `trajectorys`. They are not __nodes__ but __attributes__.
@@ -136,11 +136,11 @@ knitr::include_graphics("/img/witsml_tS_complete.png")
 
 This hierarchical structure, as we can see, is very flexible. If there are not values, or measurements, they will not take space during storage. In tables or dataframes, they would usually be present but filled with **NA**s.
 
-# Reading a WITSML file
+# Reading a _WITSML_ file
 Now it's time to get our hands dirty and do a bit of data science.
 
 ## Loading the packages
-We will use two packages: `xml2`, `data.table` and `dplyr`. `xml2` will take care of reading the WITSML or XML files, while `dplyr` and `data.table` will be our workhorses for dataframe generation and data manipulation. I could have just used `dplyr` but I wanted to show you both table libraries. The other packages will be used at the end of the article for nesting structures and plotting. 
+We will use two packages: `xml2`, `data.table` and `dplyr`. `xml2` will take care of reading the _WITSML_ or XML files, while `dplyr` and `data.table` will be our workhorses for dataframe generation and data manipulation. I could have just used `dplyr` but I wanted to show you both table libraries. The other packages will be used at the end of the article for nesting structures and plotting. 
 
 ```{r load-libraries}
 # load libraries
@@ -183,7 +183,7 @@ traj_files <- grep(pattern = "trajectory", ignore.case = TRUE,
 traj_files
 ```
 
-### Load the selected WITSML file
+### Load the selected _WITSML_ file
 
 ```{r read-xml-file}
 dat <- read_xml(traj_files[3])
@@ -1021,7 +1021,7 @@ identical(names(t_9f9_dt), names(t_9f7_dt))
 ```
 
 # Making it reproducible
-Now, we can put all these functions in an R script, and everything should work much faster. In this example, we are converting the WITSML to dataframes for well *Norway-Statoil-NO 15_$47\$\_9-F-7*. We will call it by the last identifier `9f7` from now on. You will see that this well has more trajectory stations; 43 to be exact. Many more than the first well `9f9` that corresponds to well *Norway-Statoil-NO 15_$47\$\_9-F-9*.
+Now, we can put all these functions in an R script, and everything should work much faster. In this example, we are converting the _WITSML_ to dataframes for well *Norway-Statoil-NO 15_$47\$\_9-F-7*. We will call it by the last identifier `9f7` from now on. You will see that this well has more trajectory stations; 43 to be exact. Many more than the first well `9f9` that corresponds to well *Norway-Statoil-NO 15_$47\$\_9-F-9*.
 
 ```{r rows.print=45}
 source("witsml-trajectory.R")
@@ -1175,9 +1175,9 @@ ggplot(wells_kvars, aes(x = tvd, y = rateBuild, color = nameWell)) +
 # Notes
 * For the first row of `trajectoryStation`, which corresponds to the `TIE_POINT`, fill all the empty variables (those absent) with `NA`. The `data.table` function works very well compensating those variables that are incomplete but filling them with default values, which is not good. We see, for instance, that for first member of the  `trajectoryStation`, the variables present are only 10. Normally, they should be 20, if we count `commonData` and `corUsed`, which are the only two which have children nodes.
 
-* In upcoming versions, we should take care of coercing the variables to their corresponding types. By default, in this example, we've got all the variables as character. Since we know in advance the data types because of the WITSML standard, we could use the **R** package `readr` to do the coercion.
+* In upcoming versions, we should take care of coercing the variables to their corresponding types. By default, in this example, we've got all the variables as character. Since we know in advance the data types because of the _WITSML_ standard, we could use the **R** package `readr` to do the coercion.
 
-* As we get familiar with the WITSML hierarchies, we could start using loops or `apply` functions to convert the tree structures to dataframes. 
+* As we get familiar with the _WITSML_ hierarchies, we could start using loops or `apply` functions to convert the tree structures to dataframes. 
 
 * Functions can be implemented later to get the number of trajectory stations, find which `trajectoryStation` does not have its complete set of variables, or extract a particular trajectory measurement.
 
