@@ -186,7 +186,7 @@ traj_files
 ### Load the selected WITSML file
 
 ```{r read-xml-file}
-dat <- read_html(traj_files[3])
+dat <- read_xml(traj_files[3])
 dat_9f9 <- dat
 ```
 
@@ -1161,7 +1161,7 @@ ggplot(wells_kvars, aes(x = tvd, y = rateTurn, color = nameWell)) +
     labs(title = "TVD vs Rate of Turn for three wells")
 ```
 
-We do the same with the plot TVD vs Rate of Build.
+We do the same with the plot _TVD_ vs _Rate of Build_.
 
 ```{r}
 # rateBuild in radians per meter
@@ -1182,6 +1182,8 @@ ggplot(wells_kvars, aes(x = tvd, y = rateBuild, color = nameWell)) +
 * Functions can be implemented later to get the number of trajectory stations, find which `trajectoryStation` does not have its complete set of variables, or extract a particular trajectory measurement.
 
 * In this long example, we used only one well for the details. That's why we obtained only one trajectory file. Other wells could have more than one trajectory file. Later we could implement a function that scans all the folders and generates a summary statistic of the number of folders, number of files per well, size, etc. __Update__. We added lately two more wells.
+
+* The specification for the `trajectory` and `trajectoryStation` objects can be found in the Energistics website. Refer to [WITSML 1.3.1.1](http://w3.energistics.org/schema/witsml_v1.3.1.1_data/doc/WITSML_Schema_docu.htm). Each one of the objects, nodes and subnodes are explained in detail.
 
 
 # References

@@ -149,21 +149,20 @@ traj_files
 <div id="load-the-selected-witsml-file" class="section level3">
 <h3>Load the selected WITSML file</h3>
 <pre class="r"><code>dat &lt;- read_xml(traj_files[3])
-#&gt; Error in doc_parse_file(con, encoding = encoding, as_html = as_html, options = options): Start tag expected, &#39;&lt;&#39; not found [4]
-dat_9f9 &lt;- dat
-#&gt; Error in eval(expr, envir, enclos): object &#39;dat&#39; not found</code></pre>
+dat_9f9 &lt;- dat</code></pre>
 <p>Retrieve some information:</p>
 <pre class="r"><code># some introspection
 xml_name(dat)
-#&gt; Error in xml_name(dat): object &#39;dat&#39; not found
+#&gt; [1] &quot;trajectorys&quot;
 xml_children(dat)
-#&gt; Error in nodeset_apply(x, node_children): object &#39;dat&#39; not found
+#&gt; {xml_nodeset (1)}
+#&gt; [1] &lt;trajectory uidWell=&quot;432612d4-7a1b-464d-b89a-9783d4606a96&quot; uidWellbo ...
 
 # name of the child node
 xml_name(xml_children(dat))
-#&gt; Error in nodeset_apply(x, node_children): object &#39;dat&#39; not found
+#&gt; [1] &quot;trajectory&quot;
 xml_name(xml_child(dat))
-#&gt; Error in nodeset_apply(x, node_children): object &#39;dat&#39; not found</code></pre>
+#&gt; [1] &quot;trajectory&quot;</code></pre>
 </div>
 </div>
 <div id="some-introspection-of-the-xml-object" class="section level2">
@@ -172,33 +171,77 @@ xml_name(xml_child(dat))
 <h3>First 25 nodes</h3>
 <pre class="r"><code># strip default namespaces from the document
 xml_ns_strip( dat )
-#&gt; Error in xml_find_all(x, &quot;//namespace::*[name()=&#39;&#39;]/parent::*&quot;): object &#39;dat&#39; not found
 all_nodes &lt;- dat %&gt;% 
     xml_find_all( &#39;//*&#39;) %&gt;% 
     xml_path()
-#&gt; Error in eval(lhs, parent, parent): object &#39;dat&#39; not found
     
 all_nodes[1:25]                   # show only the first elements
-#&gt; Error in eval(expr, envir, enclos): object &#39;all_nodes&#39; not found</code></pre>
+#&gt;  [1] &quot;/trajectorys&quot;                                                
+#&gt;  [2] &quot;/trajectorys/trajectory&quot;                                     
+#&gt;  [3] &quot;/trajectorys/trajectory/nameWell&quot;                            
+#&gt;  [4] &quot;/trajectorys/trajectory/nameWellbore&quot;                        
+#&gt;  [5] &quot;/trajectorys/trajectory/name&quot;                                
+#&gt;  [6] &quot;/trajectorys/trajectory/objectGrowing&quot;                       
+#&gt;  [7] &quot;/trajectorys/trajectory/dTimTrajStart&quot;                       
+#&gt;  [8] &quot;/trajectorys/trajectory/dTimTrajEnd&quot;                         
+#&gt;  [9] &quot;/trajectorys/trajectory/mdMn&quot;                                
+#&gt; [10] &quot;/trajectorys/trajectory/mdMx&quot;                                
+#&gt; [11] &quot;/trajectorys/trajectory/magDeclUsed&quot;                         
+#&gt; [12] &quot;/trajectorys/trajectory/gridCorUsed&quot;                         
+#&gt; [13] &quot;/trajectorys/trajectory/aziVertSect&quot;                         
+#&gt; [14] &quot;/trajectorys/trajectory/dispNsVertSectOrig&quot;                  
+#&gt; [15] &quot;/trajectorys/trajectory/dispEwVertSectOrig&quot;                  
+#&gt; [16] &quot;/trajectorys/trajectory/aziRef&quot;                              
+#&gt; [17] &quot;/trajectorys/trajectory/trajectoryStation[1]&quot;                
+#&gt; [18] &quot;/trajectorys/trajectory/trajectoryStation[1]/dTimStn&quot;        
+#&gt; [19] &quot;/trajectorys/trajectory/trajectoryStation[1]/typeTrajStation&quot;
+#&gt; [20] &quot;/trajectorys/trajectory/trajectoryStation[1]/md&quot;             
+#&gt; [21] &quot;/trajectorys/trajectory/trajectoryStation[1]/tvd&quot;            
+#&gt; [22] &quot;/trajectorys/trajectory/trajectoryStation[1]/incl&quot;           
+#&gt; [23] &quot;/trajectorys/trajectory/trajectoryStation[1]/azi&quot;            
+#&gt; [24] &quot;/trajectorys/trajectory/trajectoryStation[1]/dispNs&quot;         
+#&gt; [25] &quot;/trajectorys/trajectory/trajectoryStation[1]/dispEw&quot;</code></pre>
 </div>
 <div id="total-number-of-nodes" class="section level3">
 <h3>Total number of nodes</h3>
 <pre class="r"><code># get the number of elements
 dat &lt;- xml_ns_strip( dat )
-#&gt; Error in xml_find_all(x, &quot;//namespace::*[name()=&#39;&#39;]/parent::*&quot;): object &#39;dat&#39; not found
 noe &lt;- dat %&gt;% 
     xml_find_all( &#39;//*&#39;) %&gt;% 
     xml_path() %&gt;% 
     length()
-#&gt; Error in eval(lhs, parent, parent): object &#39;dat&#39; not found
 noe
-#&gt; Error in eval(expr, envir, enclos): object &#39;noe&#39; not found</code></pre>
+#&gt; [1] 712</code></pre>
 </div>
 <div id="last-25-nodes" class="section level3">
 <h3>Last 25 nodes</h3>
 <pre class="r"><code># let&#39;s see the last 25
 tail(all_nodes, 25)
-#&gt; Error in tail(all_nodes, 25): object &#39;all_nodes&#39; not found</code></pre>
+#&gt;  [1] &quot;/trajectorys/trajectory/trajectoryStation[25]/dls&quot;                       
+#&gt;  [2] &quot;/trajectorys/trajectory/trajectoryStation[25]/rateTurn&quot;                  
+#&gt;  [3] &quot;/trajectorys/trajectory/trajectoryStation[25]/rateBuild&quot;                 
+#&gt;  [4] &quot;/trajectorys/trajectory/trajectoryStation[25]/gravAccelCorUsed&quot;          
+#&gt;  [5] &quot;/trajectorys/trajectory/trajectoryStation[25]/magXAxialCorUsed&quot;          
+#&gt;  [6] &quot;/trajectorys/trajectory/trajectoryStation[25]/sagCorUsed&quot;                
+#&gt;  [7] &quot;/trajectorys/trajectory/trajectoryStation[25]/magDrlstrCorUsed&quot;          
+#&gt;  [8] &quot;/trajectorys/trajectory/trajectoryStation[25]/statusTrajStation&quot;         
+#&gt;  [9] &quot;/trajectorys/trajectory/trajectoryStation[25]/corUsed&quot;                   
+#&gt; [10] &quot;/trajectorys/trajectory/trajectoryStation[25]/corUsed/stnGridCorUsed&quot;    
+#&gt; [11] &quot;/trajectorys/trajectory/trajectoryStation[25]/corUsed/dirSensorOffset&quot;   
+#&gt; [12] &quot;/trajectorys/trajectory/trajectoryStation[25]/commonData&quot;                
+#&gt; [13] &quot;/trajectorys/trajectory/trajectoryStation[25]/commonData/sourceName&quot;     
+#&gt; [14] &quot;/trajectorys/trajectory/trajectoryStation[25]/commonData/dTimCreation&quot;   
+#&gt; [15] &quot;/trajectorys/trajectory/trajectoryStation[25]/commonData/dTimLastChange&quot; 
+#&gt; [16] &quot;/trajectorys/trajectory/trajectoryStation[25]/commonData/itemState&quot;      
+#&gt; [17] &quot;/trajectorys/trajectory/trajectoryStation[25]/commonData/priv_customData&quot;
+#&gt; [18] &quot;/trajectorys/trajectory/commonData&quot;                                      
+#&gt; [19] &quot;/trajectorys/trajectory/commonData/sourceName&quot;                           
+#&gt; [20] &quot;/trajectorys/trajectory/commonData/dTimCreation&quot;                         
+#&gt; [21] &quot;/trajectorys/trajectory/commonData/dTimLastChange&quot;                       
+#&gt; [22] &quot;/trajectorys/trajectory/commonData/itemState&quot;                            
+#&gt; [23] &quot;/trajectorys/trajectory/commonData/priv_userOwner&quot;                       
+#&gt; [24] &quot;/trajectorys/trajectory/commonData/priv_ipOwner&quot;                         
+#&gt; [25] &quot;/trajectorys/trajectory/commonData/priv_dTimReceived&quot;</code></pre>
 </div>
 </div>
 </div>
@@ -217,13 +260,15 @@ tail(all_nodes, 25)
 <p>This is the parent of the <code>trajectory</code> node. It carries not so meaningful information that I can see.</p>
 <pre class="r"><code># attributes for the root node
 trajectorys &lt;- xml_find_first( dat, &quot;//trajectorys&quot;)
-#&gt; Error in xml_find_first(dat, &quot;//trajectorys&quot;): object &#39;dat&#39; not found
 xml_attrs(trajectorys)
-#&gt; Error in xml_attrs(trajectorys): object &#39;trajectorys&#39; not found
+#&gt;                                     version 
+#&gt;                                   &quot;1.4.1.1&quot; 
+#&gt;                                   xmlns:xsi 
+#&gt; &quot;http://www.w3.org/2001/XMLSchema-instance&quot;
 xml_name(trajectorys)
-#&gt; Error in xml_name(trajectorys): object &#39;trajectorys&#39; not found
+#&gt; [1] &quot;trajectorys&quot;
 xml_siblings(trajectorys)    # no siblings because it is the root
-#&gt; Error in nodeset_apply(x, node_siblings): object &#39;trajectorys&#39; not found</code></pre>
+#&gt; {xml_nodeset (0)}</code></pre>
 </div>
 <div id="the-trajectory-node" class="section level2">
 <h2>The <code>trajectory</code> node</h2>
@@ -232,39 +277,82 @@ xml_siblings(trajectorys)    # no siblings because it is the root
 <p>The <code>trajectory</code> node has two sub-levels of nodes: the measurement nodes (<code>trajectoryStation</code>) and the siblings that carry metadata for the <code>trajectoryStation</code> nodes.</p>
 <pre class="r"><code># attributes of the trajectory node
 trajectory &lt;- xml_find_first( dat, &quot;//trajectory&quot;)
-#&gt; Error in xml_find_first(dat, &quot;//trajectory&quot;): object &#39;dat&#39; not found
 xml_attrs(trajectory)
-#&gt; Error in xml_attrs(trajectory): object &#39;trajectory&#39; not found
+#&gt;                                uidWell 
+#&gt; &quot;432612d4-7a1b-464d-b89a-9783d4606a96&quot; 
+#&gt;                            uidWellbore 
+#&gt; &quot;d1c7a0d7-afa6-487e-aa4a-e34adc091a9c&quot; 
+#&gt;                                    uid 
+#&gt;                              &quot;4VIRG33&quot;
 
 # names of the parent node
 xml_name(xml_parent(trajectory))
-#&gt; Error in xml_parent(trajectory): object &#39;trajectory&#39; not found
+#&gt; [1] &quot;trajectorys&quot;
 
 # name of the current node
 xml_name(trajectory)
-#&gt; Error in xml_name(trajectory): object &#39;trajectory&#39; not found</code></pre>
+#&gt; [1] &quot;trajectory&quot;</code></pre>
 <pre class="r"><code># name of the child nodes
 xml_name(xml_children(trajectory))
-#&gt; Error in nodeset_apply(x, node_children): object &#39;trajectory&#39; not found</code></pre>
+#&gt;  [1] &quot;nameWell&quot;           &quot;nameWellbore&quot;       &quot;name&quot;              
+#&gt;  [4] &quot;objectGrowing&quot;      &quot;dTimTrajStart&quot;      &quot;dTimTrajEnd&quot;       
+#&gt;  [7] &quot;mdMn&quot;               &quot;mdMx&quot;               &quot;magDeclUsed&quot;       
+#&gt; [10] &quot;gridCorUsed&quot;        &quot;aziVertSect&quot;        &quot;dispNsVertSectOrig&quot;
+#&gt; [13] &quot;dispEwVertSectOrig&quot; &quot;aziRef&quot;             &quot;trajectoryStation&quot; 
+#&gt; [16] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [19] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [22] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [25] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [28] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [31] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [34] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [37] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [40] &quot;commonData&quot;</code></pre>
 </div>
 <div id="trajectory-children.-method-1" class="section level3">
 <h3><code>trajectory</code> children. Method 1</h3>
 <pre class="r"><code># trajectoryStation children nodes
 xml_name(xml_children(xml_find_all(dat, &quot;//trajectorys/trajectory&quot; )))
-#&gt; Error in xml_find_all(dat, &quot;//trajectorys/trajectory&quot;): object &#39;dat&#39; not found</code></pre>
+#&gt;  [1] &quot;nameWell&quot;           &quot;nameWellbore&quot;       &quot;name&quot;              
+#&gt;  [4] &quot;objectGrowing&quot;      &quot;dTimTrajStart&quot;      &quot;dTimTrajEnd&quot;       
+#&gt;  [7] &quot;mdMn&quot;               &quot;mdMx&quot;               &quot;magDeclUsed&quot;       
+#&gt; [10] &quot;gridCorUsed&quot;        &quot;aziVertSect&quot;        &quot;dispNsVertSectOrig&quot;
+#&gt; [13] &quot;dispEwVertSectOrig&quot; &quot;aziRef&quot;             &quot;trajectoryStation&quot; 
+#&gt; [16] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [19] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [22] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [25] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [28] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [31] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [34] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [37] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [40] &quot;commonData&quot;</code></pre>
 <p>At this point we don’t know which node has children or dependents.</p>
 </div>
 <div id="total-number-of-nodes-under-trajectory" class="section level3">
 <h3>Total number of nodes under <code>trajectory</code></h3>
 <pre class="r"><code># number of trajectoryStation children nodes
 length(xml_name(xml_children(xml_find_all(dat, &quot;//trajectorys/trajectory&quot; ))))
-#&gt; Error in xml_find_all(dat, &quot;//trajectorys/trajectory&quot;): object &#39;dat&#39; not found</code></pre>
+#&gt; [1] 40</code></pre>
 </div>
 <div id="trajectory-children.-method-2" class="section level3">
 <h3><code>trajectory</code> children. Method 2</h3>
 <pre class="r"><code># another way of obtaining the names of the nodes for &quot;trajectory&quot;
 xml_name(xml_children(xml_find_first(dat, &quot;//trajectory&quot;)))
-#&gt; Error in xml_find_first(dat, &quot;//trajectory&quot;): object &#39;dat&#39; not found</code></pre>
+#&gt;  [1] &quot;nameWell&quot;           &quot;nameWellbore&quot;       &quot;name&quot;              
+#&gt;  [4] &quot;objectGrowing&quot;      &quot;dTimTrajStart&quot;      &quot;dTimTrajEnd&quot;       
+#&gt;  [7] &quot;mdMn&quot;               &quot;mdMx&quot;               &quot;magDeclUsed&quot;       
+#&gt; [10] &quot;gridCorUsed&quot;        &quot;aziVertSect&quot;        &quot;dispNsVertSectOrig&quot;
+#&gt; [13] &quot;dispEwVertSectOrig&quot; &quot;aziRef&quot;             &quot;trajectoryStation&quot; 
+#&gt; [16] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [19] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [22] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [25] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [28] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [31] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [34] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [37] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [40] &quot;commonData&quot;</code></pre>
 </div>
 <div id="trajectory-childless-nodes-with-spec" class="section level3">
 <h3><code>trajectory</code> childless nodes (with spec)</h3>
@@ -276,9 +364,12 @@ orphan_vars &lt;- c(1:14)        # indices are being set manually.
 # the first 14 children of trajectory
 vars14_names &lt;- xml_name(xml_children(xml_find_first(dat,
                                                      &quot;//trajectory&quot;)))[orphan_vars]
-#&gt; Error in xml_find_first(dat, &quot;//trajectory&quot;): object &#39;dat&#39; not found
 vars14_names
-#&gt; Error in eval(expr, envir, enclos): object &#39;vars14_names&#39; not found</code></pre>
+#&gt;  [1] &quot;nameWell&quot;           &quot;nameWellbore&quot;       &quot;name&quot;              
+#&gt;  [4] &quot;objectGrowing&quot;      &quot;dTimTrajStart&quot;      &quot;dTimTrajEnd&quot;       
+#&gt;  [7] &quot;mdMn&quot;               &quot;mdMx&quot;               &quot;magDeclUsed&quot;       
+#&gt; [10] &quot;gridCorUsed&quot;        &quot;aziVertSect&quot;        &quot;dispNsVertSectOrig&quot;
+#&gt; [13] &quot;dispEwVertSectOrig&quot; &quot;aziRef&quot;</code></pre>
 <blockquote>
 <p>Later we will find a better way of getting the nodes with no dependents by building a function of our own.</p>
 </blockquote>
@@ -289,7 +380,20 @@ vars14_names
 xml_children(dat) %&gt;%     # trajectory
     xml_children() %&gt;%    # variables and values of the children
     xml_name()            # names of the variables only
-#&gt; Error in nodeset_apply(x, node_children): object &#39;dat&#39; not found</code></pre>
+#&gt;  [1] &quot;nameWell&quot;           &quot;nameWellbore&quot;       &quot;name&quot;              
+#&gt;  [4] &quot;objectGrowing&quot;      &quot;dTimTrajStart&quot;      &quot;dTimTrajEnd&quot;       
+#&gt;  [7] &quot;mdMn&quot;               &quot;mdMx&quot;               &quot;magDeclUsed&quot;       
+#&gt; [10] &quot;gridCorUsed&quot;        &quot;aziVertSect&quot;        &quot;dispNsVertSectOrig&quot;
+#&gt; [13] &quot;dispEwVertSectOrig&quot; &quot;aziRef&quot;             &quot;trajectoryStation&quot; 
+#&gt; [16] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [19] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [22] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [25] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [28] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [31] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [34] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [37] &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot;  &quot;trajectoryStation&quot; 
+#&gt; [40] &quot;commonData&quot;</code></pre>
 </div>
 <div id="building-the-function-get_variables_under_node" class="section level3">
 <h3>Building the function <code>get_variables_under_node()</code></h3>
@@ -314,9 +418,20 @@ get_variables_under_node &lt;- function(xml_dat, node) {
 <h3>Getting all variables under a specific node</h3>
 <pre class="r"><code># test the function get_variables_under_node()
 get_variables_under_node(dat, &quot;trajectory&quot;)
-#&gt; Error in xml_find_all(xml_dat, xpath): object &#39;dat&#39; not found</code></pre>
+#&gt;  [1] &quot;nameWell&quot;           &quot;nameWellbore&quot;       &quot;name&quot;              
+#&gt;  [4] &quot;objectGrowing&quot;      &quot;dTimTrajStart&quot;      &quot;dTimTrajEnd&quot;       
+#&gt;  [7] &quot;mdMn&quot;               &quot;mdMx&quot;               &quot;magDeclUsed&quot;       
+#&gt; [10] &quot;gridCorUsed&quot;        &quot;aziVertSect&quot;        &quot;dispNsVertSectOrig&quot;
+#&gt; [13] &quot;dispEwVertSectOrig&quot; &quot;aziRef&quot;             &quot;trajectoryStation&quot; 
+#&gt; [16] &quot;commonData&quot;</code></pre>
 <pre class="r"><code>get_variables_under_node(dat, &quot;trajectory/trajectoryStation&quot;)
-#&gt; Error in xml_find_all(xml_dat, xpath): object &#39;dat&#39; not found</code></pre>
+#&gt;  [1] &quot;dTimStn&quot;           &quot;typeTrajStation&quot;   &quot;md&quot;               
+#&gt;  [4] &quot;tvd&quot;               &quot;incl&quot;              &quot;azi&quot;              
+#&gt;  [7] &quot;dispNs&quot;            &quot;dispEw&quot;            &quot;vertSect&quot;         
+#&gt; [10] &quot;dls&quot;               &quot;commonData&quot;        &quot;typeSurveyTool&quot;   
+#&gt; [13] &quot;rateTurn&quot;          &quot;rateBuild&quot;         &quot;gravAccelCorUsed&quot; 
+#&gt; [16] &quot;magXAxialCorUsed&quot;  &quot;sagCorUsed&quot;        &quot;magDrlstrCorUsed&quot; 
+#&gt; [19] &quot;statusTrajStation&quot; &quot;corUsed&quot;</code></pre>
 </div>
 <div id="build-the-functions-how_many_children-have_children" class="section level3">
 <h3>Build the functions <code>how_many_children</code>, <code>have_children</code></h3>
@@ -344,7 +459,18 @@ how_many_children &lt;- function(xml_dat, node) {
 <p>Testing the function <code>how_many_children</code>.</p>
 <pre class="r"><code># test the function how_many_children()
 how_many_children(dat, &quot;trajectory&quot;)
-#&gt; Error in xml_find_all(xml_dat, xpath): object &#39;dat&#39; not found</code></pre>
+#&gt;           nameWell       nameWellbore               name 
+#&gt;                  0                  0                  0 
+#&gt;      objectGrowing      dTimTrajStart        dTimTrajEnd 
+#&gt;                  0                  0                  0 
+#&gt;               mdMn               mdMx        magDeclUsed 
+#&gt;                  0                  0                  0 
+#&gt;        gridCorUsed        aziVertSect dispNsVertSectOrig 
+#&gt;                  0                  0                  0 
+#&gt; dispEwVertSectOrig             aziRef  trajectoryStation 
+#&gt;                  0                  0                 20 
+#&gt;         commonData 
+#&gt;                  7</code></pre>
 <blockquote>
 <p>Note that only two variables have children or dependents.</p>
 </blockquote>
@@ -375,10 +501,23 @@ have_no_children &lt;- function(xml_dat, node) {
 <h3>test for nodes and dependents</h3>
 <p>Now we can easily find what nodes are childless</p>
 <pre class="r"><code>have_no_children(dat, &quot;trajectory&quot;)
-#&gt; Error in xml_find_all(xml_dat, xpath): object &#39;dat&#39; not found</code></pre>
+#&gt;           nameWell       nameWellbore               name 
+#&gt;                  0                  0                  0 
+#&gt;      objectGrowing      dTimTrajStart        dTimTrajEnd 
+#&gt;                  0                  0                  0 
+#&gt;               mdMn               mdMx        magDeclUsed 
+#&gt;                  0                  0                  0 
+#&gt;        gridCorUsed        aziVertSect dispNsVertSectOrig 
+#&gt;                  0                  0                  0 
+#&gt; dispEwVertSectOrig             aziRef 
+#&gt;                  0                  0</code></pre>
 <p>List only the names of the variables that have no children.</p>
 <pre class="r"><code>names(have_no_children(dat, &quot;trajectory&quot;))
-#&gt; Error in xml_find_all(xml_dat, xpath): object &#39;dat&#39; not found</code></pre>
+#&gt;  [1] &quot;nameWell&quot;           &quot;nameWellbore&quot;       &quot;name&quot;              
+#&gt;  [4] &quot;objectGrowing&quot;      &quot;dTimTrajStart&quot;      &quot;dTimTrajEnd&quot;       
+#&gt;  [7] &quot;mdMn&quot;               &quot;mdMx&quot;               &quot;magDeclUsed&quot;       
+#&gt; [10] &quot;gridCorUsed&quot;        &quot;aziVertSect&quot;        &quot;dispNsVertSectOrig&quot;
+#&gt; [13] &quot;dispEwVertSectOrig&quot; &quot;aziRef&quot;</code></pre>
 </div>
 </div>
 <div id="nodes-under-trajectorytrajectorystation" class="section level2">
@@ -387,32 +526,37 @@ have_no_children &lt;- function(xml_dat, node) {
 <h3>Get trajectoryStation children. Method 1</h3>
 <pre class="r"><code># names of the children for &quot;trajectoryStation&quot;
 xml_name(xml_children(xml_find_first( dat, &quot;//trajectory/trajectoryStation&quot;)))
-#&gt; Error in xml_find_first(dat, &quot;//trajectory/trajectoryStation&quot;): object &#39;dat&#39; not found</code></pre>
+#&gt;  [1] &quot;dTimStn&quot;         &quot;typeTrajStation&quot; &quot;md&quot;             
+#&gt;  [4] &quot;tvd&quot;             &quot;incl&quot;            &quot;azi&quot;            
+#&gt;  [7] &quot;dispNs&quot;          &quot;dispEw&quot;          &quot;vertSect&quot;       
+#&gt; [10] &quot;dls&quot;             &quot;commonData&quot;</code></pre>
 </div>
 <div id="get-trajectorystation-children.-method-2" class="section level3">
 <h3>Get trajectoryStation children. Method 2</h3>
 <p>This yields the same result:</p>
 <pre class="r"><code># names of the nodes for &quot;trajectoryStation&quot;
 xml_name(xml_children(xml_find_first(dat, &quot;//trajectoryStation&quot;)))
-#&gt; Error in xml_find_first(dat, &quot;//trajectoryStation&quot;): object &#39;dat&#39; not found</code></pre>
+#&gt;  [1] &quot;dTimStn&quot;         &quot;typeTrajStation&quot; &quot;md&quot;             
+#&gt;  [4] &quot;tvd&quot;             &quot;incl&quot;            &quot;azi&quot;            
+#&gt;  [7] &quot;dispNs&quot;          &quot;dispEw&quot;          &quot;vertSect&quot;       
+#&gt; [10] &quot;dls&quot;             &quot;commonData&quot;</code></pre>
 </div>
 <div id="get-attributes-of-trajectorystation" class="section level3">
 <h3>Get attributes of trajectoryStation</h3>
 <pre class="r"><code># find attributes of the first element of trajectoryStation found
 trajectoryStation &lt;- xml_find_first(dat, &quot;//trajectoryStation&quot;)
-#&gt; Error in xml_find_first(dat, &quot;//trajectoryStation&quot;): object &#39;dat&#39; not found
 xml_attrs(x = trajectoryStation)
-#&gt; Error in xml_attrs(x = trajectoryStation): object &#39;trajectoryStation&#39; not found</code></pre>
+#&gt;                 uid 
+#&gt; &quot;4VIRG33_TIE_POINT&quot;</code></pre>
 </div>
 <div id="number-of-measurement-stations" class="section level3">
 <h3>number of measurement stations</h3>
 <pre class="r"><code># find all observations for dTimStn
 trajectoryStation.dTimStn &lt;- xml_find_all(dat, &quot;//trajectoryStation/dTimStn&quot;)
-#&gt; Error in xml_find_all(dat, &quot;//trajectoryStation/dTimStn&quot;): object &#39;dat&#39; not found
 
 # we end up finding a way to calculate the number of trajectory stations
 length(trajectoryStation.dTimStn)
-#&gt; Error in eval(expr, envir, enclos): object &#39;trajectoryStation.dTimStn&#39; not found</code></pre>
+#&gt; [1] 25</code></pre>
 </div>
 <div id="why-the-variables-under-trajectorystation-are-different" class="section level3">
 <h3>Why the variables under trajectoryStation are different</h3>
@@ -420,11 +564,20 @@ length(trajectoryStation.dTimStn)
 <p>This is asking for variables in the first node:</p>
 <pre class="r"><code># name of the dependent nodes of &quot;trajectoryStation&quot;
 xml_name(xml_children(xml_find_first(dat, &quot;//trajectoryStation&quot;)))
-#&gt; Error in xml_find_first(dat, &quot;//trajectoryStation&quot;): object &#39;dat&#39; not found</code></pre>
+#&gt;  [1] &quot;dTimStn&quot;         &quot;typeTrajStation&quot; &quot;md&quot;             
+#&gt;  [4] &quot;tvd&quot;             &quot;incl&quot;            &quot;azi&quot;            
+#&gt;  [7] &quot;dispNs&quot;          &quot;dispEw&quot;          &quot;vertSect&quot;       
+#&gt; [10] &quot;dls&quot;             &quot;commonData&quot;</code></pre>
 <p>This is asking for variables for all the nodes and taking only the unique names, those that do not repeat:</p>
 <pre class="r"><code># name of the dependent nodes of &quot;trajectoryStation&quot;
 unique(xml_name(xml_children(xml_find_all(dat, &quot;//trajectoryStation&quot;))))
-#&gt; Error in xml_find_all(dat, &quot;//trajectoryStation&quot;): object &#39;dat&#39; not found</code></pre>
+#&gt;  [1] &quot;dTimStn&quot;           &quot;typeTrajStation&quot;   &quot;md&quot;               
+#&gt;  [4] &quot;tvd&quot;               &quot;incl&quot;              &quot;azi&quot;              
+#&gt;  [7] &quot;dispNs&quot;            &quot;dispEw&quot;            &quot;vertSect&quot;         
+#&gt; [10] &quot;dls&quot;               &quot;commonData&quot;        &quot;typeSurveyTool&quot;   
+#&gt; [13] &quot;rateTurn&quot;          &quot;rateBuild&quot;         &quot;gravAccelCorUsed&quot; 
+#&gt; [16] &quot;magXAxialCorUsed&quot;  &quot;sagCorUsed&quot;        &quot;magDrlstrCorUsed&quot; 
+#&gt; [19] &quot;statusTrajStation&quot; &quot;corUsed&quot;</code></pre>
 <blockquote>
 <p><strong>Note</strong>. They are different because in the first case we are asking for the first node (<code>xml_find_first</code>) while in the second case we are asking for all the nodes (<code>xml_find_all</code>). This is normal. The reason of existence of hierarchical structures that doesn’t waste space in variables that are not currently used.</p>
 </blockquote>
@@ -433,12 +586,13 @@ unique(xml_name(xml_children(xml_find_all(dat, &quot;//trajectoryStation&quot;))
 <h3>Attributes of <code>trajectoryStation</code></h3>
 <pre class="r"><code># get the attributes for trajectoryStation
 xml_attrs(x = trajectoryStation)
-#&gt; Error in xml_attrs(x = trajectoryStation): object &#39;trajectoryStation&#39; not found
+#&gt;                 uid 
+#&gt; &quot;4VIRG33_TIE_POINT&quot;
 
 # we get only the &quot;uid&quot; attribute</code></pre>
 <pre class="r"><code># get the value of the attribute we found
 xml_attr(x = trajectoryStation, attr = &quot;uid&quot;)
-#&gt; Error in xml_attr(x = trajectoryStation, attr = &quot;uid&quot;): object &#39;trajectoryStation&#39; not found</code></pre>
+#&gt; [1] &quot;4VIRG33_TIE_POINT&quot;</code></pre>
 </div>
 </div>
 <div id="commondata-names-and-values" class="section level2">
@@ -452,31 +606,34 @@ xml_attr(x = trajectoryStation, attr = &quot;uid&quot;)
 <p>Nodes under <code>//trajectory/commonData</code>:</p>
 <pre class="r"><code># get the subnodes for //trajectory/commonData
 unique(xml_name(xml_children(xml_find_all(dat, &quot;//trajectory/commonData&quot;))))
-#&gt; Error in xml_find_all(dat, &quot;//trajectory/commonData&quot;): object &#39;dat&#39; not found</code></pre>
+#&gt; [1] &quot;sourceName&quot;        &quot;dTimCreation&quot;      &quot;dTimLastChange&quot;   
+#&gt; [4] &quot;itemState&quot;         &quot;priv_userOwner&quot;    &quot;priv_ipOwner&quot;     
+#&gt; [7] &quot;priv_dTimReceived&quot;</code></pre>
 <p>Number of nodes under <code>//trajectory/commonData</code>:</p>
 <pre class="r"><code># number of subnodes
 max(xml_length(xml_find_all(dat, &quot;//trajectory/commonData&quot;)))
-#&gt; Error in xml_find_all(dat, &quot;//trajectory/commonData&quot;): object &#39;dat&#39; not found</code></pre>
+#&gt; [1] 7</code></pre>
 <p>Values for the nodes under <code>//trajectory/commonData</code>:</p>
 <pre class="r"><code># values for the first macthing node
 xml_text((xml_find_first(dat, &quot;//trajectory/commonData&quot; ) ) )
-#&gt; Error in xml_find_first(dat, &quot;//trajectory/commonData&quot;): object &#39;dat&#39; not found</code></pre>
+#&gt; [1] &quot;Baker Hughes2016-09-29T03:43:41.342Z2016-09-29T03:43:41.342Zactualsc-sync-bhi143.97.229.42016-09-29T03:43:41.342Z&quot;</code></pre>
 </div>
 <div id="trajectorystationcommondata" class="section level3">
 <h3><code>//trajectoryStation/commonData</code></h3>
 <p>Nodes under <code>//trajectoryStation/commonData</code>:</p>
 <pre class="r"><code># get the subnodes for //trajectoryStation/commonData
 unique(xml_name(xml_children(xml_find_all(dat, &quot;//trajectoryStation/commonData&quot; ) ) ))
-#&gt; Error in xml_find_all(dat, &quot;//trajectoryStation/commonData&quot;): object &#39;dat&#39; not found</code></pre>
+#&gt; [1] &quot;sourceName&quot;      &quot;dTimCreation&quot;    &quot;dTimLastChange&quot;  &quot;itemState&quot;      
+#&gt; [5] &quot;priv_customData&quot;</code></pre>
 <p>Number of nodes under <code>//trajectoryStation/commonData</code>:</p>
 <pre class="r"><code># number of subnodes for //trajectoryStation/commonData
 # we use max() for the case it returns a vector with multiple nodes and lengths
 max(xml_length(xml_find_all(dat, &quot;//trajectoryStation/commonData&quot;)))
-#&gt; Error in xml_find_all(dat, &quot;//trajectoryStation/commonData&quot;): object &#39;dat&#39; not found</code></pre>
+#&gt; [1] 5</code></pre>
 <p>Values for the nodes under <code>//trajectoryStation/commonData</code>:</p>
 <pre class="r"><code># values for the first matching node
 xml_text((xml_find_first(dat, &quot;//trajectoryStation/commonData&quot; ) ) )
-#&gt; Error in xml_find_first(dat, &quot;//trajectoryStation/commonData&quot;): object &#39;dat&#39; not found</code></pre>
+#&gt; [1] &quot;Baker Hughes2016-09-29T03:43:41.342Z2016-09-29T03:43:41.342Zactual&quot;</code></pre>
 </div>
 </div>
 </div>
@@ -488,17 +645,16 @@ xml_text((xml_find_first(dat, &quot;//trajectoryStation/commonData&quot; ) ) )
 <pre class="r"><code># get all attributes for trajectory node
 # we try with datatable and dataframe
 trajectory &lt;- xml_find_first( dat, &quot;//trajectory&quot;)
-#&gt; Error in xml_find_first(dat, &quot;//trajectory&quot;): object &#39;dat&#39; not found
 trajectory &lt;- xml_attrs(trajectory)
-#&gt; Error in xml_attrs(trajectory): object &#39;trajectory&#39; not found
 
 trajectory_attr_dt &lt;- data.table(t(trajectory))
-#&gt; Error in t(trajectory): object &#39;trajectory&#39; not found
 
 trajectory_attr_df &lt;- data.frame(t(trajectory), stringsAsFactors = FALSE)
-#&gt; Error in t(trajectory): object &#39;trajectory&#39; not found
 trajectory_attr_df
-#&gt; Error in eval(expr, envir, enclos): object &#39;trajectory_attr_df&#39; not found</code></pre>
+#&gt;                                uidWell
+#&gt; 1 432612d4-7a1b-464d-b89a-9783d4606a96
+#&gt;                            uidWellbore     uid
+#&gt; 1 d1c7a0d7-afa6-487e-aa4a-e34adc091a9c 4VIRG33</code></pre>
 <pre class="r"><code># This is the same way of getting a dataframe for trajectory
 # get values for all the attributes of the trajectory node
 # using magrittr
@@ -506,44 +662,50 @@ xml_find_first( dat, &quot;//trajectory&quot;) %&gt;%
     xml_attrs() %&gt;% 
     t() %&gt;% 
     data.frame(stringsAsFactors = FALSE)
-#&gt; Error in xml_find_first(dat, &quot;//trajectory&quot;): object &#39;dat&#39; not found</code></pre>
+#&gt;                                uidWell
+#&gt; 1 432612d4-7a1b-464d-b89a-9783d4606a96
+#&gt;                            uidWellbore     uid
+#&gt; 1 d1c7a0d7-afa6-487e-aa4a-e34adc091a9c 4VIRG33</code></pre>
 </div>
 <div id="siblings-of-trajectorystation" class="section level2">
 <h2>Siblings of <code>trajectoryStation</code></h2>
 <p>This takes only one row.</p>
 <pre class="r"><code># get all the trajectory variables, with and without descendants
 trajectory_children &lt;- xml_name(xml_children(xml_find_first(dat, &quot;//trajectory&quot;)))
-#&gt; Error in xml_find_first(dat, &quot;//trajectory&quot;): object &#39;dat&#39; not found
 
 # get only those variables without descendants. hnc: have no children
 traj_hnc_names &lt;- names(have_no_children(dat, &quot;trajectory&quot;))
-#&gt; Error in xml_find_all(xml_dat, xpath): object &#39;dat&#39; not found
 traj_hnc_idx &lt;- which(trajectory_children %in% traj_hnc_names)
-#&gt; Error in trajectory_children %in% traj_hnc_names: object &#39;trajectory_children&#39; not found
 
 traj_hnc &lt;- xml_text(xml_children(xml_find_first( dat, &quot;//trajectory&quot;)))[traj_hnc_idx]
-#&gt; Error in xml_find_first(dat, &quot;//trajectory&quot;): object &#39;dat&#39; not found
 names(traj_hnc) &lt;- traj_hnc_names
-#&gt; Error in eval(expr, envir, enclos): object &#39;traj_hnc_names&#39; not found
 
 # dataframe and datatable
 siblings_df &lt;- data.frame(t(traj_hnc), stringsAsFactors = FALSE)
-#&gt; Error in t(traj_hnc): object &#39;traj_hnc&#39; not found
 siblings_df
-#&gt; Error in eval(expr, envir, enclos): object &#39;siblings_df&#39; not found
+#&gt;      nameWell  nameWellbore           name objectGrowing
+#&gt; 1 NO 15/9-F-9 NO 15/9-F-9 A MWD-15/9-F-9 A         false
+#&gt;              dTimTrajStart              dTimTrajEnd mdMn mdMx magDeclUsed
+#&gt; 1 2016-09-28T23:59:57.000Z 2016-09-29T00:03:50.000Z    0 1206           0
+#&gt;   gridCorUsed aziVertSect dispNsVertSectOrig dispEwVertSectOrig     aziRef
+#&gt; 1           0           0                  0                  0 true north
 
-siblings_dt &lt;- data.table(t(traj_hnc))
-#&gt; Error in t(traj_hnc): object &#39;traj_hnc&#39; not found</code></pre>
+siblings_dt &lt;- data.table(t(traj_hnc))</code></pre>
 <div id="combine-trajectory-and-siblings-in-a-one-row-dataframe" class="section level3">
 <h3>combine trajectory and siblings in a one-row dataframe</h3>
 <p>We use the function <code>cbind</code> to glue the columns together.</p>
 <pre class="r"><code>trajectory_dt &lt;- cbind(trajectory_attr_dt, siblings_dt)
-#&gt; Error in cbind(trajectory_attr_dt, siblings_dt): object &#39;trajectory_attr_dt&#39; not found
-trajectory_df &lt;- cbind(trajectory_attr_df, siblings_df)
-#&gt; Error in cbind(trajectory_attr_df, siblings_df): object &#39;trajectory_attr_df&#39; not found</code></pre>
+trajectory_df &lt;- cbind(trajectory_attr_df, siblings_df)</code></pre>
 <pre class="r"><code># print the table
 print(as_tibble(trajectory_df))
-#&gt; Error in as_tibble(trajectory_df): object &#39;trajectory_df&#39; not found</code></pre>
+#&gt; # A tibble: 1 x 17
+#&gt;   uidWell uidWellbore uid   nameWell nameWellbore name  objectGrowing
+#&gt;   &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;        
+#&gt; 1 432612~ d1c7a0d7-a~ 4VIR~ NO 15/9~ NO 15/9-F-9~ MWD-~ false        
+#&gt; # ... with 10 more variables: dTimTrajStart &lt;chr&gt;, dTimTrajEnd &lt;chr&gt;,
+#&gt; #   mdMn &lt;chr&gt;, mdMx &lt;chr&gt;, magDeclUsed &lt;chr&gt;, gridCorUsed &lt;chr&gt;,
+#&gt; #   aziVertSect &lt;chr&gt;, dispNsVertSectOrig &lt;chr&gt;, dispEwVertSectOrig &lt;chr&gt;,
+#&gt; #   aziRef &lt;chr&gt;</code></pre>
 </div>
 </div>
 <div id="trajectorystation-measurements" class="section level2">
@@ -556,15 +718,37 @@ print(as_tibble(trajectory_df))
 tS.uid &lt;- dat %&gt;% 
     xml_find_all(&quot;//trajectoryStation&quot;) %&gt;% 
     xml_attr(&quot;uid&quot;)
-#&gt; Error in eval(lhs, parent, parent): object &#39;dat&#39; not found
 
 tS.uid_dt &lt;- data.table(uid = tS.uid)
-#&gt; Error in data.table(uid = tS.uid): object &#39;tS.uid&#39; not found
 tS.uid_df &lt;- data.frame(uid = tS.uid, stringsAsFactors = FALSE)
-#&gt; Error in data.frame(uid = tS.uid, stringsAsFactors = FALSE): object &#39;tS.uid&#39; not found
 
 tS.uid_df
-#&gt; Error in eval(expr, envir, enclos): object &#39;tS.uid_df&#39; not found</code></pre>
+#&gt;                  uid
+#&gt; 1  4VIRG33_TIE_POINT
+#&gt; 2          325VIRG33
+#&gt; 3          326VIRG33
+#&gt; 4          327VIRG33
+#&gt; 5          328VIRG33
+#&gt; 6          329VIRG33
+#&gt; 7          330VIRG33
+#&gt; 8          331VIRG33
+#&gt; 9          332VIRG33
+#&gt; 10         333VIRG33
+#&gt; 11         334VIRG33
+#&gt; 12         335VIRG33
+#&gt; 13         336VIRG33
+#&gt; 14         337VIRG33
+#&gt; 15         338VIRG33
+#&gt; 16         339VIRG33
+#&gt; 17         340VIRG33
+#&gt; 18         341VIRG33
+#&gt; 19         342VIRG33
+#&gt; 20         343VIRG33
+#&gt; 21         344VIRG33
+#&gt; 22         345VIRG33
+#&gt; 23         346VIRG33
+#&gt; 24         347VIRG33
+#&gt; 25         348VIRG33</code></pre>
 <p>We could use this method to create a function that finds the number of observations, or rows, for <code>trajectoryStation</code>:</p>
 <pre class="r"><code># get the number of rows for a parent node
 #&#39; Get the number of rows for a parent node.
@@ -589,7 +773,7 @@ get_numrows_parent_node &lt;- function(xml_dat, parent_node, attribute) {
 parent &lt;- &quot;trajectoryStation&quot;
 attrib &lt;- &quot;uid&quot;
 get_numrows_parent_node(dat, parent, attrib)
-#&gt; Error in eval(lhs, parent, parent): object &#39;dat&#39; not found</code></pre>
+#&gt; [1] 25</code></pre>
 </div>
 </div>
 <div id="measurement-stations-or-trajectorystation" class="section level2">
@@ -598,33 +782,38 @@ get_numrows_parent_node(dat, parent, attrib)
 # we also get commonData which has children
 trajectoryStation_all_names &lt;- xml_name(xml_children(xml_find_all(dat, 
                                                             &quot;//trajectoryStation&quot;)))
-#&gt; Error in xml_find_all(dat, &quot;//trajectoryStation&quot;): object &#39;dat&#39; not found
 trajectoryStation_all_names &lt;- unique(trajectoryStation_all_names)
-#&gt; Error in unique(trajectoryStation_all_names): object &#39;trajectoryStation_all_names&#39; not found
 trajectoryStation_all_names
-#&gt; Error in eval(expr, envir, enclos): object &#39;trajectoryStation_all_names&#39; not found</code></pre>
+#&gt;  [1] &quot;dTimStn&quot;           &quot;typeTrajStation&quot;   &quot;md&quot;               
+#&gt;  [4] &quot;tvd&quot;               &quot;incl&quot;              &quot;azi&quot;              
+#&gt;  [7] &quot;dispNs&quot;            &quot;dispEw&quot;            &quot;vertSect&quot;         
+#&gt; [10] &quot;dls&quot;               &quot;commonData&quot;        &quot;typeSurveyTool&quot;   
+#&gt; [13] &quot;rateTurn&quot;          &quot;rateBuild&quot;         &quot;gravAccelCorUsed&quot; 
+#&gt; [16] &quot;magXAxialCorUsed&quot;  &quot;sagCorUsed&quot;        &quot;magDrlstrCorUsed&quot; 
+#&gt; [19] &quot;statusTrajStation&quot; &quot;corUsed&quot;</code></pre>
 <pre class="r"><code># get the number of columns by name
 # commonData is excluded (but we know that in advance)
 no_commonData &lt;- which(trajectoryStation_all_names %in% c(&quot;commonData&quot;))
-#&gt; Error in trajectoryStation_all_names %in% c(&quot;commonData&quot;): object &#39;trajectoryStation_all_names&#39; not found
 
 # get rid of commonData since it has children
 trajectoryStation_names &lt;- trajectoryStation_all_names[-no_commonData] # exclude
-#&gt; Error in eval(expr, envir, enclos): object &#39;trajectoryStation_all_names&#39; not found
 trajectoryStation_names
-#&gt; Error in eval(expr, envir, enclos): object &#39;trajectoryStation_names&#39; not found</code></pre>
+#&gt;  [1] &quot;dTimStn&quot;           &quot;typeTrajStation&quot;   &quot;md&quot;               
+#&gt;  [4] &quot;tvd&quot;               &quot;incl&quot;              &quot;azi&quot;              
+#&gt;  [7] &quot;dispNs&quot;            &quot;dispEw&quot;            &quot;vertSect&quot;         
+#&gt; [10] &quot;dls&quot;               &quot;typeSurveyTool&quot;    &quot;rateTurn&quot;         
+#&gt; [13] &quot;rateBuild&quot;         &quot;gravAccelCorUsed&quot;  &quot;magXAxialCorUsed&quot; 
+#&gt; [16] &quot;sagCorUsed&quot;        &quot;magDrlstrCorUsed&quot;  &quot;statusTrajStation&quot;
+#&gt; [19] &quot;corUsed&quot;</code></pre>
 <div id="draft-of-a-future-function" class="section level3">
 <h3>draft of a future function</h3>
 <pre class="r"><code># first non-automated way of getting values for the all the trajectoryStation nodes
 # there are 19 variables under trajectoryStation, not including commonData which
 # was manually removed
 xml_dat &lt;- dat
-#&gt; Error in eval(expr, envir, enclos): object &#39;dat&#39; not found
 node &lt;- &quot;trajectoryStation&quot;
 max_obs &lt;- get_numrows_parent_node(dat, &quot;trajectoryStation&quot;, attribute = &quot;uid&quot;)
-#&gt; Error in eval(lhs, parent, parent): object &#39;dat&#39; not found
 var_names &lt;- trajectoryStation_names  # names of the variables in a vector
-#&gt; Error in eval(expr, envir, enclos): object &#39;trajectoryStation_names&#39; not found
 li_vars &lt;- vector(&quot;list&quot;)             # vector of list
 for (var in var_names) {              # iterate through all the variables
     xpath &lt;- paste(&quot;//&quot;, node, &quot;/&quot;, var)  # form the xpath
@@ -638,13 +827,33 @@ for (var in var_names) {              # iterate through all the variables
         li_vars[[var]] &lt;- vx
     }
 }
-#&gt; Error in eval(expr, envir, enclos): object &#39;var_names&#39; not found
 tS_df &lt;- as.data.frame(li_vars, stringsAsFactors = FALSE)</code></pre>
 <pre class="r"><code># print the table for trajectoryStation
 print(as_tibble(tS_df))
-#&gt; # A tibble: 0 x 0</code></pre>
+#&gt; # A tibble: 25 x 18
+#&gt;    dTimStn typeTrajStation md    tvd   incl  azi   dispNs dispEw vertSect
+#&gt;    &lt;chr&gt;   &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   
+#&gt;  1 2016-0~ tie in point    0     0     0     0     0      0      0       
+#&gt;  2 2016-0~ gyro north see~ 145.~ 145.~ 0     0     0      0      0       
+#&gt;  3 2016-0~ gyro north see~ 218.5 218.~ 0.00~ 3.44~ -0.15~ -0.04~ -0.1573~
+#&gt;  4 2016-0~ gyro north see~ 259   258.~ 0.00~ 4.45~ -0.26~ -0.13~ -0.2612~
+#&gt;  5 2016-0~ gyro north see~ 299.5 299.~ 0.00~ 4.20~ -0.33~ -0.30~ -0.3375~
+#&gt;  6 2016-0~ gyro north see~ 340   339.~ 0.00~ 0.61~ -0.27~ -0.32~ -0.2703~
+#&gt;  7 2016-0~ gyro north see~ 394.~ 394.~ 0.00~ 6.00~ 0.060~ -0.25~ 0.06012~
+#&gt;  8 2016-0~ gyro north see~ 420.~ 420.~ 0.00~ 6.15~ 0.215~ -0.28~ 0.21588~
+#&gt;  9 2016-0~ gyro north see~ 454.~ 454.~ 0.08~ 3.45~ -1.01~ -0.72~ -1.0151~
+#&gt; 10 2016-0~ gyro north see~ 497.~ 497.~ 0.15~ 3.48~ -5.80~ -2.36~ -5.8030~
+#&gt; # ... with 15 more rows, and 9 more variables: dls &lt;chr&gt;,
+#&gt; #   typeSurveyTool &lt;chr&gt;, rateTurn &lt;chr&gt;, rateBuild &lt;chr&gt;,
+#&gt; #   gravAccelCorUsed &lt;chr&gt;, magXAxialCorUsed &lt;chr&gt;, sagCorUsed &lt;chr&gt;,
+#&gt; #   magDrlstrCorUsed &lt;chr&gt;, statusTrajStation &lt;chr&gt;</code></pre>
 <pre class="r"><code>names(tS_df)
-#&gt; character(0)</code></pre>
+#&gt;  [1] &quot;dTimStn&quot;           &quot;typeTrajStation&quot;   &quot;md&quot;               
+#&gt;  [4] &quot;tvd&quot;               &quot;incl&quot;              &quot;azi&quot;              
+#&gt;  [7] &quot;dispNs&quot;            &quot;dispEw&quot;            &quot;vertSect&quot;         
+#&gt; [10] &quot;dls&quot;               &quot;typeSurveyTool&quot;    &quot;rateTurn&quot;         
+#&gt; [13] &quot;rateBuild&quot;         &quot;gravAccelCorUsed&quot;  &quot;magXAxialCorUsed&quot; 
+#&gt; [16] &quot;sagCorUsed&quot;        &quot;magDrlstrCorUsed&quot;  &quot;statusTrajStation&quot;</code></pre>
 <pre class="r"><code># get the names of variables under a node
 get_variables_under_node &lt;- function(xml_dat, node) {
     xpath &lt;- paste(&quot;//&quot;, node)
@@ -655,13 +864,22 @@ get_variables_under_node &lt;- function(xml_dat, node) {
 }
 
 tS.cD_names &lt;- get_variables_under_node(dat, &quot;trajectoryStation/commonData&quot;)
-#&gt; Error in xml_find_all(xml_dat, xpath): object &#39;dat&#39; not found
 tS.cD_names
-#&gt; Error in eval(expr, envir, enclos): object &#39;tS.cD_names&#39; not found</code></pre>
+#&gt; [1] &quot;sourceName&quot;      &quot;dTimCreation&quot;    &quot;dTimLastChange&quot;  &quot;itemState&quot;      
+#&gt; [5] &quot;priv_customData&quot;</code></pre>
 <pre class="r"><code># get variables under trajectoryStation
 # detect what variables are standalone and which ones have children
 how_many_children(dat, &quot;trajectoryStation&quot;)
-#&gt; Error in xml_find_all(xml_dat, xpath): object &#39;dat&#39; not found</code></pre>
+#&gt;           dTimStn   typeTrajStation                md               tvd 
+#&gt;                 0                 0                 0                 0 
+#&gt;              incl               azi            dispNs            dispEw 
+#&gt;                 0                 0                 0                 0 
+#&gt;          vertSect               dls        commonData    typeSurveyTool 
+#&gt;                 0                 0                 5                 0 
+#&gt;          rateTurn         rateBuild  gravAccelCorUsed  magXAxialCorUsed 
+#&gt;                 0                 0                 0                 0 
+#&gt;        sagCorUsed  magDrlstrCorUsed statusTrajStation           corUsed 
+#&gt;                 0                 0                 0                 2</code></pre>
 <p>There are two variables under <code>trajectoryStation</code> that have descendants.</p>
 </div>
 <div id="build-the-function-nodes_as_df" class="section level3">
@@ -697,11 +915,25 @@ nodes_as_df &lt;- function(xml_dat, node, max_obs) {
 <pre class="r"><code># using function get_numrows_parent_node()
 num_trajectoryStation &lt;- get_numrows_parent_node(dat, &quot;trajectoryStation&quot;, 
                                                  attribute = &quot;uid&quot;)
-#&gt; Error in eval(lhs, parent, parent): object &#39;dat&#39; not found
 tS.trajectoryStation_df &lt;- nodes_as_df(dat, &quot;trajectoryStation&quot;, num_trajectoryStation)
-#&gt; Error in xml_find_all(xml_dat, xpath): object &#39;dat&#39; not found
 as_tibble(tS.trajectoryStation_df)
-#&gt; Error in as_tibble(tS.trajectoryStation_df): object &#39;tS.trajectoryStation_df&#39; not found</code></pre>
+#&gt; # A tibble: 25 x 18
+#&gt;    dTimStn typeTrajStation md    tvd   incl  azi   dispNs dispEw vertSect
+#&gt;    &lt;chr&gt;   &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   
+#&gt;  1 2016-0~ tie in point    0     0     0     0     0      0      0       
+#&gt;  2 2016-0~ gyro north see~ 145.~ 145.~ 0     0     0      0      0       
+#&gt;  3 2016-0~ gyro north see~ 218.5 218.~ 0.00~ 3.44~ -0.15~ -0.04~ -0.1573~
+#&gt;  4 2016-0~ gyro north see~ 259   258.~ 0.00~ 4.45~ -0.26~ -0.13~ -0.2612~
+#&gt;  5 2016-0~ gyro north see~ 299.5 299.~ 0.00~ 4.20~ -0.33~ -0.30~ -0.3375~
+#&gt;  6 2016-0~ gyro north see~ 340   339.~ 0.00~ 0.61~ -0.27~ -0.32~ -0.2703~
+#&gt;  7 2016-0~ gyro north see~ 394.~ 394.~ 0.00~ 6.00~ 0.060~ -0.25~ 0.06012~
+#&gt;  8 2016-0~ gyro north see~ 420.~ 420.~ 0.00~ 6.15~ 0.215~ -0.28~ 0.21588~
+#&gt;  9 2016-0~ gyro north see~ 454.~ 454.~ 0.08~ 3.45~ -1.01~ -0.72~ -1.0151~
+#&gt; 10 2016-0~ gyro north see~ 497.~ 497.~ 0.15~ 3.48~ -5.80~ -2.36~ -5.8030~
+#&gt; # ... with 15 more rows, and 9 more variables: dls &lt;chr&gt;,
+#&gt; #   typeSurveyTool &lt;chr&gt;, rateTurn &lt;chr&gt;, rateBuild &lt;chr&gt;,
+#&gt; #   gravAccelCorUsed &lt;chr&gt;, magXAxialCorUsed &lt;chr&gt;, sagCorUsed &lt;chr&gt;,
+#&gt; #   magDrlstrCorUsed &lt;chr&gt;, statusTrajStation &lt;chr&gt;</code></pre>
 </div>
 <div id="part-3-of-4-of-the-trajectorystation-dataframe-commondata" class="section level3">
 <h3>Part 3 of 4 of the <code>trajectoryStation</code> dataframe: <code>commonData</code></h3>
@@ -712,12 +944,25 @@ xml_find_all(dat, xpath) %&gt;%
     xml_children() %&gt;% 
     xml_name() %&gt;% 
     unique()
-#&gt; Error in xml_find_all(dat, xpath): object &#39;dat&#39; not found</code></pre>
+#&gt; [1] &quot;sourceName&quot;      &quot;dTimCreation&quot;    &quot;dTimLastChange&quot;  &quot;itemState&quot;      
+#&gt; [5] &quot;priv_customData&quot;</code></pre>
 <pre class="r"><code># get the nodes under trajectoryStation/commonData
 tS.cD_df &lt;- nodes_as_df(xml_dat, node = &quot;trajectoryStation/commonData&quot;, max_obs = 25)
-#&gt; Error in xml_find_all(xml_dat, xpath): object &#39;xml_dat&#39; not found
 as_tibble(tS.cD_df)
-#&gt; Error in as_tibble(tS.cD_df): object &#39;tS.cD_df&#39; not found</code></pre>
+#&gt; # A tibble: 25 x 5
+#&gt;    sourceName  dTimCreation    dTimLastChange   itemState priv_customData  
+#&gt;    &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;            &lt;chr&gt;     &lt;chr&gt;            
+#&gt;  1 Baker Hugh~ 2016-09-29T03:~ 2016-09-29T03:4~ actual    &lt;NA&gt;             
+#&gt;  2 Baker Hugh~ 2016-09-29T03:~ 2016-09-29T03:4~ actual    SurveyQC=3,Surve~
+#&gt;  3 Baker Hugh~ 2016-09-29T03:~ 2016-09-29T03:4~ actual    SurveyQC=3,Surve~
+#&gt;  4 Baker Hugh~ 2016-09-29T03:~ 2016-09-29T03:4~ actual    SurveyQC=3,Surve~
+#&gt;  5 Baker Hugh~ 2016-09-29T03:~ 2016-09-29T03:4~ actual    SurveyQC=3,Surve~
+#&gt;  6 Baker Hugh~ 2016-09-29T03:~ 2016-09-29T03:4~ actual    SurveyQC=3,Surve~
+#&gt;  7 Baker Hugh~ 2016-09-29T03:~ 2016-09-29T03:4~ actual    SurveyQC=3,Surve~
+#&gt;  8 Baker Hugh~ 2016-09-29T03:~ 2016-09-29T03:4~ actual    SurveyQC=3,Surve~
+#&gt;  9 Baker Hugh~ 2016-09-29T03:~ 2016-09-29T03:4~ actual    SurveyQC=3,Surve~
+#&gt; 10 Baker Hugh~ 2016-09-29T03:~ 2016-09-29T03:4~ actual    SurveyQC=3,Surve~
+#&gt; # ... with 15 more rows</code></pre>
 </div>
 <div id="part-4-of-4-of-the-trajectorystation-dataframe-corused" class="section level3">
 <h3>Part 4 of 4 of the <code>trajectoryStation</code> dataframe: <code>corUsed</code></h3>
@@ -727,13 +972,25 @@ xml_find_all(dat, xpath) %&gt;%
     xml_children() %&gt;% 
     xml_name() %&gt;% 
     unique()
-#&gt; Error in xml_find_all(dat, xpath): object &#39;dat&#39; not found
+#&gt; [1] &quot;stnGridCorUsed&quot;  &quot;dirSensorOffset&quot;
 
 # get the nodes under trajectoryStation/commonData
 tS.cU_df &lt;- nodes_as_df(xml_dat, node = &quot;trajectoryStation/corUsed&quot;, max_obs = 25)
-#&gt; Error in xml_find_all(xml_dat, xpath): object &#39;xml_dat&#39; not found
 as_tibble(tS.cU_df)
-#&gt; Error in as_tibble(tS.cU_df): object &#39;tS.cU_df&#39; not found</code></pre>
+#&gt; # A tibble: 25 x 2
+#&gt;    stnGridCorUsed dirSensorOffset
+#&gt;    &lt;chr&gt;          &lt;chr&gt;          
+#&gt;  1 &lt;NA&gt;           &lt;NA&gt;           
+#&gt;  2 999.25         0              
+#&gt;  3 999.25         0              
+#&gt;  4 999.25         0              
+#&gt;  5 999.25         0              
+#&gt;  6 999.25         0              
+#&gt;  7 999.25         0              
+#&gt;  8 999.25         0              
+#&gt;  9 999.25         0              
+#&gt; 10 999.25         0              
+#&gt; # ... with 15 more rows</code></pre>
 </div>
 <div id="combined-dataframe-for-trajectorystation" class="section level3">
 <h3>Combined dataframe for <code>trajectoryStation</code></h3>
@@ -752,37 +1009,57 @@ trajectoryStation_df &lt;- cbind(tS.uid_dt,
                               tS_df, 
                               tS.cU_df, 
                               tS.cD_df)
-#&gt; Error in cbind(tS.uid_dt, tS_df, tS.cU_df, tS.cD_df): object &#39;tS.uid_dt&#39; not found
 
-trajectoryStation_dt &lt;- data.table(trajectoryStation_df)
-#&gt; Error in data.table(trajectoryStation_df): object &#39;trajectoryStation_df&#39; not found</code></pre>
+trajectoryStation_dt &lt;- data.table(trajectoryStation_df)</code></pre>
 <pre class="r"><code># print the combined table for trajectoryStation
 print(as_tibble(trajectoryStation_df))
-#&gt; Error in as_tibble(trajectoryStation_df): object &#39;trajectoryStation_df&#39; not found</code></pre>
+#&gt; # A tibble: 25 x 26
+#&gt;    uid   dTimStn typeTrajStation md    tvd   incl  azi   dispNs dispEw
+#&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; 
+#&gt;  1 4VIR~ 2016-0~ tie in point    0     0     0     0     0      0     
+#&gt;  2 325V~ 2016-0~ gyro north see~ 145.~ 145.~ 0     0     0      0     
+#&gt;  3 326V~ 2016-0~ gyro north see~ 218.5 218.~ 0.00~ 3.44~ -0.15~ -0.04~
+#&gt;  4 327V~ 2016-0~ gyro north see~ 259   258.~ 0.00~ 4.45~ -0.26~ -0.13~
+#&gt;  5 328V~ 2016-0~ gyro north see~ 299.5 299.~ 0.00~ 4.20~ -0.33~ -0.30~
+#&gt;  6 329V~ 2016-0~ gyro north see~ 340   339.~ 0.00~ 0.61~ -0.27~ -0.32~
+#&gt;  7 330V~ 2016-0~ gyro north see~ 394.~ 394.~ 0.00~ 6.00~ 0.060~ -0.25~
+#&gt;  8 331V~ 2016-0~ gyro north see~ 420.~ 420.~ 0.00~ 6.15~ 0.215~ -0.28~
+#&gt;  9 332V~ 2016-0~ gyro north see~ 454.~ 454.~ 0.08~ 3.45~ -1.01~ -0.72~
+#&gt; 10 333V~ 2016-0~ gyro north see~ 497.~ 497.~ 0.15~ 3.48~ -5.80~ -2.36~
+#&gt; # ... with 15 more rows, and 17 more variables: vertSect &lt;chr&gt;, dls &lt;chr&gt;,
+#&gt; #   typeSurveyTool &lt;chr&gt;, rateTurn &lt;chr&gt;, rateBuild &lt;chr&gt;,
+#&gt; #   gravAccelCorUsed &lt;chr&gt;, magXAxialCorUsed &lt;chr&gt;, sagCorUsed &lt;chr&gt;,
+#&gt; #   magDrlstrCorUsed &lt;chr&gt;, statusTrajStation &lt;chr&gt;, stnGridCorUsed &lt;chr&gt;,
+#&gt; #   dirSensorOffset &lt;chr&gt;, sourceName &lt;chr&gt;, dTimCreation &lt;chr&gt;,
+#&gt; #   dTimLastChange &lt;chr&gt;, itemState &lt;chr&gt;, priv_customData &lt;chr&gt;</code></pre>
 </div>
 <div id="add-an-id-for-the-tables-relationship" class="section level3">
 <h3>Add an id for the tables relationship</h3>
 <pre class="r"><code># create a new column id for relationship to another table
 id &lt;- trajectoryStation_df[1, uid]
-#&gt; Error in eval(expr, envir, enclos): object &#39;trajectoryStation_df&#39; not found
 sub_id &lt;- gsub(pattern = &quot;_.*$&quot;, replacement = &quot;&quot;, x = id)
-#&gt; Error in as.character(x): cannot coerce type &#39;closure&#39; to vector of type &#39;character&#39;
 sub_id
-#&gt; Error in eval(expr, envir, enclos): object &#39;sub_id&#39; not found
+#&gt; [1] &quot;4VIRG33&quot;
 
 trajectoryStation_df &lt;- trajectoryStation_df %&gt;% 
     mutate(id = sub_id) %&gt;% 
     select(id, everything()) %&gt;% 
     as_tibble()
-#&gt; Error in eval(lhs, parent, parent): object &#39;trajectoryStation_df&#39; not found
 
-trajectoryStation_dt = data.table(trajectoryStation_df)
-#&gt; Error in data.table(trajectoryStation_df): object &#39;trajectoryStation_df&#39; not found</code></pre>
+trajectoryStation_dt = data.table(trajectoryStation_df)</code></pre>
 <pre class="r"><code># chracateristics of the table
 dim(trajectoryStation_dt)
-#&gt; Error in eval(expr, envir, enclos): object &#39;trajectoryStation_dt&#39; not found
+#&gt; [1] 25 27
 names(trajectoryStation_dt)
-#&gt; Error in eval(expr, envir, enclos): object &#39;trajectoryStation_dt&#39; not found
+#&gt;  [1] &quot;id&quot;                &quot;uid&quot;               &quot;dTimStn&quot;          
+#&gt;  [4] &quot;typeTrajStation&quot;   &quot;md&quot;                &quot;tvd&quot;              
+#&gt;  [7] &quot;incl&quot;              &quot;azi&quot;               &quot;dispNs&quot;           
+#&gt; [10] &quot;dispEw&quot;            &quot;vertSect&quot;          &quot;dls&quot;              
+#&gt; [13] &quot;typeSurveyTool&quot;    &quot;rateTurn&quot;          &quot;rateBuild&quot;        
+#&gt; [16] &quot;gravAccelCorUsed&quot;  &quot;magXAxialCorUsed&quot;  &quot;sagCorUsed&quot;       
+#&gt; [19] &quot;magDrlstrCorUsed&quot;  &quot;statusTrajStation&quot; &quot;stnGridCorUsed&quot;   
+#&gt; [22] &quot;dirSensorOffset&quot;   &quot;sourceName&quot;        &quot;dTimCreation&quot;     
+#&gt; [25] &quot;dTimLastChange&quot;    &quot;itemState&quot;         &quot;priv_customData&quot;
 
 # TODO: decompose corUsed and add it to the dataframe</code></pre>
 </div>
@@ -791,26 +1068,61 @@ names(trajectoryStation_dt)
 <div id="putting-all-together" class="section level1">
 <h1>Putting all together</h1>
 <pre class="r"><code>print(as_tibble(trajectory_dt))
-#&gt; Error in as_tibble(trajectory_dt): object &#39;trajectory_dt&#39; not found</code></pre>
+#&gt; # A tibble: 1 x 17
+#&gt;   uidWell uidWellbore uid   nameWell nameWellbore name  objectGrowing
+#&gt;   &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;        
+#&gt; 1 432612~ d1c7a0d7-a~ 4VIR~ NO 15/9~ NO 15/9-F-9~ MWD-~ false        
+#&gt; # ... with 10 more variables: dTimTrajStart &lt;chr&gt;, dTimTrajEnd &lt;chr&gt;,
+#&gt; #   mdMn &lt;chr&gt;, mdMx &lt;chr&gt;, magDeclUsed &lt;chr&gt;, gridCorUsed &lt;chr&gt;,
+#&gt; #   aziVertSect &lt;chr&gt;, dispNsVertSectOrig &lt;chr&gt;, dispEwVertSectOrig &lt;chr&gt;,
+#&gt; #   aziRef &lt;chr&gt;</code></pre>
 <p>We have one interesting thing going on. We have the <code>trajectory</code> dataframe that is one row and 17 columns (1x17), while <code>trajectoryStation</code> is 25 rows by 27 columns (25x27). How do we work them out in rectangular tables?</p>
 <p>We will have to join them. We will use an inner join in <code>data.table</code>.</p>
 <div id="join-trajectory-and-trajectorystation-dataframes" class="section level2">
 <h2>Join trajectory and trajectoryStation dataframes</h2>
 <pre class="r"><code>setkey(trajectory_dt, uid)
-#&gt; Error in setkey(trajectory_dt, uid): object &#39;trajectory_dt&#39; not found
 setkey(trajectoryStation_dt, id)
-#&gt; Error in setkey(trajectoryStation_dt, id): object &#39;trajectoryStation_dt&#39; not found
 
 # inner join
 t_9f9_dt &lt;- trajectory_dt[trajectoryStation_dt, nomatch=0] %&gt;% 
     as_tibble() %&gt;% 
     print()
-#&gt; Error in eval(lhs, parent, parent): object &#39;trajectory_dt&#39; not found
+#&gt; # A tibble: 25 x 43
+#&gt;    uidWell uidWellbore uid   nameWell nameWellbore name  objectGrowing
+#&gt;    &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;        
+#&gt;  1 432612~ d1c7a0d7-a~ 4VIR~ NO 15/9~ NO 15/9-F-9~ MWD-~ false        
+#&gt;  2 432612~ d1c7a0d7-a~ 4VIR~ NO 15/9~ NO 15/9-F-9~ MWD-~ false        
+#&gt;  3 432612~ d1c7a0d7-a~ 4VIR~ NO 15/9~ NO 15/9-F-9~ MWD-~ false        
+#&gt;  4 432612~ d1c7a0d7-a~ 4VIR~ NO 15/9~ NO 15/9-F-9~ MWD-~ false        
+#&gt;  5 432612~ d1c7a0d7-a~ 4VIR~ NO 15/9~ NO 15/9-F-9~ MWD-~ false        
+#&gt;  6 432612~ d1c7a0d7-a~ 4VIR~ NO 15/9~ NO 15/9-F-9~ MWD-~ false        
+#&gt;  7 432612~ d1c7a0d7-a~ 4VIR~ NO 15/9~ NO 15/9-F-9~ MWD-~ false        
+#&gt;  8 432612~ d1c7a0d7-a~ 4VIR~ NO 15/9~ NO 15/9-F-9~ MWD-~ false        
+#&gt;  9 432612~ d1c7a0d7-a~ 4VIR~ NO 15/9~ NO 15/9-F-9~ MWD-~ false        
+#&gt; 10 432612~ d1c7a0d7-a~ 4VIR~ NO 15/9~ NO 15/9-F-9~ MWD-~ false        
+#&gt; # ... with 15 more rows, and 36 more variables: dTimTrajStart &lt;chr&gt;,
+#&gt; #   dTimTrajEnd &lt;chr&gt;, mdMn &lt;chr&gt;, mdMx &lt;chr&gt;, magDeclUsed &lt;chr&gt;,
+#&gt; #   gridCorUsed &lt;chr&gt;, aziVertSect &lt;chr&gt;, dispNsVertSectOrig &lt;chr&gt;,
+#&gt; #   dispEwVertSectOrig &lt;chr&gt;, aziRef &lt;chr&gt;, i.uid &lt;chr&gt;, dTimStn &lt;chr&gt;,
+#&gt; #   typeTrajStation &lt;chr&gt;, md &lt;chr&gt;, tvd &lt;chr&gt;, incl &lt;chr&gt;, azi &lt;chr&gt;,
+#&gt; #   dispNs &lt;chr&gt;, dispEw &lt;chr&gt;, vertSect &lt;chr&gt;, dls &lt;chr&gt;,
+#&gt; #   typeSurveyTool &lt;chr&gt;, rateTurn &lt;chr&gt;, rateBuild &lt;chr&gt;,
+#&gt; #   gravAccelCorUsed &lt;chr&gt;, magXAxialCorUsed &lt;chr&gt;, sagCorUsed &lt;chr&gt;,
+#&gt; #   magDrlstrCorUsed &lt;chr&gt;, statusTrajStation &lt;chr&gt;, stnGridCorUsed &lt;chr&gt;,
+#&gt; #   dirSensorOffset &lt;chr&gt;, sourceName &lt;chr&gt;, dTimCreation &lt;chr&gt;,
+#&gt; #   dTimLastChange &lt;chr&gt;, itemState &lt;chr&gt;, priv_customData &lt;chr&gt;
 
-well_9f9_df &lt;- t_9f9_dt
-#&gt; Error in eval(expr, envir, enclos): object &#39;t_9f9_dt&#39; not found</code></pre>
+well_9f9_df &lt;- t_9f9_dt</code></pre>
 <pre class="r"><code>names(trajectoryStation_dt)
-#&gt; Error in eval(expr, envir, enclos): object &#39;trajectoryStation_dt&#39; not found</code></pre>
+#&gt;  [1] &quot;id&quot;                &quot;uid&quot;               &quot;dTimStn&quot;          
+#&gt;  [4] &quot;typeTrajStation&quot;   &quot;md&quot;                &quot;tvd&quot;              
+#&gt;  [7] &quot;incl&quot;              &quot;azi&quot;               &quot;dispNs&quot;           
+#&gt; [10] &quot;dispEw&quot;            &quot;vertSect&quot;          &quot;dls&quot;              
+#&gt; [13] &quot;typeSurveyTool&quot;    &quot;rateTurn&quot;          &quot;rateBuild&quot;        
+#&gt; [16] &quot;gravAccelCorUsed&quot;  &quot;magXAxialCorUsed&quot;  &quot;sagCorUsed&quot;       
+#&gt; [19] &quot;magDrlstrCorUsed&quot;  &quot;statusTrajStation&quot; &quot;stnGridCorUsed&quot;   
+#&gt; [22] &quot;dirSensorOffset&quot;   &quot;sourceName&quot;        &quot;dTimCreation&quot;     
+#&gt; [25] &quot;dTimLastChange&quot;    &quot;itemState&quot;         &quot;priv_customData&quot;</code></pre>
 </div>
 <div id="apply-the-functions-on-a-second-well" class="section level2">
 <h2>Apply the functions on a second well</h2>
@@ -823,8 +1135,7 @@ well_9f9_df &lt;- t_9f9_dt
 traj_files &lt;- grep(pattern = &quot;trajectory&quot;, ignore.case = TRUE, 
                    value = TRUE, x = all_files_xml)
 
-dat_9f7 &lt;- read_xml(traj_files[2])
-#&gt; Error in doc_parse_file(con, encoding = encoding, as_html = as_html, options = options): Start tag expected, &#39;&lt;&#39; not found [4]</code></pre>
+dat_9f7 &lt;- read_xml(traj_files[2])</code></pre>
 <div id="total-number-of-nodes-for-the-2nd-well" class="section level3">
 <h3>Total number of nodes for the 2nd well</h3>
 <pre class="r"><code>get_total_number_of_nodes &lt;- function(xml_dat) {
@@ -838,7 +1149,7 @@ dat_9f7 &lt;- read_xml(traj_files[2])
 }
 
 get_total_number_of_nodes(dat_9f7)
-#&gt; Error in xml_find_all(x, &quot;//namespace::*[name()=&#39;&#39;]/parent::*&quot;): object &#39;dat_9f7&#39; not found</code></pre>
+#&gt; [1] 1190</code></pre>
 </div>
 <div id="trajectory-dataframe-for-the-2nd-well" class="section level3">
 <h3><code>trajectory</code> dataframe for the 2nd well</h3>
@@ -866,14 +1177,20 @@ get_trajectory_metadata &lt;- function(xml_dat) {
 }
 
 t_attr &lt;- get_trajectory_attributes_df(dat_9f7)
-#&gt; Error in xml_find_first(xml_dat, &quot;//trajectory&quot;): object &#39;dat_9f7&#39; not found
 t_meta &lt;- get_trajectory_metadata(dat_9f7)
-#&gt; Error in xml_find_first(xml_dat, &quot;//trajectory&quot;): object &#39;dat_9f7&#39; not found
 
 trajectory_dt &lt;- data.table(cbind(t_attr, t_meta))
-#&gt; Error in cbind(t_attr, t_meta): object &#39;t_attr&#39; not found
 trajectory_dt
-#&gt; Error in eval(expr, envir, enclos): object &#39;trajectory_dt&#39; not found</code></pre>
+#&gt;                                 uidWell
+#&gt; 1: 5da3aeeb-12c9-4732-a059-e3a8d7c32442
+#&gt;                             uidWellbore     uid    nameWell nameWellbore
+#&gt; 1: eba2d47b-95f4-468f-856c-32c72d706a96 5VFNI35 NO 15/9-F-7  NO 15/9-F-7
+#&gt;            name objectGrowing            dTimTrajStart
+#&gt; 1: MWD-15/9-F-7         false 2016-07-28T08:33:43.000Z
+#&gt;                 dTimTrajEnd mdMn mdMx magDeclUsed gridCorUsed aziVertSect
+#&gt; 1: 2016-07-28T09:26:52.000Z    0 1083           0           0           0
+#&gt;    dispNsVertSectOrig dispEwVertSectOrig     aziRef
+#&gt; 1:                  0                  0 true north</code></pre>
 </div>
 <div id="trajectorystation-dataframe-for-the-2nd-well" class="section level3">
 <h3><code>trajectoryStation</code> dataframe for the 2nd well</h3>
@@ -910,24 +1227,18 @@ get_trajectoryStation_cUsed_df &lt;- function(xml_dat, nrows) {
 
 # number of rows
 num_tS &lt;- get_numrows_parent_node(dat_9f7, &quot;trajectoryStation&quot;, attribute = &quot;uid&quot;)
-#&gt; Error in eval(lhs, parent, parent): object &#39;dat_9f7&#39; not found
 
 # build complete dataframe for trajectoryStation
 tS.uid_df &lt;- get_trajectoryStation_uid_df(dat_9f7)
-#&gt; Error in eval(lhs, parent, parent): object &#39;dat_9f7&#39; not found
 tS.measurements_df &lt;- get_trajectoryStation_meas_df(dat_9f7)
-#&gt; Error in eval(lhs, parent, parent): object &#39;dat_9f7&#39; not found
 tS.corUsed &lt;- get_trajectoryStation_cUsed_df(dat_9f7, num_tS)
-#&gt; Error in xml_find_all(xml_dat, xpath): object &#39;dat_9f7&#39; not found
 tS.commonData_df &lt;- get_trajectoryStation_cData_df(dat_9f7, num_tS)
-#&gt; Error in xml_find_all(xml_dat, xpath): object &#39;dat_9f7&#39; not found
 
 trajectoryStation_df &lt;- as_tibble(cbind(tS.uid_df,
                               tS.measurements_df, 
                               tS.corUsed, 
                               tS.commonData_df)
                               )
-#&gt; Error in cbind(tS.uid_df, tS.measurements_df, tS.corUsed, tS.commonData_df): object &#39;tS.uid_df&#39; not found
 
 make_id_to_trajectoryStation_dt &lt;- function(tS_df) {
     # create a new column id for relationship to another table
@@ -942,7 +1253,6 @@ make_id_to_trajectoryStation_dt &lt;- function(tS_df) {
 }
 
 trajectoryStation_dt &lt;- make_id_to_trajectoryStation_dt(trajectoryStation_df)
-#&gt; Error in make_id_to_trajectoryStation_dt(trajectoryStation_df): object &#39;trajectoryStation_df&#39; not found
 # as_tibble(trajectoryStation_dt)
 
 # inner join
@@ -958,11 +1268,32 @@ make_trajectory_table &lt;- function(t_dt, tS_dt) {
 }
 
 t_9f7_dt &lt;- make_trajectory_table(trajectory_dt, trajectoryStation_dt)
-#&gt; Error in setkey(t_dt, &quot;uid&quot;): object &#39;trajectory_dt&#39; not found
 well_9f7_df &lt;- t_9f7_dt
-#&gt; Error in eval(expr, envir, enclos): object &#39;t_9f7_dt&#39; not found
 t_9f7_dt
-#&gt; Error in eval(expr, envir, enclos): object &#39;t_9f7_dt&#39; not found</code></pre>
+#&gt; # A tibble: 42 x 43
+#&gt;    uidWell uidWellbore uid   nameWell nameWellbore name  objectGrowing
+#&gt;    &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;        
+#&gt;  1 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
+#&gt;  2 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
+#&gt;  3 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
+#&gt;  4 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
+#&gt;  5 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
+#&gt;  6 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
+#&gt;  7 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
+#&gt;  8 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
+#&gt;  9 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
+#&gt; 10 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
+#&gt; # ... with 32 more rows, and 36 more variables: dTimTrajStart &lt;chr&gt;,
+#&gt; #   dTimTrajEnd &lt;chr&gt;, mdMn &lt;chr&gt;, mdMx &lt;chr&gt;, magDeclUsed &lt;chr&gt;,
+#&gt; #   gridCorUsed &lt;chr&gt;, aziVertSect &lt;chr&gt;, dispNsVertSectOrig &lt;chr&gt;,
+#&gt; #   dispEwVertSectOrig &lt;chr&gt;, aziRef &lt;chr&gt;, i.uid &lt;chr&gt;, dTimStn &lt;chr&gt;,
+#&gt; #   typeTrajStation &lt;chr&gt;, md &lt;chr&gt;, tvd &lt;chr&gt;, incl &lt;chr&gt;, azi &lt;chr&gt;,
+#&gt; #   dispNs &lt;chr&gt;, dispEw &lt;chr&gt;, vertSect &lt;chr&gt;, dls &lt;chr&gt;,
+#&gt; #   typeSurveyTool &lt;chr&gt;, rateTurn &lt;chr&gt;, rateBuild &lt;chr&gt;,
+#&gt; #   gravAccelCorUsed &lt;chr&gt;, magXAxialCorUsed &lt;chr&gt;, sagCorUsed &lt;chr&gt;,
+#&gt; #   magDrlstrCorUsed &lt;chr&gt;, statusTrajStation &lt;chr&gt;, stnGridCorUsed &lt;chr&gt;,
+#&gt; #   dirSensorOffset &lt;chr&gt;, sourceName &lt;chr&gt;, dTimCreation &lt;chr&gt;,
+#&gt; #   dTimLastChange &lt;chr&gt;, itemState &lt;chr&gt;, priv_customData &lt;chr&gt;</code></pre>
 </div>
 </div>
 <div id="test-the-well-dataframe-structures" class="section level2">
@@ -970,7 +1301,7 @@ t_9f7_dt
 <p>We test if both wells have identical variables otherwise we couldn’t be able to combine them. This is also a test that our functions are working well so far, at least for these two wells. Adding more wells could present a challenge if the new well has stored a different number of variables, so, the functions will have to check for all possible cases.</p>
 <pre class="r"><code># compare the two wells
 identical(names(t_9f9_dt), names(t_9f7_dt))
-#&gt; Error in identical(names(t_9f9_dt), names(t_9f7_dt)): object &#39;t_9f9_dt&#39; not found</code></pre>
+#&gt; [1] TRUE</code></pre>
 </div>
 </div>
 <div id="making-it-reproducible" class="section level1">
@@ -989,17 +1320,61 @@ traj_files &lt;- grep(pattern = &quot;trajectory&quot;, ignore.case = TRUE,
 well_9f7 &lt;- traj_files[2]
 
 well_9f7_df &lt;- convert_witsml_to_df(well_9f7)
-#&gt; Error in doc_parse_file(con, encoding = encoding, as_html = as_html, options = options): Start tag expected, &#39;&lt;&#39; not found [4]
 well_9f7_df
-#&gt; Error in eval(expr, envir, enclos): object &#39;well_9f7_df&#39; not found</code></pre>
+#&gt; # A tibble: 42 x 43
+#&gt;    uidWell uidWellbore uid   nameWell nameWellbore name  objectGrowing
+#&gt;    &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;        
+#&gt;  1 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
+#&gt;  2 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
+#&gt;  3 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
+#&gt;  4 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
+#&gt;  5 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
+#&gt;  6 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
+#&gt;  7 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
+#&gt;  8 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
+#&gt;  9 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
+#&gt; 10 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
+#&gt; # ... with 32 more rows, and 36 more variables: dTimTrajStart &lt;chr&gt;,
+#&gt; #   dTimTrajEnd &lt;chr&gt;, mdMn &lt;chr&gt;, mdMx &lt;chr&gt;, magDeclUsed &lt;chr&gt;,
+#&gt; #   gridCorUsed &lt;chr&gt;, aziVertSect &lt;chr&gt;, dispNsVertSectOrig &lt;chr&gt;,
+#&gt; #   dispEwVertSectOrig &lt;chr&gt;, aziRef &lt;chr&gt;, i.uid &lt;chr&gt;, dTimStn &lt;chr&gt;,
+#&gt; #   typeTrajStation &lt;chr&gt;, md &lt;chr&gt;, tvd &lt;chr&gt;, incl &lt;chr&gt;, azi &lt;chr&gt;,
+#&gt; #   dispNs &lt;chr&gt;, dispEw &lt;chr&gt;, vertSect &lt;chr&gt;, dls &lt;chr&gt;,
+#&gt; #   typeSurveyTool &lt;chr&gt;, rateTurn &lt;chr&gt;, rateBuild &lt;chr&gt;,
+#&gt; #   gravAccelCorUsed &lt;chr&gt;, magXAxialCorUsed &lt;chr&gt;, sagCorUsed &lt;chr&gt;,
+#&gt; #   magDrlstrCorUsed &lt;chr&gt;, statusTrajStation &lt;chr&gt;, stnGridCorUsed &lt;chr&gt;,
+#&gt; #   dirSensorOffset &lt;chr&gt;, sourceName &lt;chr&gt;, dTimCreation &lt;chr&gt;,
+#&gt; #   dTimLastChange &lt;chr&gt;, itemState &lt;chr&gt;, priv_customData &lt;chr&gt;</code></pre>
 <div id="combine-the-observations-of-the-two-wells-with-rbind" class="section level2">
 <h2>Combine the observations of the two wells with <code>rbind</code></h2>
 <p>Now it’s the time to combine the measurements of both wells. We use the <code>rbind()</code> function which glue them by rows. Now, we should have 67 rows.</p>
 <pre class="r"><code># bind two wells and create a common dataframe
 all_wells &lt;- rbind(well_9f7_df, well_9f9_df)
-#&gt; Error in rbind(well_9f7_df, well_9f9_df): object &#39;well_9f7_df&#39; not found
 all_wells
-#&gt; Error in eval(expr, envir, enclos): object &#39;all_wells&#39; not found</code></pre>
+#&gt; # A tibble: 67 x 43
+#&gt;    uidWell uidWellbore uid   nameWell nameWellbore name  objectGrowing
+#&gt;    &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;        
+#&gt;  1 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
+#&gt;  2 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
+#&gt;  3 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
+#&gt;  4 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
+#&gt;  5 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
+#&gt;  6 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
+#&gt;  7 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
+#&gt;  8 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
+#&gt;  9 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
+#&gt; 10 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
+#&gt; # ... with 57 more rows, and 36 more variables: dTimTrajStart &lt;chr&gt;,
+#&gt; #   dTimTrajEnd &lt;chr&gt;, mdMn &lt;chr&gt;, mdMx &lt;chr&gt;, magDeclUsed &lt;chr&gt;,
+#&gt; #   gridCorUsed &lt;chr&gt;, aziVertSect &lt;chr&gt;, dispNsVertSectOrig &lt;chr&gt;,
+#&gt; #   dispEwVertSectOrig &lt;chr&gt;, aziRef &lt;chr&gt;, i.uid &lt;chr&gt;, dTimStn &lt;chr&gt;,
+#&gt; #   typeTrajStation &lt;chr&gt;, md &lt;chr&gt;, tvd &lt;chr&gt;, incl &lt;chr&gt;, azi &lt;chr&gt;,
+#&gt; #   dispNs &lt;chr&gt;, dispEw &lt;chr&gt;, vertSect &lt;chr&gt;, dls &lt;chr&gt;,
+#&gt; #   typeSurveyTool &lt;chr&gt;, rateTurn &lt;chr&gt;, rateBuild &lt;chr&gt;,
+#&gt; #   gravAccelCorUsed &lt;chr&gt;, magXAxialCorUsed &lt;chr&gt;, sagCorUsed &lt;chr&gt;,
+#&gt; #   magDrlstrCorUsed &lt;chr&gt;, statusTrajStation &lt;chr&gt;, stnGridCorUsed &lt;chr&gt;,
+#&gt; #   dirSensorOffset &lt;chr&gt;, sourceName &lt;chr&gt;, dTimCreation &lt;chr&gt;,
+#&gt; #   dTimLastChange &lt;chr&gt;, itemState &lt;chr&gt;, priv_customData &lt;chr&gt;</code></pre>
 </div>
 <div id="simplify-the-data-structure-by-nesting-the-two-wells" class="section level2">
 <h2>Simplify the data structure by nesting the two wells</h2>
@@ -1010,7 +1385,11 @@ wells_nested &lt;-
     all_wells %&gt;% 
     nest(-uid) %&gt;% 
     print()
-#&gt; Error in eval(lhs, parent, parent): object &#39;all_wells&#39; not found</code></pre>
+#&gt; # A tibble: 2 x 2
+#&gt;   uid     data              
+#&gt;   &lt;chr&gt;   &lt;list&gt;            
+#&gt; 1 5VFNI35 &lt;tibble [42 x 42]&gt;
+#&gt; 2 4VIRG33 &lt;tibble [25 x 42]&gt;</code></pre>
 </div>
 <div id="add-new-wells" class="section level2">
 <h2>Add new wells</h2>
@@ -1019,9 +1398,31 @@ wells_nested &lt;-
 <pre class="r"><code># convert a WITSML trajectory to dataframe
 well_9f4  &lt;- traj_files[1] 
 well_9f4_df &lt;- convert_witsml_to_df(well_9f4)
-#&gt; Error in doc_parse_file(con, encoding = encoding, as_html = as_html, options = options): Start tag expected, &#39;&lt;&#39; not found [4]
 well_9f4_df
-#&gt; Error in eval(expr, envir, enclos): object &#39;well_9f4_df&#39; not found</code></pre>
+#&gt; # A tibble: 87 x 43
+#&gt;    uidWell uidWellbore uid   nameWell nameWellbore name  objectGrowing
+#&gt;    &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;        
+#&gt;  1 5e023a~ dbffce7a-7~ 5VIR~ NO 15/9~ NO 15/9-F-4  MWD-~ false        
+#&gt;  2 5e023a~ dbffce7a-7~ 5VIR~ NO 15/9~ NO 15/9-F-4  MWD-~ false        
+#&gt;  3 5e023a~ dbffce7a-7~ 5VIR~ NO 15/9~ NO 15/9-F-4  MWD-~ false        
+#&gt;  4 5e023a~ dbffce7a-7~ 5VIR~ NO 15/9~ NO 15/9-F-4  MWD-~ false        
+#&gt;  5 5e023a~ dbffce7a-7~ 5VIR~ NO 15/9~ NO 15/9-F-4  MWD-~ false        
+#&gt;  6 5e023a~ dbffce7a-7~ 5VIR~ NO 15/9~ NO 15/9-F-4  MWD-~ false        
+#&gt;  7 5e023a~ dbffce7a-7~ 5VIR~ NO 15/9~ NO 15/9-F-4  MWD-~ false        
+#&gt;  8 5e023a~ dbffce7a-7~ 5VIR~ NO 15/9~ NO 15/9-F-4  MWD-~ false        
+#&gt;  9 5e023a~ dbffce7a-7~ 5VIR~ NO 15/9~ NO 15/9-F-4  MWD-~ false        
+#&gt; 10 5e023a~ dbffce7a-7~ 5VIR~ NO 15/9~ NO 15/9-F-4  MWD-~ false        
+#&gt; # ... with 77 more rows, and 36 more variables: dTimTrajStart &lt;chr&gt;,
+#&gt; #   dTimTrajEnd &lt;chr&gt;, mdMn &lt;chr&gt;, mdMx &lt;chr&gt;, magDeclUsed &lt;chr&gt;,
+#&gt; #   gridCorUsed &lt;chr&gt;, aziVertSect &lt;chr&gt;, dispNsVertSectOrig &lt;chr&gt;,
+#&gt; #   dispEwVertSectOrig &lt;chr&gt;, aziRef &lt;chr&gt;, i.uid &lt;chr&gt;, dTimStn &lt;chr&gt;,
+#&gt; #   typeTrajStation &lt;chr&gt;, md &lt;chr&gt;, tvd &lt;chr&gt;, incl &lt;chr&gt;, azi &lt;chr&gt;,
+#&gt; #   dispNs &lt;chr&gt;, dispEw &lt;chr&gt;, vertSect &lt;chr&gt;, dls &lt;chr&gt;,
+#&gt; #   typeSurveyTool &lt;chr&gt;, rateTurn &lt;chr&gt;, rateBuild &lt;chr&gt;,
+#&gt; #   gravAccelCorUsed &lt;chr&gt;, magXAxialCorUsed &lt;chr&gt;, sagCorUsed &lt;chr&gt;,
+#&gt; #   magDrlstrCorUsed &lt;chr&gt;, statusTrajStation &lt;chr&gt;, stnGridCorUsed &lt;chr&gt;,
+#&gt; #   dirSensorOffset &lt;chr&gt;, sourceName &lt;chr&gt;, dTimCreation &lt;chr&gt;,
+#&gt; #   dTimLastChange &lt;chr&gt;, itemState &lt;chr&gt;, priv_customData &lt;chr&gt;</code></pre>
 </div>
 <div id="nest-the-new-well" class="section level2">
 <h2>Nest the new well</h2>
@@ -1032,13 +1433,20 @@ nested_9f4 &lt;-
     well_9f4_df %&gt;% 
     nest(-uid) %&gt;% 
     print()
-#&gt; Error in eval(lhs, parent, parent): object &#39;well_9f4_df&#39; not found</code></pre>
+#&gt; # A tibble: 1 x 2
+#&gt;   uid     data              
+#&gt;   &lt;chr&gt;   &lt;list&gt;            
+#&gt; 1 5VIRG33 &lt;tibble [87 x 42]&gt;</code></pre>
 <p>The new well should be able now to join the other two wells nested structure. It should be a straight operation with the function <code>rbind()</code>. Since all of them are just one row, at the end of the binding we should have now three rows. The trajectory measurements are living as a list component in the column <code>data</code>.</p>
 <pre class="r"><code># bind the existing wells with the new one
 wells_nested_3 &lt;- rbind(wells_nested, nested_9f4)
-#&gt; Error in rbind(wells_nested, nested_9f4): object &#39;wells_nested&#39; not found
 wells_nested_3
-#&gt; Error in eval(expr, envir, enclos): object &#39;wells_nested_3&#39; not found</code></pre>
+#&gt; # A tibble: 3 x 2
+#&gt;   uid     data              
+#&gt;   &lt;chr&gt;   &lt;list&gt;            
+#&gt; 1 5VFNI35 &lt;tibble [42 x 42]&gt;
+#&gt; 2 4VIRG33 &lt;tibble [25 x 42]&gt;
+#&gt; 3 5VIRG33 &lt;tibble [87 x 42]&gt;</code></pre>
 </div>
 <div id="transforming-the-drilling-data" class="section level2">
 <h2>Transforming the drilling data</h2>
@@ -1058,7 +1466,20 @@ rateBuild</code></pre>
            incl = as.double(incl), azi = as.double(azi),
            rateTurn = as.double(rateTurn), rateBuild = as.double(rateBuild)) %&gt;% 
     print()
-#&gt; Error in eval(lhs, parent, parent): object &#39;wells_nested_3&#39; not found</code></pre>
+#&gt; # A tibble: 154 x 7
+#&gt;    nameWell       md   tvd    incl   azi  rateTurn   rateBuild
+#&gt;    &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
+#&gt;  1 NO 15/9-F-7    0     0  0        0     NA        NA        
+#&gt;  2 NO 15/9-F-7  146.  146. 0        0      0         0        
+#&gt;  3 NO 15/9-F-7  160   160. 0.00401  4.79  -0.106     0.000285 
+#&gt;  4 NO 15/9-F-7  170   170. 0.00454  4.76  -0.00284   0.0000524
+#&gt;  5 NO 15/9-F-7  180   180. 0.00524  4.58  -0.0186    0.0000698
+#&gt;  6 NO 15/9-F-7  190   190. 0.00384  4.67   0.00965  -0.000140 
+#&gt;  7 NO 15/9-F-7  199   199. 0.00559  4.54  -0.0142    0.000194 
+#&gt;  8 NO 15/9-F-7  208   208. 0.00541  3.96  -0.0651   -0.0000194
+#&gt;  9 NO 15/9-F-7  218   218. 0.00698  4.27   0.0314    0.000157 
+#&gt; 10 NO 15/9-F-7  229   229. 0.00436  4.36   0.00820  -0.000238 
+#&gt; # ... with 144 more rows</code></pre>
 </div>
 <div id="plotting-drilling-data" class="section level2">
 <h2>Plotting drilling data</h2>
@@ -1067,8 +1488,8 @@ rateBuild</code></pre>
 library(ggplot2)
 ggplot(wells_kvars, aes(x = md, y = tvd, color = nameWell)) +
     geom_line(size=1) +
-    labs(title = &quot;MD vs TVD for three wells&quot;)
-#&gt; Error in ggplot(wells_kvars, aes(x = md, y = tvd, color = nameWell)): object &#39;wells_kvars&#39; not found</code></pre>
+    labs(title = &quot;MD vs TVD for three wells&quot;)</code></pre>
+<p><img src="/publications/2019-01-27-exploring-drilling-data-with-witsml-and-r_files/figure-html/unnamed-chunk-56-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="facet-plot-of-md-vs-tvd" class="section level2">
 <h2>Facet plot of MD vs TVD</h2>
@@ -1078,29 +1499,29 @@ ggplot(wells_kvars, aes(x = md, y = tvd, color = nameWell)) +
 ggplot(wells_kvars, aes(x = md, y = tvd, color = nameWell)) +
     geom_line(size=1) +
     facet_grid(. ~ nameWell) +
-    labs(title = &quot;MD vs TVD for three wells&quot;)
-#&gt; Error in ggplot(wells_kvars, aes(x = md, y = tvd, color = nameWell)): object &#39;wells_kvars&#39; not found</code></pre>
+    labs(title = &quot;MD vs TVD for three wells&quot;)</code></pre>
+<p><img src="/publications/2019-01-27-exploring-drilling-data-with-witsml-and-r_files/figure-html/unnamed-chunk-57-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Next, it is the turn of inclination vs azimut.</p>
 <pre class="r"><code># Inclination vs Azimuth for three wells
 ggplot(wells_kvars, aes(x = incl, y = azi, color = nameWell)) +
     geom_line(size=1) +
     facet_grid(. ~ nameWell) +
-    labs(title = &quot;Inclination vs Azimuth for three wells&quot;)
-#&gt; Error in ggplot(wells_kvars, aes(x = incl, y = azi, color = nameWell)): object &#39;wells_kvars&#39; not found</code></pre>
+    labs(title = &quot;Inclination vs Azimuth for three wells&quot;)</code></pre>
+<p><img src="/publications/2019-01-27-exploring-drilling-data-with-witsml-and-r_files/figure-html/unnamed-chunk-58-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>We notice that the x-axis remains the same for al of the plots. We can set it free to let the x axis expand and follow the data. Just be careful in reading the data in the x-axis; they are not fixed anymore.</p>
 <pre class="r"><code># # rateTurn in radians per meter
 ggplot(wells_kvars, aes(x = tvd, y = rateTurn, color = nameWell)) +
     geom_line(size=1) +
     facet_grid(. ~ nameWell, scales=&quot;free_x&quot;) +
-    labs(title = &quot;TVD vs Rate of Turn for three wells&quot;)
-#&gt; Error in ggplot(wells_kvars, aes(x = tvd, y = rateTurn, color = nameWell)): object &#39;wells_kvars&#39; not found</code></pre>
-<p>We do the same with the plot TVD vs Rate of Build.</p>
+    labs(title = &quot;TVD vs Rate of Turn for three wells&quot;)</code></pre>
+<p><img src="/publications/2019-01-27-exploring-drilling-data-with-witsml-and-r_files/figure-html/unnamed-chunk-59-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>We do the same with the plot <em>TVD</em> vs <em>Rate of Build</em>.</p>
 <pre class="r"><code># rateBuild in radians per meter
 ggplot(wells_kvars, aes(x = tvd, y = rateBuild, color = nameWell)) +
     geom_line(size=1) +
     facet_grid(. ~ nameWell, scales = &quot;free_x&quot;) +
-    labs(title = &quot;TVD vs Rate of Build for three wells&quot;)
-#&gt; Error in ggplot(wells_kvars, aes(x = tvd, y = rateBuild, color = nameWell)): object &#39;wells_kvars&#39; not found</code></pre>
+    labs(title = &quot;TVD vs Rate of Build for three wells&quot;)</code></pre>
+<p><img src="/publications/2019-01-27-exploring-drilling-data-with-witsml-and-r_files/figure-html/unnamed-chunk-60-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="notes" class="section level1">
@@ -1111,6 +1532,7 @@ ggplot(wells_kvars, aes(x = tvd, y = rateBuild, color = nameWell)) +
 <li><p>As we get familiar with the WITSML hierarchies, we could start using loops or <code>apply</code> functions to convert the tree structures to dataframes.</p></li>
 <li><p>Functions can be implemented later to get the number of trajectory stations, find which <code>trajectoryStation</code> does not have its complete set of variables, or extract a particular trajectory measurement.</p></li>
 <li><p>In this long example, we used only one well for the details. That’s why we obtained only one trajectory file. Other wells could have more than one trajectory file. Later we could implement a function that scans all the folders and generates a summary statistic of the number of folders, number of files per well, size, etc. <strong>Update</strong>. We added lately two more wells.</p></li>
+<li><p>The specification for the <code>trajectory</code> and <code>trajectoryStation</code> objects can be found in the Energistics website. Refer to <a href="http://w3.energistics.org/schema/witsml_v1.3.1.1_data/doc/WITSML_Schema_docu.htm">WITSML 1.3.1.1</a>. Each one of the objects, nodes and subnodes are explained in detail.</p></li>
 </ul>
 </div>
 <div id="references" class="section level1">
