@@ -64,17 +64,19 @@ knitr::include_graphics("/img/witsml-trajectory_folder.png")
 ```
 
 # Parts of the `trajectory` dataset
-Let's take a look first at the `trajectory` WITSML file. We are starting with a  collapsed tree so it doesn't take too much space of the screen. The `(+)` sign on the left means that it will expand further at that node. 
+Let's take a look first at the `trajectory` WITSML file. We are starting with a  collapsed tree so it doesn't take too much space of the screen. The `(+)` sign on the left means that it will expand further at that node if you click on it. 
 
 ```{r, out.width = "850px", echo=FALSE}
 # all the nodes, collapse
 knitr::include_graphics("/img/witsml-collapsed.png")
 ```
 
-## The two major nodes
-Starting by the top, in the second line, see the first node. `trajectorys`. This is the __root__ node. If you see one `(-)` sign on its left, it means it has been expanded. Following on the right, in red, you see labels such as `xmlns`, `xlmns:xsi`, and `version`. These are __attributes__ of `trajectorys`. They are not __nodes__ but __attributes__.
+> Note. I am using the software [MindFusion XML Viewer](https://mindfusion.eu/xml-viewer.html) to explore the WITSML files. I find it unobtrusive and simple to use. But any other viewer should be ok.
 
-Under the root node `trajectorys` you see that it has only one child called `trajectory`. If you see that is has a `(-)` sign, then it has been expanded showing all its dependent nodes. 
+## The two major nodes
+Starting by the top, in the second line, see the first node: `trajectorys`. This is the __root__ node. If you see one `(-)` sign on its left, it means it has been expanded. Following on the right, in red, you see labels such as `xmlns`, `xlmns:xsi`, and `version`. These are __attributes__ of `trajectorys`. They are not __nodes__ but __attributes__.
+
+Under the root node `trajectorys`, you see that it has only one child called `trajectory`. If you see that is has a `(-)` sign, then it has been expanded showing all its dependent nodes. 
 
 So, there are then two major nodes: `trajectorys` and `trajectory`. Everything else exists under `trajectory`.
 
@@ -138,7 +140,7 @@ This hierarchical structure, as we can see, is very flexible. If there are not v
 Now it's time to get our hands dirty and do a bit of data science.
 
 ## Loading the packages
-We will use two packages: `xml2`, `data.table` and `dplyr`. `xml2` will take care of reading the WITSML or XML files, while `dplyr` and `data.table` will be our workhorses for dataframe generation and data manipulation. The other packages will be used at the end of the article for nesting structure and plotting. I could have just used `dplyr` but I wanted to show you both table libraries.
+We will use two packages: `xml2`, `data.table` and `dplyr`. `xml2` will take care of reading the WITSML or XML files, while `dplyr` and `data.table` will be our workhorses for dataframe generation and data manipulation. I could have just used `dplyr` but I wanted to show you both table libraries. The other packages will be used at the end of the article for nesting structures and plotting. 
 
 ```{r load-libraries}
 # load libraries
@@ -153,9 +155,9 @@ library(ggplot2)
 
 ## List and load the XML files
 
-* Using a relatively small folder of 27 MB.
-* well `Norway-Statoil-NO 15_$47$_9-F-9`
-* we show only show few of the files with their complete full name
+* We are using a relatively _WITSML_ small folder of 27 MB.
+* The well pick is `Norway-Statoil-NO 15_$47$_9-F-9`
+* We show only show few of the _XML_ files with their complete full name
 
 ```{r list-all-xml-files}
 all_files_xml <- list.files("./witsml", recursive = TRUE, full.names = TRUE, 
@@ -164,6 +166,13 @@ all_files_xml <- list.files("./witsml", recursive = TRUE, full.names = TRUE,
 # indices in R start at 1, not zero as in Python
 all_files_xml[1:5]
 ```
+
+We could take a look at the number of XML files:
+```{r}
+# how many XMLS files under the folder
+length(all_files_xml)
+```
+
 
 ### Select the trajectory file
 
