@@ -186,7 +186,7 @@ traj_files
 ### Load the selected WITSML file
 
 ```{r read-xml-file}
-dat <- read_xml(traj_files[3])
+dat <- read_html(traj_files[3])
 dat_9f9 <- dat
 ```
 
