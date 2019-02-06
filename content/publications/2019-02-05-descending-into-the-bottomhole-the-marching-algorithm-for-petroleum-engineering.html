@@ -287,13 +287,13 @@ ggplot(out_df, aes(x=dp_dz, y=p_calc)) +
   geom_line() + geom_point() + 
   labs(title = TeX(&quot;Pressure vs $\\frac{dp}{dz}$&quot;))</code></pre>
 <p><img src="/publications/2019-02-05-descending-into-the-bottomhole-the-marching-algorithm-for-petroleum-engineering_files/figure-html/unnamed-chunk-2-1.png" width="480" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>
+<pre class="r"><code># reverse the y-axis
 ggplot(out_df, aes(x=dp_dz, y=depth)) +
     scale_y_reverse(limits = c(max(out_df$depth), 0), 
                     breaks = seq(0, max(out_df$depth), 500)) +
     geom_line() +
     geom_point() + labs(title = TeX(&quot;Depth vs $\\frac{dp}{dz}$&quot;))</code></pre>
-<p><img src="/publications/2019-02-05-descending-into-the-bottomhole-the-marching-algorithm-for-petroleum-engineering_files/figure-html/unnamed-chunk-2-2.png" width="480" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2019-02-05-descending-into-the-bottomhole-the-marching-algorithm-for-petroleum-engineering_files/figure-html/unnamed-chunk-3-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
 <div id="results-table" class="section level2">
 <h2>Results table</h2>

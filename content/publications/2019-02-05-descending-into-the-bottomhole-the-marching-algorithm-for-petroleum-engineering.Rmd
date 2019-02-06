@@ -146,7 +146,10 @@ ggplot(out_df, aes(x=dp_dz, y=p_calc)) +
                        breaks = seq(0, max(out_df$p_calc), 100))+
   geom_line() + geom_point() + 
   labs(title = TeX("Pressure vs $\\frac{dp}{dz}$"))
+```
 
+```{r fig.height=5, fig.width=5}
+# reverse the y-axis
 ggplot(out_df, aes(x=dp_dz, y=depth)) +
     scale_y_reverse(limits = c(max(out_df$depth), 0), 
                     breaks = seq(0, max(out_df$depth), 500)) +
