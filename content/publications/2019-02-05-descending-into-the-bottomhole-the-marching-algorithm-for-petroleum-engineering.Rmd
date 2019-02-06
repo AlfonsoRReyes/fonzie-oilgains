@@ -78,6 +78,16 @@ $$\frac{dP}{dz} = 0.002$$
 
 $$p_{avg} = \frac {(p_{in} + p_{out})} {2}$$
 
+* Calculating the pressure gradient `-dP/dz`:
+$$\left ( \frac {dp} {dL} \right ) = f(P_{avg}) $$
+* Calculating a new pressure
+
+$$p_{i+1} = p_i - \left ( -\frac {dP}{dL} \right )_i dL_i $$
+
+* Comparing the absolute error of the new pressure and the current outlet pressure. It should be less than the tolerance, otherwise, we proceed with a new iteration making $p_{in} = p_{out}$.
+
+$$\ | \frac { p_{out} - p_{i+1} } { p_{i+1}} | < \epsilon$$
+
 # Implementation of marching algorithm for well gradient
 For demo purposes, only using a dummy function, $fPa$ that will symbolize all the intricate calculations to find the fluid properties at the current pressure and temperature. The last thing to do is generating a dataframe with the calculated data. As a matter of fact, it could be two dataframes, one for the main results for each pipe segment; and the second dataframe -with more detail-, showing the iterations and absolute error.
 

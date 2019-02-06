@@ -70,6 +70,16 @@ repeat from step <code>6c</code></li>
 <li>Calculating the average pressure requires averaging the inlet and outlet pressure at the ends of the virtual pipe:</li>
 </ul>
 <p><span class="math display">\[p_{avg} = \frac {(p_{in} + p_{out})} {2}\]</span></p>
+<ul>
+<li>Calculating the pressure gradient <code>-dP/dz</code>:
+<span class="math display">\[\left ( \frac {dp} {dL} \right ) = f(P_{avg}) \]</span></li>
+<li>Calculating a new pressure</li>
+</ul>
+<p><span class="math display">\[p_{i+1} = p_i - \left ( -\frac {dP}{dL} \right )_i dL_i \]</span></p>
+<ul>
+<li>Comparing the absolute error of the new pressure and the current outlet pressure. It should be less than the tolerance, otherwise, we proceed with a new iteration making <span class="math inline">\(p_{in} = p_{out}\)</span>.</li>
+</ul>
+<p><span class="math display">\[\ | \frac { p_{out} - p_{i+1} } { p_{i+1}} | &lt; \epsilon\]</span></p>
 </div>
 <div id="implementation-of-marching-algorithm-for-well-gradient" class="section level1">
 <h1>Implementation of marching algorithm for well gradient</h1>
