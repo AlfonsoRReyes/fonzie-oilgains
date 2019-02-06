@@ -129,8 +129,8 @@ The plots have been created using `ggplot2`, a very flexible, customizable and p
 ```{r fig.height=5, fig.width=5}
 # plot pressure, depth vs gradient
 ggplot(out_df, aes(x=dp_dz, y=p_calc)) +
-    scale_y_reverse(limits = c(max(out_df$p_calc), 0), 
-                    breaks = seq(0, max(out_df$p_calc), 100)) + 
+    scale_y_continuous(limits = c(0, max(out_df$p_calc)),
+                       breaks = seq(0, max(out_df$p_calc), 100))+
   geom_line() + geom_point() + 
   labs(title = TeX("Pressure vs $\\frac{dp}{dz}$"))
 

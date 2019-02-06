@@ -270,8 +270,8 @@ out_df &lt;- data.table::rbindlist(output)    # convert list to table</code></pr
 <p>The plots have been created using <code>ggplot2</code>, a very flexible, customizable and powerful visualization platform. I have made use of couple of advanced characteristics of ggplot: reverse the <strong>y-axis</strong>, and annotate the plot with <a href="https://www.latex-project.org/">Latex</a> with the package <code>latextoexp</code>. Also, I am changing the default number of ticks on the y-axis using <code>breaks</code>, as well as sequences to mark the location of the ticks.</p>
 <pre class="r"><code># plot pressure, depth vs gradient
 ggplot(out_df, aes(x=dp_dz, y=p_calc)) +
-    scale_y_reverse(limits = c(max(out_df$p_calc), 0), 
-                    breaks = seq(0, max(out_df$p_calc), 100)) + 
+    scale_y_continuous(limits = c(0, max(out_df$p_calc)),
+                       breaks = seq(0, max(out_df$p_calc), 100))+
   geom_line() + geom_point() + 
   labs(title = TeX(&quot;Pressure vs $\\frac{dp}{dz}$&quot;))</code></pre>
 <p><img src="/publications/2019-02-05-descending-into-the-bottomhole-the-marching-algorithm-for-petroleum-engineering_files/figure-html/unnamed-chunk-2-1.png" width="480" style="display: block; margin: auto;" /></p>
