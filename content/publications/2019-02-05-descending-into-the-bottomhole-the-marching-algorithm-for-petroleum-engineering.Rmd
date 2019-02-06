@@ -64,6 +64,18 @@ This is a description of what the code will be doing.
 1. Make data table
 
 
+* Calculating the length of the tubing segments involve dividing the well depth ($L$) by the number of depth points ($n$). In this example `n=30`.
+
+$$dL = L / n$$
+* For setting the starting calculation increment for the gradient we could assume 0.002 psi/ft:
+
+$$\frac{dP}{dz} = 0.002$$
+
+
+* Calculating the average pressure requires averaging the inlet and outlet pressure at the ends of the virtual pipe:
+
+$$p_{avg} = \frac {(p_{in} + p_{out})} {2}$$
+
 # Implementation of marching algorithm for well gradient
 For demo purposes, only using a dummy function, $fPa$ that will symbolize all the intricate calculations to find the fluid properties at the current pressure and temperature. The last thing to do is generating a dataframe with the calculated data. As a matter of fact, it could be two dataframes, one for the main results for each pipe segment; and the second dataframe -with more detail-, showing the iterations and absolute error.
 
