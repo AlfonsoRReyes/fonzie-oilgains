@@ -67,6 +67,7 @@ This is a description of what the code will be doing.
 * Calculating the length of the tubing segments involve dividing the well depth ($L$) by the number of depth points ($n$). In this example `n=30`.
 
 $$dL = L / n$$
+
 * For setting the starting calculation increment for the gradient we could assume 0.002 psi/ft:
 
 $$\frac{dP}{dz} = 0.002$$
