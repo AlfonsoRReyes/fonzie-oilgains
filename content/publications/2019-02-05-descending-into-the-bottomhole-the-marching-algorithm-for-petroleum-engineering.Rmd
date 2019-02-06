@@ -10,6 +10,7 @@ categories:
   - engineering library
 tags: []
 mathjax: yes
+image: vlp-algorithm-cover.png
 ---
 
 ```{r setup, include = FALSE, error=TRUE, message=FALSE, warning=FALSE}
@@ -139,16 +140,17 @@ out_df <- data.table::rbindlist(output)    # convert list to table
 ## Plots
 The plots have been created using `ggplot2`, a very flexible, customizable and powerful visualization platform. I have made use of couple of advanced characteristics of ggplot: reverse the __y-axis__, and annotate the plot with [Latex](https://www.latex-project.org/) with the package `latextoexp`. Also, I am changing the default number of ticks on the y-axis using `breaks`, as well as sequences to mark the location of the ticks.
 
-```{r fig.height=5, fig.width=5}
-# plot pressure, depth vs gradient
+```{r pressure-vs-gradient, fig.height=5, fig.width=5}
+# plot pressure vs gradient
 ggplot(out_df, aes(x=dp_dz, y=p_calc)) +
     scale_y_continuous(limits = c(0, max(out_df$p_calc)),
-                       breaks = seq(0, max(out_df$p_calc), 100))+
-  geom_line() + geom_point() + 
-  labs(title = TeX("Pressure vs $\\frac{dp}{dz}$"))
+                       breaks = seq(0, max(out_df$p_calc), 100)) + 
+    geom_line() + 
+    geom_point() + 
+    labs(title = TeX("Pressure vs $\\frac{dp}{dz}$"))
 ```
 
-```{r fig.height=5, fig.width=5}
+```{r depth-vs-gradient, fig.height=5, fig.width=5}
 # reverse the y-axis
 ggplot(out_df, aes(x=dp_dz, y=depth)) +
     scale_y_reverse(limits = c(max(out_df$depth), 0), 
@@ -168,7 +170,7 @@ out_df
 There it is. An algorithm to iterate through the production tubing to calculate fluid conditions at different depth points.
 
 # What's Next
-* Integrate this marching algorithm with real calculations of fluid properties at pressure and temperature at depth. Formation volume factors, viscosities, holdup, surface velocity, compressibility factor, etc.
+* Integrate this marching algorithm with real calculations of fluid properties at pressure and temperature at depth. Formation volume factors, viscosities, holdup, surface velocity, compressibility factor, etc. I will be using a package I wrote in R for the calculation of compressibility factor for gases, [zFactor](https://github.com/f0nzie/zFactor).
 
 * Add heat transfer effects to the fluid temperature as it moves up to the surface.
 
@@ -178,4 +180,5 @@ There it is. An algorithm to iterate through the production tubing to calculate 
 # References
 * 2006, Ovadia Shoham. Mechanistic Modeling of Gas Liquid Two-Phase flow in pipes.
 * 1977, Kermit E. Brown and H. Dale Beggs. The Technology of Artificial Lift Methods
+
 

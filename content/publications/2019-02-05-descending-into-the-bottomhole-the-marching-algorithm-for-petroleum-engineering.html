@@ -10,6 +10,7 @@ categories:
   - engineering library
 tags: []
 mathjax: yes
+image: vlp-algorithm-cover.png
 ---
 
 
@@ -280,20 +281,21 @@ out_df &lt;- data.table::rbindlist(output)    # convert list to table</code></pr
 <div id="plots" class="section level2">
 <h2>Plots</h2>
 <p>The plots have been created using <code>ggplot2</code>, a very flexible, customizable and powerful visualization platform. I have made use of couple of advanced characteristics of ggplot: reverse the <strong>y-axis</strong>, and annotate the plot with <a href="https://www.latex-project.org/">Latex</a> with the package <code>latextoexp</code>. Also, I am changing the default number of ticks on the y-axis using <code>breaks</code>, as well as sequences to mark the location of the ticks.</p>
-<pre class="r"><code># plot pressure, depth vs gradient
+<pre class="r"><code># plot pressure vs gradient
 ggplot(out_df, aes(x=dp_dz, y=p_calc)) +
     scale_y_continuous(limits = c(0, max(out_df$p_calc)),
-                       breaks = seq(0, max(out_df$p_calc), 100))+
-  geom_line() + geom_point() + 
-  labs(title = TeX(&quot;Pressure vs $\\frac{dp}{dz}$&quot;))</code></pre>
-<p><img src="/publications/2019-02-05-descending-into-the-bottomhole-the-marching-algorithm-for-petroleum-engineering_files/figure-html/unnamed-chunk-2-1.png" width="480" style="display: block; margin: auto;" /></p>
+                       breaks = seq(0, max(out_df$p_calc), 100)) + 
+    geom_line() + 
+    geom_point() + 
+    labs(title = TeX(&quot;Pressure vs $\\frac{dp}{dz}$&quot;))</code></pre>
+<p><img src="/publications/2019-02-05-descending-into-the-bottomhole-the-marching-algorithm-for-petroleum-engineering_files/figure-html/pressure-vs-gradient-1.png" width="480" style="display: block; margin: auto;" /></p>
 <pre class="r"><code># reverse the y-axis
 ggplot(out_df, aes(x=dp_dz, y=depth)) +
     scale_y_reverse(limits = c(max(out_df$depth), 0), 
                     breaks = seq(0, max(out_df$depth), 500)) +
     geom_line() +
     geom_point() + labs(title = TeX(&quot;Depth vs $\\frac{dp}{dz}$&quot;))</code></pre>
-<p><img src="/publications/2019-02-05-descending-into-the-bottomhole-the-marching-algorithm-for-petroleum-engineering_files/figure-html/unnamed-chunk-3-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2019-02-05-descending-into-the-bottomhole-the-marching-algorithm-for-petroleum-engineering_files/figure-html/depth-vs-gradient-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
 <div id="results-table" class="section level2">
 <h2>Results table</h2>
@@ -339,7 +341,7 @@ out_df
 <div id="whats-next" class="section level1">
 <h1>What’s Next</h1>
 <ul>
-<li><p>Integrate this marching algorithm with real calculations of fluid properties at pressure and temperature at depth. Formation volume factors, viscosities, holdup, surface velocity, compressibility factor, etc.</p></li>
+<li><p>Integrate this marching algorithm with real calculations of fluid properties at pressure and temperature at depth. Formation volume factors, viscosities, holdup, surface velocity, compressibility factor, etc. I will be using a package I wrote in R for the calculation of compressibility factor for gases, <a href="https://github.com/f0nzie/zFactor">zFactor</a>.</p></li>
 <li><p>Add heat transfer effects to the fluid temperature as it moves up to the surface.</p></li>
 <li><p>Add calculations for inclined wells.</p></li>
 </ul>
