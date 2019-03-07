@@ -109,7 +109,7 @@ For the reservoir simulation part we've got 399 megabytes of compressed data, or
 You may want to sign up for access to the website and download the data files [here](https://data.equinor.com/dataset/Volve). Here is a screenshot to the datasets available. Pay special attention to the sizes of the compressed files. The seismic files are gigantic.
 
 ```{r, out.width = "800px"}
-knitr::include_graphics("img/volve_datasets.png")
+knitr::include_graphics("/img/volve_datasets.png")
 ```
 
 I downloaded the datasets using Azure Explorer, a Microsoft utility that makes the download process almost painless. You can download the software [here](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy?toc=%2Fazure%2Fstorage%2Ffiles%2Ftoc.json).
@@ -162,7 +162,7 @@ There is one set of data we are interested in: the cumulative production data. T
 
 
 ```{r, out.width = "800px"}
-knitr::include_graphics("img/balance_at-block.png")
+knitr::include_graphics("/img/balance_at-block.png")
 ```
 
 What we will be reading are the following variables:
@@ -268,7 +268,7 @@ We get a difference of __`r ooip_last - (ocip_last + ootw_last)` cubic meters__.
 
 
 ```{r material_balance_error, out.width = "700px", echo=FALSE}
-knitr::include_graphics("img/material_balance_error_3001d.png")
+knitr::include_graphics("/img/material_balance_error_3001d.png")
 ```
 
 
@@ -283,7 +283,7 @@ The daily production data seems to be very operational, detailed data with infor
 The second sheet is a more concise report, much like an oil __accounting__ report. It only shows oil, gas and water cumulatives per month. This is the data I will be talking about here, and the data that I will be using to compare against the results from the reservoir model.
 
 ```{r screen-montly-production, material_balance_error, out.width = "700px", echo=FALSE}
-knitr::include_graphics("img/screenshot_volve_monthly.png")
+knitr::include_graphics("/img/screenshot_volve_monthly.png")
 ```
 
 > Note. This is the only time I use Excel, by the way.

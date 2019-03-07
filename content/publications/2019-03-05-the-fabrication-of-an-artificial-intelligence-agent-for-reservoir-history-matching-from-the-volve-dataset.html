@@ -109,8 +109,8 @@ cat(sprintf(&quot;\nTotal Gigabytes: %8.3f&quot;, giga_total))
 #&gt; Total Gigabytes: 4298.137</code></pre>
 <p>For the reservoir simulation part we’ve got 399 megabytes of compressed data, or 1.58 gigabytes of uncompressed files. Most of the files are text files but there are few that are in binary. Text files are easy to access and somewhat difficult to read as structured data. On the other hand, binary files are difficult to read if you don’t know the proper reading format but they come in more structured form.</p>
 <p>You may want to sign up for access to the website and download the data files <a href="https://data.equinor.com/dataset/Volve">here</a>. Here is a screenshot to the datasets available. Pay special attention to the sizes of the compressed files. The seismic files are gigantic.</p>
-<pre class="r"><code>knitr::include_graphics(&quot;img/volve_datasets.png&quot;)</code></pre>
-<p><img src="img/volve_datasets.png" width="800px" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>knitr::include_graphics(&quot;/img/volve_datasets.png&quot;)</code></pre>
+<p><img src="/img/volve_datasets.png" width="800px" style="display: block; margin: auto;" /></p>
 <p>I downloaded the datasets using Azure Explorer, a Microsoft utility that makes the download process almost painless. You can download the software <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy?toc=%2Fazure%2Fstorage%2Ffiles%2Ftoc.json">here</a>.</p>
 <div id="the-volve-reservoir-x-files" class="section level2">
 <h2>The Volve reservoir X-files</h2>
@@ -148,8 +148,8 @@ download.file(gfile_link,  temp, mode = &quot;wb&quot;)
 
 volve_2016_txt &lt;- readLines(unzip(temp, exdir = tempdir()))</code></pre>
 <p>There is one set of data we are interested in: the cumulative production data. This data can be located in the report by using the find tool in the text editor searching for the keyword <code>BALANCE  AT</code>.</p>
-<pre class="r"><code>knitr::include_graphics(&quot;img/balance_at-block.png&quot;)</code></pre>
-<p><img src="img/balance_at-block.png" width="800px" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>knitr::include_graphics(&quot;/img/balance_at-block.png&quot;)</code></pre>
+<p><img src="/img/balance_at-block.png" width="800px" style="display: block; margin: auto;" /></p>
 <p>What we will be reading are the following variables:</p>
 <ul>
 <li>days: elapse days since the start of the simulation.</li>
@@ -274,7 +274,7 @@ ootw_last &lt;- last_row$oil_otw  # Oil Outflow through Wells (produced)</code><
 <pre class="r"><code>ooip_last - (ocip_last + ootw_last)
 #&gt; [1] 39</code></pre>
 <p>We get a difference of <strong>39 cubic meters</strong>. An error of 1.775353610^{-6}. Probably due to two reasons: rounding and the fact that I am not considered two columns for the well and field <strong>material balance error</strong>, as shown in the following picture.</p>
-<p><img src="img/material_balance_error_3001d.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/img/material_balance_error_3001d.png" width="700px" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 </div>
@@ -284,7 +284,7 @@ ootw_last &lt;- last_row$oil_otw  # Oil Outflow through Wells (produced)</code><
 <p>In the case of Volve, for produciton history we have an Excel file: <code>Volve production data.xlsx</code>. This file is a 2.3 MB and is located inside the <code>Volve_Production_data.zip</code> file. It is rather small in comparison to the reservoir modeling files, the static model and the seismic files. The file has two tab sheets: <code>Daily Production Data</code> and <code>Monthly Production Data</code>.</p>
 <p>The daily production data seems to be very operational, detailed data with information about the choke size, wellhead pressure and temperature, downhole pressure, and daily volumes of oil , gas and water, besides the well type (producer or injector.)</p>
 <p>The second sheet is a more concise report, much like an oil <strong>accounting</strong> report. It only shows oil, gas and water cumulatives per month. This is the data I will be talking about here, and the data that I will be using to compare against the results from the reservoir model.</p>
-<p><img src="img/screenshot_volve_monthly.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/img/screenshot_volve_monthly.png" width="700px" style="display: block; margin: auto;" /></p>
 <blockquote>
 <p>Note. This is the only time I use Excel, by the way.</p>
 </blockquote>
