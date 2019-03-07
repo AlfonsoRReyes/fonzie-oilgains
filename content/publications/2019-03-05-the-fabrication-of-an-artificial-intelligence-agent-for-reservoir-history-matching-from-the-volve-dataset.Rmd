@@ -108,7 +108,7 @@ For the reservoir simulation part we've got 399 megabytes of compressed data, or
 
 You may want to sign up for access to the website and download the data files [here](https://data.equinor.com/dataset/Volve). Here is a screenshot to the datasets available. Pay special attention to the sizes of the compressed files. The seismic files are gigantic.
 
-```{r, out.width = "800px"}
+```{r, out.width = "800px", echo=FALSE}
 knitr::include_graphics("/img/volve_datasets.png")
 ```
 
@@ -161,7 +161,7 @@ volve_2016_txt <- readLines(unzip(temp, exdir = tempdir()))
 There is one set of data we are interested in: the cumulative production data. This data can be located in the report by using the find tool in the text editor searching for the keyword `BALANCE  AT`.
 
 
-```{r, out.width = "800px"}
+```{r, out.width = "800px", echo=FALSE}
 knitr::include_graphics("/img/balance_at-block.png")
 ```
 
