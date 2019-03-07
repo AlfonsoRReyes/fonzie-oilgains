@@ -14,50 +14,63 @@ tags: []
 
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>History matching is one of the core activities performed by petroleum engineers to decrease the uncertainty of reservoir models. By comparing real data -production data gathered at the surface-, with the output from a reservoir simulator, the engineer starts filling in the gaps in reservoir properties of those block cells in the model.</p>
-<p>And this what makes it so interesting in data science, and ultimately, in the fabrication or construction of an artificial intelligence agent. Why? Because it represents the confluence of a reservoir model -physics based-, and real world data, the production history. Don’t get me wrong here! It is not data science versus physics or engineering. It is about transforming data in a better instrument to improve the quality of the output of the model.</p>
-<p>I cannot think of a better example right now to start proving an intelligent agent for reservoir history matching. There is plenty of literature; there are some real and synthetic reservoir models which have been subject of machine learning algorithms extensively in SPE papers. Very good papers indeed. With the only drawback that they cannot be reproduced. The process or algorithm cannot be reproduced outside the original environment in which it was written, or by any other than the original author.</p>
-<p>What about if we try a different approach: given that is has been proven that history matching works by introducing machine learning algorithms in the process, let’s pick one or some of them, and try recreating the data science workflow step-by-step: from the raw data (production history and reservoir model output), up to the automatic comparison of the model with the new proposed reservoir data. The workflow should be publicly available so other petroleum engineers could pick up where it is and improving it for their environment setting. In other words, we will work on making a reproducible example of a reservoir history matching process.</p>
-<p>And what better than using a reservoir model already given it to us for free? I am talking about the Volve dataset.</p>
+<p><strong>History matching</strong> is one of the core activities performed by petroleum engineers to decrease the <strong>uncertainty</strong> of reservoir models. By comparing real data -production data gathered at the surface-, with the output from a reservoir simulator, the engineer starts filling in the gaps in reservoir properties of those <strong>block cells</strong> in the model.</p>
+<p>And this what makes it so interesting in data science, and ultimately, in the <strong>fabrication</strong> or <strong>construction</strong> of an <strong>artificial intelligence agent</strong>. Why? Because it represents the confluence of a reservoir model -<strong>physics</strong> based-, and real world <strong>data</strong>, the production history. Don’t get me wrong here! It is not data science versus physics or engineering. It is about <strong>transforming</strong> data in a better instrument to improve the quality of the output of the model.</p>
+<p>I cannot think of a better example right now to start proving an intelligent agent for reservoir <strong>history matching</strong>. There is plenty of literature; there are some real and synthetic reservoir models which have been subject of machine learning algorithms extensively in <strong>SPE papers</strong>. Very good papers indeed. With the only drawback that they <strong>cannot be reproduced</strong>. The process or algorithm cannot be reproduced outside the original environment in which it was written, or by any other than the original author.</p>
+<p>What about if we try a different approach: given that <strong>it has been proven that history matching works by introducing machine learning algorithms</strong> in the process, let’s pick one or some of them, and try recreating the <strong>data science</strong> workflow step-by-step: from the raw data (<strong>production history</strong> and <strong>reservoir model</strong> output), up to the automatic comparison of the model with the new proposed reservoir data. The workflow should be <strong>publicly available</strong> so other petroleum engineers could pick up where it is and improving it for their own environment setting. In other words, we will work on making a <strong>reproducible example</strong> of a reservoir history matching process.</p>
+<p>And what better than using a reservoir model already given it to us for free? I am talking about the <strong>Volve</strong> dataset.</p>
 <p><img src="/img/volve_south_start.png" width="800px" style="display: block; margin: auto;" /></p>
 </div>
 <div id="motivation" class="section level1">
 <h1>Motivation</h1>
-<p>For some months now I’ve been reading about applications of machine learning and artificial intelligence for petroleum engineering. There is quite interesting literature in papers - I wrote a quick statistic on the subject of data science, ML and AI that can be found in SPE papers few weeks ago.</p>
-<p>Be forewarned though. This will be a common obstacle you will find: although there is a good stream of papers on ML and AI in OnePetro, one of the things those papers are lacking is reproducibility. From approximately 1,000 papers, maybe less than 5 have data, code and report accompanying the paper. At this crossroads of intelligent machines, it looks to me like a major crisis in the petroleum industry.</p>
-<p>There cannot be <strong>data science</strong> without <strong>reproducibility</strong>; and much less machine learning or artificial intelligence without data science. In your understanding, how the word “science” comes to be part of “data science”? Or, what are the inherent characteristics of a science that data science must adopt to be called a science? Or what makes reproducibility a key part of data science?</p>
+<p>For some months now I’ve been reading about applications of <strong>machine learning</strong> and <strong>artificial intelligence</strong> for petroleum engineering. There is quite interesting literature in papers - I wrote a quick statistic on the subject of <strong>data science, ML</strong> and <strong>AI</strong> that can be found in SPE papers few weeks ago.</p>
+<p>Be forewarned though. This will be a common obstacle you will find: although there is a good stream of papers on ML and AI in OnePetro, one of the things those papers are lacking is <strong>reproducibility</strong>. From approximately 1,000 papers, maybe less than 5 have data, code and report accompanying the paper. At this crossroads of <strong>intelligent machines</strong>, it looks to me like a major crisis in the petroleum industry.</p>
+<p>There cannot be <strong>data science</strong> without <strong>reproducibility</strong>; and much less machine learning or artificial intelligence without data science.</p>
+<blockquote>
+<p>In your understanding, how the word “science” comes to be part of “data science”?</p>
+</blockquote>
+<blockquote>
+<p>Or, what are the inherent characteristics of a science that data science must adopt to be called a science?</p>
+</blockquote>
+<blockquote>
+<p>Or what makes reproducibility a key part of data science?</p>
+</blockquote>
 </div>
 <div id="artificial-intelligence-agent-workflow" class="section level1">
 <h1>Artificial Intelligence agent workflow</h1>
-<p>Artificial intelligence agents are essentially a product of computer science, math and statistics. There is no magic in it; it just very hard. A bit of a science as well as an art. You can say it is just a new way of coding using data as the raw material for making a machine learn from data. Then, applying an algorithm, or set of algorithms, to make this process cyclical to improve its accuracy with each succesive iteration.</p>
-<p>How do we get to this point?</p>
+<p>Artificial intelligence agents are essentially a product of <strong>computer science</strong>, math and statistics. There is no magic in it; it just very hard. A bit of a science as well as an art. You can say it is just a new way of coding using <strong>data as the raw material</strong> for making a machine learn from data. Then, applying an algorithm, or set of algorithms, to make this process cyclical to improve its accuracy with each succesive <strong>iteration</strong>.</p>
+<div id="how-do-we-get-to-this-point" class="section level3">
+<h3>How do we get to this point?</h3>
 <p>Let’s start first with a simple flow everyday text diagram:</p>
 <ul>
-<li>A reservoir model has still some unknowns in its properties</li>
-<li>We have a workflow to perform history matching but it is manual, it takes a long time, requires interruption to enter new data or updating it, it could be prone to error when copy-pasting data, it is boring because it needs babysitting during the whole process, and is heartbreaking because if the production history doesn’t match the reservoir simulation output we have to start all over.</li>
-<li>We have production history -rates and cumulatives-, that is available every week or at the end of month.</li>
-<li>The output of the reservoir model is yet far from matching the real production data</li>
-<li>The reservoir simulation may take hours or days to run, or it engaged in another task.</li>
+<li><p>A reservoir model has still some unknowns in its properties</p></li>
+<li><p>We have a workflow to perform history matching but it is manual, it takes a long time, requires interruption to enter new data or updating it, it could be prone to error when copy-pasting data, it is boring because it needs babysitting during the whole process, and is heartbreaking because if the production history doesn’t match the reservoir simulation output we have to start all over.</p></li>
+<li><p>We have production history -rates and cumulatives-, that is available every week or at the end of month.</p></li>
+<li><p>The output of the reservoir model is yet far from matching the real production data</p></li>
+<li><p>The reservoir simulation may take hours or days to run, or it engaged in another task.</p></li>
 </ul>
-<p>What can we do different to make this matching process learning from data?</p>
-<p>I will be making an attempt of building a high level step-by-step recipe based on the reading of relevant papers:</p>
+</div>
+<div id="what-can-we-do-different-to-make-this-matching-process-learning-from-data" class="section level3">
+<h3>What can we do different to make this matching process learning from data?</h3>
+<p>I will be making an attempt of building a <strong>high level step-by-step recipe</strong> based on the reading of relevant papers:</p>
 <ol style="list-style-type: decimal">
-<li>Use a reservoir simulation software to generate a series of outputs at different reservoir properties values within practical range</li>
-<li>Extract data from the simulation reports, specifically, production data, rates and cumulatives.</li>
-<li>Create a rectangular dataset based on the production output from the simulator and the reservoir properties that were generated as inputs</li>
-<li>Correlate the reservoir cells to each of those random generated reservoir properties. Enter x, y, z coordinates for cell and property, as well as well id, area or zone, layer, thickness, etc. Think of it as creating a unique address for each reservoir cell which you will be assigning a new reservoir property.</li>
-<li>The reservoir property could be permeability, porosity, saturation, tranmissibility, or any other property that is still unknown. It may be a good idea when you are starting that you practice varying one property at a time. Let’s say permeability, and see how adjusting this property improves the accuracy of your reservoir model. Then, once you get the hang of it, continue adding complexity to the model.</li>
-<li>For every set of changes that you make on the reservoir model you will run the simulator to obtain a corresponding output set: a simulation run. It is this report from where you will be extracting the synthetic production data for your dataset.</li>
-<li>The dataset is the data source that the machine learning algorithm will use to match synthetic production against real production. The algorithm could be any ML algorithm that you find the best RMSE (Root Mean Squared Error) - the lowest the better.</li>
-<li>You may find scenarios in which a combination of reservoir properties yields more than one match. Here we will have to use an optimization method to pick the best combination.</li>
-<li>Once we obtain an acceptable set of reservoir properties these are entered in the reservoir model for testing. Extract the output from the reservoir simulator and compare against the production history.</li>
-<li>Repeat this process after new production data becomes available.</li>
-<li>You will find after some runs of this workflow that it could be automated. You will have to identify the parts in the workflow that are harder to automate or less dependant of supervision. In parallel, several algorithms will have to be identified at critical steps of the process. There is no one algorithm that will do it all.</li>
+<li><p>Use a reservoir simulation software to generate a <strong>series of outputs</strong> at different reservoir properties values within practical range</p></li>
+<li><p>Extract data from the simulation reports, specifically, production data, rates and <strong>cumulatives</strong>.</p></li>
+<li><p>Create a rectangular <strong>dataset</strong> based on the production output from the simulator and the reservoir properties that were generated as inputs</p></li>
+<li><p>Correlate the reservoir cells to each of those random generated reservoir properties. Enter x, y, z coordinates for cell and property, as well as well id, area or zone, layer, thickness, etc. Think of it as <strong>creating a unique address</strong> for each reservoir cell which you will be assigning a new reservoir property.</p></li>
+<li><p>The reservoir property could be <strong>permeability</strong>, porosity, saturation, tranmissibility, or any other property that is still unknown. It may be a good idea when you are starting that you practice varying one property at a time. Let’s say permeability, and see how adjusting this property improves the accuracy of your reservoir model. Then, once you get the hang of it, continue adding complexity to the model.</p></li>
+<li><p>For every set of changes that you make on the reservoir model you will run the simulator to obtain a corresponding output set: <strong>a simulation run</strong>. It is this report from where you will be extracting the synthetic production data for your dataset.</p></li>
+<li><p>The dataset is the data source that the machine learning algorithm will use to <strong>match synthetic production against real production</strong>. The algorithm could be any ML algorithm that you find the best RMSE (Root Mean Squared Error) - the lowest the better.</p></li>
+<li><p>You may find scenarios in which a combination of reservoir properties yields more than one match. Here we will have to use an optimization method to pick the <strong>best combination</strong>.</p></li>
+<li><p>Once we obtain an acceptable set of reservoir properties these are entered in the reservoir model for testing. Extract the output from the reservoir simulator and compare against the production history.</p></li>
+<li><p>Repeat this process after new production data becomes available.</p></li>
+<li><p>You will find after some runs of this workflow that it could be <strong>automated</strong>. You will have to identify the parts in the workflow that are harder to automate or less dependant of supervision. In parallel, several algorithms will have to be identified at critical steps of the process. <strong>There is no one algorithm that will do it all</strong>.</p></li>
 </ol>
+</div>
 </div>
 <div id="first-steps-the-volve-reservoir-dataset" class="section level1">
 <h1>First steps: the Volve reservoir dataset</h1>
-<p>Last year Equinor release a huge dataset for the <a href="https://www.equinor.com/en/news/14jun2018-disclosing-volve-data.html">Volve field</a>. Many terabytes of data, approximately 4298 gigabytes of it.</p>
+<p>Last year <strong>Equinor</strong> released a huge dataset for the <a href="https://www.equinor.com/en/news/14jun2018-disclosing-volve-data.html">Volve field</a>. Many terabytes of data, approximately 4298 gigabytes of it.</p>
 <pre class="r"><code># megabytes
 cat(sprintf(&quot;Megabytes\n&quot;))
 #&gt; Megabytes
@@ -107,26 +120,26 @@ giga_total &lt;- sum(c(mega / 1024, giga, tera * 1024))
 cat(sprintf(&quot;\nTotal Gigabytes: %8.3f&quot;, giga_total))
 #&gt; 
 #&gt; Total Gigabytes: 4298.137</code></pre>
-<p>For the reservoir simulation part we’ve got 399 megabytes of compressed data, or 1.58 gigabytes of uncompressed files. Most of the files are text files but there are few that are in binary. Text files are easy to access and somewhat difficult to read as structured data. On the other hand, binary files are difficult to read if you don’t know the proper reading format but they come in more structured form.</p>
-<p>You may want to sign up for access to the website and download the data files <a href="https://data.equinor.com/dataset/Volve">here</a>. Here is a screenshot to the datasets available. Pay special attention to the sizes of the compressed files. The seismic files are gigantic.</p>
+<p>For the <strong>reservoir simulation</strong> part we’ve got <strong>399 megabytes</strong> of compressed data, or 1.58 gigabytes of uncompressed files. Most of the files are text files but there are few that are in binary. Text files are easy to access and somewhat difficult to read as structured data. On the other hand, binary files are difficult to read if you don’t know the proper reading format but they come in more structured form.</p>
+<p>You may want to sign up for access to the website and download the data files <a href="https://data.equinor.com/dataset/Volve">here</a>. Here is a screenshot to the datasets available. Pay special attention to the sizes of the compressed files. The <strong>seismic</strong> files are gigantic.</p>
 <p><img src="/img/volve_datasets.png" width="800px" style="display: block; margin: auto;" /></p>
 <p>I downloaded the datasets using Azure Explorer, a Microsoft utility that makes the download process almost painless. You can download the software <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy?toc=%2Fazure%2Fstorage%2Ffiles%2Ftoc.json">here</a>.</p>
 <div id="the-volve-reservoir-x-files" class="section level2">
 <h2>The Volve reservoir X-files</h2>
 <p>From all the files in the reservoir dataset, I will pay particular attention to the <code>VOLVE_2016.PRT</code> file. It is a 233 MB file containing the output of the reservoir simulation.</p>
-<p>Volve is a field that ended production in 2016 producing for approximately 8.5 years. So, we won’t be doing the history matching with new production history data; we will be using production data from 2008 through 2016. The reservoir model is 108 by 100 by 63 cells. From the 680,400 cells only 183,545 are active. Volves has an Oil Originally in Place (OOIP) of approximately 22 MM m3.</p>
-<p>Working with the output of the reservoir simulation is part of a larger process in our path to create an artificial intelligent agent. Let’s start by defining what the goals are:</p>
+<p>Volve is a field that ended production in 2016 producing for approximately 8.5 years. So, we won’t be doing the history matching with new production history data; we will be using production data from 2008 through 2016. The reservoir model is 108 by 100 by 63 cells. From the 680,400 cells only 183,545 are active. Volves has an <code>Oil Originally in Place (OOIP)</code> of approximately <strong>22 MM m3</strong>.</p>
+<p>Working with the output of the reservoir simulation is part of a larger process in our path to create an <strong>artificial intelligent agent</strong>. Let’s start by defining what the goals are:</p>
 <ul>
-<li>Read the synthetic production data from the reservoir simulation output</li>
-<li>Extract the rates and cumulatives-, and put them in a rectangular dataset, in other words, let’s save the data in a dataframe.</li>
-<li>Once the synthetic production data is ready, it is time to read the data from the real production history.</li>
-<li>Transform and convert the data to the same units and similar time steps.</li>
-<li>Compare the synthetic data vs the real production data.</li>
-<li>Observe the differences and evaluate if you have a match.</li>
+<li><p>Read the synthetic production data from the reservoir simulation output</p></li>
+<li><p>Extract the rates and cumulatives-, and put them in a rectangular dataset, in other words, let’s save the data in a dataframe.</p></li>
+<li><p>Once the synthetic production data is ready, it is time to read the data from the real production history.</p></li>
+<li><p>Transform and convert the data to the same units and similar time steps.</p></li>
+<li><p>Compare the synthetic data vs the real production data.</p></li>
+<li><p>Observe the differences and evaluate if you have a match.</p></li>
 </ul>
 <div id="read-the-production-data-from-the-reservoir-simulator" class="section level3">
 <h3>Read the production data from the reservoir simulator</h3>
-<p>As we mentioned earlier, we will be reading the data from the output file from the reservoir simulator. This is an output of an Eclipse software.</p>
+<p>As we mentioned earlier, we will be reading the data from the output file from the reservoir simulator. This is an output of an <strong>Eclipse</strong> software.</p>
 <p>It will take few seconds to read since it is a 228 megabytes file.</p>
 <pre class="r"><code>library(dplyr)
 
@@ -137,7 +150,8 @@ cat(sprintf(&quot;\nTotal Gigabytes: %8.3f&quot;, giga_total))
 # temp &lt;- tempdir()
 # 
 # volve_2016_txt &lt;- readLines(unzip(volve_2016_zip, exdir = temp))</code></pre>
-<pre class="r"><code># original share link. Extract the ID of the file
+<pre class="r"><code># download a ZIP file from Google drive
+# original share link. Extract the ID of the file
 temp &lt;- tempfile(fileext = &quot;.zip&quot;)
 
 # provide ID for zip file
@@ -146,16 +160,16 @@ gfile_link &lt;- &quot;https://drive.google.com/uc?export=download&amp;id=1rdHuB
 download.file(gfile_link,  temp, mode = &quot;wb&quot;)
 
 volve_2016_txt &lt;- readLines(unzip(temp, exdir = tempdir()))</code></pre>
-<p>There is one set of data we are interested in: the cumulative production data. This data can be located in the report by using the find tool in the text editor searching for the keyword <code>BALANCE  AT</code>.</p>
+<p>There is one set of data we are interested in: the <strong>cumulative production</strong> data. This data can be located in the report by using the find tool in the text editor searching for the keyword <code>BALANCE  AT</code>.</p>
 <p><img src="/img/balance_at-block.png" width="800px" style="display: block; margin: auto;" /></p>
 <p>What we will be reading are the following variables:</p>
 <ul>
 <li>days: elapse days since the start of the simulation.</li>
 <li>date: date in the simulation</li>
-<li>oil currently in place (ocip)</li>
-<li>oil originally in place (ooip)</li>
-<li>gas currently in place (gcip)</li>
-<li>gas originally in place (goip)</li>
+<li>oil currently in place (<code>ocip</code>)</li>
+<li>oil originally in place (<code>ooip</code>)</li>
+<li>gas currently in place (<code>gcip</code>)</li>
+<li>gas originally in place (<code>goip</code>)</li>
 </ul>
 <pre class="r"><code>library(dplyr)
 
@@ -260,11 +274,12 @@ field_totals &lt;- do.call(&quot;rbind&quot;, field_totals_dfs)</code></pre>
 #&gt; 340  1 OCT 2016 3197 11986597 21967455 9980819 14400379 1443979050 341.68</code></pre>
 <div id="oil-produced-from-the-simulator" class="section level4">
 <h4>Oil produced from the simulator</h4>
-<p>Since Eclipse is giving us the oil cumulative through time in the variables <code>ocip</code>, <code>ooip</code> (which is the same throughout the field life), <code>oil_otw</code>, the last row of the dataframe will be the cumulative production at the end of life of the field. To get the last row, we use the function <code>tail()</code>. Then, we subtract the <code>OOIP</code> from the <code>OCIP</code> (oil currently in place) and <code>OOTW</code> (oil outflow through wells).</p>
+<p>Since <strong>Eclipse</strong> is giving us the oil cumulative through time in the variables <code>ocip</code>, <code>ooip</code> (which is the same throughout the field life), <code>oil_otw</code>, the last row of the dataframe will be the cumulative production at the end of life of the field. To get the last row, we use the function <code>tail()</code>. Then, we subtract the <code>OOIP</code> from the <code>OCIP</code> (oil currently in place) and <code>OOTW</code> (oil outflow through wells).</p>
 <pre class="r"><code># extract the last row of the dataframe
 last_row &lt;- tail(field_totals, 1)
 last_row$ooip - (last_row$ocip + last_row$oil_otw)
 #&gt; [1] 39</code></pre>
+<p>Extract cumulative values at the end of production:</p>
 <pre class="r"><code>ooip_last &lt;- last_row$ooip     # Oil Originally in Place
 ocip_last &lt;- last_row$ocip     # Oil Currently in Place (remaining)
 ootw_last &lt;- last_row$oil_otw  # Oil Outflow through Wells (produced)</code></pre>
@@ -278,10 +293,10 @@ ootw_last &lt;- last_row$oil_otw  # Oil Outflow through Wells (produced)</code><
 </div>
 <div id="read-the-production-history" class="section level2">
 <h2>Read the production history</h2>
-<p>Now it’s time to move our focus to the real historical production.</p>
+<p>Now it’s time to move our focus to the <strong>real historical production</strong>.</p>
 <p>In the case of Volve, for produciton history we have an Excel file: <code>Volve production data.xlsx</code>. This file is a 2.3 MB and is located inside the <code>Volve_Production_data.zip</code> file. It is rather small in comparison to the reservoir modeling files, the static model and the seismic files. The file has two tab sheets: <code>Daily Production Data</code> and <code>Monthly Production Data</code>.</p>
-<p>The daily production data seems to be very operational, detailed data with information about the choke size, wellhead pressure and temperature, downhole pressure, and daily volumes of oil , gas and water, besides the well type (producer or injector.)</p>
-<p>The second sheet is a more concise report, much like an oil <strong>accounting</strong> report. It only shows oil, gas and water cumulatives per month. This is the data I will be talking about here, and the data that I will be using to compare against the results from the reservoir model.</p>
+<p>The daily production data seems to be very operational, detailed data with information about the choke size, wellhead pressure and temperature, downhole pressure, and daily volumes of oil, gas and water, besides the well type (producer or injector.)</p>
+<p>The second sheet is a more concise report, much like an oil <strong>accounting</strong> report. It only shows oil, gas and water <strong>cumulatives per month</strong>. This is the data I will be talking about here, and the data that I will be using to compare against the results from the reservoir model.</p>
 <p><img src="/img/screenshot_volve_monthly.png" width="700px" style="display: block; margin: auto;" /></p>
 <blockquote>
 <p>Note. This is the only time I use Excel, by the way.</p>
@@ -304,12 +319,15 @@ gfile_link &lt;- &quot;https://drive.google.com/uc?export=download&amp;id=1sll8H
 download.file(gfile_link,  temp, mode = &quot;wb&quot;)
 # read only the monthly production
 prod_hist &lt;- read.xlsx(temp, sheetName = &quot;Monthly Production Data&quot;) </code></pre>
+<p>This is the size of the dataframe:</p>
 <pre class="r"><code>dim(prod_hist)
 #&gt; [1] 529  10</code></pre>
+<p>These are the names of the columns:</p>
 <pre class="r"><code>names(prod_hist)
 #&gt;  [1] &quot;Wellbore.name&quot; &quot;NPDCode&quot;       &quot;Year&quot;          &quot;Month&quot;        
 #&gt;  [5] &quot;On.Stream&quot;     &quot;Oil&quot;           &quot;Gas&quot;           &quot;Water&quot;        
 #&gt;  [9] &quot;GI&quot;            &quot;WI&quot;</code></pre>
+<p>And this is view of the structure of the dataframe:</p>
 <pre class="r"><code>str(prod_hist)
 #&gt; &#39;data.frame&#39;:    529 obs. of  10 variables:
 #&gt;  $ Wellbore.name: Factor w/ 7 levels &quot;15/9-F-1 C&quot;,&quot;15/9-F-11&quot;,..: 6 7 6 7 6 7 6 7 6 7 ...
@@ -322,6 +340,9 @@ prod_hist &lt;- read.xlsx(temp, sheetName = &quot;Monthly Production Data&quot;)
 #&gt;  $ Water        : Factor w/ 290 levels &quot;0&quot;,&quot;100254.94&quot;,..: 289 289 289 289 289 289 289 289 289 289 ...
 #&gt;  $ GI           : Factor w/ 2 levels &quot;NULL&quot;,&quot;Sm3&quot;: 1 1 1 1 1 1 1 1 1 1 ...
 #&gt;  $ WI           : Factor w/ 198 levels &quot;0&quot;,&quot;104818.54778&quot;,..: 197 197 197 197 197 197 197 197 197 197 ...</code></pre>
+</div>
+<div id="summarizing-the-historical-production" class="section level3">
+<h3>Summarizing the historical production</h3>
 <pre class="r"><code>library(dplyr)
 
 prod_hist2 &lt;- 
@@ -344,6 +365,7 @@ prod_hist2 %&gt;%
 #&gt; 4 15/9-F-14     3942233.
 #&gt; 5 15/9-F-15 D    148519.
 #&gt; 6 15/9-F-5        41161.</code></pre>
+<p>Oil production by year:</p>
 <pre class="r"><code># summarize oil production by year
 oil_by_year &lt;- 
 prod_hist2 %&gt;% 
@@ -362,6 +384,7 @@ prod_hist2 %&gt;%
 #&gt; 7  2014  743107.
 #&gt; 8  2015  861749.
 #&gt; 9  2016  313370.</code></pre>
+<p>Calculate the cumulative oil production:</p>
 <pre class="r"><code>library(scales)
 # calculate the cumulative oil production 
 (cum_oil_prod_hist_by_year &lt;- sum(oil_by_year$cum_oil))
@@ -391,8 +414,8 @@ Not bad at all!</p>
 <div id="conclusions" class="section level1">
 <h1>Conclusions</h1>
 <ul>
-<li><p>The Volve dataset was extraordinarily well matched for its 8.5 years of productive life.</p></li>
-<li><p>A lot of data was fed into the Volve reservoir model. In addition to the <code>VOLVE_2016.DATA</code>, these additional files are supplied to the model: faults, contacts, permeabilities at specific blocks in the reservoir, irreducible water saturations, update PVT, etc.</p></li>
+<li><p>The Volve dataset was extraordinarily <strong>well matched</strong> for its 8.5 years of productive life.</p></li>
+<li><p>A lot of data was <strong>fed into the Volve reservoir model</strong>. In addition to the <code>VOLVE_2016.DATA</code>, these additional files are supplied to the model: faults, contacts, permeabilities at specific blocks in the reservoir, irreducible water saturations, update PVT, etc.</p></li>
 </ul>
 <pre><code>GRID_postF1B_Nov2013_locupd_12112013.grdecl
 ACTNUM_2013
@@ -427,15 +450,15 @@ F-12_NOV_10_TEST_2.Ecl
 SCH_010916_10DAYS.SCH</code></pre>
 <ul>
 <li><p>The Volve reservoir model produced 9’980,819 m3 of oil for 3,197 days. The cumulative oil from historical production was 10’037,081 m3.</p></li>
-<li><p>The Eclipse file used as a source was <code>VOLVE_2016.PRT</code>, a text file. We used R and regular expressions to extract the field total balance (OOIP, OCIP and OOTW) at different steps.</p></li>
-<li><p>No additional simulation runs were performed on the Volve reservoir model. The model output <code>VOLVE_2016.PRT</code> was analyzed “as-is”, which means we found it as part of the Volve dataset and was kept untouched as <strong>raw data</strong>.</p></li>
-<li><p>All the files of the Volve reservoir simulation are complete and are able to run if so desired using Eclipse.</p></li>
+<li><p>The Eclipse file used as a source was <code>VOLVE_2016.PRT</code>, a text file. We used R and regular expressions to extract the field total balance (<code>OOIP</code>, <code>OCIP</code> and <code>OOTW</code>) at different steps.</p></li>
+<li><p><strong>No additional simulation runs</strong> were performed on the Volve reservoir model. The model output <code>VOLVE_2016.PRT</code> was analyzed <strong>“as-is”</strong>, which means we found it as part of the Volve dataset and was kept untouched as <strong>raw data</strong>.</p></li>
+<li><p>All the files of the Volve reservoir simulation are <strong>complete</strong> and are <strong>able to run</strong> if so desired using Eclipse.</p></li>
 </ul>
 </div>
 <div id="whats-next" class="section level1">
 <h1>What’s Next</h1>
-<p>The fabrication or construction of an artificial intelligence agent has started with the analysis of the original reservoir model. We found it quite acceptable. We may say that we have gotten ourselves a <strong>“truth”</strong> reservoir model.</p>
-<p>There is a fair amount of literature on reservoir model history matching using machine learning and artificial intelligence, including papers and thesis. We haven’t found a single reproducible example of a start-to-end reservoir matching using any of these techniques.</p>
+<p>The fabrication or construction of an <strong>artificial intelligence agent</strong> has started with the analysis of the original reservoir model. We found it quite acceptable. We may say that we have gotten ourselves a <strong>“truth”</strong> reservoir model.</p>
+<p>There is a fair amount of literature on reservoir model history matching using machine learning and artificial intelligence, including papers and thesis. <strong>We haven’t found a single reproducible example</strong> of a start-to-end reservoir matching using any of these techniques.</p>
 <p>We will attempt, with the contribution of the community, a <strong>fully reproducible</strong> reservoir matching process, using principles of data science, for the construction of an artificial intelligence agent.</p>
 <p>This is a preliminary set of steps for the continuation of such process:</p>
 <ul>
@@ -452,7 +475,7 @@ SCH_010916_10DAYS.SCH</code></pre>
 <h1>References</h1>
 <ul>
 <li><p>Agarwal, Blunt 2004. “A Streamline-Based Method for Assisted History Matching Applied to an Arabian Gulf Field”. SPE 84462</p></li>
-<li><p>Al-Thuwaini 2006. “althuwaini20062 Innovative Approach to Assist History Matching Using Artificial Intelligence”. SPE 99882.</p></li>
+<li><p>Al-Thuwaini 2006. “Innovative Approach to Assist History Matching Using Artificial Intelligence”. SPE 99882.</p></li>
 <li><p>Anifowose 2015 “Hybrid intelligent systems in petroleum reservoir characterization and modeling”. J Petrol Explor Prod Technol.</p></li>
 <li><p>Barker 2000. “Quantifying Uncertainty in Production Forecasts - Another Look at the PUNQ-S3”. SPE62925.</p></li>
 <li><p>Gao 2005. “Quantifying Uncertainty for the PUNQ-S3 Problem in a Bayesian Setting With RML”. SPE 93324.</p></li>
