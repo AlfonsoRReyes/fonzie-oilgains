@@ -1,0 +1,3 @@
+[submodule "content/publications/external/volve-reservoir-model-evolution"]
+	path = content/publications/external/volve-reservoir-model-evolution
+	url = git@github-oilgains:f0nzie/volve-reservoir-model-evolution.git
