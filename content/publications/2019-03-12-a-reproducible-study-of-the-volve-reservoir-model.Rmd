@@ -37,6 +37,10 @@ There are some challenges though while doing this:
 
 While the extraction of data from a text file serves a purpose, when a reader of binary files from the simulation is not available, we should exercise caution with those extracted from a text file. 
 
+# Read the PRT text file
+As we did in the previous step, we start by reading the output of the reservoir simulation output file: the text file __VOLVE_2016.PRT`__. It is a relatively big file: 228 megabytes. I have zipped it in order to save some disk space and prevent Github from complaining about the size of the file. Maximum size of a file in Github is 100 megabytes.
+
+This data operation was shown in the previous article with the only difference that I used Google drive instead.
 
 ```{r read-prt-file}
 library(dplyr)
@@ -51,6 +55,7 @@ temp <- tempdir()
 volve_2016_txt <- readLines(unzip(volve_2016_zip, exdir = temp))
 ```
 
+Once with the contents of `VOLVE_2016.PRT` loaded in the object __volve_2016_txt__, we proceed to perform the extraction.
 
 ```{r}
 # get a list of rows from " STEP" 
@@ -66,15 +71,6 @@ step_info_range[[1]]   # sample for report page 1 only
 ```
 
 These extra row indices are lines of text where the report keep more information of the evolution of the simulation. Here is a couple of screenhots.
-
-```{r}
-list.dirs()
-```
-
-```{r}
-proj_root
-```
-
 
 
 Step at day `1`:
