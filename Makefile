@@ -10,6 +10,8 @@ build:
 
 sync:
 	rsync -zrvce 'ssh -p 2222' public/ oilgainsanalytics:public_html/blog
+	or
+	rsync -zrvce 'ssh -p 2222' public/ ssh-oilgains-inmotion:public_html/blog
 
 deploy: sync serve
 	
