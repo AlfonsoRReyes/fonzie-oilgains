@@ -450,7 +450,7 @@ ggplot(field_totals, aes(x =date, y = wat_otw)) +
 </div>
 <div id="join-field-totals-and-step-dataframes" class="section level2">
 <h2>Join field totals and step dataframes</h2>
-<p>We merge both tables, steps and field cumulatives.</p>
+<p>We merge both tables, steps and field cumulatives. The resultant dataframe we call it <em>step_totals</em>.</p>
 <pre class="r"><code># join both tables by the common variable &quot;date&quot;
 step_totals &lt;- 
 left_join(step_info, field_totals, by = &quot;date&quot;) %&gt;% 
@@ -473,27 +473,39 @@ left_join(step_info, field_totals, by = &quot;date&quot;) %&gt;%
 #&gt; 10 2008-03-21      81.5    81    24    308        0     156.        0
 #&gt; # ... with 514 more rows, and 6 more variables: ocip &lt;dbl&gt;, ooip &lt;dbl&gt;,
 #&gt; #   oil_otw &lt;dbl&gt;, wat_otw &lt;dbl&gt;, gas_otw &lt;dbl&gt;, pav &lt;dbl&gt;</code></pre>
+<p>The dataframe step_totals has 524 rows or observations and 14 columns or variables.</p>
+<p>Looking at this dataframe closer we observe that the date intervals is not uniform; it is not weekle, bi-weekly or monthly because it is a merged dataframe. What we will do next is transforming this dataframe to a monthly summary or where the date intervals is a month separation.</p>
 <div id="plot-outflow-through-wells-from-simulator" class="section level3">
 <h3>Plot outflow through wells from simulator</h3>
+<p>Without additional data transformations we plot the cumulatives of the merged dataset.</p>
 <pre class="r"><code>ggplot(step_totals, aes(x = date, y = oil_otw)) +
     geom_line(color = &quot;dark green&quot;, size = 1.1) +
-    # geom_line(aes(x= date, y = ocip))
-    # geom_col(aes(x= date, y = ocip)) + 
     ggtitle(&quot;Cumulative Oil, sm3&quot;, subtitle = &quot;Simulator&quot;)</code></pre>
 <p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>This ggplot for the cumulative gas.</p>
 <pre class="r"><code>ggplot(step_totals, aes(x = date, y = gas_otw)) +
     geom_line(color = &quot;orange&quot;, size = 1.1) +
     labs(title = &quot;Cumulative Gas&quot;, subtitle = &quot;Simulator&quot;,
          y = &quot;Cumulative Gas, sm3&quot;)</code></pre>
 <p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>And this another one for cumulative water.</p>
+<p>Let’s just keep in mind that this curve may not be right because we are extracting from an incorrect labeled column (water outflow from wells).</p>
 <pre class="r"><code>ggplot(step_totals, aes(x = date, y = wat_otw)) +
     geom_line(color = &quot;blue&quot;, size = 1.1) +
     labs(title = &quot;Cumulative Water&quot;, subtitle = &quot;Simulator&quot;,
          y = &quot;Cumulative Water, sm3&quot;)</code></pre>
 <p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="calculate-cumulatives-for-oil-gas-and-water" class="section level3">
-<h3>Calculate cumulatives for oil, gas and water</h3>
+<div id="calculate-cumulatives-for-oil-gas-and-water-for-monthly-period" class="section level3">
+<h3>Calculate cumulatives for oil, gas and water for monthly period</h3>
+<p>This is where we transform the dataframe from an heterogeneous date steps to monthly periods. We use the <em>group_by</em> function operating on the year and the month. This operation, in the end, brings us to a more organized table with a periodic variation. The extra work is recalculating the volumes and cumulatives on the new monthly basis. All these series of transformations are very common when you merge dataframes with different number of rows. What is happening here is:</p>
+<ul>
+<li>calculating the volume at the current period, which is the difference between the current row and the previous one. Wee do that with the <em>lag</em> function.</li>
+<li>decomposing the date in year and month</li>
+<li>grouping by year and month</li>
+<li>summarize the data calculating the volumes per month</li>
+<li>convert the (year, month) to (year, month, day) date format</li>
+</ul>
 <pre class="r"><code># step field totals
 sim_cumulatives &lt;- 
 step_totals %&gt;% 
@@ -528,6 +540,11 @@ step_totals %&gt;%
 #&gt;  9 2008-09-01  2008     9  163015 25205884  137169  944881   1.46e8 1005365
 #&gt; 10 2008-10-01  2008    10  221230 33570835  317736 1166111   1.80e8 1323101
 #&gt; # ... with 96 more rows</code></pre>
+</div>
+<div id="filling-the-date-gaps-with-periodic-dates" class="section level3">
+<h3>Filling the date gaps with periodic dates</h3>
+<p>In this case, at first sight, it seems that we got periodic dates for the production of the field. But what if we are missing a month or two? One way to ensure we have all months accounted for is building a known sequence of dates from <em>2016-01-01</em> until <em>2008-10-01</em>. That is what we do with the function <code>seq.Date()</code>:</p>
+<p><code>seq.Date(as.Date(&quot;2008-01-01&quot;), as.Date(&quot;2016-10-01&quot;), by = &quot;month&quot;)</code></p>
 <pre class="r"><code># create a dataframe with complete dates from 2008 until Oct-2016
 # this will fill any holes in the dates of any of the two dataframes
 dates_complete &lt;- as_tibble(data.frame(date= seq.Date(as.Date(&quot;2008-01-01&quot;), 
@@ -548,7 +565,8 @@ dates_complete
 #&gt;  9 2008-09-01       0       0       0
 #&gt; 10 2008-10-01       0       0       0
 #&gt; # ... with 96 more rows</code></pre>
-<p>There are 106 months start to end of production.</p>
+<p>So, there are 106 months from start to end of production.</p>
+<p>Next, we proceed to merge the dataframe of known dates (above) with the dataframe <em>sim_cumulatives</em> that we obtained above. Finally, we calculate the volumes and cumulatives.</p>
 <pre class="r"><code># simulator production
 # merge incomplete dataframe and fill with complete dates
 # there will be blank rows or NAs where previously was not data
@@ -587,10 +605,22 @@ left_join(dates_complete, sim_cumulatives, by = &quot;date&quot;) %&gt;%
 #&gt; 10 2008-10-01 1166111 179756599 1323101  317736 33570835  317736
 #&gt; # ... with 96 more rows</code></pre>
 <p>The negative volume of water and oil are possibly volume corrections by the operator.</p>
+<pre class="r"><code># show observations with negative volumes
+sim_cumulatives_dt %&gt;% 
+  filter(vol_oil &lt;0 | vol_wat &lt; 0 | vol_gas &lt; 0)
+#&gt; # A tibble: 2 x 7
+#&gt;   date       cum_oil    cum_gas  cum_wat vol_oil vol_gas vol_wat
+#&gt;   &lt;date&gt;       &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+#&gt; 1 2016-09-01 9980819 1443979050 14400379  -50860 2640331  -50860
+#&gt; 2 2016-10-01 9980819 1443979050 14400379  -50860 2640331       0</code></pre>
 </div>
 </div>
 <div id="comparative-of-simulator-vs-historical-production" class="section level2">
 <h2>Comparative of simulator vs historical production</h2>
+<p>The last step is reading the historical production and compare them against the numbers from the simulation. We start by reading the historical production.</p>
+<div id="reading-the-historical-production" class="section level3">
+<h3>Reading the historical production</h3>
+<p>Like we did in the previous article, we read the production history from an Excel file. But this time we will be reading all the variables in the dataset.</p>
 <pre class="r"><code># load historical production from Excel file
 library(xlsx)   # library to read Excel files in R
 
@@ -614,8 +644,10 @@ prod_hist
 #&gt;  9 15/9-F-4         5693  2008     1 0         NULL  NULL  NULL  NULL 
 #&gt; 10 15/9-F-5         5769  2008     1 0         NULL  NULL  NULL  NULL 
 #&gt; # ... with 519 more rows, and 1 more variable: WI &lt;fct&gt;</code></pre>
+</div>
 <div id="save-raw-production-history-to-data-files" class="section level3">
 <h3>Save raw production history to data files</h3>
+<p>Once we read the data from Excel we save it as a more standard format: <em>CSV</em>. But this saved data will be very raw because we haven’t performed any operation yet. That’s why we named it <em>production_history_raw.CSV</em>.</p>
 <pre class="r"><code># save historical data as raw
 data_folder &lt;- file.path(proj_root, &quot;data&quot;)
 save(prod_hist, file = file.path(data_folder, &quot;production_history_raw.Rdata&quot;))
@@ -625,6 +657,20 @@ write.csv(prod_hist, file = file.path(data_folder,
 </div>
 <div id="cumulatives-from-production-history" class="section level3">
 <h3>Cumulatives from production history</h3>
+<p>These are the data transformations we will perform over the raw production data.</p>
+<ul>
+<li>convert from character to double, integer</li>
+<li>replace the NAs with zeros</li>
+<li>discard two columns with no meaningful data</li>
+<li>rename the variables to all lowercase (easier to remember)</li>
+<li>remove rows that have NAs</li>
+<li>group by year and month</li>
+<li>summarize by volumes</li>
+<li>convert date from character to date format</li>
+<li>sort the data by date</li>
+<li>keep the variables we require</li>
+<li>calculate the cumulatives from volumes</li>
+</ul>
 <pre class="r"><code>hist_cumulatives &lt;- 
 prod_hist %&gt;% 
     mutate(Oil = as.double(as.character(Oil))) %&gt;%
@@ -663,9 +709,11 @@ prod_hist %&gt;%
 #&gt;  9 2008-10-01 237174.  3.38e7   725.       0      0  1.24e6  1.81e8  19859.
 #&gt; 10 2008-11-01 250325.  3.57e7  2580.       0      0  1.49e6  2.17e8  22439.
 #&gt; # ... with 94 more rows, and 2 more variables: cum_gi &lt;dbl&gt;, cum_wi &lt;dbl&gt;</code></pre>
+<p>Observe that we’ve got 104 rows, which wouldn’t match the rows from the simulation data. We have to fix that. The problem is primarily dates.</p>
 </div>
 <div id="save-historical-cumulatives-as-is" class="section level3">
 <h3>Save historical cumulatives as-is</h3>
+<p>This saves the production history dataframe after the data transformations.</p>
 <pre class="r"><code># save historical data
 data_folder &lt;- file.path(proj_root, &quot;data&quot;)
 save(hist_cumulatives, file = file.path(data_folder, &quot;hist_cumulatives_104.Rdata&quot;))
@@ -691,10 +739,37 @@ df
 #&gt;  9 2008-09-01       0       0       0
 #&gt; 10 2008-10-01       0       0       0
 #&gt; # ... with 96 more rows</code></pre>
+<p>Remember that we created this date sequence above. This sequence had 106 rows.</p>
+<pre class="r"><code>dates_complete
+#&gt; # A tibble: 106 x 4
+#&gt;    date       cum_oil cum_gas cum_wat
+#&gt;    &lt;date&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+#&gt;  1 2008-01-01       0       0       0
+#&gt;  2 2008-02-01       0       0       0
+#&gt;  3 2008-03-01       0       0       0
+#&gt;  4 2008-04-01       0       0       0
+#&gt;  5 2008-05-01       0       0       0
+#&gt;  6 2008-06-01       0       0       0
+#&gt;  7 2008-07-01       0       0       0
+#&gt;  8 2008-08-01       0       0       0
+#&gt;  9 2008-09-01       0       0       0
+#&gt; 10 2008-10-01       0       0       0
+#&gt; # ... with 96 more rows</code></pre>
+</div>
+<div id="fill-the-dates-gap-in-the-production-history-dataframe" class="section level3">
+<h3>Fill the dates gap in the production history dataframe</h3>
+<p>We do almost the same data transformations as before:</p>
+<ul>
+<li>replace NAs in the variables with zeros</li>
+<li>sum up the additional cumulative variables generated during the merge</li>
+<li>replace a cumulative of zero by the previous cumulative (carry over). There cannot be cumulatives of zeros in between. That anomaly is caused by the absence of rows.</li>
+<li>clean up the variables for gas injection (GI) and water injection (WI) volumes</li>
+<li>calculate the cumulatives for gas injection and water injection</li>
+</ul>
 <pre class="r"><code># historical production
 # merge incomplete dataframe and complete with dates
 hist_cumulatives_dt &lt;- 
-left_join(df, hist_cumulatives, by = &quot;date&quot;) %&gt;% 
+left_join(dates_complete, hist_cumulatives, by = &quot;date&quot;) %&gt;% 
     # replace NAs with zeros
     tidyr::replace_na(list(cum_oil.y = 0, cum_gas.y = 0, cum_wat.y = 0)) %&gt;%
     tidyr::replace_na(list(vol_oil = 0, vol_gas = 0, vol_wat = 0)) %&gt;%
@@ -728,10 +803,11 @@ left_join(df, hist_cumulatives, by = &quot;date&quot;) %&gt;%
 #&gt;  9 2008-09-01  1.00e6  1.47e8  19134. 192263.  2.75e7   464.       0      0
 #&gt; 10 2008-10-01  1.24e6  1.81e8  19859. 237174.  3.38e7   725.       0      0
 #&gt; # ... with 96 more rows, and 2 more variables: cum_gi &lt;dbl&gt;, cum_wi &lt;dbl&gt;</code></pre>
+<p>Great! We got the dataframe <em>hist_cumulatives_dt</em>, with 106 rows and 11 columns.</p>
 </div>
 <div id="plot-production-rates" class="section level3">
 <h3>Plot production rates</h3>
-<p>gather(key = var, value, pav_bar:wgr_m3m3) %&gt;%</p>
+<p>If we want to plot several variables in one figure we have to convert the dataframe into tidy data format, and then use facets.</p>
 <pre class="r"><code>hist_cumulatives_dt_gather &lt;- 
 hist_cumulatives_dt %&gt;% 
   select(date, vol_oil, vol_gas, vol_wat) %&gt;% 
@@ -752,6 +828,7 @@ hist_cumulatives_dt %&gt;%
 #&gt;  9 2008-09-01 vol_oil 192263.
 #&gt; 10 2008-10-01 vol_oil 237174.
 #&gt; # ... with 308 more rows</code></pre>
+<p>And this is the plot of the cumulative variables from the production history.</p>
 <pre class="r"><code># plot production variables from the STEP block in the PRT file
 
 # order of the plots
@@ -762,16 +839,17 @@ hist_cumulatives_dt_gather$var_f &lt;-
 # change the name of the facet labels
 facet_labels &lt;- c(`vol_oil` = &quot;Oil&quot;, `vol_gas` = &quot;Gas&quot;, `vol_wat` = &quot;Water&quot;)
 
-ggplot(hist_cumulatives_dt_gather, aes(x = date, y = value)) +
-  geom_line() +
+ggplot(hist_cumulatives_dt_gather, aes(x = date, y = value, color = var)) +
+  geom_line(size = 1) +
   facet_grid(var_f ~., scales = &quot;free_y&quot;,
              labeller = as_labeller(facet_labels)) +
   labs(title = &quot;Monthly fluid Volumes, m3&quot;, 
        subtitle = &quot;Historical Production&quot;, y = &quot;&quot;, x = &quot;&quot;)</code></pre>
-<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-36-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-38-1.png" width="576" style="display: block; margin: auto;" /></p>
 </div>
 <div id="save-historical-cumulatives-with-fixed-dates" class="section level3">
 <h3>Save historical cumulatives with fixed dates</h3>
+<p>We save the date fixed production history in CSV format file.</p>
 <pre class="r"><code># save historical data with complete dates. 106 rows
 data_folder &lt;- file.path(proj_root, &quot;data&quot;)
 save(hist_cumulatives_dt, file = file.path(data_folder, &quot;hist_cumulatives_dt.Rdata&quot;))
@@ -780,77 +858,52 @@ write.csv(hist_cumulatives_dt, file = file.path(data_folder, &quot;hist_cumulati
 </div>
 <div id="plot-historical-cumulatives-of-oil-gas-and-water" class="section level3">
 <h3>Plot historical cumulatives of oil, gas and water</h3>
-<div id="cumulative-oil" class="section level4">
-<h4>Cumulative oil</h4>
-<pre class="r"><code># cumulative oil from historical production
-ggplot(hist_cumulatives_dt, aes(x = date, y = cum_oil)) +
+<pre class="r"><code>library(gridExtra)
+
+# cumulative oil from historical production
+p1 &lt;- ggplot(hist_cumulatives_dt, aes(x = date, y = cum_oil)) +
     geom_line() +
     geom_col(color = &quot;dark green&quot;, fill = &quot;dark green&quot;, alpha = 0.35) +
-    ggtitle(&quot;Cumulative Oil, sm3&quot;, subtitle = &quot;Historical Production&quot;)</code></pre>
-<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="cumulative-gas" class="section level4">
-<h4>Cumulative gas</h4>
-<pre class="r"><code># cumulative gas from historical production
-ggplot(hist_cumulatives_dt, aes(x = date, y = cum_gas)) +
+    ggtitle(&quot;Cumulative Oil, sm3&quot;, subtitle = &quot;Historical Production&quot;)
+
+# cumulative gas from historical production
+p2 &lt;- ggplot(hist_cumulatives_dt, aes(x = date, y = cum_gas)) +
     geom_line() +
     geom_col(color = &quot;orange&quot;, fill = &quot;orange&quot;, alpha = 0.35) +
-    ggtitle(&quot;Cumulative Gas, sm3&quot;, subtitle = &quot;Historical Production&quot;)</code></pre>
-<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="cumulative-water" class="section level4">
-<h4>Cumulative water</h4>
-<pre class="r"><code># cumulative water from historical production
-ggplot(hist_cumulatives_dt, aes(x = date, y = cum_wat)) +
+    ggtitle(&quot;Cumulative Gas, sm3&quot;, subtitle = &quot;Historical Production&quot;)
+
+# cumulative water from historical production
+p3 &lt;- ggplot(hist_cumulatives_dt, aes(x = date, y = cum_wat)) +
     geom_line() +
     geom_col(color = &quot;blue&quot;, fill = &quot;blue&quot;, alpha = 0.35) +
-    ggtitle(&quot;Cumulative Water, sm3&quot;, subtitle = &quot;Historical Production&quot;)</code></pre>
-<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
+    ggtitle(&quot;Cumulative Water, sm3&quot;, subtitle = &quot;Historical Production&quot;)
+
+grid.arrange(p1, p2, p3, ncol =1)</code></pre>
+<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-40-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
 <div id="rename-the-variables-according-to-source" class="section level3">
 <h3>Rename the variables according to source</h3>
+<p>Finally, because we want to combine the simulation results with the measured production for each fluid, on the same plot, we will rename the variables to something is directly recognizable as the source: simulator or historical.</p>
+<p>These are the data transformations:</p>
+<ul>
+<li>rename the variables in the <em>sim_cumulatives_dt</em> dataframe</li>
+<li>rename the variables in the <em>hist_cumulatives_dt</em> dataframe</li>
+<li>join the resulting dataframe by the common variable <em>date</em></li>
+</ul>
 <pre class="r"><code># rename the simulation cumulatives
 sim_cumulatives_src &lt;- 
 sim_cumulatives_dt %&gt;% 
     select(date, cum_oil, cum_gas, cum_wat) %&gt;% 
-    rename(cum_oil_sim = cum_oil, cum_gas_sim = cum_gas, cum_wat_sim = cum_wat) %&gt;% 
-    print()
-#&gt; # A tibble: 106 x 4
-#&gt;    date       cum_oil_sim cum_gas_sim cum_wat_sim
-#&gt;    &lt;date&gt;           &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-#&gt;  1 2008-01-01           0           0           0
-#&gt;  2 2008-02-01       30840     4884638           0
-#&gt;  3 2008-03-01      120869    19001704           1
-#&gt;  4 2008-04-01      194702    30471061       22293
-#&gt;  5 2008-05-01      318898    49587013      234843
-#&gt;  6 2008-06-01      456145    70554340      427804
-#&gt;  7 2008-07-01      611809    94559725      640543
-#&gt;  8 2008-08-01      781866   120979880      868196
-#&gt;  9 2008-09-01      944881   146185764     1005365
-#&gt; 10 2008-10-01     1166111   179756599     1323101
-#&gt; # ... with 96 more rows</code></pre>
-<pre class="r"><code># rename historical cumulatives according to source
+    rename(cum_oil_sim = cum_oil, cum_gas_sim = cum_gas, cum_wat_sim = cum_wat)
+    
+
+# rename historical cumulatives according to source
 hist_cumulatives_src &lt;- 
 hist_cumulatives_dt %&gt;% 
     select(date, cum_oil, cum_gas, cum_wat) %&gt;% 
-    rename(cum_oil_hist = cum_oil, cum_gas_hist = cum_gas, cum_wat_hist = cum_wat) %&gt;% 
-    print()
-#&gt; # A tibble: 106 x 4
-#&gt;    date       cum_oil_hist cum_gas_hist cum_wat_hist
-#&gt;    &lt;date&gt;            &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
-#&gt;  1 2008-01-01           0            0            0 
-#&gt;  2 2008-02-01       49091.     7068009.         413.
-#&gt;  3 2008-03-01      132452.    19259180.         440.
-#&gt;  4 2008-04-01      206985.    30765621.         922.
-#&gt;  5 2008-05-01      332463.    49857492.       17202.
-#&gt;  6 2008-06-01      476250.    71369826.       17677.
-#&gt;  7 2008-07-01      642530.    96025129.       18093.
-#&gt;  8 2008-08-01      807974.   119948670.       18669.
-#&gt;  9 2008-09-01     1000237.   147475129.       19134.
-#&gt; 10 2008-10-01     1237411.   181232829.       19859.
-#&gt; # ... with 96 more rows</code></pre>
-<pre class="r"><code># combine simulator and historical dataframes. common variable is &quot;date&quot;
+    rename(cum_oil_hist = cum_oil, cum_gas_hist = cum_gas, cum_wat_hist = cum_wat) 
+
+# combine simulator and historical dataframes. common variable is &quot;date&quot;
 cumulatives_all &lt;- full_join(hist_cumulatives_src, sim_cumulatives_src, by = &quot;date&quot;)
 cumulatives_all
 #&gt; # A tibble: 106 x 7
@@ -868,10 +921,12 @@ cumulatives_all
 #&gt; 10 2008-10-01     1237411.   181232829.       19859.     1166111
 #&gt; # ... with 96 more rows, and 2 more variables: cum_gas_sim &lt;dbl&gt;,
 #&gt; #   cum_wat_sim &lt;dbl&gt;</code></pre>
+<p>That’s it. Our final comparison dataframe with 106 rows and 7 columns.</p>
 </div>
 </div>
 <div id="observations" class="section level2">
 <h2>Observations</h2>
+<p>In order to observe how close was the history matching, we plot the cumulative production from the simulator versus that of the historical production. Additionally, we want to shade the are between the two curves to show the difference.</p>
 </div>
 <div id="how-close-cumulative-productions-are" class="section level2">
 <h2>How close cumulative productions are</h2>
@@ -879,6 +934,8 @@ cumulatives_all
 <h3>Cumulative oil. Historical vs simulator</h3>
 <pre class="r"><code># Volve reservoir model dataset
 # plot historical vs simulator cum_oil
+
+# manual assignment of colors in the legend
 cols &lt;- c(&quot;simulator&quot;=&quot;red&quot;, &quot;historical&quot;=&quot;blue&quot;) # legend: colors and names
 ggplot(cumulatives_all) +
     # shade the area between the curves
@@ -890,7 +947,7 @@ ggplot(cumulatives_all) +
          subtitle = &quot;Historical vs Simulator&quot;, 
          y = &quot;cumulative oil, sm3&quot;) +
     scale_color_manual(name = &quot;Curve&quot;, values = cols)  # manual legend</code></pre>
-<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-44-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-42-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="cumulative-gas.-historical-vs-simulator" class="section level3">
 <h3>Cumulative gas. Historical vs simulator</h3>
@@ -907,7 +964,7 @@ ggplot(cumulatives_all) +
          subtitle = &quot;Historical vs Simulator&quot;, 
          y = &quot;cumulative gas, sm3&quot;) +
     scale_color_manual(name = &quot;Curve&quot;, values = cols)  # manual legend</code></pre>
-<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-45-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-43-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="cumulative-water.-historical-vs-simulator" class="section level3">
 <h3>Cumulative water. Historical vs simulator</h3>
@@ -924,14 +981,9 @@ ggplot(cumulatives_all) +
          subtitle = &quot;Historical vs Simulator&quot;, 
          y = &quot;cumulative water, sm3&quot;) +
     scale_color_manual(name = &quot;Curve&quot;, values = cols)  # manual legend</code></pre>
-<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-46-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-44-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><strong>Note.</strong> This last plot for the cumulative water has been observed different when another reservoir engineer <a href="https://www.linkedin.com/in/konstantin-sermyagin/?lipi=urn%3Ali%3Apage%3Ad_flagship3_messaging%3BMkGp%2FisTS7ehrKLYwnd%2Frw%3D%3D&amp;licu=urn%3Ali%3Acontrol%3Ad_flagship3_messaging-view_profile">Konstantin Sermyagin</a> was able to read directly from the Eclipse binary files. I have checked the cumulative water from the simulator and it has been properly extracted and transformed. Still, I have some doubts about the extraction of the cumulative water because the outflow doesn’t seem to originate from connate water but from injection water as well. If you download the Eclipse PRT file and take a look at the <strong>BALANCE AT</strong> blocks, try to identify the variable corresponding to connate water only. I am not sure why Eclipse does not make a distinction between the two sources of water.</p>
 </div>
-</div>
-<div id="conclusions" class="section level2">
-<h2>Conclusions</h2>
-</div>
-<div id="references" class="section level2">
-<h2>References</h2>
 </div>
 <div id="datasets" class="section level2">
 <h2>Datasets</h2>
