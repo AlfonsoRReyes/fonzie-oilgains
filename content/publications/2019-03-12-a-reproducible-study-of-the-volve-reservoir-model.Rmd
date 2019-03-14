@@ -1,5 +1,5 @@
 ---
-title: A reproducible study of the Volve reservoir model
+title: A reproducible comparison of the Volve reservoir model
 author: Alfonso R. Reyes
 date: '2019-03-12'
 slug: a-reproducible-study-of-the-volve-reservoir-model
@@ -865,8 +865,7 @@ ggplot(cumulatives_all) +
     scale_color_manual(name = "Curve", values = cols)  # manual legend
 ```
 
-__Note.__ This last plot for the cumulative water has been observed different when another reservoir engineer [Konstantin Sermyagin](https://www.linkedin.com/in/konstantin-sermyagin/?lipi=urn%3Ali%3Apage%3Ad_flagship3_messaging%3BMkGp%2FisTS7ehrKLYwnd%2Frw%3D%3D&licu=urn%3Ali%3Acontrol%3Ad_flagship3_messaging-view_profile) was able to read directly from the Eclipse binary files. I have checked the cumulative water from the simulator and it has been properly extracted and transformed. Still, I have some doubts about the extraction of the cumulative water because the outflow doesn't seem to originate from connate water but from injection water as well. If you download the Eclipse PRT file and take a look at the __BALANCE AT__ blocks, try to identify the variable corresponding to connate water only. I am not sure why Eclipse does not make a distinction between the two sources of water.
-
+__Note.__ This last plot for the cumulative water has been observed different when another reservoir engineer [Konstantin Sermyagin](https://www.linkedin.com/in/konstantin-sermyagin/?lipi=urn%3Ali%3Apage%3Ad_flagship3_messaging%3BMkGp%2FisTS7ehrKLYwnd%2Frw%3D%3D&licu=urn%3Ali%3Acontrol%3Ad_flagship3_messaging-view_profile) was able to read directly from the Eclipse __binary__ files. I have checked the cumulative water from the simulator and it has been properly extracted and transformed. Still, I have some doubts about the extraction of the cumulative water because the outflow doesn't seem to originate from connate water but from injection water as well. If you download the Eclipse __PRT__ file, please, take a look at the __BALANCE AT__ blocks. Try to identify the variable corresponding to connate water only. I am not sure why Eclipse does not make a distinction between the two sources of water.
 
 
 ## Datasets
