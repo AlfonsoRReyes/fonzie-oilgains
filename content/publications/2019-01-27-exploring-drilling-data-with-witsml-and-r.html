@@ -30,22 +30,22 @@ image: witsml-cover.png
 <p>Here is a view of all the wells that are storing data in <em>WITSML</em> format:</p>
 <p><img src="/img/witsml-all_wells.png" width="450px" style="display: block; margin: auto;" /></p>
 <p>Look at the size of each folder. They are considerable large if we compare them to the usual files we manage every day. I am choosing the folder in row 22 (well 9f9), one of the smaller data containers (27.3 MB). If the data operations we perform here are all correct, then, the solution generalized, should apply well to any of the larger <em>WITSML</em> datasets.</p>
-<p>A typical well with data stored in WITSML would look like this:</p>
+<p>A typical well with data stored in <em>WITSML</em> would look like this:</p>
 <p><img src="/img/witsml-typical_well.png" width="300px" style="display: block; margin: auto;" /></p>
 <p>From all these folders, let’s focus today in the <strong>well trajectory</strong> dataset.</p>
 <p>I downloaded all the drilling data for Volve which is about 26.8 GB. It’s not that big if we compare it to the seismic files of 1.2 and 2.4 terabytes. I chose the <code>trajectory</code> folder for well <code>Norway-Statoil-NO 15_$47$_9-F-9</code> because it seemed complex enough to studying it. Besides, it wasn’t too big: around 27 MB. After learning from it, we could apply our data conversion algorithms to simpler datasets.</p>
 </div>
 <div id="the-trajectory-folder-and-files" class="section level1">
 <h1>The <code>trajectory</code> folder and files</h1>
-<p>The <code>trajectory</code> folder is very simple. It contains <em>WITSML</em> files and a metadata information file (not important at this time). The folder could contain more than one file. We will see in another lecture wells with more than one trajectory file. In our example, the WITSML file has the name of <code>1.xml</code>. We will be reading it in few seconds.</p>
+<p>The <code>trajectory</code> folder is very simple. It contains <em>WITSML</em> files and a metadata information file (not important at this time). The folder could contain more than one file. We will see in another lecture wells with more than one trajectory file. In our example, the <em>WITSML</em> file has the name of <code>1.xml</code>. We will be reading it in few seconds.</p>
 <p><img src="/img/witsml-trajectory_folder.png" width="500px" style="display: block; margin: auto;" /></p>
 </div>
 <div id="parts-of-the-trajectory-dataset" class="section level1">
 <h1>Parts of the <code>trajectory</code> dataset</h1>
-<p>Let’s take a look first at the <code>trajectory</code> WITSML file. We are starting with a collapsed tree so it doesn’t take too much space of the screen. The <code>(+)</code> sign on the left means that it will expand further at that node if you click on it.</p>
+<p>Let’s take a look first at the <code>trajectory</code> <em>WITSML</em> file. We are starting with a collapsed tree so it doesn’t take too much space of the screen. The <code>(+)</code> sign on the left means that it will expand further at that node if you click on it.</p>
 <p><img src="/img/witsml-collapsed.png" width="850px" style="display: block; margin: auto;" /></p>
 <blockquote>
-<p>Note. I am using the software <a href="https://mindfusion.eu/xml-viewer.html">MindFusion XML Viewer</a> to explore the WITSML files. I find it unobtrusive and simple to use. But any other viewer should be ok.</p>
+<p>Note. I am using the software <a href="https://mindfusion.eu/xml-viewer.html">MindFusion XML Viewer</a> to explore the <em>WITSML</em> files. I find it unobtrusive and simple to use. But any other viewer should be ok.</p>
 </blockquote>
 <div id="the-two-major-nodes" class="section level2">
 <h2>The two major nodes</h2>
@@ -101,11 +101,11 @@ Figure 2: trajectoryStation node with all its variables
 </div>
 </div>
 <div id="reading-a-witsml-file" class="section level1">
-<h1>Reading a WITSML file</h1>
+<h1>Reading a <em>WITSML</em> file</h1>
 <p>Now it’s time to get our hands dirty and do a bit of data science.</p>
 <div id="loading-the-packages" class="section level2">
 <h2>Loading the packages</h2>
-<p>We will use two packages: <code>xml2</code>, <code>data.table</code> and <code>dplyr</code>. <code>xml2</code> will take care of reading the WITSML or XML files, while <code>dplyr</code> and <code>data.table</code> will be our workhorses for dataframe generation and data manipulation. I could have just used <code>dplyr</code> but I wanted to show you both table libraries. The other packages will be used at the end of the article for nesting structures and plotting.</p>
+<p>We will use two packages: <code>xml2</code>, <code>data.table</code> and <code>dplyr</code>. <code>xml2</code> will take care of reading the <em>WITSML</em> or XML files, while <code>dplyr</code> and <code>data.table</code> will be our workhorses for dataframe generation and data manipulation. I could have just used <code>dplyr</code> but I wanted to show you both table libraries. The other packages will be used at the end of the article for nesting structures and plotting.</p>
 <pre class="r"><code># load libraries
 library(xml2)
 library(data.table)
@@ -135,7 +135,7 @@ all_files_xml[1:5]
 <p>We could take a look at the number of XML files:</p>
 <pre class="r"><code># how many XMLS files under the folder
 length(all_files_xml)
-#&gt; [1] 312</code></pre>
+#&gt; [1] 230</code></pre>
 <div id="select-the-trajectory-file" class="section level3">
 <h3>Select the trajectory file</h3>
 <pre class="r"><code># get the file for trajectory
@@ -147,7 +147,7 @@ traj_files
 #&gt; [3] &quot;./witsml/Norway-Statoil-NO 15_$47$_9-F-9/1/trajectory/1.xml&quot;</code></pre>
 </div>
 <div id="load-the-selected-witsml-file" class="section level3">
-<h3>Load the selected WITSML file</h3>
+<h3>Load the selected <em>WITSML</em> file</h3>
 <pre class="r"><code>dat &lt;- read_xml(traj_files[3])
 dat_9f9 &lt;- dat</code></pre>
 <p>Retrieve some information:</p>
@@ -1306,7 +1306,7 @@ identical(names(t_9f9_dt), names(t_9f7_dt))
 </div>
 <div id="making-it-reproducible" class="section level1">
 <h1>Making it reproducible</h1>
-<p>Now, we can put all these functions in an R script, and everything should work much faster. In this example, we are converting the WITSML to dataframes for well <em>Norway-Statoil-NO 15_$47$_9-F-7</em>. We will call it by the last identifier <code>9f7</code> from now on. You will see that this well has more trajectory stations; 43 to be exact. Many more than the first well <code>9f9</code> that corresponds to well <em>Norway-Statoil-NO 15_$47$_9-F-9</em>.</p>
+<p>Now, we can put all these functions in an R script, and everything should work much faster. In this example, we are converting the <em>WITSML</em> to dataframes for well <em>Norway-Statoil-NO 15_$47$_9-F-7</em>. We will call it by the last identifier <code>9f7</code> from now on. You will see that this well has more trajectory stations; 43 to be exact. Many more than the first well <code>9f9</code> that corresponds to well <em>Norway-Statoil-NO 15_$47$_9-F-9</em>.</p>
 <pre class="r"><code>source(&quot;witsml-trajectory.R&quot;)
 
 all_files_xml &lt;- list.files(&quot;./witsml&quot;, recursive = TRUE, full.names = TRUE, 
@@ -1528,8 +1528,8 @@ ggplot(wells_kvars, aes(x = tvd, y = rateBuild, color = nameWell)) +
 <h1>Notes</h1>
 <ul>
 <li><p>For the first row of <code>trajectoryStation</code>, which corresponds to the <code>TIE_POINT</code>, fill all the empty variables (those absent) with <code>NA</code>. The <code>data.table</code> function works very well compensating those variables that are incomplete but filling them with default values, which is not good. We see, for instance, that for first member of the <code>trajectoryStation</code>, the variables present are only 10. Normally, they should be 20, if we count <code>commonData</code> and <code>corUsed</code>, which are the only two which have children nodes.</p></li>
-<li><p>In upcoming versions, we should take care of coercing the variables to their corresponding types. By default, in this example, we’ve got all the variables as character. Since we know in advance the data types because of the WITSML standard, we could use the <strong>R</strong> package <code>readr</code> to do the coercion.</p></li>
-<li><p>As we get familiar with the WITSML hierarchies, we could start using loops or <code>apply</code> functions to convert the tree structures to dataframes.</p></li>
+<li><p>In upcoming versions, we should take care of coercing the variables to their corresponding types. By default, in this example, we’ve got all the variables as character. Since we know in advance the data types because of the <em>WITSML</em> standard, we could use the <strong>R</strong> package <code>readr</code> to do the coercion.</p></li>
+<li><p>As we get familiar with the <em>WITSML</em> hierarchies, we could start using loops or <code>apply</code> functions to convert the tree structures to dataframes.</p></li>
 <li><p>Functions can be implemented later to get the number of trajectory stations, find which <code>trajectoryStation</code> does not have its complete set of variables, or extract a particular trajectory measurement.</p></li>
 <li><p>In this long example, we used only one well for the details. That’s why we obtained only one trajectory file. Other wells could have more than one trajectory file. Later we could implement a function that scans all the folders and generates a summary statistic of the number of folders, number of files per well, size, etc. <strong>Update</strong>. We added lately two more wells.</p></li>
 <li><p>The specification for the <code>trajectory</code> and <code>trajectoryStation</code> objects can be found in the Energistics website. Refer to <a href="http://w3.energistics.org/schema/witsml_v1.3.1.1_data/doc/WITSML_Schema_docu.htm">WITSML 1.3.1.1</a>. Each one of the objects, nodes and subnodes are explained in detail.</p></li>
