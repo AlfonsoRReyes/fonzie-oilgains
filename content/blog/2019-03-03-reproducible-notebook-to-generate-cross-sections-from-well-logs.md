@@ -1,5 +1,5 @@
 ---
-title: Reproducible notebook to generate cross sections from well logs
+title: Reproducible notebook to generate cross sections from well logs by Jesse Pisel
 author: Alfonso R. Reyes
 date: '2019-03-03'
 slug: reproducible-notebook-to-generate-cross-sections-from-well-logs
