@@ -13,7 +13,7 @@ online: https://www.linkedin.com/feed/update/urn:li:activity:6491335478384656384
 Don't miss reading this paper on an application of machine learning in petroleum engineering by Paolo Dell'Aversana.
 
 
-[![](/img/paolo_dellaversana_ml_lithofacies.png)](/img/paolo_dellaversana_ml_lithofacies.png)
+[![](/img/paolo_dellaversana_ml_lithofacies.jpg)](/img/paolo_dellaversana_ml_lithofacies.jpg)
 
 
 ## References

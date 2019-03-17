@@ -14,7 +14,7 @@ Reproducible Python notebook to generate cross sections from well logs (Denver B
 
 [![](/img/jesse_pisel-cross_section.png)](/img/jesse_pisel-cross_section.png)
 
-__Keywords__: LAS __files, glob, cross section, Niobrara Formation, Denver Basin, Wyoming, gamma-ray curv__es
+__Keywords__: LAS files, glob, cross section, Niobrara Formation, Denver Basin, Wyoming, gamma-ray curves
 
 
 

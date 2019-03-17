@@ -11,7 +11,7 @@ tags: []
 
 Another reproducible example of regression using Python to calculate economic risk. By Matteo Niccoli (2017).
 
-[![](/img/matteo_nicoli-economic_risk.png)](/img/matteo_nicoli-economic_risk.png)
+[![](/img/matteo_nicoli-economic_risk.jpg)](/img/matteo_nicoli-economic_risk.jpg)
 
 Keywords:
 

@@ -14,7 +14,7 @@ I hope you publish your scripts, data and manuscript, soon for reproducibility p
 
 
 
-[![](/img/marco_rizk_multiple_regression.png)](/img/marco_rizk_multiple_regression.png)
+[![](/img/marco_rizk_multiple_regression.jpg)](/img/marco_rizk_multiple_regression.jpg)
 
 __Keywords__: linear regression, engineering, Alternating Conditional Expectations, algorithms, transformations
 
