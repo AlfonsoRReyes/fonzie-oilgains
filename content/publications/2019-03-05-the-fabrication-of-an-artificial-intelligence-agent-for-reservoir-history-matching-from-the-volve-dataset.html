@@ -1,4 +1,5 @@
 ---
+draft: yes
 title: The fabrication of an artificial intelligence agent for reservoir history matching
   from the Volve dataset
 author: Alfonso R. Reyes
@@ -8,10 +9,13 @@ categories:
   - reservoir simulation
   - R
 tags: []
+image: volve_south_start.png
+DOI: 10.5281/zenodo.2596620
 ---
 
 
 
+<p><a href="https://doi.org/10.5281/zenodo.2596620"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.2596620.svg" alt="DOI" /></a></p>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
 <p><strong>History matching</strong> is one of the core activities performed by petroleum engineers to decrease the <strong>uncertainty</strong> of reservoir models. By comparing real data -production data gathered at the surface-, with the output from a reservoir simulator, the engineer starts filling in the gaps in reservoir properties of those <strong>block cells</strong> in the model.</p>
@@ -19,7 +23,6 @@ tags: []
 <p>I cannot think of a better example right now to start proving an intelligent agent for reservoir <strong>history matching</strong>. There is plenty of literature; there are some real and synthetic reservoir models which have been subject of machine learning algorithms extensively in <strong>SPE papers</strong>. Very good papers indeed. With the only drawback that they <strong>cannot be reproduced</strong>. The process or algorithm cannot be reproduced outside the original environment in which it was written, or by any other than the original author.</p>
 <p>What about if we try a different approach: given that <strong>it has been proven that history matching works by introducing machine learning algorithms</strong> in the process, let’s pick one or some of them, and try recreating the <strong>data science</strong> workflow step-by-step: from the raw data (<strong>production history</strong> and <strong>reservoir model</strong> output), up to the automatic comparison of the model with the new proposed reservoir data. The workflow should be <strong>publicly available</strong> so other petroleum engineers could pick up where it is and improving it for their own environment setting. In other words, we will work on making a <strong>reproducible example</strong> of a reservoir history matching process.</p>
 <p>And what better than using a reservoir model already given it to us for free? I am talking about the <strong>Volve</strong> dataset.</p>
-<p><img src="/img/volve_south_start.png" width="800px" style="display: block; margin: auto;" /></p>
 </div>
 <div id="motivation" class="section level1">
 <h1>Motivation</h1>

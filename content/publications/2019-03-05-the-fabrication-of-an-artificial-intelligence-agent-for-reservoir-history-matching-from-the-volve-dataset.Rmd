@@ -8,6 +8,8 @@ categories:
   - reservoir simulation
   - R
 tags: []
+image: volve_south_start.png
+DOI: 10.5281/zenodo.2596620
 ---
 
 ```{r setup, include = FALSE, error=TRUE, message=FALSE, warning=FALSE}
@@ -21,6 +23,13 @@ knitr::opts_chunk$set(echo = TRUE,
                       )
 ```
 
+```{r, out.width = "700px", echo=FALSE}
+# images must be placed under /static/img
+# knitr::include_graphics("/img/volve_south_start.png")
+```
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2596620.svg)](https://doi.org/10.5281/zenodo.2596620)
+
 
 # Introduction
 __History matching__ is one of the core activities performed by petroleum engineers to decrease the __uncertainty__ of reservoir models. By comparing real data -production data gathered at the surface-, with the output from a reservoir simulator, the engineer starts filling in the gaps in reservoir properties of those __block cells__ in the model.
@@ -32,10 +41,6 @@ I cannot think of a better example right now to start proving an intelligent age
 What about if we try a different approach: given that __it has been proven that history matching works by introducing machine learning algorithms__ in the process, let's pick one or some of them, and try recreating the __data science__ workflow step-by-step: from the raw data (__production history__ and __reservoir model__ output), up to the automatic comparison of the model with the new proposed reservoir data. The workflow should be __publicly available__ so other petroleum engineers could pick up where it is and improving it for their own environment setting. In other words, we will work on making a __reproducible example__ of a reservoir history matching process.
 
 And what better than using a reservoir model already given it to us for free? I am talking about the __Volve__ dataset.
-
-```{r, out.width = "800px", echo=FALSE}
-knitr::include_graphics("/img/volve_south_start.png")
-```
 
 
 # Motivation

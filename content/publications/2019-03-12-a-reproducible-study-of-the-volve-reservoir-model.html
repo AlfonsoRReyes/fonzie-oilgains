@@ -1,4 +1,5 @@
 ---
+draft: yes
 title: A reproducible comparison of the Volve reservoir model
 author: Alfonso R. Reyes
 date: '2019-03-12'
@@ -6,6 +7,7 @@ slug: a-reproducible-study-of-the-volve-reservoir-model
 categories:
   - reservoir simulation
 tags: []
+image: volve_north_view_start_end.png
 ---
 
 
@@ -61,14 +63,14 @@ step_info_range[[1]]   # sample for report page 1 only
 #&gt; [1] 1548178 1548179 1548180</code></pre>
 <p>These extra row indices are lines of text where the report keeps more information of the evolution of the simulation. Here is a couple of screenhots.</p>
 <p>Step at day <strong>1</strong>:</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-2"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-3"></span>
 <img src="/img/step_0001.png" alt="Step at 1 day" width="600px" />
 <p class="caption">
 Figure 1: Step at 1 day
 </p>
 </div>
 <p>Step at day <strong>3,197</strong>:</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-3"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-4"></span>
 <img src="/img/step_3197.png" alt="Step at 3197 days" width="600px" />
 <p class="caption">
 Figure 2: Step at 3197 days
@@ -330,7 +332,7 @@ write.csv(step_info, file = file.path(data_folder,
     geom_line(color = &quot;red&quot;) +
     labs(title = &quot;Pressure over time&quot;, subtitle = &quot;Simulator output&quot;,
          y = &quot;Average Pressure (PAV), bar&quot;)</code></pre>
-<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="plot-watercut-vs-time" class="section level4">
 <h4>Plot watercut vs time</h4>
@@ -339,7 +341,7 @@ ggplot(step_info, aes(x =date, y = wct_pct)) +
     geom_line(color = &quot;blue&quot;) +
     labs(title = &quot;Field watercut over time&quot;, subtitle = &quot;Simulator output&quot;,
          y = &quot;Watercut, percent&quot;)</code></pre>
-<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="plot-all-variables-from-step-block" class="section level3">
@@ -380,7 +382,7 @@ ggplot(step_info_gather, aes(x = date, y = value)) +
   facet_wrap(.~var, scales = &quot;free_y&quot;, labeller = as_labeller(facet_labels)) +
   labs(title = &quot;Production variables from STEP block&quot;, 
        subtitle = &quot;Simulator output&quot;, y = &quot;&quot;, x = &quot;&quot;)</code></pre>
-<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="merge-cumulative-oil-with-simulator-steps" class="section level2">
@@ -438,7 +440,7 @@ ggplot(field_totals, aes(x =date, y = wat_otw)) +
     labs(title = &quot;Field Water Outflow Through Wells&quot;, 
          subtitle = &quot;Simulator output, BALANCE block&quot;,
          y = &quot;Water volume, sm3&quot;)</code></pre>
-<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Now, we know that the STEP dataframe has more rows than the BALANCE-AT dataframe. What we want is to correlate the step with the oil cumulatives.</p>
 <p>These are the rows in the <em>step_info</em> dataframe:</p>
 <pre class="r"><code>dim(step_info)
@@ -481,20 +483,20 @@ left_join(step_info, field_totals, by = &quot;date&quot;) %&gt;%
 <pre class="r"><code>ggplot(step_totals, aes(x = date, y = oil_otw)) +
     geom_line(color = &quot;dark green&quot;, size = 1.1) +
     ggtitle(&quot;Cumulative Oil, sm3&quot;, subtitle = &quot;Simulator&quot;)</code></pre>
-<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>This ggplot for the cumulative gas.</p>
 <pre class="r"><code>ggplot(step_totals, aes(x = date, y = gas_otw)) +
     geom_line(color = &quot;orange&quot;, size = 1.1) +
     labs(title = &quot;Cumulative Gas&quot;, subtitle = &quot;Simulator&quot;,
          y = &quot;Cumulative Gas, sm3&quot;)</code></pre>
-<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>And this another one for cumulative water.</p>
 <p>Let’s just keep in mind that this curve may not be right because we are extracting from an incorrect labeled column (water outflow from wells).</p>
 <pre class="r"><code>ggplot(step_totals, aes(x = date, y = wat_otw)) +
     geom_line(color = &quot;blue&quot;, size = 1.1) +
     labs(title = &quot;Cumulative Water&quot;, subtitle = &quot;Simulator&quot;,
          y = &quot;Cumulative Water, sm3&quot;)</code></pre>
-<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="calculate-cumulatives-for-oil-gas-and-water-for-monthly-period" class="section level3">
 <h3>Calculate cumulatives for oil, gas and water for monthly period</h3>
@@ -845,7 +847,7 @@ ggplot(hist_cumulatives_dt_gather, aes(x = date, y = value, color = var)) +
              labeller = as_labeller(facet_labels)) +
   labs(title = &quot;Monthly fluid Volumes, m3&quot;, 
        subtitle = &quot;Historical Production&quot;, y = &quot;&quot;, x = &quot;&quot;)</code></pre>
-<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-38-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-39-1.png" width="576" style="display: block; margin: auto;" /></p>
 </div>
 <div id="save-historical-cumulatives-with-fixed-dates" class="section level3">
 <h3>Save historical cumulatives with fixed dates</h3>
@@ -879,7 +881,7 @@ p3 &lt;- ggplot(hist_cumulatives_dt, aes(x = date, y = cum_wat)) +
     ggtitle(&quot;Cumulative Water, sm3&quot;, subtitle = &quot;Historical Production&quot;)
 
 grid.arrange(p1, p2, p3, ncol =1)</code></pre>
-<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-40-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-41-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
 <div id="rename-the-variables-according-to-source" class="section level3">
 <h3>Rename the variables according to source</h3>
@@ -947,7 +949,7 @@ ggplot(cumulatives_all) +
          subtitle = &quot;Historical vs Simulator&quot;, 
          y = &quot;cumulative oil, sm3&quot;) +
     scale_color_manual(name = &quot;Curve&quot;, values = cols)  # manual legend</code></pre>
-<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-42-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-43-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="cumulative-gas.-historical-vs-simulator" class="section level3">
 <h3>Cumulative gas. Historical vs simulator</h3>
@@ -964,7 +966,7 @@ ggplot(cumulatives_all) +
          subtitle = &quot;Historical vs Simulator&quot;, 
          y = &quot;cumulative gas, sm3&quot;) +
     scale_color_manual(name = &quot;Curve&quot;, values = cols)  # manual legend</code></pre>
-<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-43-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-44-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="cumulative-water.-historical-vs-simulator" class="section level3">
 <h3>Cumulative water. Historical vs simulator</h3>
@@ -981,7 +983,7 @@ ggplot(cumulatives_all) +
          subtitle = &quot;Historical vs Simulator&quot;, 
          y = &quot;cumulative water, sm3&quot;) +
     scale_color_manual(name = &quot;Curve&quot;, values = cols)  # manual legend</code></pre>
-<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-44-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="/publications/2019-03-12-a-reproducible-study-of-the-volve-reservoir-model_files/figure-html/unnamed-chunk-45-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p><strong>Note.</strong> This last plot for the cumulative water has been observed different when another reservoir engineer <a href="https://www.linkedin.com/in/konstantin-sermyagin/?lipi=urn%3Ali%3Apage%3Ad_flagship3_messaging%3BMkGp%2FisTS7ehrKLYwnd%2Frw%3D%3D&amp;licu=urn%3Ali%3Acontrol%3Ad_flagship3_messaging-view_profile">Konstantin Sermyagin</a> was able to read directly from the Eclipse <strong>binary</strong> files. I have checked the cumulative water from the simulator and it has been properly extracted and transformed. Still, I have some doubts about the extraction of the cumulative water because the outflow doesn’t seem to originate from connate water but from injection water as well. If you download the Eclipse <strong>PRT</strong> file, please, take a look at the <strong>BALANCE AT</strong> blocks. Try to identify the variable corresponding to connate water only. I am not sure why Eclipse does not make a distinction between the two sources of water.</p>
 </div>
 </div>
@@ -990,6 +992,11 @@ ggplot(cumulatives_all) +
 <ul>
 <li><p><a href="https://zenodo.org/record/2586212">Volve 2016 dataset for reservoir simulation model. Compressed PRT output as zip file</a>. Zenodo</p></li>
 <li><p><a href="https://zenodo.org/record/2586209">Volve 2016 reservoir simulation PRT output file</a>. Zenodo.</p></li>
+<li><p><a href="https://github.com/f0nzie/volve-reservoir-model-evolution/raw/master/data/data_from_step.CSV">data_from_step.CSV</a>: data from STEP block.</p></li>
+<li><p><a href="https://github.com/f0nzie/volve-reservoir-model-evolution/raw/master/data/field_totals_balance.CSV">field_totals_balance.CSV</a>: save the field totals from BALANCE block.</p></li>
+<li><p><a href="https://github.com/f0nzie/volve-reservoir-model-evolution/raw/master/data/hist_cumulatives_104.CSV">hist_cumulatives_104.CSV</a>: historical data after data transformations. 104 rows.</p></li>
+<li><p><a href="https://github.com/f0nzie/volve-reservoir-model-evolution/raw/master/data/hist_cumulatives_dt.CSV">hist_cumulatives_dt.CSV</a>: historical data with complete dates. 106 rows.</p></li>
+<li><p><a href="https://github.com/f0nzie/volve-reservoir-model-evolution/raw/master/data/production_history_raw.CSV">production_history.CSV</a>: Production history read from Excel file. Raw.</p></li>
 </ul>
 </div>
 </div>
