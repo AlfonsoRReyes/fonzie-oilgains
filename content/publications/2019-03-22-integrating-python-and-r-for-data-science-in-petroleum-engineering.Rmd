@@ -1,0 +1,160 @@
+---
+title: Integrating Python and R for data science in Petroleum Engineering
+author: Alfonso R. Reyes
+date: '2019-03-22'
+slug: integrating-python-and-r-for-data-science-in-petroleum-engineering
+categories:
+  - Volve
+  - reservoir simulation
+  - computer science
+tags: []
+image: recl_cover.png
+---
+
+```{r setup, include = FALSE, error=TRUE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      comment = "#>",
+                      collapse = TRUE,
+                      error = TRUE,
+                      warning = FALSE,
+                      message = FALSE,
+                      fig.align = 'center',
+                      autodep=FALSE
+                      )
+
+```
+
+
+## Volve dataset: Converting Eclipse binary files to dataframes
+
+
+## Introduction
+Python and R offer a good combination of powers: dozens of proven engineering, data science, and machine learning libraries, and a science oriented approach towards full reproducibility. As I have told you before, I started my coding journey with Python many years ago. I even wrote a large application for production optimization using __OpenServer__, Prosper, GAP and MBAL by Petroleum Experts while I was on my 3-year tour with Petronas in Kuala Lumpur in Malaysia. I could have written the whole application in R but it was too big a challenge at that moment, and I needed to start coding immediately. R is very rewarding in many aspect of the data science workflow but the learning curve is very steep. Later, with more time, with no pressure of increasing oil production at those bad years of 2014-2015, I could dedicate more time to learning R.
+
+## Motivation
+One of the main motivations for this work is spreading _reproducible data science_ to my fellow petroleum engineers. When I say reproducible I mean as a minimum making code, dataset and repository available for others so they can make their independent verification of your work.
+
+Part of that mission was starting to work on the Volve dataset that was so genereously donated to the public domain by __Equinor__. I don't words enough to thank to that pioneering decision. It will surely create avenues of innovations for data science, machine learning and artificial intelligence in petroleum engineering.
+
+During the __Volve__ reservoir model investigation I hit a huge roadblock: not counting with the appropriate tools to open the __Eclipse__ binary files that are part of the output of the simulation. So, I went for the __PRT__ file, which is a big file full of text. This file is fine if you are just doing a quick review. As you enter in more details and want to know more about the model, you feel you are missing lots of data: the data that is in binary format. Without the Eclipse software at hand, we have to get resourceful. The PRT was part of that but it started to give misleading and contraditory information. A reservoir engineer in the LinkedIn forums noticed a problem with the cumulative water between my __dataframe__ readings and his Python conversion tool called __pyrestools__. He volunteered his code to confirm our suspicions, and we found that indeed, the data in the PRT file was incomplete on the aspect of the produced water. In the following articles I will show where was the source of error and we did to correct it.
+
+
+## The main character: the Python class `EclBinaryParser`
+
+All this integration between Python and R is due to these main reasons:
+
+* I like more R for data intensive operations, besides I have all my development and data science reproducible setup to work with R and RStudio.
+* There are very good Python libraries out there that we wish we could be using every day but they require that you to switch to a different environment.
+* If the conversion of a Python library is possible, it would take days or weeks before we could have it available for our main purpose which is **using the reservoir model data for history matching**. 
+
+By integrating Python and R, we get the best of both worlds: abundant engineering **Python** libraries and a flexible scientific platform to attain full reproducibility which is **R** known for.
+
+Thanks to the work of [Konstantin Sermyagin](https://www.linkedin.com/in/konstantin-sermyagin/?lipi=urn%3Ali%3Apage%3Ad_flagship3_messaging%3Bx7NtNuMaQbmtf5G5AFiJSw%3D%3D&licu=urn%3Ali%3Acontrol%3Ad_flagship3_messaging-view_profile), a reservoir engineer, who wrote `pyrestools`, is that today we are able to have this R package doing the binary file conversion to continue the work on the Volve dataset and the _fabrication of the artificial intelligent agent_.
+
+## Mingling of Python and R 
+
+I am starting this series of articles on integration of Python and R by doing it with an R package. Why? Because it makes you more organized in your folder structure. This is the root of a project called rEcl: 
+
+![](/img/1553228256005.png)
+
+This is very typical in an R package. You may see additional folders but the structure is basically the same. This setup is very simple.
+
+### The python files
+
+The Python files live under the folder I named `python`. You can call it anything else, but I preferred this because it tells me imm4ediately where the Python code lives. This is no mandatory but more of a suggestion.
+
+![](/img/1553228466310.png))
+
+What you will see next is what resembles a Python project with several folders and files. The ones we are interested in now is the folder `restools` and `volve`. Don't mind the other folders and files for the moment. We will explain them in few minutes.
+
+The folder `restools` is where our Python package resides. The main module is `binary_parser.py`. That script will call all of the rest Python submodules using `import`.
+
+![](/img/1553228714912.png)
+
+Another folder of interest for our reservoir modeling toolbox is `postprocess`. This folder contain additional Python modules that are used by the class `EclBinaryParser`.
+
+![](/img/1553229530675.png)
+
+Don't mind much about them yet. You will have plenty of time later.
+
+Now, our main goal is to get the package `restools` called from R to make use of all its classes, methods and functions. That's the mission. If you can follow this workflow, you will be able to replicate this same structure for loading even more complex Python packages.
+
+Another folder of interest is the unit tests folder `tests`. I know. You may not use very much to them but they are a must for **robust** code and reproducibility. Once you learn how to use them you will not be able to live without **unit tests**. 
+
+![](/img/1553229794925.png)
+
+There are only two files here that contain few unit tests for functions that I added and also understand the output of existing functions in `restools`:
+
+* `test_class_vectors.py`
+* `test_read_vectors.py`
+
+We will not do anything with them in this tutorial but you should know that they were instrumental for making this package work with R.
+
+## The Volve files
+
+The Volve files from the Eclipse reservoir model execution are located under the `volve` folder. They are also in Github but they were excluded from the package `rEcl` because they were just too big. These are the Eclipse binary output files:
+
+![](/img/1553230733087.png)
+
+But because I wanted some files to test with, I included few files from the **SPE6** reservoir model. They are much smaller, not as complex as Volve but they still serve the purpose of illustrating the conversion from binary files to dataframes.
+
+![](/img/1553230864754.png)
+
+# Setting up the environment
+
+In broad terms, we will install three main groups of software to get this working: (i) Anaconda **Python** 3; (ii) **R** 3.5.3 + **Rtools** 3.5 + **RStudio** 1.2+; (iii) **PyCharm** Community 2018.
+
+All this software is open source and you can download them by googling the title of the application and the word *download*. All of them are easy to install in a PC with Windows 7 or Windows 10, preferably running at 64-bits.
+
+I am not going to enter into the details of each installation because there are dozens, if not hundreds, of tutorial on how to install each of applications.
+
+
+1. Install Python Anaconda. I recommend Anaconda3 for 64-bits.
+
+2. Create a Conda environment with these minimum requirements. You may call this environment **pyres**.
+
+   1. Python 3.6
+   2. Install pandas and numpy
+   3. Optional: install the packages notebook and jupyter
+
+   The last two items can be installed from the Anaconda Navigator or from the Windows terminal corresponding to the environment we just created.
+
+3. Install the R suite
+
+   1. Install R 3.5.3. This is very easy. Just follow the instructions. Select to add R to your path.
+   
+   2. Install Rtools. Also simple installation. This will take care of compiling from source any R package.
+   
+   3. Install RStudio 1.2+. This is not an official release of RStudio but rather a preview. I am using this version and is as solid as any of the production releases. The main reason for using this version is the interaction with Python and Python chunks in Rmarkdown notebooks. The ability of sharing variables between Python chunks in notebooks is not available in RStudio 1.1.
+
+4. Clone the R package `rEcl` from Github to your local drive. You can also download the package as a zip file. Unzip the file and put it anywhere you want. You can also leave it at your Downloads folder and do the rest of the operations from there.
+
+   ![](/img/1553226936278.png)
+
+5. Once you have your folder with the package rEcl in order, double-click on the file `rEcl.Rpoj`. If you have installed your R and RStudio, an R project will automatically open.
+
+![](/img/1553227195925.png)
+
+6. You will build the package from the RStudio interface by clicking on **Install and Restart** on the **Build ** tab as shown in the figure. 
+
+   ![](/img/1553227369051.png)
+
+7. RStudio may ask you to install some dependencies. Accept that and continue with the installation. You should see some results like this in the figure, showing that everything built fine. At this moment you have the R package installed.
+
+   ![](/img/1553227466414.png)
+
+8. Remember that one of the first steps was installing a Conda environment **pyres** with just two dependencies: `numpy `and `pandas`. The first thing we will do is testing the `README.Rmd` file. This is at the root of your package project. 
+   ![](/img/1553227727820.png)
+
+   Click on it and click on the icon `Knit:`
+   ![](/img/1553227824887.png)
+
+9. If your Python environment was correctly installed you should see the README building as a HTML file.
+
+
+
+
+
+
+
+
