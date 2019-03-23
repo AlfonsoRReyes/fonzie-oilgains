@@ -8,7 +8,7 @@ categories:
   - reservoir simulation
   - computer science
 tags: []
-image: recl_cover.png
+image: recl_cover_new.png
 ---
 
 ```{r setup, include = FALSE, error=TRUE, message=FALSE, warning=FALSE}
