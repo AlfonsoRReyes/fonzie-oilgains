@@ -16,7 +16,7 @@ Found this interesting article in LinkedIn:
 [WORKING WITH 3D SEISMIC DATA IN PYTHON USING SEGYIO AND NUMPY (MOSTLY)](https://mycarta.wordpress.com/2019/03/12/working-with-3d-seismic-data-in-python-using-segyio-and-numpy-mostly/) by Matteo Nicoli. It comes with code, Python notebook and [repository](https://github.com/mycarta/faults).
 
 
-[![](/img/matteo_nicoli_seismic.png.png)](/img/matteo_nicoli_seismic.pngn.png)
+[![](/img/matteo_nicoli_seismic.png)](/img/matteo_nicoli_seismic.png)
 
 __Keywords__:  segyio, seismic, python, notebook
 
