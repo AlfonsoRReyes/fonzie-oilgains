@@ -11,7 +11,8 @@ ignoreFiles = ["\\.Rmd$", "_files$", "_cache$", "external$"]
 # local = false
 # buildFuture = true
 
-[blackfriday] hrefTargetBlank = true  # allows new tab on links
+# [blackfriday] hrefTargetBlank = true  # allows new tab on links
+
 
 [params]
 
