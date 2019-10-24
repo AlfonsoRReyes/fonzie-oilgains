@@ -22,3 +22,5 @@ First practical application that I know of using the next thing after TPUs (Tens
 ## References:
 
 * [Post](https://www.linkedin.com/posts/andrewlongoz_machinelearning-deeplearning-neuralnetworks-activity-6593100611263303680-UMIL)
+
+* [Article]()
