@@ -21,11 +21,10 @@ hrefTargetBlank = true  # allows new tab on links
 date_format = "2 January 2006"
 
 # Number of posts to show on main page.
-posts_count = 3
-
+posts_count = 4
 # Number of publications to show on main page.
 pubs_count = 4
-pubs_cover_count = 3
+pubs_cover_count = 4
 
 # Number of posts to show on main page.
 portfolio_count = 4
