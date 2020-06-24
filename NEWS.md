@@ -4,6 +4,7 @@
 * realign code under `layouts/index.html`
 * add div class for post summary
 * remove remnant div at the end of index.html
+* add More button to posts
 
 # 0.1.13
 * 24 Jun 2020
