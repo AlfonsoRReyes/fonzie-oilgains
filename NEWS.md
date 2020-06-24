@@ -1,3 +1,10 @@
+# 0.1.13
+* 24 Jun 2020
+* Fix empty summaries. Change old ``.Data.Pages.ByDate` to `.Site.RegularPages.ByDate` in page /hyndman/layouts/index.html
+* Rebuild in Linux machine under R-3.6.3
+* Improve Makefile. Enable rsync and clean rules
+
+
 # 0.1.12
 * 01 Feb 2019
 * Recreate symbolic link to witsml because it was giving error. Let's not use symbolic link clone anymore.

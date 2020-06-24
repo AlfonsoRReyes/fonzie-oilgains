@@ -156,7 +156,7 @@ xml_name(dat)
 #&gt; [1] &quot;trajectorys&quot;
 xml_children(dat)
 #&gt; {xml_nodeset (1)}
-#&gt; [1] &lt;trajectory uidWell=&quot;432612d4-7a1b-464d-b89a-9783d4606a96&quot; uidWellbo ...
+#&gt; [1] &lt;trajectory uidWell=&quot;432612d4-7a1b-464d-b89a-9783d4606a96&quot; uidWellbore=&quot;d ...
 
 # name of the child node
 xml_name(xml_children(dat))
@@ -278,10 +278,8 @@ xml_siblings(trajectorys)    # no siblings because it is the root
 <pre class="r"><code># attributes of the trajectory node
 trajectory &lt;- xml_find_first( dat, &quot;//trajectory&quot;)
 xml_attrs(trajectory)
-#&gt;                                uidWell 
-#&gt; &quot;432612d4-7a1b-464d-b89a-9783d4606a96&quot; 
-#&gt;                            uidWellbore 
-#&gt; &quot;d1c7a0d7-afa6-487e-aa4a-e34adc091a9c&quot; 
+#&gt;                                uidWell                            uidWellbore 
+#&gt; &quot;432612d4-7a1b-464d-b89a-9783d4606a96&quot; &quot;d1c7a0d7-afa6-487e-aa4a-e34adc091a9c&quot; 
 #&gt;                                    uid 
 #&gt;                              &quot;4VIRG33&quot;
 
@@ -459,18 +457,14 @@ how_many_children &lt;- function(xml_dat, node) {
 <p>Testing the function <code>how_many_children</code>.</p>
 <pre class="r"><code># test the function how_many_children()
 how_many_children(dat, &quot;trajectory&quot;)
-#&gt;           nameWell       nameWellbore               name 
-#&gt;                  0                  0                  0 
-#&gt;      objectGrowing      dTimTrajStart        dTimTrajEnd 
-#&gt;                  0                  0                  0 
-#&gt;               mdMn               mdMx        magDeclUsed 
-#&gt;                  0                  0                  0 
-#&gt;        gridCorUsed        aziVertSect dispNsVertSectOrig 
-#&gt;                  0                  0                  0 
-#&gt; dispEwVertSectOrig             aziRef  trajectoryStation 
-#&gt;                  0                  0                 20 
-#&gt;         commonData 
-#&gt;                  7</code></pre>
+#&gt;           nameWell       nameWellbore               name      objectGrowing 
+#&gt;                  0                  0                  0                  0 
+#&gt;      dTimTrajStart        dTimTrajEnd               mdMn               mdMx 
+#&gt;                  0                  0                  0                  0 
+#&gt;        magDeclUsed        gridCorUsed        aziVertSect dispNsVertSectOrig 
+#&gt;                  0                  0                  0                  0 
+#&gt; dispEwVertSectOrig             aziRef  trajectoryStation         commonData 
+#&gt;                  0                  0                 20                  7</code></pre>
 <blockquote>
 <p>Note that only two variables have children or dependents.</p>
 </blockquote>
@@ -501,14 +495,12 @@ have_no_children &lt;- function(xml_dat, node) {
 <h3>test for nodes and dependents</h3>
 <p>Now we can easily find what nodes are childless</p>
 <pre class="r"><code>have_no_children(dat, &quot;trajectory&quot;)
-#&gt;           nameWell       nameWellbore               name 
-#&gt;                  0                  0                  0 
-#&gt;      objectGrowing      dTimTrajStart        dTimTrajEnd 
-#&gt;                  0                  0                  0 
-#&gt;               mdMn               mdMx        magDeclUsed 
-#&gt;                  0                  0                  0 
-#&gt;        gridCorUsed        aziVertSect dispNsVertSectOrig 
-#&gt;                  0                  0                  0 
+#&gt;           nameWell       nameWellbore               name      objectGrowing 
+#&gt;                  0                  0                  0                  0 
+#&gt;      dTimTrajStart        dTimTrajEnd               mdMn               mdMx 
+#&gt;                  0                  0                  0                  0 
+#&gt;        magDeclUsed        gridCorUsed        aziVertSect dispNsVertSectOrig 
+#&gt;                  0                  0                  0                  0 
 #&gt; dispEwVertSectOrig             aziRef 
 #&gt;                  0                  0</code></pre>
 <p>List only the names of the variables that have no children.</p>
@@ -526,20 +518,18 @@ have_no_children &lt;- function(xml_dat, node) {
 <h3>Get trajectoryStation children. Method 1</h3>
 <pre class="r"><code># names of the children for &quot;trajectoryStation&quot;
 xml_name(xml_children(xml_find_first( dat, &quot;//trajectory/trajectoryStation&quot;)))
-#&gt;  [1] &quot;dTimStn&quot;         &quot;typeTrajStation&quot; &quot;md&quot;             
-#&gt;  [4] &quot;tvd&quot;             &quot;incl&quot;            &quot;azi&quot;            
-#&gt;  [7] &quot;dispNs&quot;          &quot;dispEw&quot;          &quot;vertSect&quot;       
-#&gt; [10] &quot;dls&quot;             &quot;commonData&quot;</code></pre>
+#&gt;  [1] &quot;dTimStn&quot;         &quot;typeTrajStation&quot; &quot;md&quot;              &quot;tvd&quot;            
+#&gt;  [5] &quot;incl&quot;            &quot;azi&quot;             &quot;dispNs&quot;          &quot;dispEw&quot;         
+#&gt;  [9] &quot;vertSect&quot;        &quot;dls&quot;             &quot;commonData&quot;</code></pre>
 </div>
 <div id="get-trajectorystation-children.-method-2" class="section level3">
 <h3>Get trajectoryStation children. Method 2</h3>
 <p>This yields the same result:</p>
 <pre class="r"><code># names of the nodes for &quot;trajectoryStation&quot;
 xml_name(xml_children(xml_find_first(dat, &quot;//trajectoryStation&quot;)))
-#&gt;  [1] &quot;dTimStn&quot;         &quot;typeTrajStation&quot; &quot;md&quot;             
-#&gt;  [4] &quot;tvd&quot;             &quot;incl&quot;            &quot;azi&quot;            
-#&gt;  [7] &quot;dispNs&quot;          &quot;dispEw&quot;          &quot;vertSect&quot;       
-#&gt; [10] &quot;dls&quot;             &quot;commonData&quot;</code></pre>
+#&gt;  [1] &quot;dTimStn&quot;         &quot;typeTrajStation&quot; &quot;md&quot;              &quot;tvd&quot;            
+#&gt;  [5] &quot;incl&quot;            &quot;azi&quot;             &quot;dispNs&quot;          &quot;dispEw&quot;         
+#&gt;  [9] &quot;vertSect&quot;        &quot;dls&quot;             &quot;commonData&quot;</code></pre>
 </div>
 <div id="get-attributes-of-trajectorystation" class="section level3">
 <h3>Get attributes of trajectoryStation</h3>
@@ -564,10 +554,9 @@ length(trajectoryStation.dTimStn)
 <p>This is asking for variables in the first node:</p>
 <pre class="r"><code># name of the dependent nodes of &quot;trajectoryStation&quot;
 xml_name(xml_children(xml_find_first(dat, &quot;//trajectoryStation&quot;)))
-#&gt;  [1] &quot;dTimStn&quot;         &quot;typeTrajStation&quot; &quot;md&quot;             
-#&gt;  [4] &quot;tvd&quot;             &quot;incl&quot;            &quot;azi&quot;            
-#&gt;  [7] &quot;dispNs&quot;          &quot;dispEw&quot;          &quot;vertSect&quot;       
-#&gt; [10] &quot;dls&quot;             &quot;commonData&quot;</code></pre>
+#&gt;  [1] &quot;dTimStn&quot;         &quot;typeTrajStation&quot; &quot;md&quot;              &quot;tvd&quot;            
+#&gt;  [5] &quot;incl&quot;            &quot;azi&quot;             &quot;dispNs&quot;          &quot;dispEw&quot;         
+#&gt;  [9] &quot;vertSect&quot;        &quot;dls&quot;             &quot;commonData&quot;</code></pre>
 <p>This is asking for variables for all the nodes and taking only the unique names, those that do not repeat:</p>
 <pre class="r"><code># name of the dependent nodes of &quot;trajectoryStation&quot;
 unique(xml_name(xml_children(xml_find_all(dat, &quot;//trajectoryStation&quot;))))
@@ -651,10 +640,10 @@ trajectory_attr_dt &lt;- data.table(t(trajectory))
 
 trajectory_attr_df &lt;- data.frame(t(trajectory), stringsAsFactors = FALSE)
 trajectory_attr_df
-#&gt;                                uidWell
-#&gt; 1 432612d4-7a1b-464d-b89a-9783d4606a96
-#&gt;                            uidWellbore     uid
-#&gt; 1 d1c7a0d7-afa6-487e-aa4a-e34adc091a9c 4VIRG33</code></pre>
+#&gt;                                uidWell                          uidWellbore
+#&gt; 1 432612d4-7a1b-464d-b89a-9783d4606a96 d1c7a0d7-afa6-487e-aa4a-e34adc091a9c
+#&gt;       uid
+#&gt; 1 4VIRG33</code></pre>
 <pre class="r"><code># This is the same way of getting a dataframe for trajectory
 # get values for all the attributes of the trajectory node
 # using magrittr
@@ -662,10 +651,10 @@ xml_find_first( dat, &quot;//trajectory&quot;) %&gt;%
     xml_attrs() %&gt;% 
     t() %&gt;% 
     data.frame(stringsAsFactors = FALSE)
-#&gt;                                uidWell
-#&gt; 1 432612d4-7a1b-464d-b89a-9783d4606a96
-#&gt;                            uidWellbore     uid
-#&gt; 1 d1c7a0d7-afa6-487e-aa4a-e34adc091a9c 4VIRG33</code></pre>
+#&gt;                                uidWell                          uidWellbore
+#&gt; 1 432612d4-7a1b-464d-b89a-9783d4606a96 d1c7a0d7-afa6-487e-aa4a-e34adc091a9c
+#&gt;       uid
+#&gt; 1 4VIRG33</code></pre>
 </div>
 <div id="siblings-of-trajectorystation" class="section level2">
 <h2>Siblings of <code>trajectoryStation</code></h2>
@@ -701,11 +690,10 @@ print(as_tibble(trajectory_df))
 #&gt; # A tibble: 1 x 17
 #&gt;   uidWell uidWellbore uid   nameWell nameWellbore name  objectGrowing
 #&gt;   &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;        
-#&gt; 1 432612~ d1c7a0d7-a~ 4VIR~ NO 15/9~ NO 15/9-F-9~ MWD-~ false        
-#&gt; # ... with 10 more variables: dTimTrajStart &lt;chr&gt;, dTimTrajEnd &lt;chr&gt;,
-#&gt; #   mdMn &lt;chr&gt;, mdMx &lt;chr&gt;, magDeclUsed &lt;chr&gt;, gridCorUsed &lt;chr&gt;,
-#&gt; #   aziVertSect &lt;chr&gt;, dispNsVertSectOrig &lt;chr&gt;, dispEwVertSectOrig &lt;chr&gt;,
-#&gt; #   aziRef &lt;chr&gt;</code></pre>
+#&gt; 1 432612… d1c7a0d7-a… 4VIR… NO 15/9… NO 15/9-F-9… MWD-… false        
+#&gt; # … with 10 more variables: dTimTrajStart &lt;chr&gt;, dTimTrajEnd &lt;chr&gt;, mdMn &lt;chr&gt;,
+#&gt; #   mdMx &lt;chr&gt;, magDeclUsed &lt;chr&gt;, gridCorUsed &lt;chr&gt;, aziVertSect &lt;chr&gt;,
+#&gt; #   dispNsVertSectOrig &lt;chr&gt;, dispEwVertSectOrig &lt;chr&gt;, aziRef &lt;chr&gt;</code></pre>
 </div>
 </div>
 <div id="trajectorystation-measurements" class="section level2">
@@ -831,22 +819,22 @@ tS_df &lt;- as.data.frame(li_vars, stringsAsFactors = FALSE)</code></pre>
 <pre class="r"><code># print the table for trajectoryStation
 print(as_tibble(tS_df))
 #&gt; # A tibble: 25 x 18
-#&gt;    dTimStn typeTrajStation md    tvd   incl  azi   dispNs dispEw vertSect
-#&gt;    &lt;chr&gt;   &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   
-#&gt;  1 2016-0~ tie in point    0     0     0     0     0      0      0       
-#&gt;  2 2016-0~ gyro north see~ 145.~ 145.~ 0     0     0      0      0       
-#&gt;  3 2016-0~ gyro north see~ 218.5 218.~ 0.00~ 3.44~ -0.15~ -0.04~ -0.1573~
-#&gt;  4 2016-0~ gyro north see~ 259   258.~ 0.00~ 4.45~ -0.26~ -0.13~ -0.2612~
-#&gt;  5 2016-0~ gyro north see~ 299.5 299.~ 0.00~ 4.20~ -0.33~ -0.30~ -0.3375~
-#&gt;  6 2016-0~ gyro north see~ 340   339.~ 0.00~ 0.61~ -0.27~ -0.32~ -0.2703~
-#&gt;  7 2016-0~ gyro north see~ 394.~ 394.~ 0.00~ 6.00~ 0.060~ -0.25~ 0.06012~
-#&gt;  8 2016-0~ gyro north see~ 420.~ 420.~ 0.00~ 6.15~ 0.215~ -0.28~ 0.21588~
-#&gt;  9 2016-0~ gyro north see~ 454.~ 454.~ 0.08~ 3.45~ -1.01~ -0.72~ -1.0151~
-#&gt; 10 2016-0~ gyro north see~ 497.~ 497.~ 0.15~ 3.48~ -5.80~ -2.36~ -5.8030~
-#&gt; # ... with 15 more rows, and 9 more variables: dls &lt;chr&gt;,
-#&gt; #   typeSurveyTool &lt;chr&gt;, rateTurn &lt;chr&gt;, rateBuild &lt;chr&gt;,
-#&gt; #   gravAccelCorUsed &lt;chr&gt;, magXAxialCorUsed &lt;chr&gt;, sagCorUsed &lt;chr&gt;,
-#&gt; #   magDrlstrCorUsed &lt;chr&gt;, statusTrajStation &lt;chr&gt;</code></pre>
+#&gt;    dTimStn typeTrajStation md    tvd   incl  azi   dispNs dispEw vertSect dls  
+#&gt;    &lt;chr&gt;   &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt;
+#&gt;  1 2016-0… tie in point    0     0     0     0     0      0      0        0    
+#&gt;  2 2016-0… gyro north see… 145.… 145.… 0     0     0      0      0        0    
+#&gt;  3 2016-0… gyro north see… 218.5 218.… 0.00… 3.44… -0.15… -0.04… -0.1573… 6.25…
+#&gt;  4 2016-0… gyro north see… 259   258.… 0.00… 4.45… -0.26… -0.13… -0.2612… 9.68…
+#&gt;  5 2016-0… gyro north see… 299.5 299.… 0.00… 4.20… -0.33… -0.30… -0.3375… 7.81…
+#&gt;  6 2016-0… gyro north see… 340   339.… 0.00… 0.61… -0.27… -0.32… -0.2703… 0.00…
+#&gt;  7 2016-0… gyro north see… 394.… 394.… 0.00… 6.00… 0.060… -0.25… 0.06012… 0.00…
+#&gt;  8 2016-0… gyro north see… 420.… 420.… 0.00… 6.15… 0.215… -0.28… 0.21588… 3.48…
+#&gt;  9 2016-0… gyro north see… 454.… 454.… 0.08… 3.45… -1.01… -0.72… -1.0151… 0.00…
+#&gt; 10 2016-0… gyro north see… 497.… 497.… 0.15… 3.48… -5.80… -2.36… -5.8030… 0.00…
+#&gt; # … with 15 more rows, and 8 more variables: typeSurveyTool &lt;chr&gt;,
+#&gt; #   rateTurn &lt;chr&gt;, rateBuild &lt;chr&gt;, gravAccelCorUsed &lt;chr&gt;,
+#&gt; #   magXAxialCorUsed &lt;chr&gt;, sagCorUsed &lt;chr&gt;, magDrlstrCorUsed &lt;chr&gt;,
+#&gt; #   statusTrajStation &lt;chr&gt;</code></pre>
 <pre class="r"><code>names(tS_df)
 #&gt;  [1] &quot;dTimStn&quot;           &quot;typeTrajStation&quot;   &quot;md&quot;               
 #&gt;  [4] &quot;tvd&quot;               &quot;incl&quot;              &quot;azi&quot;              
@@ -918,22 +906,22 @@ num_trajectoryStation &lt;- get_numrows_parent_node(dat, &quot;trajectoryStation
 tS.trajectoryStation_df &lt;- nodes_as_df(dat, &quot;trajectoryStation&quot;, num_trajectoryStation)
 as_tibble(tS.trajectoryStation_df)
 #&gt; # A tibble: 25 x 18
-#&gt;    dTimStn typeTrajStation md    tvd   incl  azi   dispNs dispEw vertSect
-#&gt;    &lt;chr&gt;   &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   
-#&gt;  1 2016-0~ tie in point    0     0     0     0     0      0      0       
-#&gt;  2 2016-0~ gyro north see~ 145.~ 145.~ 0     0     0      0      0       
-#&gt;  3 2016-0~ gyro north see~ 218.5 218.~ 0.00~ 3.44~ -0.15~ -0.04~ -0.1573~
-#&gt;  4 2016-0~ gyro north see~ 259   258.~ 0.00~ 4.45~ -0.26~ -0.13~ -0.2612~
-#&gt;  5 2016-0~ gyro north see~ 299.5 299.~ 0.00~ 4.20~ -0.33~ -0.30~ -0.3375~
-#&gt;  6 2016-0~ gyro north see~ 340   339.~ 0.00~ 0.61~ -0.27~ -0.32~ -0.2703~
-#&gt;  7 2016-0~ gyro north see~ 394.~ 394.~ 0.00~ 6.00~ 0.060~ -0.25~ 0.06012~
-#&gt;  8 2016-0~ gyro north see~ 420.~ 420.~ 0.00~ 6.15~ 0.215~ -0.28~ 0.21588~
-#&gt;  9 2016-0~ gyro north see~ 454.~ 454.~ 0.08~ 3.45~ -1.01~ -0.72~ -1.0151~
-#&gt; 10 2016-0~ gyro north see~ 497.~ 497.~ 0.15~ 3.48~ -5.80~ -2.36~ -5.8030~
-#&gt; # ... with 15 more rows, and 9 more variables: dls &lt;chr&gt;,
-#&gt; #   typeSurveyTool &lt;chr&gt;, rateTurn &lt;chr&gt;, rateBuild &lt;chr&gt;,
-#&gt; #   gravAccelCorUsed &lt;chr&gt;, magXAxialCorUsed &lt;chr&gt;, sagCorUsed &lt;chr&gt;,
-#&gt; #   magDrlstrCorUsed &lt;chr&gt;, statusTrajStation &lt;chr&gt;</code></pre>
+#&gt;    dTimStn typeTrajStation md    tvd   incl  azi   dispNs dispEw vertSect dls  
+#&gt;    &lt;chr&gt;   &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt;
+#&gt;  1 2016-0… tie in point    0     0     0     0     0      0      0        0    
+#&gt;  2 2016-0… gyro north see… 145.… 145.… 0     0     0      0      0        0    
+#&gt;  3 2016-0… gyro north see… 218.5 218.… 0.00… 3.44… -0.15… -0.04… -0.1573… 6.25…
+#&gt;  4 2016-0… gyro north see… 259   258.… 0.00… 4.45… -0.26… -0.13… -0.2612… 9.68…
+#&gt;  5 2016-0… gyro north see… 299.5 299.… 0.00… 4.20… -0.33… -0.30… -0.3375… 7.81…
+#&gt;  6 2016-0… gyro north see… 340   339.… 0.00… 0.61… -0.27… -0.32… -0.2703… 0.00…
+#&gt;  7 2016-0… gyro north see… 394.… 394.… 0.00… 6.00… 0.060… -0.25… 0.06012… 0.00…
+#&gt;  8 2016-0… gyro north see… 420.… 420.… 0.00… 6.15… 0.215… -0.28… 0.21588… 3.48…
+#&gt;  9 2016-0… gyro north see… 454.… 454.… 0.08… 3.45… -1.01… -0.72… -1.0151… 0.00…
+#&gt; 10 2016-0… gyro north see… 497.… 497.… 0.15… 3.48… -5.80… -2.36… -5.8030… 0.00…
+#&gt; # … with 15 more rows, and 8 more variables: typeSurveyTool &lt;chr&gt;,
+#&gt; #   rateTurn &lt;chr&gt;, rateBuild &lt;chr&gt;, gravAccelCorUsed &lt;chr&gt;,
+#&gt; #   magXAxialCorUsed &lt;chr&gt;, sagCorUsed &lt;chr&gt;, magDrlstrCorUsed &lt;chr&gt;,
+#&gt; #   statusTrajStation &lt;chr&gt;</code></pre>
 </div>
 <div id="part-3-of-4-of-the-trajectorystation-dataframe-commondata" class="section level3">
 <h3>Part 3 of 4 of the <code>trajectoryStation</code> dataframe: <code>commonData</code></h3>
@@ -950,19 +938,19 @@ xml_find_all(dat, xpath) %&gt;%
 tS.cD_df &lt;- nodes_as_df(xml_dat, node = &quot;trajectoryStation/commonData&quot;, max_obs = 25)
 as_tibble(tS.cD_df)
 #&gt; # A tibble: 25 x 5
-#&gt;    sourceName  dTimCreation    dTimLastChange   itemState priv_customData  
-#&gt;    &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;            &lt;chr&gt;     &lt;chr&gt;            
-#&gt;  1 Baker Hugh~ 2016-09-29T03:~ 2016-09-29T03:4~ actual    &lt;NA&gt;             
-#&gt;  2 Baker Hugh~ 2016-09-29T03:~ 2016-09-29T03:4~ actual    SurveyQC=3,Surve~
-#&gt;  3 Baker Hugh~ 2016-09-29T03:~ 2016-09-29T03:4~ actual    SurveyQC=3,Surve~
-#&gt;  4 Baker Hugh~ 2016-09-29T03:~ 2016-09-29T03:4~ actual    SurveyQC=3,Surve~
-#&gt;  5 Baker Hugh~ 2016-09-29T03:~ 2016-09-29T03:4~ actual    SurveyQC=3,Surve~
-#&gt;  6 Baker Hugh~ 2016-09-29T03:~ 2016-09-29T03:4~ actual    SurveyQC=3,Surve~
-#&gt;  7 Baker Hugh~ 2016-09-29T03:~ 2016-09-29T03:4~ actual    SurveyQC=3,Surve~
-#&gt;  8 Baker Hugh~ 2016-09-29T03:~ 2016-09-29T03:4~ actual    SurveyQC=3,Surve~
-#&gt;  9 Baker Hugh~ 2016-09-29T03:~ 2016-09-29T03:4~ actual    SurveyQC=3,Surve~
-#&gt; 10 Baker Hugh~ 2016-09-29T03:~ 2016-09-29T03:4~ actual    SurveyQC=3,Surve~
-#&gt; # ... with 15 more rows</code></pre>
+#&gt;    sourceName  dTimCreation      dTimLastChange     itemState priv_customData   
+#&gt;    &lt;chr&gt;       &lt;chr&gt;             &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;             
+#&gt;  1 Baker Hugh… 2016-09-29T03:43… 2016-09-29T03:43:… actual    &lt;NA&gt;              
+#&gt;  2 Baker Hugh… 2016-09-29T03:43… 2016-09-29T03:43:… actual    SurveyQC=3,Survey…
+#&gt;  3 Baker Hugh… 2016-09-29T03:43… 2016-09-29T03:43:… actual    SurveyQC=3,Survey…
+#&gt;  4 Baker Hugh… 2016-09-29T03:43… 2016-09-29T03:43:… actual    SurveyQC=3,Survey…
+#&gt;  5 Baker Hugh… 2016-09-29T03:43… 2016-09-29T03:43:… actual    SurveyQC=3,Survey…
+#&gt;  6 Baker Hugh… 2016-09-29T03:43… 2016-09-29T03:43:… actual    SurveyQC=3,Survey…
+#&gt;  7 Baker Hugh… 2016-09-29T03:43… 2016-09-29T03:43:… actual    SurveyQC=3,Survey…
+#&gt;  8 Baker Hugh… 2016-09-29T03:43… 2016-09-29T03:43:… actual    SurveyQC=3,Survey…
+#&gt;  9 Baker Hugh… 2016-09-29T03:43… 2016-09-29T03:43:… actual    SurveyQC=3,Survey…
+#&gt; 10 Baker Hugh… 2016-09-29T03:43… 2016-09-29T03:43:… actual    SurveyQC=3,Survey…
+#&gt; # … with 15 more rows</code></pre>
 </div>
 <div id="part-4-of-4-of-the-trajectorystation-dataframe-corused" class="section level3">
 <h3>Part 4 of 4 of the <code>trajectoryStation</code> dataframe: <code>corUsed</code></h3>
@@ -990,7 +978,7 @@ as_tibble(tS.cU_df)
 #&gt;  8 999.25         0              
 #&gt;  9 999.25         0              
 #&gt; 10 999.25         0              
-#&gt; # ... with 15 more rows</code></pre>
+#&gt; # … with 15 more rows</code></pre>
 </div>
 <div id="combined-dataframe-for-trajectorystation" class="section level3">
 <h3>Combined dataframe for <code>trajectoryStation</code></h3>
@@ -1014,24 +1002,24 @@ trajectoryStation_dt &lt;- data.table(trajectoryStation_df)</code></pre>
 <pre class="r"><code># print the combined table for trajectoryStation
 print(as_tibble(trajectoryStation_df))
 #&gt; # A tibble: 25 x 26
-#&gt;    uid   dTimStn typeTrajStation md    tvd   incl  azi   dispNs dispEw
-#&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; 
-#&gt;  1 4VIR~ 2016-0~ tie in point    0     0     0     0     0      0     
-#&gt;  2 325V~ 2016-0~ gyro north see~ 145.~ 145.~ 0     0     0      0     
-#&gt;  3 326V~ 2016-0~ gyro north see~ 218.5 218.~ 0.00~ 3.44~ -0.15~ -0.04~
-#&gt;  4 327V~ 2016-0~ gyro north see~ 259   258.~ 0.00~ 4.45~ -0.26~ -0.13~
-#&gt;  5 328V~ 2016-0~ gyro north see~ 299.5 299.~ 0.00~ 4.20~ -0.33~ -0.30~
-#&gt;  6 329V~ 2016-0~ gyro north see~ 340   339.~ 0.00~ 0.61~ -0.27~ -0.32~
-#&gt;  7 330V~ 2016-0~ gyro north see~ 394.~ 394.~ 0.00~ 6.00~ 0.060~ -0.25~
-#&gt;  8 331V~ 2016-0~ gyro north see~ 420.~ 420.~ 0.00~ 6.15~ 0.215~ -0.28~
-#&gt;  9 332V~ 2016-0~ gyro north see~ 454.~ 454.~ 0.08~ 3.45~ -1.01~ -0.72~
-#&gt; 10 333V~ 2016-0~ gyro north see~ 497.~ 497.~ 0.15~ 3.48~ -5.80~ -2.36~
-#&gt; # ... with 15 more rows, and 17 more variables: vertSect &lt;chr&gt;, dls &lt;chr&gt;,
-#&gt; #   typeSurveyTool &lt;chr&gt;, rateTurn &lt;chr&gt;, rateBuild &lt;chr&gt;,
-#&gt; #   gravAccelCorUsed &lt;chr&gt;, magXAxialCorUsed &lt;chr&gt;, sagCorUsed &lt;chr&gt;,
-#&gt; #   magDrlstrCorUsed &lt;chr&gt;, statusTrajStation &lt;chr&gt;, stnGridCorUsed &lt;chr&gt;,
-#&gt; #   dirSensorOffset &lt;chr&gt;, sourceName &lt;chr&gt;, dTimCreation &lt;chr&gt;,
-#&gt; #   dTimLastChange &lt;chr&gt;, itemState &lt;chr&gt;, priv_customData &lt;chr&gt;</code></pre>
+#&gt;    uid   dTimStn typeTrajStation md    tvd   incl  azi   dispNs dispEw vertSect
+#&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   
+#&gt;  1 4VIR… 2016-0… tie in point    0     0     0     0     0      0      0       
+#&gt;  2 325V… 2016-0… gyro north see… 145.… 145.… 0     0     0      0      0       
+#&gt;  3 326V… 2016-0… gyro north see… 218.5 218.… 0.00… 3.44… -0.15… -0.04… -0.1573…
+#&gt;  4 327V… 2016-0… gyro north see… 259   258.… 0.00… 4.45… -0.26… -0.13… -0.2612…
+#&gt;  5 328V… 2016-0… gyro north see… 299.5 299.… 0.00… 4.20… -0.33… -0.30… -0.3375…
+#&gt;  6 329V… 2016-0… gyro north see… 340   339.… 0.00… 0.61… -0.27… -0.32… -0.2703…
+#&gt;  7 330V… 2016-0… gyro north see… 394.… 394.… 0.00… 6.00… 0.060… -0.25… 0.06012…
+#&gt;  8 331V… 2016-0… gyro north see… 420.… 420.… 0.00… 6.15… 0.215… -0.28… 0.21588…
+#&gt;  9 332V… 2016-0… gyro north see… 454.… 454.… 0.08… 3.45… -1.01… -0.72… -1.0151…
+#&gt; 10 333V… 2016-0… gyro north see… 497.… 497.… 0.15… 3.48… -5.80… -2.36… -5.8030…
+#&gt; # … with 15 more rows, and 16 more variables: dls &lt;chr&gt;, typeSurveyTool &lt;chr&gt;,
+#&gt; #   rateTurn &lt;chr&gt;, rateBuild &lt;chr&gt;, gravAccelCorUsed &lt;chr&gt;,
+#&gt; #   magXAxialCorUsed &lt;chr&gt;, sagCorUsed &lt;chr&gt;, magDrlstrCorUsed &lt;chr&gt;,
+#&gt; #   statusTrajStation &lt;chr&gt;, stnGridCorUsed &lt;chr&gt;, dirSensorOffset &lt;chr&gt;,
+#&gt; #   sourceName &lt;chr&gt;, dTimCreation &lt;chr&gt;, dTimLastChange &lt;chr&gt;,
+#&gt; #   itemState &lt;chr&gt;, priv_customData &lt;chr&gt;</code></pre>
 </div>
 <div id="add-an-id-for-the-tables-relationship" class="section level3">
 <h3>Add an id for the tables relationship</h3>
@@ -1071,11 +1059,10 @@ names(trajectoryStation_dt)
 #&gt; # A tibble: 1 x 17
 #&gt;   uidWell uidWellbore uid   nameWell nameWellbore name  objectGrowing
 #&gt;   &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;        
-#&gt; 1 432612~ d1c7a0d7-a~ 4VIR~ NO 15/9~ NO 15/9-F-9~ MWD-~ false        
-#&gt; # ... with 10 more variables: dTimTrajStart &lt;chr&gt;, dTimTrajEnd &lt;chr&gt;,
-#&gt; #   mdMn &lt;chr&gt;, mdMx &lt;chr&gt;, magDeclUsed &lt;chr&gt;, gridCorUsed &lt;chr&gt;,
-#&gt; #   aziVertSect &lt;chr&gt;, dispNsVertSectOrig &lt;chr&gt;, dispEwVertSectOrig &lt;chr&gt;,
-#&gt; #   aziRef &lt;chr&gt;</code></pre>
+#&gt; 1 432612… d1c7a0d7-a… 4VIR… NO 15/9… NO 15/9-F-9… MWD-… false        
+#&gt; # … with 10 more variables: dTimTrajStart &lt;chr&gt;, dTimTrajEnd &lt;chr&gt;, mdMn &lt;chr&gt;,
+#&gt; #   mdMx &lt;chr&gt;, magDeclUsed &lt;chr&gt;, gridCorUsed &lt;chr&gt;, aziVertSect &lt;chr&gt;,
+#&gt; #   dispNsVertSectOrig &lt;chr&gt;, dispEwVertSectOrig &lt;chr&gt;, aziRef &lt;chr&gt;</code></pre>
 <p>We have one interesting thing going on. We have the <code>trajectory</code> dataframe that is one row and 17 columns (1x17), while <code>trajectoryStation</code> is 25 rows by 27 columns (25x27). How do we work them out in rectangular tables?</p>
 <p>We will have to join them. We will use an inner join in <code>data.table</code>.</p>
 <div id="join-trajectory-and-trajectorystation-dataframes" class="section level2">
@@ -1090,17 +1077,17 @@ t_9f9_dt &lt;- trajectory_dt[trajectoryStation_dt, nomatch=0] %&gt;%
 #&gt; # A tibble: 25 x 43
 #&gt;    uidWell uidWellbore uid   nameWell nameWellbore name  objectGrowing
 #&gt;    &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;        
-#&gt;  1 432612~ d1c7a0d7-a~ 4VIR~ NO 15/9~ NO 15/9-F-9~ MWD-~ false        
-#&gt;  2 432612~ d1c7a0d7-a~ 4VIR~ NO 15/9~ NO 15/9-F-9~ MWD-~ false        
-#&gt;  3 432612~ d1c7a0d7-a~ 4VIR~ NO 15/9~ NO 15/9-F-9~ MWD-~ false        
-#&gt;  4 432612~ d1c7a0d7-a~ 4VIR~ NO 15/9~ NO 15/9-F-9~ MWD-~ false        
-#&gt;  5 432612~ d1c7a0d7-a~ 4VIR~ NO 15/9~ NO 15/9-F-9~ MWD-~ false        
-#&gt;  6 432612~ d1c7a0d7-a~ 4VIR~ NO 15/9~ NO 15/9-F-9~ MWD-~ false        
-#&gt;  7 432612~ d1c7a0d7-a~ 4VIR~ NO 15/9~ NO 15/9-F-9~ MWD-~ false        
-#&gt;  8 432612~ d1c7a0d7-a~ 4VIR~ NO 15/9~ NO 15/9-F-9~ MWD-~ false        
-#&gt;  9 432612~ d1c7a0d7-a~ 4VIR~ NO 15/9~ NO 15/9-F-9~ MWD-~ false        
-#&gt; 10 432612~ d1c7a0d7-a~ 4VIR~ NO 15/9~ NO 15/9-F-9~ MWD-~ false        
-#&gt; # ... with 15 more rows, and 36 more variables: dTimTrajStart &lt;chr&gt;,
+#&gt;  1 432612… d1c7a0d7-a… 4VIR… NO 15/9… NO 15/9-F-9… MWD-… false        
+#&gt;  2 432612… d1c7a0d7-a… 4VIR… NO 15/9… NO 15/9-F-9… MWD-… false        
+#&gt;  3 432612… d1c7a0d7-a… 4VIR… NO 15/9… NO 15/9-F-9… MWD-… false        
+#&gt;  4 432612… d1c7a0d7-a… 4VIR… NO 15/9… NO 15/9-F-9… MWD-… false        
+#&gt;  5 432612… d1c7a0d7-a… 4VIR… NO 15/9… NO 15/9-F-9… MWD-… false        
+#&gt;  6 432612… d1c7a0d7-a… 4VIR… NO 15/9… NO 15/9-F-9… MWD-… false        
+#&gt;  7 432612… d1c7a0d7-a… 4VIR… NO 15/9… NO 15/9-F-9… MWD-… false        
+#&gt;  8 432612… d1c7a0d7-a… 4VIR… NO 15/9… NO 15/9-F-9… MWD-… false        
+#&gt;  9 432612… d1c7a0d7-a… 4VIR… NO 15/9… NO 15/9-F-9… MWD-… false        
+#&gt; 10 432612… d1c7a0d7-a… 4VIR… NO 15/9… NO 15/9-F-9… MWD-… false        
+#&gt; # … with 15 more rows, and 36 more variables: dTimTrajStart &lt;chr&gt;,
 #&gt; #   dTimTrajEnd &lt;chr&gt;, mdMn &lt;chr&gt;, mdMx &lt;chr&gt;, magDeclUsed &lt;chr&gt;,
 #&gt; #   gridCorUsed &lt;chr&gt;, aziVertSect &lt;chr&gt;, dispNsVertSectOrig &lt;chr&gt;,
 #&gt; #   dispEwVertSectOrig &lt;chr&gt;, aziRef &lt;chr&gt;, i.uid &lt;chr&gt;, dTimStn &lt;chr&gt;,
@@ -1181,16 +1168,14 @@ t_meta &lt;- get_trajectory_metadata(dat_9f7)
 
 trajectory_dt &lt;- data.table(cbind(t_attr, t_meta))
 trajectory_dt
-#&gt;                                 uidWell
-#&gt; 1: 5da3aeeb-12c9-4732-a059-e3a8d7c32442
-#&gt;                             uidWellbore     uid    nameWell nameWellbore
-#&gt; 1: eba2d47b-95f4-468f-856c-32c72d706a96 5VFNI35 NO 15/9-F-7  NO 15/9-F-7
-#&gt;            name objectGrowing            dTimTrajStart
-#&gt; 1: MWD-15/9-F-7         false 2016-07-28T08:33:43.000Z
-#&gt;                 dTimTrajEnd mdMn mdMx magDeclUsed gridCorUsed aziVertSect
-#&gt; 1: 2016-07-28T09:26:52.000Z    0 1083           0           0           0
-#&gt;    dispNsVertSectOrig dispEwVertSectOrig     aziRef
-#&gt; 1:                  0                  0 true north</code></pre>
+#&gt;                                 uidWell                          uidWellbore
+#&gt; 1: 5da3aeeb-12c9-4732-a059-e3a8d7c32442 eba2d47b-95f4-468f-856c-32c72d706a96
+#&gt;        uid    nameWell nameWellbore         name objectGrowing
+#&gt; 1: 5VFNI35 NO 15/9-F-7  NO 15/9-F-7 MWD-15/9-F-7         false
+#&gt;               dTimTrajStart              dTimTrajEnd mdMn mdMx magDeclUsed
+#&gt; 1: 2016-07-28T08:33:43.000Z 2016-07-28T09:26:52.000Z    0 1083           0
+#&gt;    gridCorUsed aziVertSect dispNsVertSectOrig dispEwVertSectOrig     aziRef
+#&gt; 1:           0           0                  0                  0 true north</code></pre>
 </div>
 <div id="trajectorystation-dataframe-for-the-2nd-well" class="section level3">
 <h3><code>trajectoryStation</code> dataframe for the 2nd well</h3>
@@ -1273,17 +1258,17 @@ t_9f7_dt
 #&gt; # A tibble: 42 x 43
 #&gt;    uidWell uidWellbore uid   nameWell nameWellbore name  objectGrowing
 #&gt;    &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;        
-#&gt;  1 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
-#&gt;  2 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
-#&gt;  3 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
-#&gt;  4 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
-#&gt;  5 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
-#&gt;  6 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
-#&gt;  7 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
-#&gt;  8 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
-#&gt;  9 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
-#&gt; 10 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
-#&gt; # ... with 32 more rows, and 36 more variables: dTimTrajStart &lt;chr&gt;,
+#&gt;  1 5da3ae… eba2d47b-9… 5VFN… NO 15/9… NO 15/9-F-7  MWD-… false        
+#&gt;  2 5da3ae… eba2d47b-9… 5VFN… NO 15/9… NO 15/9-F-7  MWD-… false        
+#&gt;  3 5da3ae… eba2d47b-9… 5VFN… NO 15/9… NO 15/9-F-7  MWD-… false        
+#&gt;  4 5da3ae… eba2d47b-9… 5VFN… NO 15/9… NO 15/9-F-7  MWD-… false        
+#&gt;  5 5da3ae… eba2d47b-9… 5VFN… NO 15/9… NO 15/9-F-7  MWD-… false        
+#&gt;  6 5da3ae… eba2d47b-9… 5VFN… NO 15/9… NO 15/9-F-7  MWD-… false        
+#&gt;  7 5da3ae… eba2d47b-9… 5VFN… NO 15/9… NO 15/9-F-7  MWD-… false        
+#&gt;  8 5da3ae… eba2d47b-9… 5VFN… NO 15/9… NO 15/9-F-7  MWD-… false        
+#&gt;  9 5da3ae… eba2d47b-9… 5VFN… NO 15/9… NO 15/9-F-7  MWD-… false        
+#&gt; 10 5da3ae… eba2d47b-9… 5VFN… NO 15/9… NO 15/9-F-7  MWD-… false        
+#&gt; # … with 32 more rows, and 36 more variables: dTimTrajStart &lt;chr&gt;,
 #&gt; #   dTimTrajEnd &lt;chr&gt;, mdMn &lt;chr&gt;, mdMx &lt;chr&gt;, magDeclUsed &lt;chr&gt;,
 #&gt; #   gridCorUsed &lt;chr&gt;, aziVertSect &lt;chr&gt;, dispNsVertSectOrig &lt;chr&gt;,
 #&gt; #   dispEwVertSectOrig &lt;chr&gt;, aziRef &lt;chr&gt;, i.uid &lt;chr&gt;, dTimStn &lt;chr&gt;,
@@ -1324,17 +1309,17 @@ well_9f7_df
 #&gt; # A tibble: 42 x 43
 #&gt;    uidWell uidWellbore uid   nameWell nameWellbore name  objectGrowing
 #&gt;    &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;        
-#&gt;  1 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
-#&gt;  2 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
-#&gt;  3 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
-#&gt;  4 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
-#&gt;  5 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
-#&gt;  6 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
-#&gt;  7 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
-#&gt;  8 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
-#&gt;  9 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
-#&gt; 10 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
-#&gt; # ... with 32 more rows, and 36 more variables: dTimTrajStart &lt;chr&gt;,
+#&gt;  1 5da3ae… eba2d47b-9… 5VFN… NO 15/9… NO 15/9-F-7  MWD-… false        
+#&gt;  2 5da3ae… eba2d47b-9… 5VFN… NO 15/9… NO 15/9-F-7  MWD-… false        
+#&gt;  3 5da3ae… eba2d47b-9… 5VFN… NO 15/9… NO 15/9-F-7  MWD-… false        
+#&gt;  4 5da3ae… eba2d47b-9… 5VFN… NO 15/9… NO 15/9-F-7  MWD-… false        
+#&gt;  5 5da3ae… eba2d47b-9… 5VFN… NO 15/9… NO 15/9-F-7  MWD-… false        
+#&gt;  6 5da3ae… eba2d47b-9… 5VFN… NO 15/9… NO 15/9-F-7  MWD-… false        
+#&gt;  7 5da3ae… eba2d47b-9… 5VFN… NO 15/9… NO 15/9-F-7  MWD-… false        
+#&gt;  8 5da3ae… eba2d47b-9… 5VFN… NO 15/9… NO 15/9-F-7  MWD-… false        
+#&gt;  9 5da3ae… eba2d47b-9… 5VFN… NO 15/9… NO 15/9-F-7  MWD-… false        
+#&gt; 10 5da3ae… eba2d47b-9… 5VFN… NO 15/9… NO 15/9-F-7  MWD-… false        
+#&gt; # … with 32 more rows, and 36 more variables: dTimTrajStart &lt;chr&gt;,
 #&gt; #   dTimTrajEnd &lt;chr&gt;, mdMn &lt;chr&gt;, mdMx &lt;chr&gt;, magDeclUsed &lt;chr&gt;,
 #&gt; #   gridCorUsed &lt;chr&gt;, aziVertSect &lt;chr&gt;, dispNsVertSectOrig &lt;chr&gt;,
 #&gt; #   dispEwVertSectOrig &lt;chr&gt;, aziRef &lt;chr&gt;, i.uid &lt;chr&gt;, dTimStn &lt;chr&gt;,
@@ -1354,17 +1339,17 @@ all_wells
 #&gt; # A tibble: 67 x 43
 #&gt;    uidWell uidWellbore uid   nameWell nameWellbore name  objectGrowing
 #&gt;    &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;        
-#&gt;  1 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
-#&gt;  2 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
-#&gt;  3 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
-#&gt;  4 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
-#&gt;  5 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
-#&gt;  6 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
-#&gt;  7 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
-#&gt;  8 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
-#&gt;  9 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
-#&gt; 10 5da3ae~ eba2d47b-9~ 5VFN~ NO 15/9~ NO 15/9-F-7  MWD-~ false        
-#&gt; # ... with 57 more rows, and 36 more variables: dTimTrajStart &lt;chr&gt;,
+#&gt;  1 5da3ae… eba2d47b-9… 5VFN… NO 15/9… NO 15/9-F-7  MWD-… false        
+#&gt;  2 5da3ae… eba2d47b-9… 5VFN… NO 15/9… NO 15/9-F-7  MWD-… false        
+#&gt;  3 5da3ae… eba2d47b-9… 5VFN… NO 15/9… NO 15/9-F-7  MWD-… false        
+#&gt;  4 5da3ae… eba2d47b-9… 5VFN… NO 15/9… NO 15/9-F-7  MWD-… false        
+#&gt;  5 5da3ae… eba2d47b-9… 5VFN… NO 15/9… NO 15/9-F-7  MWD-… false        
+#&gt;  6 5da3ae… eba2d47b-9… 5VFN… NO 15/9… NO 15/9-F-7  MWD-… false        
+#&gt;  7 5da3ae… eba2d47b-9… 5VFN… NO 15/9… NO 15/9-F-7  MWD-… false        
+#&gt;  8 5da3ae… eba2d47b-9… 5VFN… NO 15/9… NO 15/9-F-7  MWD-… false        
+#&gt;  9 5da3ae… eba2d47b-9… 5VFN… NO 15/9… NO 15/9-F-7  MWD-… false        
+#&gt; 10 5da3ae… eba2d47b-9… 5VFN… NO 15/9… NO 15/9-F-7  MWD-… false        
+#&gt; # … with 57 more rows, and 36 more variables: dTimTrajStart &lt;chr&gt;,
 #&gt; #   dTimTrajEnd &lt;chr&gt;, mdMn &lt;chr&gt;, mdMx &lt;chr&gt;, magDeclUsed &lt;chr&gt;,
 #&gt; #   gridCorUsed &lt;chr&gt;, aziVertSect &lt;chr&gt;, dispNsVertSectOrig &lt;chr&gt;,
 #&gt; #   dispEwVertSectOrig &lt;chr&gt;, aziRef &lt;chr&gt;, i.uid &lt;chr&gt;, dTimStn &lt;chr&gt;,
@@ -1388,8 +1373,8 @@ wells_nested &lt;-
 #&gt; # A tibble: 2 x 2
 #&gt;   uid     data              
 #&gt;   &lt;chr&gt;   &lt;list&gt;            
-#&gt; 1 5VFNI35 &lt;tibble [42 x 42]&gt;
-#&gt; 2 4VIRG33 &lt;tibble [25 x 42]&gt;</code></pre>
+#&gt; 1 5VFNI35 &lt;tibble [42 × 42]&gt;
+#&gt; 2 4VIRG33 &lt;tibble [25 × 42]&gt;</code></pre>
 </div>
 <div id="add-new-wells" class="section level2">
 <h2>Add new wells</h2>
@@ -1402,17 +1387,17 @@ well_9f4_df
 #&gt; # A tibble: 87 x 43
 #&gt;    uidWell uidWellbore uid   nameWell nameWellbore name  objectGrowing
 #&gt;    &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;        
-#&gt;  1 5e023a~ dbffce7a-7~ 5VIR~ NO 15/9~ NO 15/9-F-4  MWD-~ false        
-#&gt;  2 5e023a~ dbffce7a-7~ 5VIR~ NO 15/9~ NO 15/9-F-4  MWD-~ false        
-#&gt;  3 5e023a~ dbffce7a-7~ 5VIR~ NO 15/9~ NO 15/9-F-4  MWD-~ false        
-#&gt;  4 5e023a~ dbffce7a-7~ 5VIR~ NO 15/9~ NO 15/9-F-4  MWD-~ false        
-#&gt;  5 5e023a~ dbffce7a-7~ 5VIR~ NO 15/9~ NO 15/9-F-4  MWD-~ false        
-#&gt;  6 5e023a~ dbffce7a-7~ 5VIR~ NO 15/9~ NO 15/9-F-4  MWD-~ false        
-#&gt;  7 5e023a~ dbffce7a-7~ 5VIR~ NO 15/9~ NO 15/9-F-4  MWD-~ false        
-#&gt;  8 5e023a~ dbffce7a-7~ 5VIR~ NO 15/9~ NO 15/9-F-4  MWD-~ false        
-#&gt;  9 5e023a~ dbffce7a-7~ 5VIR~ NO 15/9~ NO 15/9-F-4  MWD-~ false        
-#&gt; 10 5e023a~ dbffce7a-7~ 5VIR~ NO 15/9~ NO 15/9-F-4  MWD-~ false        
-#&gt; # ... with 77 more rows, and 36 more variables: dTimTrajStart &lt;chr&gt;,
+#&gt;  1 5e023a… dbffce7a-7… 5VIR… NO 15/9… NO 15/9-F-4  MWD-… false        
+#&gt;  2 5e023a… dbffce7a-7… 5VIR… NO 15/9… NO 15/9-F-4  MWD-… false        
+#&gt;  3 5e023a… dbffce7a-7… 5VIR… NO 15/9… NO 15/9-F-4  MWD-… false        
+#&gt;  4 5e023a… dbffce7a-7… 5VIR… NO 15/9… NO 15/9-F-4  MWD-… false        
+#&gt;  5 5e023a… dbffce7a-7… 5VIR… NO 15/9… NO 15/9-F-4  MWD-… false        
+#&gt;  6 5e023a… dbffce7a-7… 5VIR… NO 15/9… NO 15/9-F-4  MWD-… false        
+#&gt;  7 5e023a… dbffce7a-7… 5VIR… NO 15/9… NO 15/9-F-4  MWD-… false        
+#&gt;  8 5e023a… dbffce7a-7… 5VIR… NO 15/9… NO 15/9-F-4  MWD-… false        
+#&gt;  9 5e023a… dbffce7a-7… 5VIR… NO 15/9… NO 15/9-F-4  MWD-… false        
+#&gt; 10 5e023a… dbffce7a-7… 5VIR… NO 15/9… NO 15/9-F-4  MWD-… false        
+#&gt; # … with 77 more rows, and 36 more variables: dTimTrajStart &lt;chr&gt;,
 #&gt; #   dTimTrajEnd &lt;chr&gt;, mdMn &lt;chr&gt;, mdMx &lt;chr&gt;, magDeclUsed &lt;chr&gt;,
 #&gt; #   gridCorUsed &lt;chr&gt;, aziVertSect &lt;chr&gt;, dispNsVertSectOrig &lt;chr&gt;,
 #&gt; #   dispEwVertSectOrig &lt;chr&gt;, aziRef &lt;chr&gt;, i.uid &lt;chr&gt;, dTimStn &lt;chr&gt;,
@@ -1436,7 +1421,7 @@ nested_9f4 &lt;-
 #&gt; # A tibble: 1 x 2
 #&gt;   uid     data              
 #&gt;   &lt;chr&gt;   &lt;list&gt;            
-#&gt; 1 5VIRG33 &lt;tibble [87 x 42]&gt;</code></pre>
+#&gt; 1 5VIRG33 &lt;tibble [87 × 42]&gt;</code></pre>
 <p>The new well should be able now to join the other two wells nested structure. It should be a straight operation with the function <code>rbind()</code>. Since all of them are just one row, at the end of the binding we should have now three rows. The trajectory measurements are living as a list component in the column <code>data</code>.</p>
 <pre class="r"><code># bind the existing wells with the new one
 wells_nested_3 &lt;- rbind(wells_nested, nested_9f4)
@@ -1444,9 +1429,9 @@ wells_nested_3
 #&gt; # A tibble: 3 x 2
 #&gt;   uid     data              
 #&gt;   &lt;chr&gt;   &lt;list&gt;            
-#&gt; 1 5VFNI35 &lt;tibble [42 x 42]&gt;
-#&gt; 2 4VIRG33 &lt;tibble [25 x 42]&gt;
-#&gt; 3 5VIRG33 &lt;tibble [87 x 42]&gt;</code></pre>
+#&gt; 1 5VFNI35 &lt;tibble [42 × 42]&gt;
+#&gt; 2 4VIRG33 &lt;tibble [25 × 42]&gt;
+#&gt; 3 5VIRG33 &lt;tibble [87 × 42]&gt;</code></pre>
 </div>
 <div id="transforming-the-drilling-data" class="section level2">
 <h2>Transforming the drilling data</h2>
@@ -1467,19 +1452,19 @@ rateBuild</code></pre>
            rateTurn = as.double(rateTurn), rateBuild = as.double(rateBuild)) %&gt;% 
     print()
 #&gt; # A tibble: 154 x 7
-#&gt;    nameWell       md   tvd    incl   azi  rateTurn   rateBuild
-#&gt;    &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
-#&gt;  1 NO 15/9-F-7    0     0  0        0     NA        NA        
-#&gt;  2 NO 15/9-F-7  146.  146. 0        0      0         0        
-#&gt;  3 NO 15/9-F-7  160   160. 0.00401  4.79  -0.106     0.000285 
-#&gt;  4 NO 15/9-F-7  170   170. 0.00454  4.76  -0.00284   0.0000524
-#&gt;  5 NO 15/9-F-7  180   180. 0.00524  4.58  -0.0186    0.0000698
-#&gt;  6 NO 15/9-F-7  190   190. 0.00384  4.67   0.00965  -0.000140 
-#&gt;  7 NO 15/9-F-7  199   199. 0.00559  4.54  -0.0142    0.000194 
-#&gt;  8 NO 15/9-F-7  208   208. 0.00541  3.96  -0.0651   -0.0000194
-#&gt;  9 NO 15/9-F-7  218   218. 0.00698  4.27   0.0314    0.000157 
-#&gt; 10 NO 15/9-F-7  229   229. 0.00436  4.36   0.00820  -0.000238 
-#&gt; # ... with 144 more rows</code></pre>
+#&gt;    nameWell       md   tvd    incl   azi rateTurn  rateBuild
+#&gt;    &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+#&gt;  1 NO 15/9-F-7    0     0  0        0    NA       NA        
+#&gt;  2 NO 15/9-F-7  146.  146. 0        0     0        0        
+#&gt;  3 NO 15/9-F-7  160   160. 0.00401  4.79 -0.106    0.000285 
+#&gt;  4 NO 15/9-F-7  170   170. 0.00454  4.76 -0.00284  0.0000524
+#&gt;  5 NO 15/9-F-7  180   180. 0.00524  4.58 -0.0186   0.0000698
+#&gt;  6 NO 15/9-F-7  190   190. 0.00384  4.67  0.00965 -0.000140 
+#&gt;  7 NO 15/9-F-7  199   199. 0.00559  4.54 -0.0142   0.000194 
+#&gt;  8 NO 15/9-F-7  208   208. 0.00541  3.96 -0.0651  -0.0000194
+#&gt;  9 NO 15/9-F-7  218   218. 0.00698  4.27  0.0314   0.000157 
+#&gt; 10 NO 15/9-F-7  229   229. 0.00436  4.36  0.00820 -0.000238 
+#&gt; # … with 144 more rows</code></pre>
 </div>
 <div id="plotting-drilling-data" class="section level2">
 <h2>Plotting drilling data</h2>

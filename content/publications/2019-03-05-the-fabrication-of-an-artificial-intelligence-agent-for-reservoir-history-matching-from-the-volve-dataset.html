@@ -8,10 +8,13 @@ categories:
   - reservoir simulation
   - R
 tags: []
+image: volve_south_start.png
+DOI: 10.5281/zenodo.2596620
 ---
 
 
 
+<p><a href="https://doi.org/10.5281/zenodo.2596620"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.2596620.svg" alt="DOI" /></a></p>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
 <p><strong>History matching</strong> is one of the core activities performed by petroleum engineers to decrease the <strong>uncertainty</strong> of reservoir models. By comparing real data -production data gathered at the surface-, with the output from a reservoir simulator, the engineer starts filling in the gaps in reservoir properties of those <strong>block cells</strong> in the model.</p>
@@ -19,7 +22,6 @@ tags: []
 <p>I cannot think of a better example right now to start proving an intelligent agent for reservoir <strong>history matching</strong>. There is plenty of literature; there are some real and synthetic reservoir models which have been subject of machine learning algorithms extensively in <strong>SPE papers</strong>. Very good papers indeed. With the only drawback that they <strong>cannot be reproduced</strong>. The process or algorithm cannot be reproduced outside the original environment in which it was written, or by any other than the original author.</p>
 <p>What about if we try a different approach: given that <strong>it has been proven that history matching works by introducing machine learning algorithms</strong> in the process, let’s pick one or some of them, and try recreating the <strong>data science</strong> workflow step-by-step: from the raw data (<strong>production history</strong> and <strong>reservoir model</strong> output), up to the automatic comparison of the model with the new proposed reservoir data. The workflow should be <strong>publicly available</strong> so other petroleum engineers could pick up where it is and improving it for their own environment setting. In other words, we will work on making a <strong>reproducible example</strong> of a reservoir history matching process.</p>
 <p>And what better than using a reservoir model already given it to us for free? I am talking about the <strong>Volve</strong> dataset.</p>
-<p><img src="/img/volve_south_start.png" width="800px" style="display: block; margin: auto;" /></p>
 </div>
 <div id="motivation" class="section level1">
 <h1>Motivation</h1>
@@ -86,10 +88,10 @@ cat(sprintf(&quot;Gigabytes\n&quot;))
 #&gt; Gigabytes
 (giga &lt;- c(geoscience = 54.6, reservoir_rms = 2.1, well_logs = 6.9, 
           seismic_4d = 330.4, well_logs_per_well = 7, witsml_drilling = 5))
-#&gt;         geoscience      reservoir_rms          well_logs 
-#&gt;               54.6                2.1                6.9 
-#&gt;         seismic_4d well_logs_per_well    witsml_drilling 
-#&gt;              330.4                7.0                5.0
+#&gt;         geoscience      reservoir_rms          well_logs         seismic_4d 
+#&gt;               54.6                2.1                6.9              330.4 
+#&gt; well_logs_per_well    witsml_drilling 
+#&gt;                7.0                5.0
 
 # terabytes
 cat(sprintf(&quot;Terabytes\n&quot;))
@@ -103,14 +105,12 @@ cat(sprintf(&quot;\nDataset in GB\n&quot;))
 #&gt; 
 #&gt; Dataset in GB
 c(mega / 1024, giga, tera * 1024)
-#&gt;         geophysics  reservoir_eclipse     well_technical 
-#&gt;       9.667969e-02       3.808594e-01       2.070312e-01 
-#&gt;        seismic_vsp         production            reports 
-#&gt;       9.277344e-02       1.953125e-03       1.582031e-01 
-#&gt;         geoscience      reservoir_rms          well_logs 
-#&gt;       5.460000e+01       2.100000e+00       6.900000e+00 
-#&gt;         seismic_4d well_logs_per_well    witsml_drilling 
-#&gt;       3.304000e+02       7.000000e+00       5.000000e+00 
+#&gt;         geophysics  reservoir_eclipse     well_technical        seismic_vsp 
+#&gt;       9.667969e-02       3.808594e-01       2.070312e-01       9.277344e-02 
+#&gt;         production            reports         geoscience      reservoir_rms 
+#&gt;       1.953125e-03       1.582031e-01       5.460000e+01       2.100000e+00 
+#&gt;          well_logs         seismic_4d well_logs_per_well    witsml_drilling 
+#&gt;       6.900000e+00       3.304000e+02       7.000000e+00       5.000000e+00 
 #&gt;    seismic_st10010     seismic_st0202 
 #&gt;       2.662400e+03       1.228800e+03
 

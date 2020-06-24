@@ -7,11 +7,13 @@ theme = "hyndman"
 DisqusShortname = "fonzie-oilgains"
 googleAnalytics = ""
 ignoreFiles = ["\\.Rmd$", "_files$", "_cache$", "external$"]
-# pluralizeListTitles = false
+pluralizeListTitles = false
 # local = false
-# buildFuture = true
+buildFuture = true
 
-[blackfriday] hrefTargetBlank = true  # allows new tab on links
+[blackfriday]
+hrefTargetBlank = true  # allows new tab on links
+
 
 [params]
 

@@ -3,6 +3,7 @@ Source files for this blogdown site
 
 
 The design of this blog has been inspired by the blog of https://robjhyndman.com. The theme was originally based on  [hugo-finite](https://github.com/lambdafu/hugo-finite). 
+The theme `hyndman` can be found in this blog under the folder `themes`.
 
 
 ### Licenses of third-party components

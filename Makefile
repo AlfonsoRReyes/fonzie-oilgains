@@ -8,9 +8,9 @@ serve:
 build:
 	Rscript -e "blogdown::hugo_build()"
 
+
 sync:
-	rsync -zrvce 'ssh -p 2222' public/ oilgainsanalytics:public_html/blog
-	or
+	# uses the ssh config values
 	rsync -zrvce 'ssh -p 2222' public/ ssh-oilgains-inmotion:public_html/blog
 
 deploy: sync serve
@@ -20,4 +20,5 @@ clean:
 	rm -rf public
 	rm -f content/blog/*.html
 	rm -f content/portfolio/*.html
+	rm -f content/publications/*.html
 

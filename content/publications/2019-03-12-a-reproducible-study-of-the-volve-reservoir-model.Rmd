@@ -6,6 +6,7 @@ slug: a-reproducible-study-of-the-volve-reservoir-model
 categories:
   - reservoir simulation
 tags: []
+image: volve_north_view_start_end.png
 ---
 
 ```{r setup, include = FALSE, error=TRUE, message=FALSE, warning=FALSE}
@@ -20,6 +21,13 @@ knitr::opts_chunk$set(echo = TRUE,
                       )
 
 knitr::opts_knit$set(root.dir = 'external/volve-reservoir-model-evolution/')
+```
+
+```{r, out.width = "800px", echo=FALSE}
+# if the image is located in the submodule, not the superproject in /static/img
+# then the image will not appear in the blog. It has to be copied to /static/img
+# Use the forward slash to denote the root
+# knitr::include_graphics("/img/volve_north_view_start_end.png")
 ```
 
 # Introduction 
@@ -873,6 +881,17 @@ __Note.__ This last plot for the cumulative water has been observed different wh
 * [Volve 2016 dataset for reservoir simulation model. Compressed PRT output as zip file](https://zenodo.org/record/2586212). Zenodo
 
 * [Volve 2016 reservoir simulation PRT output file](https://zenodo.org/record/2586209). Zenodo.
+
+* [data_from_step.CSV](https://github.com/f0nzie/volve-reservoir-model-evolution/raw/master/data/data_from_step.CSV): data from STEP block.
+
+* [field_totals_balance.CSV](https://github.com/f0nzie/volve-reservoir-model-evolution/raw/master/data/field_totals_balance.CSV): save the field totals from BALANCE block.
+
+* [hist_cumulatives_104.CSV](https://github.com/f0nzie/volve-reservoir-model-evolution/raw/master/data/hist_cumulatives_104.CSV): historical data after data transformations. 104 rows.
+
+* [hist_cumulatives_dt.CSV](https://github.com/f0nzie/volve-reservoir-model-evolution/raw/master/data/hist_cumulatives_dt.CSV): historical data with complete dates. 106 rows.
+
+* [production_history.CSV](https://github.com/f0nzie/volve-reservoir-model-evolution/raw/master/data/production_history_raw.CSV): Production history read from Excel file. Raw.
+
 
 # Repository
 
