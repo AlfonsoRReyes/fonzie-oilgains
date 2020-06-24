@@ -52,18 +52,21 @@ python_portable &lt;- normalizePath(file.path(user_profile,     # Python locatio
                                 &quot;WPy-3710zero/python-3.7.1.amd64/python.exe&quot;))
 
 reticulate::use_python(python_portable, required = TRUE)
+#&gt; Error in reticulate::use_python(python_portable, required = TRUE): Specified version of python &#39;/WPy-3710zero/python-3.7.1.amd64/python.exe&#39; does not exist.
  
 # find out if it took it
 reticulate::py_config()
-#&gt; python:         C:\Users\msfz751\WPy-3710zero\python-3.7.1.amd64\python.exe
-#&gt; libpython:      C:/Users/msfz751/WPy-3710zero/python-3.7.1.amd64/python37.dll
-#&gt; pythonhome:     C:\Users\msfz751\WPY-37~1\PYTHON~1.AMD
-#&gt; version:        3.7.1 (v3.7.1:260ec2c36a, Oct 20 2018, 14:57:15) [MSC v.1915 64 bit (AMD64)]
-#&gt; Architecture:   64bit
-#&gt; numpy:          C:\Users\msfz751\WPY-37~1\PYTHON~1.AMD\lib\site-packages\numpy
-#&gt; numpy_version:  1.15.4
+#&gt; python:         /usr/bin/python3
+#&gt; libpython:      /usr/lib/python3.7/config-3.7m-x86_64-linux-gnu/libpython3.7.so
+#&gt; pythonhome:     //usr://usr
+#&gt; version:        3.7.3 (default, Dec 20 2019, 18:57:59)  [GCC 8.3.0]
+#&gt; numpy:          /usr/lib/python3/dist-packages/numpy
+#&gt; numpy_version:  1.16.2
 #&gt; 
-#&gt; NOTE: Python version was forced by use_python function</code></pre>
+#&gt; python versions found: 
+#&gt;  /usr/bin/python3
+#&gt;  /usr/bin/python
+#&gt;  /home/msfz751/anaconda3/bin/python</code></pre>
 </div>
 <div id="example-1" class="section level3">
 <h3>Example 1</h3>
@@ -71,17 +74,49 @@ reticulate::py_config()
 <p>This is not easy as it seems using other flavors of Python. I found that WinPython makes this plotting task easier for beginners or advanced levels. But this should be your test of fire because it uses several Python packages: <code>matplotlib</code>, <code>numpy</code>, <code>PyQt</code>, etc. So, if this works, almost everything else will work.</p>
 <pre class="python"><code># a simple sine plot
 import matplotlib.pyplot as plt
+#&gt; Error in py_call_impl(callable, dots$args, dots$keywords): ModuleNotFoundError: No module named &#39;matplotlib&#39;
+#&gt; 
+#&gt; Detailed traceback: 
+#&gt;   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
 import numpy as np
+
 t = np.arange(0.0, 2.0, 0.01)
 s = 1 + np.sin(2*np.pi*t)
 plt.plot(t, s)
+#&gt; Error in py_call_impl(callable, dots$args, dots$keywords): NameError: name &#39;plt&#39; is not defined
+#&gt; 
+#&gt; Detailed traceback: 
+#&gt;   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
 plt.xlabel(&#39;time (s)&#39;)
+#&gt; Error in py_call_impl(callable, dots$args, dots$keywords): NameError: name &#39;plt&#39; is not defined
+#&gt; 
+#&gt; Detailed traceback: 
+#&gt;   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
 plt.ylabel(&#39;voltage (mV)&#39;)
+#&gt; Error in py_call_impl(callable, dots$args, dots$keywords): NameError: name &#39;plt&#39; is not defined
+#&gt; 
+#&gt; Detailed traceback: 
+#&gt;   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
 plt.title(&#39;About as simple as it gets, folks&#39;)
+#&gt; Error in py_call_impl(callable, dots$args, dots$keywords): NameError: name &#39;plt&#39; is not defined
+#&gt; 
+#&gt; Detailed traceback: 
+#&gt;   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
 plt.grid(True)
+#&gt; Error in py_call_impl(callable, dots$args, dots$keywords): NameError: name &#39;plt&#39; is not defined
+#&gt; 
+#&gt; Detailed traceback: 
+#&gt;   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
 plt.savefig(&quot;sine.png&quot;)
-plt.show()</code></pre>
-<p><img src="/publications/2019-01-07-why-i-decided-to-publish-data-science-in-a-blog_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+#&gt; Error in py_call_impl(callable, dots$args, dots$keywords): NameError: name &#39;plt&#39; is not defined
+#&gt; 
+#&gt; Detailed traceback: 
+#&gt;   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
+plt.show()
+#&gt; Error in py_call_impl(callable, dots$args, dots$keywords): NameError: name &#39;plt&#39; is not defined
+#&gt; 
+#&gt; Detailed traceback: 
+#&gt;   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;</code></pre>
 <p>I know. This can be done easily in Jupyter notebooks but the objective here is to mix the power of Python and R running in a native R platform. I will explain later why.</p>
 </div>
 </div>
@@ -92,43 +127,84 @@ plt.show()</code></pre>
 <h3>Example 2</h3>
 <p>Now, we are going to plot a pretended reservoir block for reservoir simulation. We are going to need it at sometime to build the machine learning algorithm and a artificial intelligence agent to do, let’s say, <a href="http://infohost.nmt.edu/~petro/faculty/Engler571/HistoryMatching.pdf">history matching</a>, for starters. I found this beautiful example in the <code>matplotlib</code> tutorial section.</p>
 <pre class="python"><code># https://matplotlib.org/api/_as_gen/mpl_toolkits.mplot3d.axes3d.Axes3D.html
+
 #=======================================================
 #3D voxel / volumetric plot with cylindrical coordinates
 #=======================================================
+
 # Demonstrates using the ``x, y, z`` arguments of ``ax.voxels``.
+
 import matplotlib.pyplot as plt
+#&gt; Error in py_call_impl(callable, dots$args, dots$keywords): ModuleNotFoundError: No module named &#39;matplotlib&#39;
+#&gt; 
+#&gt; Detailed traceback: 
+#&gt;   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
 import matplotlib.colors
+#&gt; Error in py_call_impl(callable, dots$args, dots$keywords): ModuleNotFoundError: No module named &#39;matplotlib&#39;
+#&gt; 
+#&gt; Detailed traceback: 
+#&gt;   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
 import numpy as np
+
 # This import registers the 3D projection, but is otherwise unused.
 from mpl_toolkits.mplot3d import Axes3D  # noqa: F401 unused import
+
+#&gt; Error in py_call_impl(callable, dots$args, dots$keywords): ModuleNotFoundError: No module named &#39;mpl_toolkits&#39;
+#&gt; 
+#&gt; Detailed traceback: 
+#&gt;   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
 def midpoints(x):
     sl = ()
     for i in range(x.ndim):
         x = (x[sl + np.index_exp[:-1]] + x[sl + np.index_exp[1:]]) / 2.0
         sl += np.index_exp[:]
     return x
+
 # prepare some coordinates, and attach rgb values to each
 r, theta, z = np.mgrid[0:1:11j, 0:np.pi*2:25j, -0.5:0.5:11j]
 x = r*np.cos(theta)
 y = r*np.sin(theta)
+
 rc, thetac, zc = midpoints(r), midpoints(theta), midpoints(z)
+
 # define a wobbly torus about [0.7, *, 0]
 sphere = (rc - 0.7)**2 + (zc + 0.2*np.cos(thetac*2))**2 &lt; 0.2**2
+
 # combine the color components
 hsv = np.zeros(sphere.shape + (3,))
 hsv[..., 0] = thetac / (np.pi*2)
 hsv[..., 1] = rc
 hsv[..., 2] = zc + 0.5
 colors = matplotlib.colors.hsv_to_rgb(hsv)
+
 # and plot everything
+#&gt; Error in py_call_impl(callable, dots$args, dots$keywords): NameError: name &#39;matplotlib&#39; is not defined
+#&gt; 
+#&gt; Detailed traceback: 
+#&gt;   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
 fig = plt.figure()
+#&gt; Error in py_call_impl(callable, dots$args, dots$keywords): NameError: name &#39;plt&#39; is not defined
+#&gt; 
+#&gt; Detailed traceback: 
+#&gt;   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
 ax = fig.gca(projection=&#39;3d&#39;)
+#&gt; Error in py_call_impl(callable, dots$args, dots$keywords): NameError: name &#39;fig&#39; is not defined
+#&gt; 
+#&gt; Detailed traceback: 
+#&gt;   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
 ax.voxels(x, y, z, sphere,
           facecolors=colors,
           edgecolors=np.clip(2*colors - 0.5, 0, 1),  # brighter
           linewidth=0.5)
-plt.show()</code></pre>
-<p><img src="/publications/2019-01-07-why-i-decided-to-publish-data-science-in-a-blog_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+#&gt; Error in py_call_impl(callable, dots$args, dots$keywords): NameError: name &#39;ax&#39; is not defined
+#&gt; 
+#&gt; Detailed traceback: 
+#&gt;   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
+plt.show()
+#&gt; Error in py_call_impl(callable, dots$args, dots$keywords): NameError: name &#39;plt&#39; is not defined
+#&gt; 
+#&gt; Detailed traceback: 
+#&gt;   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;</code></pre>
 <p>Those blocks are called <a href="https://en.wikipedia.org/wiki/Voxel">voxels</a>. If you have seen reservoir simulation you know what they represent. We could also have plot this in cartesian coordinates instead of cylindrical.</p>
 </div>
 <div id="example-3" class="section level3">
@@ -137,15 +213,27 @@ plt.show()</code></pre>
 <p><strong>Why is this important?</strong></p>
 <p>If we will be applying machine learning algorithms we need to have some tools outside the conventional reservoir simulators that do not have machine learning or artificial intelligence capabilities. This means, if you have the reservoir grid plus the saturations, permeability and wells location, it very likely they will be in text readable format. At least, in <a href="https://www.software.slb.com/products/eclipse/simulators">Eclipse</a> they are. Then, you will able to transform the grid and reservoir properties using your production history and achieve more accurate and faster matching. There is abundant literature on the subject in the <a href="https://www.onepetro.org/">SPE papers</a>.</p>
 <pre class="python"><code># https://matplotlib.org/gallery/mplot3d/voxels_numpy_logo.html
+
 import matplotlib.pyplot as plt
+#&gt; Error in py_call_impl(callable, dots$args, dots$keywords): ModuleNotFoundError: No module named &#39;matplotlib&#39;
+#&gt; 
+#&gt; Detailed traceback: 
+#&gt;   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
 import numpy as np
+
 # This import registers the 3D projection, but is otherwise unused.
 from mpl_toolkits.mplot3d import Axes3D  # noqa: F401 unused import
+
+#&gt; Error in py_call_impl(callable, dots$args, dots$keywords): ModuleNotFoundError: No module named &#39;mpl_toolkits&#39;
+#&gt; 
+#&gt; Detailed traceback: 
+#&gt;   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
 def explode(data):
     size = np.array(data.shape)*2
     data_e = np.zeros(size - 1, dtype=data.dtype)
     data_e[::2, ::2, ::2] = data
     return data_e
+
 # build up the numpy logo
 n_voxels = np.zeros((4, 3, 4), dtype=bool)
 n_voxels[0, 0, :] = True
@@ -155,10 +243,12 @@ n_voxels[2, 0, 1] = True
 facecolors = np.where(n_voxels, &#39;#FFD65DC0&#39;, &#39;#7A88CCC0&#39;)
 edgecolors = np.where(n_voxels, &#39;#BFAB6E&#39;, &#39;#7D84A6&#39;)
 filled = np.ones(n_voxels.shape)
+
 # upscale the above voxel image, leaving gaps
 filled_2 = explode(filled)
 fcolors_2 = explode(facecolors)
 ecolors_2 = explode(edgecolors)
+
 # Shrink the gaps
 x, y, z = np.indices(np.array(filled_2.shape) + 1).astype(float) // 2
 x[0::2, :, :] += 0.05
@@ -167,11 +257,27 @@ z[:, :, 0::2] += 0.05
 x[1::2, :, :] += 0.95
 y[:, 1::2, :] += 0.95
 z[:, :, 1::2] += 0.95
+
 fig = plt.figure()
+#&gt; Error in py_call_impl(callable, dots$args, dots$keywords): NameError: name &#39;plt&#39; is not defined
+#&gt; 
+#&gt; Detailed traceback: 
+#&gt;   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
 ax = fig.gca(projection=&#39;3d&#39;)
+#&gt; Error in py_call_impl(callable, dots$args, dots$keywords): NameError: name &#39;fig&#39; is not defined
+#&gt; 
+#&gt; Detailed traceback: 
+#&gt;   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
 ax.voxels(x, y, z, filled_2, facecolors=fcolors_2, edgecolors=ecolors_2)
-plt.show()</code></pre>
-<p><img src="/publications/2019-01-07-why-i-decided-to-publish-data-science-in-a-blog_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+#&gt; Error in py_call_impl(callable, dots$args, dots$keywords): NameError: name &#39;ax&#39; is not defined
+#&gt; 
+#&gt; Detailed traceback: 
+#&gt;   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
+plt.show()
+#&gt; Error in py_call_impl(callable, dots$args, dots$keywords): NameError: name &#39;plt&#39; is not defined
+#&gt; 
+#&gt; Detailed traceback: 
+#&gt;   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;</code></pre>
 </div>
 </div>
 <div id="why-python-and-r" class="section level2">

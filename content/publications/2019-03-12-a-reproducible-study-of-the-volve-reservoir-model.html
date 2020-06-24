@@ -1,5 +1,4 @@
 ---
-draft: yes
 title: A reproducible comparison of the Volve reservoir model
 author: Alfonso R. Reyes
 date: '2019-03-12'
@@ -272,15 +271,15 @@ step_info &lt;- do.call(&quot;rbind&quot;, step_info_dfs) # put together all dat
 
 # show a summary of the dataframe
 glimpse(step_info)
-#&gt; Observations: 1,610
-#&gt; Variables: 7
-#&gt; $ step      &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 1...
-#&gt; $ date      &lt;date&gt; 2008-01-01, 2008-01-01, 2008-01-02, 2008-01-03, 200...
-#&gt; $ time_days &lt;dbl&gt; 1.00, 1.63, 2.32, 3.50, 5.45, 8.22, 11.00, 14.61, 17...
-#&gt; $ pav_bar   &lt;dbl&gt; 329.6, 329.6, 329.6, 329.6, 329.6, 329.6, 329.6, 329...
-#&gt; $ wct_pct   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0...
-#&gt; $ gor_m3m3  &lt;dbl&gt; 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00...
-#&gt; $ wgr_m3m3  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0...</code></pre>
+#&gt; Rows: 1,610
+#&gt; Columns: 7
+#&gt; $ step      &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, …
+#&gt; $ date      &lt;date&gt; 2008-01-01, 2008-01-01, 2008-01-02, 2008-01-03, 2008-01-05…
+#&gt; $ time_days &lt;dbl&gt; 1.00, 1.63, 2.32, 3.50, 5.45, 8.22, 11.00, 14.61, 17.80, 21…
+#&gt; $ pav_bar   &lt;dbl&gt; 329.6, 329.6, 329.6, 329.6, 329.6, 329.6, 329.6, 329.6, 329…
+#&gt; $ wct_pct   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+#&gt; $ gor_m3m3  &lt;dbl&gt; 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00,…
+#&gt; $ wgr_m3m3  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…</code></pre>
 <p>Finally, we get all the vectors for <strong>step</strong> number, <strong>date</strong>, <strong>date</strong>, average <strong>pressure</strong>, <strong>watercut</strong>, <strong>GOR</strong> and <strong>WGR</strong> in a dataframe.</p>
 <p>Then, we show the dataframe as a <em>tibble</em>, which is an elegant way of presenting long dataframes. This dataframe <em>step_info</em>, in particular, has 1610 rows and 7 columns.</p>
 <pre class="r"><code># show as a tibble
@@ -298,7 +297,7 @@ glimpse(step_info)
 #&gt;  8     8 2008-01-14     14.6     330.       0        0        0
 #&gt;  9     9 2008-01-17     17.8     330.       0        0        0
 #&gt; 10    10 2008-01-21     21       330.       0        0        0
-#&gt; # ... with 1,600 more rows</code></pre>
+#&gt; # … with 1,600 more rows</code></pre>
 <p>These are the names of the variables in the dataframe:</p>
 <pre class="r"><code>names(step_info)
 #&gt; [1] &quot;step&quot;      &quot;date&quot;      &quot;time_days&quot; &quot;pav_bar&quot;   &quot;wct_pct&quot;   &quot;gor_m3m3&quot; 
@@ -368,7 +367,7 @@ step_info %&gt;%
 #&gt;  8 2008-01-14 pav_bar  330.
 #&gt;  9 2008-01-17 pav_bar  330.
 #&gt; 10 2008-01-21 pav_bar  330.
-#&gt; # ... with 6,430 more rows
+#&gt; # … with 6,430 more rows
   
 # plot production variables from the STEP block in the PRT file
 
@@ -421,7 +420,7 @@ field_totals
 #&gt;  8 2008-03-01    61 21925419 21967455   42035       0  6650055  320.
 #&gt;  9 2008-03-11    71 21897024 21967455   70430       0 11113293  314.
 #&gt; 10 2008-03-21    81 21867231 21967455  100223       1 15777548  308.
-#&gt; # ... with 330 more rows</code></pre>
+#&gt; # … with 330 more rows</code></pre>
 <div id="save-field-totals-to-data-files" class="section level4">
 <h4>Save field totals to data files</h4>
 <pre class="r"><code># save the data
@@ -461,20 +460,20 @@ left_join(step_info, field_totals, by = &quot;date&quot;) %&gt;%
     as_tibble() %&gt;% 
     print
 #&gt; # A tibble: 524 x 14
-#&gt;    date       time_days  days  step pav_bar wct_pct gor_m3m3 wgr_m3m3
-#&gt;    &lt;date&gt;         &lt;dbl&gt; &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-#&gt;  1 2008-01-11      11      11     7    330.       0       0         0
-#&gt;  2 2008-01-21      21      21    10    330.       0       0         0
-#&gt;  3 2008-01-31      31      31    13    330.       0       0         0
-#&gt;  4 2008-02-10      41      41    15    330.       0       0         0
-#&gt;  5 2008-02-20      51      51    17    325.       0     158.        0
-#&gt;  6 2008-02-26      57      57    18    323.       0     158.        0
-#&gt;  7 2008-03-01      61      61    19    320.       0     158.        0
-#&gt;  8 2008-03-11      71      71    21    314.       0     157.        0
-#&gt;  9 2008-03-21      81      81    23    308.       0     156.        0
-#&gt; 10 2008-03-21      81.5    81    24    308        0     156.        0
-#&gt; # ... with 514 more rows, and 6 more variables: ocip &lt;dbl&gt;, ooip &lt;dbl&gt;,
-#&gt; #   oil_otw &lt;dbl&gt;, wat_otw &lt;dbl&gt;, gas_otw &lt;dbl&gt;, pav &lt;dbl&gt;</code></pre>
+#&gt;    date       time_days  days  step pav_bar wct_pct gor_m3m3 wgr_m3m3   ocip
+#&gt;    &lt;date&gt;         &lt;dbl&gt; &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
+#&gt;  1 2008-01-11      11      11     7    330.       0       0         0 2.20e7
+#&gt;  2 2008-01-21      21      21    10    330.       0       0         0 2.20e7
+#&gt;  3 2008-01-31      31      31    13    330.       0       0         0 2.20e7
+#&gt;  4 2008-02-10      41      41    15    330.       0       0         0 2.20e7
+#&gt;  5 2008-02-20      51      51    17    325.       0     158.        0 2.19e7
+#&gt;  6 2008-02-26      57      57    18    323.       0     158.        0 2.19e7
+#&gt;  7 2008-03-01      61      61    19    320.       0     158.        0 2.19e7
+#&gt;  8 2008-03-11      71      71    21    314.       0     157.        0 2.19e7
+#&gt;  9 2008-03-21      81      81    23    308.       0     156.        0 2.19e7
+#&gt; 10 2008-03-21      81.5    81    24    308        0     156.        0 2.19e7
+#&gt; # … with 514 more rows, and 5 more variables: ooip &lt;dbl&gt;, oil_otw &lt;dbl&gt;,
+#&gt; #   wat_otw &lt;dbl&gt;, gas_otw &lt;dbl&gt;, pav &lt;dbl&gt;</code></pre>
 <p>The dataframe step_totals has 524 rows or observations and 14 columns or variables.</p>
 <p>Looking at this dataframe closer we observe that the date intervals is not uniform; it is not weekle, bi-weekly or monthly because it is a merged dataframe. What we will do next is transforming this dataframe to a monthly summary or where the date intervals is a month separation.</p>
 <div id="plot-outflow-through-wells-from-simulator" class="section level3">
@@ -529,19 +528,19 @@ step_totals %&gt;%
     select(date, year, month, everything()) %&gt;%
     print()
 #&gt; # A tibble: 106 x 9
-#&gt;    date        year month vol_oil  vol_gas vol_wat cum_oil  cum_gas cum_wat
-#&gt;    &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
-#&gt;  1 2008-01-01  2008     1       0        0       0       0   0.           0
-#&gt;  2 2008-02-01  2008     2   30840  4884638       0   30840   4.88e6       0
-#&gt;  3 2008-03-01  2008     3   90029 14117066       1  120869   1.90e7       1
-#&gt;  4 2008-04-01  2008     4   73833 11469357   22292  194702   3.05e7   22293
-#&gt;  5 2008-05-01  2008     5  124196 19115952  212550  318898   4.96e7  234843
-#&gt;  6 2008-06-01  2008     6  137247 20967327  192961  456145   7.06e7  427804
-#&gt;  7 2008-07-01  2008     7  155664 24005385  212739  611809   9.46e7  640543
-#&gt;  8 2008-08-01  2008     8  170057 26420155  227653  781866   1.21e8  868196
-#&gt;  9 2008-09-01  2008     9  163015 25205884  137169  944881   1.46e8 1005365
-#&gt; 10 2008-10-01  2008    10  221230 33570835  317736 1166111   1.80e8 1323101
-#&gt; # ... with 96 more rows</code></pre>
+#&gt;    date        year month vol_oil  vol_gas vol_wat cum_oil   cum_gas cum_wat
+#&gt;    &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+#&gt;  1 2008-01-01  2008     1       0        0       0       0         0       0
+#&gt;  2 2008-02-01  2008     2   30840  4884638       0   30840   4884638       0
+#&gt;  3 2008-03-01  2008     3   90029 14117066       1  120869  19001704       1
+#&gt;  4 2008-04-01  2008     4   73833 11469357   22292  194702  30471061   22293
+#&gt;  5 2008-05-01  2008     5  124196 19115952  212550  318898  49587013  234843
+#&gt;  6 2008-06-01  2008     6  137247 20967327  192961  456145  70554340  427804
+#&gt;  7 2008-07-01  2008     7  155664 24005385  212739  611809  94559725  640543
+#&gt;  8 2008-08-01  2008     8  170057 26420155  227653  781866 120979880  868196
+#&gt;  9 2008-09-01  2008     9  163015 25205884  137169  944881 146185764 1005365
+#&gt; 10 2008-10-01  2008    10  221230 33570835  317736 1166111 179756599 1323101
+#&gt; # … with 96 more rows</code></pre>
 </div>
 <div id="filling-the-date-gaps-with-periodic-dates" class="section level3">
 <h3>Filling the date gaps with periodic dates</h3>
@@ -566,7 +565,7 @@ dates_complete
 #&gt;  8 2008-08-01       0       0       0
 #&gt;  9 2008-09-01       0       0       0
 #&gt; 10 2008-10-01       0       0       0
-#&gt; # ... with 96 more rows</code></pre>
+#&gt; # … with 96 more rows</code></pre>
 <p>So, there are 106 months from start to end of production.</p>
 <p>Next, we proceed to merge the dataframe of known dates (above) with the dataframe <em>sim_cumulatives</em> that we obtained above. Finally, we calculate the volumes and cumulatives.</p>
 <pre class="r"><code># simulator production
@@ -605,7 +604,7 @@ left_join(dates_complete, sim_cumulatives, by = &quot;date&quot;) %&gt;%
 #&gt;  8 2008-08-01  781866 120979880  868196  227653 26420155  227653
 #&gt;  9 2008-09-01  944881 146185764 1005365  137169 25205884  137169
 #&gt; 10 2008-10-01 1166111 179756599 1323101  317736 33570835  317736
-#&gt; # ... with 96 more rows</code></pre>
+#&gt; # … with 96 more rows</code></pre>
 <p>The negative volume of water and oil are possibly volume corrections by the operator.</p>
 <pre class="r"><code># show observations with negative volumes
 sim_cumulatives_dt %&gt;% 
@@ -633,19 +632,19 @@ xl_file &lt;- file.path(proj_root, &quot;inst/rawdata&quot;, &quot;Volve product
 prod_hist &lt;- as_tibble(read.xlsx(xl_file, sheetName = &quot;Monthly Production Data&quot;))
 prod_hist
 #&gt; # A tibble: 529 x 10
-#&gt;    Wellbore.name NPDCode  Year Month On.Stream Oil   Gas   Water GI   
-#&gt;    &lt;fct&gt;           &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;     &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt;
-#&gt;  1 15/9-F-4         5693  2007     9 NULL      NULL  NULL  NULL  NULL 
-#&gt;  2 15/9-F-5         5769  2007     9 NULL      NULL  NULL  NULL  NULL 
-#&gt;  3 15/9-F-4         5693  2007    10 NULL      NULL  NULL  NULL  NULL 
-#&gt;  4 15/9-F-5         5769  2007    10 NULL      NULL  NULL  NULL  NULL 
-#&gt;  5 15/9-F-4         5693  2007    11 NULL      NULL  NULL  NULL  NULL 
-#&gt;  6 15/9-F-5         5769  2007    11 NULL      NULL  NULL  NULL  NULL 
-#&gt;  7 15/9-F-4         5693  2007    12 NULL      NULL  NULL  NULL  NULL 
-#&gt;  8 15/9-F-5         5769  2007    12 NULL      NULL  NULL  NULL  NULL 
-#&gt;  9 15/9-F-4         5693  2008     1 0         NULL  NULL  NULL  NULL 
-#&gt; 10 15/9-F-5         5769  2008     1 0         NULL  NULL  NULL  NULL 
-#&gt; # ... with 519 more rows, and 1 more variable: WI &lt;fct&gt;</code></pre>
+#&gt;    Wellbore.name NPDCode  Year Month On.Stream Oil   Gas   Water GI    WI   
+#&gt;    &lt;fct&gt;           &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;     &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt;
+#&gt;  1 15/9-F-4         5693  2007     9 NULL      NULL  NULL  NULL  NULL  NULL 
+#&gt;  2 15/9-F-5         5769  2007     9 NULL      NULL  NULL  NULL  NULL  NULL 
+#&gt;  3 15/9-F-4         5693  2007    10 NULL      NULL  NULL  NULL  NULL  NULL 
+#&gt;  4 15/9-F-5         5769  2007    10 NULL      NULL  NULL  NULL  NULL  NULL 
+#&gt;  5 15/9-F-4         5693  2007    11 NULL      NULL  NULL  NULL  NULL  NULL 
+#&gt;  6 15/9-F-5         5769  2007    11 NULL      NULL  NULL  NULL  NULL  NULL 
+#&gt;  7 15/9-F-4         5693  2007    12 NULL      NULL  NULL  NULL  NULL  NULL 
+#&gt;  8 15/9-F-5         5769  2007    12 NULL      NULL  NULL  NULL  NULL  NULL 
+#&gt;  9 15/9-F-4         5693  2008     1 0         NULL  NULL  NULL  NULL  NULL 
+#&gt; 10 15/9-F-5         5769  2008     1 0         NULL  NULL  NULL  NULL  NULL 
+#&gt; # … with 519 more rows</code></pre>
 </div>
 <div id="save-raw-production-history-to-data-files" class="section level3">
 <h3>Save raw production history to data files</h3>
@@ -710,7 +709,7 @@ prod_hist %&gt;%
 #&gt;  8 2008-09-01 192263.  2.75e7   464.       0      0  1.00e6  1.47e8  19134.
 #&gt;  9 2008-10-01 237174.  3.38e7   725.       0      0  1.24e6  1.81e8  19859.
 #&gt; 10 2008-11-01 250325.  3.57e7  2580.       0      0  1.49e6  2.17e8  22439.
-#&gt; # ... with 94 more rows, and 2 more variables: cum_gi &lt;dbl&gt;, cum_wi &lt;dbl&gt;</code></pre>
+#&gt; # … with 94 more rows, and 2 more variables: cum_gi &lt;dbl&gt;, cum_wi &lt;dbl&gt;</code></pre>
 <p>Observe that we’ve got 104 rows, which wouldn’t match the rows from the simulation data. We have to fix that. The problem is primarily dates.</p>
 </div>
 <div id="save-historical-cumulatives-as-is" class="section level3">
@@ -740,7 +739,7 @@ df
 #&gt;  8 2008-08-01       0       0       0
 #&gt;  9 2008-09-01       0       0       0
 #&gt; 10 2008-10-01       0       0       0
-#&gt; # ... with 96 more rows</code></pre>
+#&gt; # … with 96 more rows</code></pre>
 <p>Remember that we created this date sequence above. This sequence had 106 rows.</p>
 <pre class="r"><code>dates_complete
 #&gt; # A tibble: 106 x 4
@@ -756,7 +755,7 @@ df
 #&gt;  8 2008-08-01       0       0       0
 #&gt;  9 2008-09-01       0       0       0
 #&gt; 10 2008-10-01       0       0       0
-#&gt; # ... with 96 more rows</code></pre>
+#&gt; # … with 96 more rows</code></pre>
 </div>
 <div id="fill-the-dates-gap-in-the-production-history-dataframe" class="section level3">
 <h3>Fill the dates gap in the production history dataframe</h3>
@@ -804,7 +803,7 @@ left_join(dates_complete, hist_cumulatives, by = &quot;date&quot;) %&gt;%
 #&gt;  8 2008-08-01  8.08e5  1.20e8  18669. 165444.  2.39e7   577.       0      0
 #&gt;  9 2008-09-01  1.00e6  1.47e8  19134. 192263.  2.75e7   464.       0      0
 #&gt; 10 2008-10-01  1.24e6  1.81e8  19859. 237174.  3.38e7   725.       0      0
-#&gt; # ... with 96 more rows, and 2 more variables: cum_gi &lt;dbl&gt;, cum_wi &lt;dbl&gt;</code></pre>
+#&gt; # … with 96 more rows, and 2 more variables: cum_gi &lt;dbl&gt;, cum_wi &lt;dbl&gt;</code></pre>
 <p>Great! We got the dataframe <em>hist_cumulatives_dt</em>, with 106 rows and 11 columns.</p>
 </div>
 <div id="plot-production-rates" class="section level3">
@@ -829,7 +828,7 @@ hist_cumulatives_dt %&gt;%
 #&gt;  8 2008-08-01 vol_oil 165444.
 #&gt;  9 2008-09-01 vol_oil 192263.
 #&gt; 10 2008-10-01 vol_oil 237174.
-#&gt; # ... with 308 more rows</code></pre>
+#&gt; # … with 308 more rows</code></pre>
 <p>And this is the plot of the cumulative variables from the production history.</p>
 <pre class="r"><code># plot production variables from the STEP block in the PRT file
 
@@ -909,20 +908,19 @@ hist_cumulatives_dt %&gt;%
 cumulatives_all &lt;- full_join(hist_cumulatives_src, sim_cumulatives_src, by = &quot;date&quot;)
 cumulatives_all
 #&gt; # A tibble: 106 x 7
-#&gt;    date       cum_oil_hist cum_gas_hist cum_wat_hist cum_oil_sim
-#&gt;    &lt;date&gt;            &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;
-#&gt;  1 2008-01-01           0            0            0            0
-#&gt;  2 2008-02-01       49091.     7068009.         413.       30840
-#&gt;  3 2008-03-01      132452.    19259180.         440.      120869
-#&gt;  4 2008-04-01      206985.    30765621.         922.      194702
-#&gt;  5 2008-05-01      332463.    49857492.       17202.      318898
-#&gt;  6 2008-06-01      476250.    71369826.       17677.      456145
-#&gt;  7 2008-07-01      642530.    96025129.       18093.      611809
-#&gt;  8 2008-08-01      807974.   119948670.       18669.      781866
-#&gt;  9 2008-09-01     1000237.   147475129.       19134.      944881
-#&gt; 10 2008-10-01     1237411.   181232829.       19859.     1166111
-#&gt; # ... with 96 more rows, and 2 more variables: cum_gas_sim &lt;dbl&gt;,
-#&gt; #   cum_wat_sim &lt;dbl&gt;</code></pre>
+#&gt;    date       cum_oil_hist cum_gas_hist cum_wat_hist cum_oil_sim cum_gas_sim
+#&gt;    &lt;date&gt;            &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+#&gt;  1 2008-01-01           0            0            0            0           0
+#&gt;  2 2008-02-01       49091.     7068009.         413.       30840     4884638
+#&gt;  3 2008-03-01      132452.    19259180.         440.      120869    19001704
+#&gt;  4 2008-04-01      206985.    30765621.         922.      194702    30471061
+#&gt;  5 2008-05-01      332463.    49857492.       17202.      318898    49587013
+#&gt;  6 2008-06-01      476250.    71369826.       17677.      456145    70554340
+#&gt;  7 2008-07-01      642530.    96025129.       18093.      611809    94559725
+#&gt;  8 2008-08-01      807974.   119948670.       18669.      781866   120979880
+#&gt;  9 2008-09-01     1000237.   147475129.       19134.      944881   146185764
+#&gt; 10 2008-10-01     1237411.   181232829.       19859.     1166111   179756599
+#&gt; # … with 96 more rows, and 1 more variable: cum_wat_sim &lt;dbl&gt;</code></pre>
 <p>That’s it. Our final comparison dataframe with 106 rows and 7 columns.</p>
 </div>
 </div>
