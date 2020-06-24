@@ -2,10 +2,14 @@
 {{ partial "post-metadata" . }}
 
 {{ .Summary }}
+<p class="text-right"><a href="{{ .RelPermalink }}" class="badge badge-small">Read More…</a></p>
+<div style="padding-bottom: 2ex;"></div>
+
 <!-- {{ if .Truncated }}
 {{ .Summary }}
 <p class="text-right"><a href="{{ .RelPermalink }}" class="badge badge-small">Read More…</a></p>
 {{ else }}
 {{ .Content }}
 {{ end }}	 -->
-<div style="padding-bottom: 2ex;"></div>
+<!-- <div style="padding-bottom: 2ex;"></div> -->
+
