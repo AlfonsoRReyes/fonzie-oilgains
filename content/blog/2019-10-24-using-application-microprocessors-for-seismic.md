@@ -13,7 +13,9 @@ mathjax: yes
 
 First practical application that I know of using the next thing after TPUs (Tensor Processing Units): ASICs. Ideal hardware for the massive seismic data.
 
-#petroleumengineering #spe #oilandgas #deeplearning
+     #petroleumengineering #spe #oilandgas #deeplearning
+     
+## LinkedIn     
 
 [![](/img/post_asic.png)](https://www.linkedin.com/posts/andrewlongoz_machinelearning-deeplearning-neuralnetworks-activity-6593100611263303680-UMIL)
 
